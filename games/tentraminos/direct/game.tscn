@@ -1,0 +1,129 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://games/tentraminos/direct/game.gd" id="1_game"]
+
+[node name="TentraminosDirect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_game")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBox" type="HBoxContainer" parent="Center"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 48
+
+[node name="Board" type="Control" parent="Center/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(580, 652)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Side" type="VBoxContainer" parent="Center/HBox"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Center/HBox/Side"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 28
+text = "tentraminos"
+
+[node name="Status" type="Label" parent="Center/HBox/Side"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.929412, 0.831373, 0, 1)
+theme_override_font_sizes/font_size = 20
+
+[node name="ClockRow" type="HBoxContainer" parent="Center/HBox/Side"]
+layout_mode = 2
+
+[node name="ClockLabel" type="Label" parent="Center/HBox/Side/ClockRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 43
+text = "clock: "
+
+[node name="ClockValue" type="Label" parent="Center/HBox/Side/ClockRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 43
+text = "0"
+
+[node name="ScoreRow" type="HBoxContainer" parent="Center/HBox/Side"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="Center/HBox/Side/ScoreRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 43
+text = "score: "
+
+[node name="ScoreValue" type="Label" parent="Center/HBox/Side/ScoreRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 43
+text = "0"
+
+[node name="Controls" type="Label" parent="Center/HBox/Side"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.86, 0.86, 1)
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 3
+text = "• rotate the cursor to re-arrange tiles
+• score points by matching 4+ adjacent tiles of the same color
+• groups light up when they're big enough
+• every 10 seconds, when the clock reaches 0:
+      – grouped tiles are removed and scored
+      – a new line of random tiles is dropped
+• arrows, w/a/s/d or h/t/c/n: move the cursor
+• z/x, k/l, or o/j : rotate tiles within the cursor
+• p: pause
+• game is over when a tile in the top row blocks a random tile from falling.
+      – careful! tiles in the cursor can block the falling tiles!
+      – press Enter to restart
+• Esc: menu / back to arcade"

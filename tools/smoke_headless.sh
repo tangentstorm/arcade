@@ -16,6 +16,12 @@ echo "== boot arcade"
 echo "== visit playable scenes"
 "$GODOT" --headless --path "$ROOT" --script res://tools/smoke_scenes.gd 2>&1 | tee -a "$LOG"
 
+echo "== game logic tests"
+for t in "$ROOT"/tools/test_*.gd; do
+	[ -e "$t" ] || continue
+	"$GODOT" --headless --path "$ROOT" --script "res://tools/$(basename "$t")" 2>&1 | tee -a "$LOG"
+done
+
 if grep -E "SCRIPT ERROR|Parse Error|ERROR:|SMOKE FAIL" "$LOG"; then
 	echo "smoke: FAILED"; exit 1
 fi

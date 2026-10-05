@@ -33,11 +33,14 @@ class GameEntry:
 
 
 ## [id, title, status, notes] for every title. Both editions are registered.
+## status is a String applied to both editions, or a Dictionary keyed by
+## edition (missing editions default to "planned").
 const TITLES := [
 	["_template", "Template Demo", "playable", "Reference stub for new ports."],
 	["tetraminex", "Tetraminex", "planned", ""],
 	["spiders_v_aliens", "Spiders vs Aliens", "planned", ""],
-	["tentraminos", "Tentraminos", "planned", ""],
+	["tentraminos", "Tentraminos", {"direct": "playable", "enhanced": "planned"},
+		"Ludum Dare 27 (2013), TypeScript/d3 → GDScript."],
 	["ld48", "LD48", "planned", "Ludum Dare 48 entry."],
 	["ok_defender", "OK Defender", "planned", ""],
 	["shep", "Shep", "planned", ""],
@@ -69,7 +72,8 @@ func _register_all() -> void:
 	for t in TITLES:
 		for edition in EDITIONS:
 			var path := "res://games/%s/%s/game.tscn" % [t[0], edition]
-			register(GameEntry.new(t[0], t[1], edition, path, t[2], t[3]))
+			var status: String = t[2] if t[2] is String else t[2].get(edition, "planned")
+			register(GameEntry.new(t[0], t[1], edition, path, status, t[3]))
 
 
 func register(entry: GameEntry) -> void:

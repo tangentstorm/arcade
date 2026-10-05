@@ -1,7 +1,6 @@
 # tentraminos
 
-Status: **planned** (placeholder; no port yet).
+Ludum Dare 27 (2013) match-4 puzzle with a 10-second clock.
 
-When porting, follow games/_template/: put the faithful port in `direct/game.tscn`
-and the modernized version in `enhanced/game.tscn`, then set status in
-`arcade/game_registry.gd`.
+- **Direct:** playable. A faithful GDScript port; see [PORT.md](PORT.md).
+- **Enhanced:** planned.

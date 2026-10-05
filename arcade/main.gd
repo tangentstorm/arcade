@@ -44,8 +44,13 @@ func _make_card(id: String) -> Control:
 	art.color = Color(0.15, 0.15, 0.22, 1)
 	vbox.add_child(art)
 
+	var any_playable := false
+	for edition in GameRegistry.EDITIONS:
+		var e = GameRegistry.get_entry(id, edition)
+		if e != null and e.is_playable():
+			any_playable = true
 	var coming := Label.new()
-	coming.text = "Coming soon"
+	coming.text = "Play now" if any_playable else "Coming soon"
 	coming.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	coming.modulate = Color(0.75, 0.75, 0.85, 1)
 	vbox.add_child(coming)

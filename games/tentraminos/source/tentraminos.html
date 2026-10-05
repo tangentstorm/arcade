@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>tentraminos</title>
+  <script src="d3.v3.min.js" charset="UTF-8"></script>
+  <link rel="stylesheet" type="text/css" href="tentraminos.css"/>
+</head>
+<body>
+
+<noscript>
+Wheyo ja'ascripz be, son? Dis ain no tess-avenna game.
+</noscript>
+
+<svg id="game" width="320" height="320">
+  <rect class="bg" width="288" height="32"
+	fill="#292929" stroke="black"/>
+  <g id="hold"></g>
+  <g transform="translate(0,36)">
+    <rect class="bg" width="288" height="288"
+	  fill="#292929" stroke="black"/>
+    <g y="36" id="cells"></g>
+    <rect id="cursor"/>
+  </g>
+</svg>
+
+<span class="gametext">
+  <div id="debugtxt"></div>
+  <div id="clocktxt">clock: <span id="clock">0</span></div>
+  <div id="scoretxt">score: <span id="score">0</span></div>
+</span>
+<div id="controls">
+  <ul>
+    <li>rotate the cursor to re-arrange tiles</li>
+    <li>score points by matching 4+ adjacent tiles of the same color</li>
+    <li>groups light up when they're big enough</li>
+    <li>every 10 seconds, when the clock reaches 0:
+      <ul>
+	<li>grouped tiles are removed and scored</li>
+	<li>a new line of random tiles is dropped</li>
+      </ul>
+    </li>
+    <li>arrows, w/a/s/d or h/t/c/n: move the cursor</li>
+    <li>z/x, k/l, or o/j : rotate tiles within the cursor</li>
+    <li>game is over when a tile in the top row blocks a random tile from falling.
+      <ul>
+	<li>careful! tiles in the cursor can block the falling tiles!</li>
+	<li>refresh page to restart</li>
+      </ul>
+    </li>
+  </ul>
+
+</div>
+
+
+<script src="tentraminos.js"></script>
+
+</body>
+</html>
