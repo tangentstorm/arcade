@@ -1,0 +1,20 @@
+# Godot 4
+.godot/
+.import/
+*.import
+!icon.svg.import
+export.cfg
+export_credentials.cfg
+*.translation
+# Build output
+build/
+*.tmp
+# Mono / C#
+.mono/
+data_*/
+mono_crash.*.json
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
