@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://arcade/main.gd" id="1_main"]
+[ext_resource type="Texture2D" path="res://arcade/branding/avatar.png" id="2_avatar"]
 
 [node name="Arcade" type="Control"]
 layout_mode = 3
@@ -36,7 +37,20 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="Title" type="Label" parent="Margin/VBox"]
+[node name="Header" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Logo" type="TextureRect" parent="Margin/VBox/Header"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_avatar")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Margin/VBox/Header"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 56
 text = "tangentstorm arcade"

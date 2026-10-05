@@ -44,6 +44,8 @@ jobs:
         run: |
           mkdir -p build/web
           godot --headless --path . --export-release "Web" build/web/index.html
+          # Social preview image referenced by og:image / twitter:image in head_include.
+          cp arcade/branding/og-image.png build/web/og-image.png
           touch build/web/.nojekyll
 
       # Pages is served from the gh-pages branch (build_type=legacy).
