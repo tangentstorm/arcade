@@ -1,0 +1,183 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://games/flappy_clone/direct/game.gd" id="1_game"]
+
+[node name="FlappyCloneDirect" type="Node2D"]
+script = ExtResource("1_game")
+
+[node name="Backdrop" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="CameraBackground" type="ColorRect" parent="Backdrop"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.192157, 0.301961, 0.47451, 1)
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Root" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TitleScreen" type="Control" parent="UI/Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shade" type="ColorRect" parent="UI/Root/TitleScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0735294, 0.0302768, 0.0302768, 0.556863)
+
+[node name="Center" type="CenterContainer" parent="UI/Root/TitleScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/Root/TitleScreen/Center"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TitleText" type="Label" parent="UI/Root/TitleScreen/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.947499, 0.942042, 0.970588, 1)
+theme_override_font_sizes/font_size = 79
+text = "Flappy Clone"
+horizontal_alignment = 1
+
+[node name="TitlePlay" type="Button" parent="UI/Root/TitleScreen/Center/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="GameOverScreen" type="Control" parent="UI/Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Shade" type="ColorRect" parent="UI/Root/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0735294, 0.0302768, 0.0302768, 0.556863)
+
+[node name="Center" type="CenterContainer" parent="UI/Root/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/Root/GameOverScreen/Center"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="GameOverText" type="Label" parent="UI/Root/GameOverScreen/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.947499, 0.942042, 0.970588, 1)
+theme_override_font_sizes/font_size = 79
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="GameOverPlay" type="Button" parent="UI/Root/GameOverScreen/Center/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="ScoreLabel" type="HBoxContainer" parent="UI/Root"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -170.0
+offset_right = -10.0
+offset_bottom = 30.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="ScoreCaption" type="Label" parent="UI/Root/ScoreLabel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "score:"
+vertical_alignment = 1
+
+[node name="ScoreText" type="Label" parent="UI/Root/ScoreLabel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="UI/Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "space / click / tap to flap"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="UI/Root"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 140.0
+offset_bottom = 36.0
+focus_mode = 0
+text = "Back to Arcade"
