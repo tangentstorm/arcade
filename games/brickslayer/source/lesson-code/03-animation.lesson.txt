@@ -1,0 +1,73 @@
+
+
+				Animating the Paddle			 
+
+2007/07/22 – alpha releaseThe code needs some cleanup, but everything is here.Suggestions welcome in the forum.
+
+Smooth animation with setInterval
+
+Move Paddle Smoothly While Key is Down
+
+Keyboard repeat rate makes big difference.
+
+With fast keyboard repeat, animation seems smooth. But with slow repeat, it looks very choppy. The fix is to initiate a moving state only while the key is down.
+
+        case Event.KEY_LEFT:
+            paddle.moveBy(-10,0);
+            break;
+        case Event.KEY_RIGHT:
+            paddle.moveBy(+10,0);
+            break;
+
+        case Event.KEY_LEFT:
+            paddle.velocity = -paddle.speed;
+            break;
+        case Event.KEY_RIGHT:
+            paddle.velocity = +paddle.speed;
+            break;
+    keyUp : function(e) {
+        switch (e.keyCode) {
+        case Event.KEY_LEFT:
+            if (paddle.velocity < 0) paddle.velocity = 0;
+            break;
+        case Event.KEY_RIGHT:
+            if (paddle.velocity > 0) paddle.velocity = 0;
+            break;
+        }
+    },
+
+Of course we now need some external intervention to actually move the paddle for us.
+
+Update the Paddle at every Tick
+
+setInterval
+
+tick : function() {
+        paddle.tick();
+    }
+    tick: function() {
+        if (this.getX() + this.velocity <= 0)
+            this.setX(0);
+        else if (this.getX() + this.velocity + this.getW() >= game.getW()) 
+            this.setX(game.getW() - this.getW()); 
+        else 
+            this.moveBy(this.velocity, 0); 
+    }
+    tick : function () {
+    },
+    tick : function () {
+        this.screen.tick();
+    },
+        window.setInterval(function () { _con.tick() }, this.tickSpeed);
+
+alternative: iterate through sprites array
+
+If there were more sprites moving around, it would become more and more cumbersome to write code for each one in console.tick
+
+A more flexible solution might look like this:store the sprites in an array: screen.sprites() put a tick() method on the sprites themselves. for sprite in this.sprites() { sprite.tick(); }
+
+This code can be placed in the Screen class once and used for all screens in all games.
+
+I leave this as an exercise to the reader, though we will do something similar when it comes to collision detection later.
+
+			

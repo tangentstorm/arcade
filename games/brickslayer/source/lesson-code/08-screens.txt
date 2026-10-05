@@ -1,0 +1,123 @@
+// ---- block 1 ----
+swap : function (toScreen) {
+        this.screen = toScreen;
+        this.screen.show();
+    },
+    show : function () {
+        $(this.id).style.display = 'block';
+    },
+    
+    hide : function () {
+        $(this.id).style.display = 'none';
+    }
+
+// ---- block 2 ----
+.overlay {
+  height: 300px;
+  text-align: center;
+  background-color: transparent;
+  background-image:url(../../sprites/dimgray.png);
+  padding: 0px;
+  padding-top:50px;
+  color:#666666;
+  display: none;
+}
+
+// ---- block 3 ----
+var TITLE_SCREEN = Object.extend(new Screen('title'), {
+    show : function () {
+	Screen.prototype.show.call(this);
+    },
+    
+    keyUp : function(e) {
+	if (e.keyCode == Event.KEY_RETURN) {
+	    this.hide();
+	    gameconsole.swap(GAME_SCREEN);
+	}
+    }
+});
+        this.screen.show();
+    gameconsole = new Console(GAME_SCREEN);
+    gameconsole.start();
+    gameconsole = new Console(TITLE_SCREEN);
+    gameconsole.start();
+  <!-- title screen -->
+  <div id="title" class="overlay screen">
+    <img src="../sprites/brickslayerlogo.png" alt="brickslayer" />
+    <p>use <strong>arrow keys</strong> to move paddle</p>
+    <p>press <strong>up arrow</strong> to launch ball</p>
+    <p>press <strong>p</strong> to pause game</p>
+    <p class="pressenter">press <strong>enter</strong> to start</p>
+  </div>
+
+// ---- block 4 ----
+var KEY_P = "P".charCodeAt(0)
+
+var PAUSE_SCREEN = Object.extend(new Screen('pause'), {
+    keyDown : function(e) {
+        if (e.keyCode == KEY_P) {
+            this.hide();
+            gameconsole.swap(GAME_SCREEN);
+        }
+    }
+});
+        case KEY_P:
+            gameconsole.swap(PAUSE_SCREEN);
+            break;
+  <!-- pause screen -->
+  <div id="pause" class="overlay screen">
+    <img src="../sprites/paused.png" alt="paused"/>
+    <p>press <strong>p</strong> again to unpause</p>
+  </div>
+
+// ---- block 5 ----
+// milliseconds to show level clear / game over screen
+var CLEARED_SPEED = 2000; 
+var LEVEL_CLEAR_SCREEN = Object.extend(new Screen('clear'), {
+    show : function () {
+        Screen.prototype.show.call(this);
+        window.setTimeout(function () { level_init(current_level+1); }, CLEARED_SPEED);
+        gameconsole.scheduleSwap(GAME_SCREEN, CLEARED_SPEED);
+    }
+})
+  <!-- level clear screen -->
+  <div id="clear" class="overlay screen">
+    <img src="../sprites/levelclear.png" alt="level clear!"/>
+  </div>
+                gameconsole.swap(LEVEL_CLEAR_SCREEN);
+
+// ---- block 6 ----
+scheduleSwap : function (next, speed) {
+        _old = this.screen;
+        _con = this;
+        window.setTimeout(
+            function () {
+                if (_con.screen == _old) {
+                    _old.hide();
+                    _con.swap(next);
+                }
+            }, speed || SWAP_SPEED);
+    }
+
+// ---- block 7 ----
+var SWAP_SPEED = 3500; // milliseconds to show game over/title/high scores
+
+var GAME_OVER_SCREEN = Object.extend(new Screen('gameover'), {
+    show : function () {        
+        Screen.prototype.show.call(this);
+	gameconsole.scheduleSwap(TITLE_SCREEN);
+        //$('player_score').value = score;
+        //$('player_level').value = current_level;
+        //if (score > low_high_score) {
+        //gameconsole.scheduleSwap(ENTER_NAME_SCREEN);
+    //} else {
+        //gameconsole.scheduleSwap(SCORES_SCREEN);
+    //}
+        window.setTimeout(function () { game_reset(); }, SWAP_SPEED);
+    }
+});
+        gameconsole.swap(GAME_OVER_SCREEN);
+  <!-- game over screen -->
+  <div id="gameover" class="overlay screen">
+    <img src="../sprites/gameover.png" alt="game over"/>
+  </div>

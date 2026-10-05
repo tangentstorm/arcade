@@ -1,0 +1,17 @@
+// ---- block 1 ----
+<script type="text/javascript" src="soundmanager2.js"></script>
+  <script type="text/javascript">
+    soundManager.url = '../../soundmanager2.swf'; // path to movie
+    soundManager.onload = function () { loadSounds() }; 
+    soundManager.debugMode = false;
+  </script>
+
+// ---- block 2 ----
+var SOUND_PATH = '../sounds/';
+function loadSounds() {
+    soundManager.createSound('serve', SOUND_PATH + 'whish.mp3');
+    soundManager.createSound('hit', SOUND_PATH + 'plopp.mp3');
+    soundManager.createSound('break', SOUND_PATH + 'glass2.mp3');
+    soundManager.createSound('bounce', SOUND_PATH + 'boing.mp3');
+    soundManager.createSound('fall', SOUND_PATH + 'deepsplosh.mp3');
+}

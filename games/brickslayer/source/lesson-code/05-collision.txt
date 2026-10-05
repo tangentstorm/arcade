@@ -1,0 +1,255 @@
+// ---- block 1 ----
+<div id="ball" class="sprite"></div>
+#ball, .spare {
+  position: absolute;
+  background-image:url(../../sprites/ball.png);
+  height:16px;
+  width:16px;
+  padding:0px;
+  margin:0px;
+}
+
+#ball {
+  top: 274px;
+  left: 268px;
+}
+var Ball = Class.create();
+Ball.prototype = Object.extend(new Sprite(), {
+    initialize : function(id) {
+        this.id = id;
+        this.node = $(this.id);
+        this.dx = 0;
+        this.dy = 0;
+        this.on_paddle = true;
+    },
+    
+});
+
+// ---- block 2 ----
+ // this could be an array of sprites
+        ball.tick();
+var ball;
+var serveSpeed = -4;
+    ball = new Ball("ball");
+    stickToPaddle : function (){
+        // set x first, in case the ball is hidden in the lake
+        // (otherwise, it would flash briefly)
+        this.setX(paddle.getX()+(paddle.getW()/2) - (this.getW()/2));
+        this.setY(paddle.getY()-this.getH());
+        this.on_paddle = true; 
+    },
+
+
+    tick : function() {
+        if (this.on_paddle) {
+            this.stickToPaddle();
+        } else {
+        }
+    }    
+
+// ---- block 3 ----
+ case Event.KEY_UP:
+            if (ball.on_paddle) {
+                ball.serve(paddle.velocity+0.25, serveSpeed);
+            }
+            break;
+    serve : function (dx, dy) {
+        this.on_paddle = false;
+        this.dy = dy;
+        this.moveBy(0,-2);
+        this.dx = dx;
+    },
+
+// ---- block 4 ----
+// consolidate these! 
+Ball.prototype.smashBricks = function () {
+    var bounce = null; // impact vector        
+    for (var i=0; i < bricks.length; i++) {
+        if (bricks[i].solid) {
+            var vector = this.collide(bricks[i]);
+            if (vector != null) {
+                bricks[i].onHit();
+                return vector; // can only hit one thing at a time
+            }
+        }
+    }
+    return bounce;
+}
+
+Ball.prototype.checkWalls = function () {
+    // walls:
+    if ((this.getX() + this.dx <= 0) 
+    || (this.getX() + this.dx + this.getW() >= game.getW())){ 
+        this.dx *= -1; 
+        soundManager.play('bounce');
+    }
+    // ceiling:    
+    if (this.getY() + this.dy <= 0) { 
+        this.dy *= -1; 
+        soundManager.play('bounce');
+    }
+}
+
+Ball.prototype.hittingFloor = function () {
+    return this.getY() + this.dy + this.getH() >= game.getH();
+}
+
+Ball.prototype.checkPaddle = function () {
+    vector = this.collide(paddle);
+    if (vector) {
+        soundManager.play('bounce');
+        this.bounce(vector);
+        this.dx += parseInt(paddle.velocity * paddle.friction);
+    }
+}
+
+// ---- block 5 ----
+onHit : function() {
+        if (this.shade-1 <= 0) {
+            this.node.style['display'] = 'none';
+            this.solid = false;
+	   Brick.count -= 1;
+            if (Brick.count <= 0) {
+	       console.log('level clear');
+	       level_init(current_level+1);
+            }
+        } else {
+            this.setShade(this.shade-1);
+        }
+    }    
+
+// ---- block 6 ----
+// we have to do reaction separately from detection, 
+            // because we might smash two bricks at once, and if 
+            // we multiplied by -1 for both, the two bounces would 
+            // cancel each other out!
+            if (bounce = this.smashBricks()) {
+                this.bounce(bounce);
+            }
+            this.checkPaddle();
+            this.checkWalls();
+            if (this.hittingFloor()) {
+            } else {
+                this.moveBy(this.dx, this.dy);
+            }
+// @TODO: move these to collision.js
+// #### Ball Physics #############################
+
+var BOUNCE = -1;
+var NO_BOUNCE = 1;
+
+
+Ball.prototype.ticksToHLine = function (x1, x2, hline) {
+    // there's a special case when dx = 0 (moving straight up)
+    if (this.dx == 0) { 
+        x = this.getX();
+    } else {
+        // in other cases, we need to use algebra to find
+        // intersection of the line and the ball's path.
+        //
+        // start with the line of the ball's trajectory:
+        //        y = (this.dy / this.dx) * (x-this.getX()) + this.getY()
+        //
+        // the two lines intersect where y == hline, so:
+        //        hline = (this.dy / this.dx) * (x-this.getX()) + this.getY()
+        // now solve for x:
+        x = (hline - this.getY()) * (this.dx / this.dy) + this.getX();
+    }
+
+    // but we're dealing only with a line SEGMENT, so
+    // we need to see if the point falls between the endpoints:
+    if ((x < x1) || (x > x2)) return null;
+
+    // if we're still here, we know the ball's path intersects
+    // the line, but it only counts if the hit is in FRONT of the
+    // ball, so we need to count the ticks until impact. 
+    ticks = (hline - this.getY()) / this.dy;
+    //alert(ticks);
+    
+    // negative ticks would put the line BEHIND the ball,
+    // so we need to discard those results
+    return (ticks >= 0) ? ticks : null;
+}
+
+Ball.prototype.ticksToVLine = function (vline, y1, y2){
+    // the line for the ball's trajectory, where x = vline
+    // again, there's a special case when moving straight 
+    // up and down to avoid division by zero
+    if (this.dx == 0) {
+        // the other function can handle the corner just fine
+        // and since there's no other possible 
+        // way a ball moving straight up or down can
+        // hit the side, we can just stop here.
+        return null;
+    } else {
+        y = (this.dy / this.dx) * (vline-this.getX())  + this.getY()
+        // the rest of the logic is similar to the horizontal check
+        if ((y < y1) || (y > y2)) return null;
+        ticks = (y - this.getY()) / this.dy;
+        return (ticks>=0) ? ticks : null; 
+    }
+}
+
+Ball.prototype.collide = function (rect) {
+    
+    ballLeft = this.getX();
+    ballRight = ballLeft+this.getW();
+    ballTop = this.getY();
+    ballBottom = ballTop + this.getH();
+    
+    rectLeft = rect.getX();
+    rectTop = rect.getY();
+    rectRight = rectLeft+rect.getW();
+    rectBottom = rectTop+rect.getH();    
+
+    diameter = this.getW();
+    radius = diameter /2;
+    
+    goingUp = this.dy < 0;
+    goingLeft = this.dx <0;
+
+    // the ball can not possibly hit both the top and bottom of the
+    // rectangle at the same time. Further, if the ball is going down, it
+    // can't possibly hit the bottom of the rectangle, and if it's going
+    // up, it can't possibly hit the top. So we only have to check against
+    // one horizontal line:
+    
+    yTicks = (goingUp) ? 
+	this.ticksToHLine(rectLeft-diameter, rectRight+radius, rectBottom)
+    // and note that when going down, the bottom of ball will hit first, 
+    // so we need to subtract the ball's height
+        :this.ticksToHLine(rectLeft-diameter, rectRight+radius,
+			   rectTop-diameter);
+    
+    // the same principles apply for the left and right sides:
+    xTicks = (goingLeft) ? 
+	this.ticksToVLine(rectRight, rectTop-radius, rectBottom+radius)
+        :this.ticksToVLine(rectLeft-diameter, rectTop-radius, 
+			   rectBottom+radius);    
+
+    //if (rect == paddle)
+    //   $('debug').innerHTML = "(" + xTicks + ", " + yTicks + ")";
+        
+    hitX = (xTicks != null) && xTicks <= 1;
+    hitY = (yTicks != null) && yTicks <= 1;
+    
+    // now. what if it would collide with BOTH?
+    // in that case, it could hit both at the same time (direct hit on corner)
+    // or it could hit one first, in which case we discard the other
+    // (in real life, it could also glance off the corner, but our simplified
+    // physics model ignores this possibility)
+    
+    if (! (hitX || hitY)) { return null };
+    
+    if (xTicks == yTicks) {
+        // treat corners as hitting the top or bottom;
+        hitX = false;
+    } 
+    return [(hitX ? BOUNCE : NO_BOUNCE),
+            (hitY ? BOUNCE : NO_BOUNCE)];    
+}
+
+Ball.prototype.bounce = function (vector) {
+    this.dx *= vector[0];
+    this.dy *= vector[1];
+}

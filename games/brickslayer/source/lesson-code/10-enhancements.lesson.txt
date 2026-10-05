@@ -1,0 +1,29 @@
+
+
+				Potential Enhancements			 
+
+2007/07/22 – alpha releaseThe code needs some cleanup, but everything is here.Suggestions welcome in the forum.
+
+Ideas for making this game your own.
+
+add some color
+
+The images were left pretty basic on purpose. This is probably the easiest way to spruce up the game.
+
+special bricks
+
+Many breakout style games have special bricks that change the gameplay temporarily.
+
+a level editor
+
+Add more bricks, and draw a picture. Might go better with a bigger playing area.
+
+a local high score list with google gears
+
+Gears lets you store data locally in a database. No internet connection required.
+
+mouse control
+
+In which case you’d just move the paddle to a new mouse position on every tick, and track the difference in paddle.dx for the friction effect.
+
+			

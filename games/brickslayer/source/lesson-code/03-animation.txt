@@ -1,0 +1,43 @@
+// ---- block 1 ----
+        case Event.KEY_LEFT:
+            paddle.moveBy(-10,0);
+            break;
+        case Event.KEY_RIGHT:
+            paddle.moveBy(+10,0);
+            break;
+
+        case Event.KEY_LEFT:
+            paddle.velocity = -paddle.speed;
+            break;
+        case Event.KEY_RIGHT:
+            paddle.velocity = +paddle.speed;
+            break;
+    keyUp : function(e) {
+        switch (e.keyCode) {
+        case Event.KEY_LEFT:
+            if (paddle.velocity < 0) paddle.velocity = 0;
+            break;
+        case Event.KEY_RIGHT:
+            if (paddle.velocity > 0) paddle.velocity = 0;
+            break;
+        }
+    },
+
+// ---- block 2 ----
+tick : function() {
+        paddle.tick();
+    }
+    tick: function() {
+        if (this.getX() + this.velocity <= 0)
+            this.setX(0);
+        else if (this.getX() + this.velocity + this.getW() >= game.getW()) 
+            this.setX(game.getW() - this.getW()); 
+        else 
+            this.moveBy(this.velocity, 0); 
+    }
+    tick : function () {
+    },
+    tick : function () {
+        this.screen.tick();
+    },
+        window.setInterval(function () { _con.tick() }, this.tickSpeed);

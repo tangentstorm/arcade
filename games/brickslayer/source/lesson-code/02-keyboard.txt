@@ -1,0 +1,92 @@
+// ---- block 1 ----
+// Screen ////////////////////////////////////////
+
+Screen = Class.create();
+Screen.prototype = {
+    initialize : function (id) {
+        this.id = id;
+    },
+    
+    keyDown : function (e) {
+    },
+    
+    keyUp : function(e) {
+    },
+    
+    keyPress : function(e) {
+    },
+    
+
+}
+
+// ---- block 2 ----
+// Console ///////////////////////////////////////
+
+Console = Class.create();
+Console.prototype = {
+
+    initialize : function (startScreen, tickSpeed) {
+        this.tickSpeed = tickSpeed || 1; // milliseconds between ticks
+        this.screen = startScreen;
+    },
+    
+    start : function() {
+        _con = this;
+        document.onkeydown = function (e) { _con.keyDown(e) };
+        document.onkeyup = function (e) { _con.keyUp(e) };
+        document.onkeypress = function (e) { _con.keyPress(e) };
+    },
+
+    keyDown : function(e) {
+        this.screen.keyDown(e);
+    },
+    
+    keyUp : function(e) {
+        this.screen.keyUp(e);
+    },
+
+    keyPress : function(e) {
+        this.screen.keyPress(e);
+    },
+    
+    
+
+
+}
+var gameconsole;
+    gameconsole = new Console(GAME_SCREEN);
+    gameconsole.start();
+var GAME_SCREEN = Object.extend(new Screen('game'), {
+
+});
+
+// ---- block 3 ----
+case Event.KEY_LEFT:
+            paddle.moveBy(-10,0);
+            break;
+        case Event.KEY_RIGHT:
+            paddle.moveBy(+10,0);
+            break;
+    keyDown : function (e) {
+        switch (e.keyCode) {
+        case Event.KEY_LEFT:
+            paddle.moveBy(-10,0);
+            break;
+        case Event.KEY_RIGHT:
+            paddle.moveBy(+10,0);
+            break;
+        default:
+            console.log('key ' + e.keyCode + ' pressed');
+            break;
+        }
+    },
+
+// ---- block 4 ----
+getW : function() {
+        return this.node.offsetWidth;
+    },
+    
+    getH : function() {
+        return this.node.offsetHeight;
+    },
+var game;

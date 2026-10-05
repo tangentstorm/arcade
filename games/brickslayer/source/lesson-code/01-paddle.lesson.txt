@@ -1,0 +1,175 @@
+
+
+				The Paddle: Our First Sprite			 
+
+2007/07/22 – alpha releaseThe code needs some cleanup, but everything is here.Suggestions welcome in the forum.
+
+Creating a sprite and moving it manually with firebug.
+
+Define the Coordinate System
+
+#console {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+<div id="console">
+</div>
+
+All this really does is set up a coordinate system for us.
+
+Coordinates for the game will be relative to this window, which means we can move the entire game around in the browser without having to recalculate a bunch of coordinates.
+
+Create a Container to Hold Game Assets
+
+ <!-- main screen of the game -->
+  <div id="game" class="screen">
+  </div>
+.screen {
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+Display the Paddle
+
+<div id=”paddle” class=”sprite”></div>
+
+A sprite is basically a 2D image that can be moved around on screen.
+
+Now we add the CSS.
+
+.sprite {
+  position: absolute;
+  padding:0px;
+  margin:0px;
+}
+
+#paddle {
+  background-image:url(../../sprites/paddle.png);
+  left: 168px;
+  top: 250px;
+  height:16px;
+  width:64px;
+}
+
+And the image itself:
+
+Why DIV? Why not an IMG tag?
+
+We certainly could use an img tag for the paddle, but using a DIV with a background image allows us to keep all the look and feel code in one file.
+
+For example, the mini version of the game to the left will use a smaller image set. The only difference between it and the game on the main page is the stylesheet.
+
+@TODO: either use ALL css background images or all IMG tags
+
+Firebug: Move the Paddle
+
+>>> $('paddle')
+>>> $('paddle').offsetLeft
+just press up to retype
+
+You might think you can just change this value, but you can't.
+
+>>> $('paddle').offsetLeft = 5
+@x setting a property that only has a getter
+you have to set through the stylesheet instead:
+
+>>> $('paddle').style.left='200px'
+if you're changing multiple styles, prototype provides a shortcut:
+
+>>> $('paddle').setStyle({'left':'10px'})
+there's also getStyle('left'), but it gives you a string with "px"
+
+>>> inspect($('paddle'))
+you can even type .set TAB TAB until you get setStyle
+
+Now that we know how to move things, let's write some code to do it for us.
+
+Create a Generic Sprite Class
+
+// Sprite ////////////////////////////////////////
+
+var Sprite = Class.create();
+Sprite.prototype = {
+    initialize : function(id) {
+        this.id = id;
+        this.node = $(id);
+    },
+
+    getX : function() {
+        return this.node.offsetLeft;
+    },
+
+    setX : function(x) {
+        this.node.setStyle({'left' : x + 'px'});
+    },
+
+};
+
+?: does it make sense to store the node?
+
+?: does it make sense to be a class?
+
+getY : function () {
+        return this.node.offsetTop;
+    },
+
+    setY : function(y) {
+        this.node.setStyle({'top' : y + 'px'});
+    },    
+
+    moveBy: function(dx, dy) {
+        this.setX(this.getX()+dx);
+        this.setY(this.getY()+dy);
+    },
+
+alternative: put setX and setY in Element
+
+Create the Paddle Sprite on Load
+
+onload, or code at bottom of page
+
+<!-- code to run when the page loads -->
+<script language="javascript">
+  initGame();
+</script>
+function initGame() {
+    paddle = new Paddle('paddle');
+}
+var paddle;
+// Paddle ////////////////////////////////////////
+
+var Paddle = Class.create();
+Paddle.prototype = Object.extend(new Sprite(), {
+
+    initialize: function(id) {
+        this.id = id;
+        this.node = $(id);
+        this.speed = 5;
+        this.friction = 0.5;
+        this.velocity = 0;
+    },
+
+    center: function () {
+        this.setX(game.getW()/2 - this.getW()/2);
+        this.velocity = 0;
+    },
+
+});
+
+Firebug: Move the Paddle using the Sprite Class
+
+>>> paddle = new Sprite('paddle')
+>>> paddle.moveBy(10,-10)
+In the next step, we'll hook it up to the keyboard.
+
+			

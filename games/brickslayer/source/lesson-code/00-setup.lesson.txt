@@ -1,0 +1,107 @@
+
+
+				Setting Up Shop			 
+
+2007/07/22 – alpha releaseThe code needs some cleanup, but everything is here.Suggestions welcome in the forum.
+
+Tools you will need and initial versions of the source files.
+
+@TODO: add links to software
+
+Tools You Will Need
+
+Firefox and Firebug
+
+The code should work in any browser, but install firefox because it allows you to use firebug…
+
+Firebug Experiments
+
+The game snapshot on the right is positioned so that you can have the game, the text, and firebug all on screen at once.
+
+When you see a prompt like the one below, you should type the command in the firebug prompt.>>> alert(“type these lines in firebug”)
+
+A Decent Editor
+
+notepad doesn’t cut it
+
+Syntax highlighting, indentation, code folding.
+
+dreamweaver is fantastic for web development
+
+emacs or vim for power editing
+
+I use dreamweaver for web stuff and minor edits, and emacs for heavy scripting. These are very keyboard centric tools, which means that once you start using them, you begin to develop a strong muscle memory for tasks. But they both have a pretty steep learning curve.
+
+Optional: A Graphics Program
+
+Fireworks
+
+Gimp
+
+Photoshop
+
+Optional: A PHP-Enabled Web Server
+
+You can build most of this game on your local machine without setting up a web server at all.
+
+However, building the high score tracker at the end will require a web server that can run a simple PHP script.
+
+You can either set up a PHP-enabled web server on your own machine (for which XAMPP could help), or rent space from a hosting company.
+
+There are literally thousands of hosting companies out there, so the choice can be a bit overwhelming. If you don’t have a favorite already, I’d be happy to host you over at cornerhost.
+
+The Development Directory
+
+create a directory called brickslayer
+
+Probably should make a new site in dreamweaver.
+
+brickslayer.html – basic html container
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <title>brickslayer</title>
+
+  <!-- javascript includes -->
+  <script type="text/javascript" src="prototype-1.5.1.js"></script>
+  <script type="text/javascript" src="gameconsole.js"></script>
+  <script type="text/javascript" src="brickslayer.js"></script>
+  <link rel="stylesheet" href="../brickslayer.css"/>
+
+</head>
+<body>
+
+</body>
+</html>
+
+brickslayer.css – controls the look and feel
+
+body {
+  background: white;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+}
+
+gameconsole.js – reusable code for arcade games
+
+// game console ( from javascriptgamer.com )//// requires: prototype.js (tested with v. 1.4.0)
+
+brickslayer.js – brickslayer specific code
+
+/*
+ *  brickslayer
+ *
+ *      a breakout style game in javascript
+ *
+ *      code and graphics by michal j wallace 
+ *
+ *      http://JavascriptGamer.com/
+ *
+ */
+
+the prototype.js file
+
+			

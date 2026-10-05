@@ -1,0 +1,105 @@
+
+
+				Keeping Score			 
+
+2007/07/22 – alpha releaseThe code needs some cleanup, but everything is here.Suggestions welcome in the forum.
+
+Winning, Losing, and Slaying Bricks.
+
+Display Score, Lives, and Level
+
+function game_reset() {
+    score_set(0);
+    level_init(1);
+    ballsLeft = SPARES_START;
+    $('spare1', 'spare2', 'spare3').each(
+	function (x){ x.style.display = 'block' });
+}
+    game_reset();
+var score = 0;
+function score_set(value) {
+    score = value;
+     $("score").innerHTML = '' + score;
+}
+#levelarea, #level, #scorecard, #score {
+  position:absolute;
+  top: 282px;
+  color: white;
+  font-weight: bold;
+}
+
+#scorecard {
+  left: 300px;
+}
+
+#score {
+  left: 350px;
+  width: 45px;
+  text-align: right;
+}
+
+#levelarea {
+  left: 150px;
+}
+
+#level {
+  left: 200px;
+}
+
+.spare { top: 282px;}
+#spare1 { left: 4px; }
+#spare2 { left: 24px; }
+#spare3 { left: 44px; }
+    <div id="scorecard">score:</div><div id="score">0</div>
+    <div id="levelarea">level:</div>
+    <div id="level">1</div>
+    <div class="spare" id="spare1"></div>
+    <div class="spare" id="spare2"></div>
+    <div class="spare" id="spare3"></div>
+
+Increase Score on Collision with Brick
+
+function score_inc() {
+    score_set(score+1);
+}
+                score_inc();
+
+Decrease Lives on Collision with Lake
+
+ loseLife();
+function loseLife() {
+    soundManager.play('fall');
+    if (ballsLeft == 0) {
+        // game over
+        //posted_scores = false;
+    } else {
+        if (el = $("spare" + ballsLeft)) {
+	    el.style.display = 'none';
+	}
+        ballsLeft--;
+        ball.stickToPaddle();
+    }
+}
+var ballsLeft;
+var SPARES_START = 3;
+
+Increase Level after Slaying Final Brick
+
+function level_init(level) {
+    bricks.each(function (b) { b.reset() });
+    Brick.count = bricks.length;
+    current_level = level;
+    paddle.center();
+    ball.stickToPaddle();
+    Element.update($('level'), current_level.toString());
+}
+
+Firebug – Kill All But One Brick
+
+Here’s a simple trick to avoid having to play through the whole level.>>> Brick.count = 1
+
+The bricks stay on screen, but the next on you hit triggers the level clear action.
+
+@TODO: increase serve speed with each level
+
+			

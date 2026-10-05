@@ -1,0 +1,166 @@
+
+
+				Keyboard Control			 
+
+2007/07/22 – alpha releaseThe code needs some cleanup, but everything is here.Suggestions welcome in the forum.
+
+Prototype’s Cross-Browser Event System.
+
+Listen for Keypress Events
+
+Delegate Events to a Screen Instance
+
+// Screen ////////////////////////////////////////
+
+Screen = Class.create();
+Screen.prototype = {
+    initialize : function (id) {
+        this.id = id;
+    },
+
+    keyDown : function (e) {
+    },
+
+    keyUp : function(e) {
+    },
+
+    keyPress : function(e) {
+    },
+
+}
+
+@TODO: use Event.observe from prototype
+
+// Console ///////////////////////////////////////
+
+Console = Class.create();
+Console.prototype = {
+
+    initialize : function (startScreen, tickSpeed) {
+        this.tickSpeed = tickSpeed || 1; // milliseconds between ticks
+        this.screen = startScreen;
+    },
+
+    start : function() {
+        _con = this;
+        document.onkeydown = function (e) { _con.keyDown(e) };
+        document.onkeyup = function (e) { _con.keyUp(e) };
+        document.onkeypress = function (e) { _con.keyPress(e) };
+    },
+
+    keyDown : function(e) {
+        this.screen.keyDown(e);
+    },
+
+    keyUp : function(e) {
+        this.screen.keyUp(e);
+    },
+
+    keyPress : function(e) {
+        this.screen.keyPress(e);
+    },
+
+}
+var gameconsole;
+    gameconsole = new Console(GAME_SCREEN);
+    gameconsole.start();
+var GAME_SCREEN = Object.extend(new Screen('game'), {
+
+});
+
+how we dispatch to the game
+
+browser sends events to the console
+
+console sends events to current screen
+
+the paddle should not know about the keyboard!
+
+alternative: browser talks directly to screen
+
+Every time we switch screens, we’ll need to change the browser’s event handling.
+
+what happens on tick
+
+what div/graphics to show
+
+what happens on keypress
+
+in other games:
+
+what happens on mouse movement
+
+on browser resize ( esp for full window games)
+
+We need something to handle this, and to wire up each screen to the browser’s event system.
+
+The console objects handles all this routing for us, but at the cost of an extra method call for each event and each tick.
+
+An alternative might be more akin to a switchboard: when switching screens, it would simply reset the browser’s event handlers so they talk directly to the selected screen. It would gain us some speed at the expense of a little more work.
+
+The nice thing is that we have a choice. As long as the FastConsole conformed to the same interface as the current Console object for switching screens, we would not have to change our application – only the constructor that we choose for Console.
+
+@TODO: wire events directly to screen with observe/stopObserving
+
+Move Left on Left Arrow, Right on Right Arrow
+
+prototype provides Event.KEY_UP etc
+
+case Event.KEY_LEFT:
+            paddle.moveBy(-10,0);
+            break;
+        case Event.KEY_RIGHT:
+            paddle.moveBy(+10,0);
+            break;
+    keyDown : function (e) {
+        switch (e.keyCode) {
+        case Event.KEY_LEFT:
+            paddle.moveBy(-10,0);
+            break;
+        case Event.KEY_RIGHT:
+            paddle.moveBy(+10,0);
+            break;
+        default:
+            console.log('key ' + e.keyCode + ' pressed');
+            break;
+        }
+    },
+
+Keep the Paddle Inside the Console
+
+getW : function() {
+        return this.node.offsetWidth;
+    },
+
+    getH : function() {
+        return this.node.offsetHeight;
+    },
+var game;
+
+initialization function
+
+game = new Sprite(); game.id=”game”; game.node=$(“game”);
+
+Firebug: Observing Events
+
+how do you know when the user does something?
+
+browser sends an event
+
+events are complicated by cross browser issues
+
+window.event vs event parameter
+
+Firefox (and most other browsers) follow the w3c spec and send events directly to the handler. IE uses a global variable, window.event
+
+which this is this?
+
+document.onkeypress=function(e) { _con.keyPress(e) }
+
+prototype works across browsers
+
+>>> Element.observe(‘paddle’, ‘click’, function(e) { paddle.moveby(10,0); })
+
+Now if you click on the paddle, it will move.
+
+			
