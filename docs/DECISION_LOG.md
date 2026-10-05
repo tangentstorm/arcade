@@ -33,3 +33,4 @@ Seed topics to log when implementation starts:
 | 2026-10-05 | Target Godot 4.7.2.stable | Stay on 4.2 to match b4-gd | Box has 4.7.2; b4-gd migrates forward; latest stable matches "latest version of godot" | /workspace/tools/godot4 --version |
 | 2026-10-05 | Restore flappy from unitylabs | Stay dropped / recreate | Operator: flappyclone is in https://github.com/tangentstorm/unitylabs — port that, do not invent | chat t3u |
 | 2026-10-05 | Pure GDScript OFCP port + golden vectors; Pages gated on explicit OK | JS bridge / ship to Pages immediately | ofcp bot inventory; private repo secrecy | ofcp bot message |
+| 2026-10-05 | Expand multi-game repos into per-game gallery tiles | One tile per repo | Operator: GameSketchLib, gamemaker-stuff, etc. contain multiple games | chat t10u |
