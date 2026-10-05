@@ -1,0 +1,65 @@
+# Flappy Clone — port notes
+
+| | |
+|---|---|
+| Source | https://github.com/tangentstorm/unitylabs (`flappyclone/`) |
+| Source commit | `f25ce4ec2ae30b762437aebcb7c4837bad585980` ("implement scoring", 2015-03-11) |
+| Engine | Unity 5.0.0f4, 2D (Rigidbody2D/Box2D, uGUI) |
+| License | No LICENSE in the source repo. Code and art are tangentstorm's own work. |
+| Tracking | GitHub issue #2 |
+
+## Direct edition (`direct/`) — playable
+
+- `direct/flappy_logic.gd`: the simulation in original Unity units (+y up, camera
+  at the origin, 6.72 u tall view). It ports the `screens.controller` state machine
+  (Title → Intro → GamePlay → GameOver → Intro), `BirdController`, `GameWorld`, and
+  `Scrolling`/`ScrollLayer`. All values come from `main.unity`: gravity 9.81, bird
+  start (0.16, 0.15) with r 0.29, pipes 1.45×3.41 u at y ±2.5 (gap centered on 0),
+  gates every 8 u from x 4, endZone 0.75 u past the pipe, floor top −2.55,
+  ceiling bottom 3.31, and +10 per endZone exit.
+- `direct/game.gd` + `game.tscn` draw the vendored `direct/assets/clonybird.png` atlas.
+  The 16 slices are the regions from `clonybird.png.meta`, at 90 px/unit with
+  center pivots. Each sprite sits at its `main.unity` position. Parallax uses the
+  original layers: sky ×0.05 every 7 u, city ×0.2 every 10 u, and ground/pipes ×1
+  every 5 u / 8 u. The UI copies the uGUI canvas: shade (0.07, 0.03, 0.03, 0.56),
+  79 pt "Flappy Clone" / "Game Over" with a 100×100 Play button, and a top-right
+  20 pt "score:" label. The camera background color is the same too.
+- Kept faithfully (original quirks):
+  - **Two BirdControllers** on the bird (flapForce 2.5 and 5). Each press *adds*
+    7.5 to vy, and the scripted first flap adds 2.5.
+  - Impulses add to velocity instead of setting it.
+  - Every gate has the same gap at y = 0, with no randomization.
+  - The world scrolls on the title and game-over screens too, and the pipes
+    are never hidden.
+  - The ceiling is solid but harmless. The floor and pipes end the run, and the
+    bird is hidden on game over.
+  - The score label shows on title/game over and hides during the Intro hold.
+
+### Deliberate deviations
+- **Delta-time:** scrolling is 3 u/s, which is 0.05 u/frame at 60 fps. The original
+  moved per frame. Physics runs at a fixed 50 Hz step, like Unity FixedUpdate.
+- **Collision:** hand-rolled circle-vs-box tests replace Box2D. The bird doesn't
+  spin from contacts. In the original, FixedAngle was off, so a ceiling hit could
+  rotate it.
+- **Flap sprite** shows for 0.1 s per flap. The original Animator flashed it for
+  about one frame.
+- **Input:** Space (Unity "Jump"), plus left click / touch for web and mobile. The
+  Play button gets focus, so Enter/Space also presses it.
+- **Additions:** a "Back to Arcade" button (→ `GameRegistry.return_to_arcade`) and a
+  small "space / click / tap to flap" hint during Intro. Esc opens the arcade
+  PauseOverlay (resume / Back to Arcade).
+- Parallax tiles copies to cover any aspect ratio (the arcade window is 16:9). The
+  original kept 3 leapfrogging copies sized for 4:3. Godot's default font replaces
+  Arial, and the Play button uses the default Godot theme.
+
+### Not ported
+- Dead Animator states (HighScore, Scores, Credits) and their unused triggers.
+- `.unity`/`.controller`/`.anim` YAML (values captured above).
+
+`source/` holds the original C# scripts and `clonybird.svg` (the editable
+Inkscape source of the atlas) for reference. It has a `.gdignore` and isn't part
+of the export.
+
+Tests: `tools/test_flappy_clone.gd` (picked up by `tools/smoke_headless.sh`).
+
+## Enhanced edition — planned (not started)

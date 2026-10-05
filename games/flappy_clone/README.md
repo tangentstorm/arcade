@@ -1,9 +1,9 @@
 # flappy_clone
 
-Status: **planned** (placeholder; no port yet).
+Status: **Direct playable**, Enhanced planned.
 
-Source: https://github.com/tangentstorm/unitylabs (port the existing Unity flappy clone; do not invent a new one).
+Source: https://github.com/tangentstorm/unitylabs (`flappyclone/`, Unity 5, 2015).
+See [PORT.md](PORT.md) for the source commit, fidelity notes and deviations.
 
-When porting, follow games/_template/: put the faithful port in `direct/game.tscn`
-and the modernized version in `enhanced/game.tscn`, then set status in
-`arcade/game_registry.gd`.
+- `direct/game.tscn` — faithful port (space / click / tap to flap).
+- `enhanced/` — not started.

@@ -48,7 +48,7 @@ const TITLES := [
 	["killem_all", "Kill 'Em All", "planned", "From gamemaker-stuff/killem-all."],
 	["toroidal_zombie_herder", "Toroidal Zombie Herder", {"direct": "playable", "enhanced": "planned"},
 		"From gamemaker-stuff (GameMaker: Studio 1.x)."],
-	["flappy_clone", "Flappy Clone", "planned", "Port from unitylabs/flappyclone."],
+	["flappy_clone", "Flappy Clone", {"direct": "playable", "enhanced": "planned"}, "Unity 5 (2015) unitylabs/flappyclone → GDScript."],
 	["fnarbmlyx", "Fnarbmlyx", "planned", ""],
 	["sketchbots", "SketchBots", "planned", "From GameSketchLib course w01."],
 	["invader_sketch", "Invader Sketch", "planned", "From GameSketchLib course w02."],
