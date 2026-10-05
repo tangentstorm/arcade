@@ -1,0 +1,9606 @@
+{
+  "meta": {
+    "engineCommit": "9d4f481",
+    "scoringRules": {
+      "perRow": "+1 to row winner, 0 on tie",
+      "scoopBonus": "+3 if one player wins all 3 rows (total +6 from rows+scoop before royalties)",
+      "royalties": "differential: each player adds own royalties and subtracts opponent royalties",
+      "oneFoul": "non-fouler gets 6 + own royalties; fouler gets the negation; fouler royalties discarded",
+      "bothFoul": "0-0",
+      "zeroSum": "scoreA === -scoreB always"
+    },
+    "seed": 265224196
+  },
+  "cases": [
+    {
+      "id": "scoop-A",
+      "note": "A wins all 3 rows + scoop + royalties",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "Kc"
+        ],
+        "middle": [
+          "Qh",
+          "Qd",
+          "Jc",
+          "Js",
+          "2h"
+        ],
+        "bottom": [
+          "Th",
+          "Td",
+          "Tc",
+          "9s",
+          "9h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5h",
+          "6d",
+          "7c",
+          "8s",
+          "9d"
+        ],
+        "bottom": [
+          "2s",
+          "3s",
+          "4s",
+          "5s",
+          "7s"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 2,
+        "B": 1
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 15,
+      "royaltiesB": 8,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Kc"
+          ],
+          "rank": "Pair of As",
+          "royalties": 9,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qh",
+            "Qd",
+            "Jc",
+            "Js",
+            "2h"
+          ],
+          "rank": "Two Pair Qs and Js",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "9s",
+            "9h"
+          ],
+          "rank": "Full House Ts over 9s",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9d"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 4,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2s",
+            "3s",
+            "4s",
+            "5s",
+            "7s"
+          ],
+          "rank": "Flush",
+          "royalties": 4,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 8,
+      "scoreB": -8,
+      "netScore": 8
+    },
+    {
+      "id": "A-fouls",
+      "note": "A fouled → B gets 6 + B royalties; A gets negative",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "2c"
+        ],
+        "middle": [
+          "Kh",
+          "Kd",
+          "3c",
+          "4s",
+          "5h"
+        ],
+        "bottom": [
+          "Qh",
+          "Qd",
+          "Qc",
+          "Js",
+          "Jh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5h",
+          "6d",
+          "7c",
+          "8s",
+          "9h"
+        ],
+        "bottom": [
+          "Th",
+          "Jd",
+          "Qc",
+          "Ks",
+          "Ah"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 3
+      },
+      "scoop": "B",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Kd",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 4,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Jd",
+            "Qc",
+            "Ks",
+            "Ah"
+          ],
+          "rank": "Straight (A high)",
+          "royalties": 2,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -12,
+      "scoreB": 12,
+      "netScore": -12
+    },
+    {
+      "id": "B-fouls",
+      "note": "B fouled → A gets 6 + A royalties",
+      "boardA": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5h",
+          "6d",
+          "7c",
+          "8s",
+          "9h"
+        ],
+        "bottom": [
+          "Th",
+          "Jd",
+          "Qc",
+          "Ks",
+          "Ah"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Ah",
+          "Ad",
+          "2c"
+        ],
+        "middle": [
+          "Kh",
+          "Kd",
+          "3c",
+          "4s",
+          "5h"
+        ],
+        "bottom": [
+          "Qh",
+          "Qd",
+          "Qc",
+          "Js",
+          "Jh"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 6,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 4,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Jd",
+            "Qc",
+            "Ks",
+            "Ah"
+          ],
+          "rank": "Straight (A high)",
+          "royalties": 2,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Kd",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 12,
+      "scoreB": -12,
+      "netScore": 12
+    },
+    {
+      "id": "both-foul",
+      "note": "both fouled → 0-0",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "2c"
+        ],
+        "middle": [
+          "Kh",
+          "Kd",
+          "3c",
+          "4s",
+          "5h"
+        ],
+        "bottom": [
+          "Qh",
+          "Qd",
+          "Qc",
+          "Js",
+          "Jh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "As",
+          "Ac",
+          "3d"
+        ],
+        "middle": [
+          "Ks",
+          "Kc",
+          "2d",
+          "6s",
+          "7d"
+        ],
+        "bottom": [
+          "Qs",
+          "Qh",
+          "Qd",
+          "Jh",
+          "Jd"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Kd",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "As",
+            "Ac",
+            "3d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ks",
+            "Kc",
+            "2d",
+            "6s",
+            "7d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qs",
+            "Qh",
+            "Qd",
+            "Jh",
+            "Jd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "row-ties",
+      "note": "some rows tie",
+      "boardA": {
+        "top": [
+          "9h",
+          "5d",
+          "2c"
+        ],
+        "middle": [
+          "6h",
+          "6d",
+          "7c",
+          "8s",
+          "Th"
+        ],
+        "bottom": [
+          "Jh",
+          "Jd",
+          "Jc",
+          "Ks",
+          "Kh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "9s",
+          "5c",
+          "2d"
+        ],
+        "middle": [
+          "6c",
+          "6s",
+          "7d",
+          "8h",
+          "Td"
+        ],
+        "bottom": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "Qs",
+          "Qh"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 1
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 6,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "9h",
+            "5d",
+            "2c"
+          ],
+          "rank": "9 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "Th"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Ks",
+            "Kh"
+          ],
+          "rank": "Full House Js over Ks",
+          "royalties": 6,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "9s",
+            "5c",
+            "2d"
+          ],
+          "rank": "9 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "6c",
+            "6s",
+            "7d",
+            "8h",
+            "Td"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Qs",
+            "Qh"
+          ],
+          "rank": "Full House As over Qs",
+          "royalties": 6,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -1,
+      "scoreB": 1,
+      "netScore": -1
+    },
+    {
+      "id": "royalty-diff",
+      "note": "similar rows but royalty gap",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "2c"
+        ],
+        "middle": [
+          "Kh",
+          "Kd",
+          "Kc",
+          "3s",
+          "4h"
+        ],
+        "bottom": [
+          "5h",
+          "5d",
+          "5c",
+          "5s",
+          "6h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qh",
+          "Qd",
+          "2d"
+        ],
+        "middle": [
+          "Jh",
+          "Jd",
+          "3c",
+          "4s",
+          "7h"
+        ],
+        "bottom": [
+          "8h",
+          "8d",
+          "8c",
+          "9s",
+          "9h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 21,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "rank": "Pair of As",
+          "royalties": 9,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "3s",
+            "4h"
+          ],
+          "rank": "Trip Ks",
+          "royalties": 2,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5h",
+            "5d",
+            "5c",
+            "5s",
+            "6h"
+          ],
+          "rank": "Quad 5s",
+          "royalties": 10,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qh",
+            "Qd",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jh",
+            "Jd",
+            "3c",
+            "4s",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "8d",
+            "8c",
+            "9s",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 27,
+      "scoreB": -27,
+      "netScore": 27
+    },
+    {
+      "id": "two-one",
+      "note": "A wins 2 rows B wins 1 — no scoop",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Kd",
+          "Qc"
+        ],
+        "middle": [
+          "Jh",
+          "Jd",
+          "2c",
+          "3s",
+          "4h"
+        ],
+        "bottom": [
+          "5h",
+          "5d",
+          "5c",
+          "6s",
+          "6h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "Th",
+          "Td",
+          "Tc",
+          "9s",
+          "8h"
+        ],
+        "bottom": [
+          "Kh",
+          "Qd",
+          "Jc",
+          "9c",
+          "7h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 6,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Kd",
+            "Qc"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jh",
+            "Jd",
+            "2c",
+            "3s",
+            "4h"
+          ],
+          "rank": "Pair of Js",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5h",
+            "5d",
+            "5c",
+            "6s",
+            "6h"
+          ],
+          "rank": "Full House 5s over 6s",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "9s",
+            "8h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kh",
+            "Qd",
+            "Jc",
+            "9c",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 12,
+      "scoreB": -12,
+      "netScore": 12
+    },
+    {
+      "id": "scoop-royalties",
+      "note": "scoop + AA top royalties",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "Kc"
+        ],
+        "middle": [
+          "Qh",
+          "Qd",
+          "Qc",
+          "Js",
+          "2h"
+        ],
+        "bottom": [
+          "Th",
+          "Td",
+          "Tc",
+          "Ts",
+          "9h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2c",
+          "3c",
+          "4d"
+        ],
+        "middle": [
+          "5c",
+          "6c",
+          "7d",
+          "8d",
+          "9c"
+        ],
+        "bottom": [
+          "2d",
+          "3d",
+          "4h",
+          "5d",
+          "7h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 21,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Kc"
+          ],
+          "rank": "Pair of As",
+          "royalties": 9,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "2h"
+          ],
+          "rank": "Trip Qs",
+          "royalties": 2,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "Ts",
+            "9h"
+          ],
+          "rank": "Quad Ts",
+          "royalties": 10,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2c",
+            "3c",
+            "4d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5c",
+            "6c",
+            "7d",
+            "8d",
+            "9c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2d",
+            "3d",
+            "4h",
+            "5d",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 27,
+      "scoreB": -27,
+      "netScore": 27
+    },
+    {
+      "id": "mirror-tie",
+      "note": "identical category structure → mostly ties (different suits)",
+      "boardA": {
+        "top": [
+          "8h",
+          "3d",
+          "2c"
+        ],
+        "middle": [
+          "5h",
+          "5d",
+          "6c",
+          "7s",
+          "9h"
+        ],
+        "bottom": [
+          "Th",
+          "Td",
+          "Tc",
+          "Js",
+          "Jh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "8s",
+          "3c",
+          "2d"
+        ],
+        "middle": [
+          "5c",
+          "5s",
+          "6d",
+          "7h",
+          "9d"
+        ],
+        "bottom": [
+          "Ts",
+          "Tc",
+          "Td",
+          "Jd",
+          "Jc"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 6,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "8h",
+            "3d",
+            "2c"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "5d",
+            "6c",
+            "7s",
+            "9h"
+          ],
+          "rank": "Pair of 5s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "Js",
+            "Jh"
+          ],
+          "rank": "Full House Ts over Js",
+          "royalties": 6,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "8s",
+            "3c",
+            "2d"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5c",
+            "5s",
+            "6d",
+            "7h",
+            "9d"
+          ],
+          "rank": "Pair of 5s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ts",
+            "Tc",
+            "Td",
+            "Jd",
+            "Jc"
+          ],
+          "rank": "Full House Ts over Js",
+          "royalties": 6,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "mid-trips-vs-pair",
+      "note": "middle trips royalty matters",
+      "boardA": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "7h",
+          "7d",
+          "7c",
+          "8s",
+          "9h"
+        ],
+        "bottom": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "Ks",
+          "Kh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2s",
+          "3s",
+          "4s"
+        ],
+        "middle": [
+          "6h",
+          "6d",
+          "8c",
+          "9s",
+          "Th"
+        ],
+        "bottom": [
+          "Jh",
+          "Jd",
+          "Jc",
+          "Qs",
+          "Qh"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 2,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 8,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7h",
+            "7d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "rank": "Trip 7s",
+          "royalties": 2,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "rank": "Full House As over Ks",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2s",
+            "3s",
+            "4s"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "6h",
+            "6d",
+            "8c",
+            "9s",
+            "Th"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Qs",
+            "Qh"
+          ],
+          "rank": "Full House Js over Qs",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 4,
+      "scoreB": -4,
+      "netScore": 4
+    },
+    {
+      "id": "bot-straight-vs-flush",
+      "note": "bottom flush beats straight; royalties",
+      "boardA": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5h",
+          "5d",
+          "6c",
+          "7s",
+          "8h"
+        ],
+        "bottom": [
+          "9h",
+          "8d",
+          "7c",
+          "6s",
+          "5c"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2s",
+          "3s",
+          "4d"
+        ],
+        "middle": [
+          "5s",
+          "6d",
+          "7d",
+          "8c",
+          "9c"
+        ],
+        "bottom": [
+          "Ah",
+          "Jh",
+          "Th",
+          "4h",
+          "3h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 2
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 2,
+      "royaltiesB": 8,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "5d",
+            "6c",
+            "7s",
+            "8h"
+          ],
+          "rank": "Pair of 5s",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "9h",
+            "8d",
+            "7c",
+            "6s",
+            "5c"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 2,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2s",
+            "3s",
+            "4d"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5s",
+            "6d",
+            "7d",
+            "8c",
+            "9c"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 4,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "Jh",
+            "Th",
+            "4h",
+            "3h"
+          ],
+          "rank": "Flush",
+          "royalties": 4,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -8,
+      "scoreB": 8,
+      "netScore": -8
+    },
+    {
+      "id": "foul-vs-loaded",
+      "note": "fouler vs QQ+FH board",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "Ac"
+        ],
+        "middle": [
+          "2h",
+          "3d",
+          "4c",
+          "5s",
+          "7h"
+        ],
+        "bottom": [
+          "8h",
+          "9d",
+          "Tc",
+          "Js",
+          "Kh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qh",
+          "Qd",
+          "2c"
+        ],
+        "middle": [
+          "Kh",
+          "Kd",
+          "Kc",
+          "Js",
+          "Jh"
+        ],
+        "bottom": [
+          "As",
+          "Ad",
+          "Ac",
+          "9s",
+          "9h"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 3
+      },
+      "scoop": "B",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 25,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2h",
+            "3d",
+            "4c",
+            "5s",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "9d",
+            "Tc",
+            "Js",
+            "Kh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qh",
+            "Qd",
+            "2c"
+          ],
+          "rank": "Pair of Qs",
+          "royalties": 7,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "Js",
+            "Jh"
+          ],
+          "rank": "Full House Ks over Js",
+          "royalties": 12,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "As",
+            "Ad",
+            "Ac",
+            "9s",
+            "9h"
+          ],
+          "rank": "Full House As over 9s",
+          "royalties": 6,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -31,
+      "scoreB": 31,
+      "netScore": -31
+    },
+    {
+      "id": "three-way-prep-A-strong",
+      "note": "strong vs medium",
+      "boardA": {
+        "top": [
+          "Kh",
+          "Kd",
+          "2c"
+        ],
+        "middle": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "3s",
+          "4h"
+        ],
+        "bottom": [
+          "5h",
+          "5d",
+          "5c",
+          "5s",
+          "6h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "9h",
+          "5d",
+          "2d"
+        ],
+        "middle": [
+          "6h",
+          "6d",
+          "7c",
+          "8s",
+          "Th"
+        ],
+        "bottom": [
+          "Jh",
+          "Jd",
+          "Jc",
+          "Qs",
+          "Qh"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 20,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Kh",
+            "Kd",
+            "2c"
+          ],
+          "rank": "Pair of Ks",
+          "royalties": 8,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "3s",
+            "4h"
+          ],
+          "rank": "Trip As",
+          "royalties": 2,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5h",
+            "5d",
+            "5c",
+            "5s",
+            "6h"
+          ],
+          "rank": "Quad 5s",
+          "royalties": 10,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "9h",
+            "5d",
+            "2d"
+          ],
+          "rank": "9 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "Th"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Qs",
+            "Qh"
+          ],
+          "rank": "Full House Js over Qs",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 20,
+      "scoreB": -20,
+      "netScore": 20
+    },
+    {
+      "id": "weak-vs-weak",
+      "note": "minimal boards",
+      "boardA": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5h",
+          "6d",
+          "7c",
+          "8s",
+          "9h"
+        ],
+        "bottom": [
+          "Th",
+          "Jd",
+          "Qc",
+          "Ks",
+          "Ah"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2s",
+          "3s",
+          "4s"
+        ],
+        "middle": [
+          "5s",
+          "6s",
+          "7s",
+          "8h",
+          "9d"
+        ],
+        "bottom": [
+          "Td",
+          "Jc",
+          "Qd",
+          "Kd",
+          "Ad"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 6,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 4,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Jd",
+            "Qc",
+            "Ks",
+            "Ah"
+          ],
+          "rank": "Straight (A high)",
+          "royalties": 2,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2s",
+            "3s",
+            "4s"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5s",
+            "6s",
+            "7s",
+            "8h",
+            "9d"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 4,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Td",
+            "Jc",
+            "Qd",
+            "Kd",
+            "Ad"
+          ],
+          "rank": "Straight (A high)",
+          "royalties": 2,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "scoop-B",
+      "note": "B scoops A",
+      "boardA": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5h",
+          "6d",
+          "7c",
+          "8s",
+          "9d"
+        ],
+        "bottom": [
+          "2s",
+          "3s",
+          "4s",
+          "5s",
+          "7s"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Ah",
+          "Ad",
+          "Kc"
+        ],
+        "middle": [
+          "Qh",
+          "Qd",
+          "Jc",
+          "Js",
+          "2d"
+        ],
+        "bottom": [
+          "Th",
+          "Td",
+          "Tc",
+          "9s",
+          "9h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 1,
+        "B": 2
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 8,
+      "royaltiesB": 15,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9d"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 4,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2s",
+            "3s",
+            "4s",
+            "5s",
+            "7s"
+          ],
+          "rank": "Flush",
+          "royalties": 4,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Kc"
+          ],
+          "rank": "Pair of As",
+          "royalties": 9,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qh",
+            "Qd",
+            "Jc",
+            "Js",
+            "2d"
+          ],
+          "rank": "Two Pair Qs and Js",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "9s",
+            "9h"
+          ],
+          "rank": "Full House Ts over 9s",
+          "royalties": 6,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -8,
+      "scoreB": 8,
+      "netScore": -8
+    },
+    {
+      "id": "all-rows-tie",
+      "note": "all three rows tie → 0-0 even with royalties canceling if equal",
+      "boardA": {
+        "top": [
+          "8h",
+          "3d",
+          "2c"
+        ],
+        "middle": [
+          "5h",
+          "5d",
+          "6c",
+          "7s",
+          "9h"
+        ],
+        "bottom": [
+          "Th",
+          "Td",
+          "Tc",
+          "Js",
+          "Jh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "8d",
+          "3c",
+          "2s"
+        ],
+        "middle": [
+          "5c",
+          "5s",
+          "6d",
+          "7h",
+          "9d"
+        ],
+        "bottom": [
+          "Ts",
+          "Tc",
+          "Td",
+          "Jd",
+          "Jc"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 6,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "8h",
+            "3d",
+            "2c"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "5d",
+            "6c",
+            "7s",
+            "9h"
+          ],
+          "rank": "Pair of 5s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "Js",
+            "Jh"
+          ],
+          "rank": "Full House Ts over Js",
+          "royalties": 6,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "8d",
+            "3c",
+            "2s"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5c",
+            "5s",
+            "6d",
+            "7h",
+            "9d"
+          ],
+          "rank": "Pair of 5s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ts",
+            "Tc",
+            "Td",
+            "Jd",
+            "Jc"
+          ],
+          "rank": "Full House Ts over Js",
+          "royalties": 6,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "royalty-only-swing",
+      "note": "same row wins split but royalties swing net",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "2c"
+        ],
+        "middle": [
+          "3h",
+          "3d",
+          "4c",
+          "5s",
+          "6h"
+        ],
+        "bottom": [
+          "7h",
+          "7d",
+          "7c",
+          "8s",
+          "8h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Kh",
+          "Kd",
+          "2d"
+        ],
+        "middle": [
+          "4h",
+          "4d",
+          "5c",
+          "6s",
+          "9h"
+        ],
+        "bottom": [
+          "Th",
+          "Td",
+          "Tc",
+          "Js",
+          "Jh"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "3h",
+            "3d",
+            "4c",
+            "5s",
+            "6h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "7h",
+            "7d",
+            "7c",
+            "8s",
+            "8h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Kh",
+            "Kd",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "4h",
+            "4d",
+            "5c",
+            "6s",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "Js",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "top-trips-vs-qq",
+      "note": "trips top royalties huge",
+      "boardA": {
+        "top": [
+          "2h",
+          "2d",
+          "2c"
+        ],
+        "middle": [
+          "3h",
+          "3d",
+          "3c",
+          "4s",
+          "5h"
+        ],
+        "bottom": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "As",
+          "Kh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qh",
+          "Qd",
+          "5c"
+        ],
+        "middle": [
+          "Kh",
+          "Kd",
+          "6c",
+          "7s",
+          "8h"
+        ],
+        "bottom": [
+          "9h",
+          "9d",
+          "9c",
+          "Js",
+          "Jh"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 22,
+      "royaltiesB": 13,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "2d",
+            "2c"
+          ],
+          "rank": "Trip 2s",
+          "royalties": 10,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "3h",
+            "3d",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "rank": "Trip 3s",
+          "royalties": 2,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "As",
+            "Kh"
+          ],
+          "rank": "Quad As",
+          "royalties": 10,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qh",
+            "Qd",
+            "5c"
+          ],
+          "rank": "Pair of Qs",
+          "royalties": 7,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Kd",
+            "6c",
+            "7s",
+            "8h"
+          ],
+          "rank": "Pair of Ks",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "9h",
+            "9d",
+            "9c",
+            "Js",
+            "Jh"
+          ],
+          "rank": "Full House 9s over Js",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 15,
+      "scoreB": -15,
+      "netScore": 15
+    },
+    {
+      "id": "wheel-vs-broadway",
+      "note": "bottom wheel vs broadway",
+      "boardA": {
+        "top": [
+          "6h",
+          "7d",
+          "8c"
+        ],
+        "middle": [
+          "9h",
+          "9d",
+          "2c",
+          "3s",
+          "4h"
+        ],
+        "bottom": [
+          "Ah",
+          "2d",
+          "3c",
+          "4s",
+          "5h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "6s",
+          "7s",
+          "8s"
+        ],
+        "middle": [
+          "9s",
+          "9c",
+          "2s",
+          "3d",
+          "4d"
+        ],
+        "bottom": [
+          "Kh",
+          "Qd",
+          "Jc",
+          "Ts",
+          "9d"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 1
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 2,
+      "royaltiesB": 2,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "6h",
+            "7d",
+            "8c"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9h",
+            "9d",
+            "2c",
+            "3s",
+            "4h"
+          ],
+          "rank": "Pair of 9s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "2d",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "rank": "Straight (5 high)",
+          "royalties": 2,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "6s",
+            "7s",
+            "8s"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9s",
+            "9c",
+            "2s",
+            "3d",
+            "4d"
+          ],
+          "rank": "Pair of 9s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kh",
+            "Qd",
+            "Jc",
+            "Ts",
+            "9d"
+          ],
+          "rank": "Straight (K high)",
+          "royalties": 2,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -1,
+      "scoreB": 1,
+      "netScore": -1
+    },
+    {
+      "id": "mid-fh-vs-mid-flush",
+      "note": "middle full house vs flush",
+      "boardA": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "9h",
+          "9d",
+          "9c",
+          "8s",
+          "8h"
+        ],
+        "bottom": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "Ks",
+          "Kh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2s",
+          "3s",
+          "4s"
+        ],
+        "middle": [
+          "Ah",
+          "Jh",
+          "Th",
+          "5h",
+          "3h"
+        ],
+        "bottom": [
+          "Kd",
+          "Kc",
+          "Ks",
+          "Qd",
+          "Qc"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 2,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 18,
+      "royaltiesB": 14,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9h",
+            "9d",
+            "9c",
+            "8s",
+            "8h"
+          ],
+          "rank": "Full House 9s over 8s",
+          "royalties": 12,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "rank": "Full House As over Ks",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2s",
+            "3s",
+            "4s"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ah",
+            "Jh",
+            "Th",
+            "5h",
+            "3h"
+          ],
+          "rank": "Flush",
+          "royalties": 8,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kd",
+            "Kc",
+            "Ks",
+            "Qd",
+            "Qc"
+          ],
+          "rank": "Full House Ks over Qs",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "bot-quads-vs-fh",
+      "note": "bottom quads vs full house",
+      "boardA": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5h",
+          "5d",
+          "6c",
+          "7s",
+          "8h"
+        ],
+        "bottom": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "As",
+          "Kh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2s",
+          "3s",
+          "4d"
+        ],
+        "middle": [
+          "5s",
+          "5c",
+          "6d",
+          "7h",
+          "8d"
+        ],
+        "bottom": [
+          "Kh",
+          "Kd",
+          "Kc",
+          "Qs",
+          "Qh"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 1,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 10,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "5d",
+            "6c",
+            "7s",
+            "8h"
+          ],
+          "rank": "Pair of 5s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "As",
+            "Kh"
+          ],
+          "rank": "Quad As",
+          "royalties": 10,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2s",
+            "3s",
+            "4d"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5s",
+            "5c",
+            "6d",
+            "7h",
+            "8d"
+          ],
+          "rank": "Pair of 5s",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "Qs",
+            "Qh"
+          ],
+          "rank": "Full House Ks over Qs",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 5,
+      "scoreB": -5,
+      "netScore": 5
+    },
+    {
+      "id": "foul-mid-gt-bot-vs-clean",
+      "note": "A fouls mid>bot; B clean with royalties",
+      "boardA": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "Ks",
+          "Kh"
+        ],
+        "bottom": [
+          "Qh",
+          "Qd",
+          "Qc",
+          "Js",
+          "Jh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "6h",
+          "6d",
+          "5c"
+        ],
+        "middle": [
+          "7h",
+          "7d",
+          "8c",
+          "9s",
+          "Th"
+        ],
+        "bottom": [
+          "Jh",
+          "Jd",
+          "Jc",
+          "2s",
+          "2h"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 3
+      },
+      "scoop": "B",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 7,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "6h",
+            "6d",
+            "5c"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 1,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7h",
+            "7d",
+            "8c",
+            "9s",
+            "Th"
+          ],
+          "rank": "Pair of 7s",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "2s",
+            "2h"
+          ],
+          "rank": "Full House Js over 2s",
+          "royalties": 6,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -13,
+      "scoreB": 13,
+      "netScore": -13
+    },
+    {
+      "id": "equal-top-pair-rows",
+      "note": "tied top pairs; mid/bot decide",
+      "boardA": {
+        "top": [
+          "9h",
+          "9d",
+          "2c"
+        ],
+        "middle": [
+          "Th",
+          "Td",
+          "3c",
+          "4s",
+          "5h"
+        ],
+        "bottom": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "6s",
+          "6h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "9s",
+          "9c",
+          "2d"
+        ],
+        "middle": [
+          "Jh",
+          "Jd",
+          "3d",
+          "4d",
+          "5d"
+        ],
+        "bottom": [
+          "Kh",
+          "Kd",
+          "Kc",
+          "7s",
+          "7h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 1,
+        "B": 1
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 10,
+      "royaltiesB": 10,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "9h",
+            "9d",
+            "2c"
+          ],
+          "rank": "Pair of 9s",
+          "royalties": 4,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Th",
+            "Td",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "rank": "Pair of Ts",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "6s",
+            "6h"
+          ],
+          "rank": "Full House As over 6s",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "9s",
+            "9c",
+            "2d"
+          ],
+          "rank": "Pair of 9s",
+          "royalties": 4,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jh",
+            "Jd",
+            "3d",
+            "4d",
+            "5d"
+          ],
+          "rank": "Pair of Js",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "7s",
+            "7h"
+          ],
+          "rank": "Full House Ks over 7s",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "kicker-decides-top",
+      "note": "same pair top different kickers",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "Kc"
+        ],
+        "middle": [
+          "Qh",
+          "Qd",
+          "2c",
+          "3s",
+          "4h"
+        ],
+        "bottom": [
+          "5h",
+          "5d",
+          "5c",
+          "6s",
+          "6h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "As",
+          "Ac",
+          "2d"
+        ],
+        "middle": [
+          "Qs",
+          "Qc",
+          "3d",
+          "4d",
+          "7h"
+        ],
+        "bottom": [
+          "8h",
+          "8d",
+          "8c",
+          "9s",
+          "9h"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Kc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qh",
+            "Qd",
+            "2c",
+            "3s",
+            "4h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5h",
+            "5d",
+            "5c",
+            "6s",
+            "6h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "As",
+            "Ac",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qs",
+            "Qc",
+            "3d",
+            "4d",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "8d",
+            "8c",
+            "9s",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "sf-bot-vs-quads",
+      "note": "SF bottom vs quads bottom",
+      "boardA": {
+        "top": [
+          "2c",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5h",
+          "6d",
+          "7c",
+          "8s",
+          "2h"
+        ],
+        "bottom": [
+          "Kh",
+          "Qh",
+          "Jh",
+          "Th",
+          "9h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2s",
+          "3c",
+          "4s"
+        ],
+        "middle": [
+          "5s",
+          "6c",
+          "7s",
+          "8h",
+          "9c"
+        ],
+        "bottom": [
+          "Ad",
+          "Ac",
+          "Ah",
+          "As",
+          "Kd"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 1,
+        "B": 1
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 15,
+      "royaltiesB": 14,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2c",
+            "3d",
+            "4c"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "2h"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kh",
+            "Qh",
+            "Jh",
+            "Th",
+            "9h"
+          ],
+          "rank": "Straight Flush (K high)",
+          "royalties": 15,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2s",
+            "3c",
+            "4s"
+          ],
+          "rank": "4 High",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5s",
+            "6c",
+            "7s",
+            "8h",
+            "9c"
+          ],
+          "rank": "Straight (9 high)",
+          "royalties": 4,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ad",
+            "Ac",
+            "Ah",
+            "As",
+            "Kd"
+          ],
+          "rank": "Quad As",
+          "royalties": 10,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 1,
+      "scoreB": -1,
+      "netScore": 1
+    },
+    {
+      "id": "zero-royalty-scoop",
+      "note": "scoop with no royalties either side",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Kd",
+          "Qc"
+        ],
+        "middle": [
+          "Jh",
+          "Jd",
+          "2c",
+          "3s",
+          "4h"
+        ],
+        "bottom": [
+          "5h",
+          "5d",
+          "6c",
+          "7s",
+          "8h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2h",
+          "3d",
+          "4c"
+        ],
+        "middle": [
+          "5c",
+          "6d",
+          "7c",
+          "8s",
+          "9d"
+        ],
+        "bottom": [
+          "2s",
+          "3s",
+          "4s",
+          "5s",
+          "7h"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Kd",
+            "Qc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jh",
+            "Jd",
+            "2c",
+            "3s",
+            "4h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5h",
+            "5d",
+            "6c",
+            "7s",
+            "8h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5c",
+            "6d",
+            "7c",
+            "8s",
+            "9d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2s",
+            "3s",
+            "4s",
+            "5s",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "aaa-top-covered",
+      "note": "AAA top with covering mid/bot",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "Ac"
+        ],
+        "middle": [
+          "Kh",
+          "Kd",
+          "Kc",
+          "Qs",
+          "Qh"
+        ],
+        "bottom": [
+          "2h",
+          "2d",
+          "2c",
+          "2s",
+          "3h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "9h",
+          "5d",
+          "2d"
+        ],
+        "middle": [
+          "6h",
+          "6d",
+          "7c",
+          "8s",
+          "Th"
+        ],
+        "bottom": [
+          "Jh",
+          "Jd",
+          "Jc",
+          "Ks",
+          "Kh"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 44,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac"
+          ],
+          "rank": "Trip As",
+          "royalties": 22,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "Qs",
+            "Qh"
+          ],
+          "rank": "Full House Ks over Qs",
+          "royalties": 12,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2h",
+            "2d",
+            "2c",
+            "2s",
+            "3h"
+          ],
+          "rank": "Quad 2s",
+          "royalties": 10,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "9h",
+            "5d",
+            "2d"
+          ],
+          "rank": "9 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "Th"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Ks",
+            "Kh"
+          ],
+          "rank": "Full House Js over Ks",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 44,
+      "scoreB": -44,
+      "netScore": 44
+    },
+    {
+      "id": "progressive-style-aa",
+      "note": "AA top board vs weak (FL-relevant board shape)",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "2c"
+        ],
+        "middle": [
+          "Kh",
+          "Kd",
+          "Kc",
+          "3s",
+          "4h"
+        ],
+        "bottom": [
+          "5h",
+          "5d",
+          "5c",
+          "5s",
+          "6h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "7h",
+          "3d",
+          "2d"
+        ],
+        "middle": [
+          "8h",
+          "8d",
+          "9c",
+          "Ts",
+          "Jh"
+        ],
+        "bottom": [
+          "Qh",
+          "Qd",
+          "Qc",
+          "Js",
+          "Jd"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 21,
+      "royaltiesB": 6,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "rank": "Pair of As",
+          "royalties": 9,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "3s",
+            "4h"
+          ],
+          "rank": "Trip Ks",
+          "royalties": 2,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5h",
+            "5d",
+            "5c",
+            "5s",
+            "6h"
+          ],
+          "rank": "Quad 5s",
+          "royalties": 10,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "7h",
+            "3d",
+            "2d"
+          ],
+          "rank": "7 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "8h",
+            "8d",
+            "9c",
+            "Ts",
+            "Jh"
+          ],
+          "rank": "Pair of 8s",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jd"
+          ],
+          "rank": "Full House Qs over Js",
+          "royalties": 6,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 21,
+      "scoreB": -21,
+      "netScore": 21
+    },
+    {
+      "id": "both-have-royalties-no-scoop",
+      "note": "2-1 with both collecting royalties",
+      "boardA": {
+        "top": [
+          "Qh",
+          "Qd",
+          "2c"
+        ],
+        "middle": [
+          "9h",
+          "9d",
+          "9c",
+          "3s",
+          "4h"
+        ],
+        "bottom": [
+          "Ah",
+          "Ad",
+          "Ac",
+          "Ks",
+          "Kh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Jh",
+          "Jd",
+          "2d"
+        ],
+        "middle": [
+          "Th",
+          "Td",
+          "Tc",
+          "5s",
+          "6h"
+        ],
+        "bottom": [
+          "8h",
+          "8d",
+          "8c",
+          "8s",
+          "7h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 1,
+        "B": 2
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 15,
+      "royaltiesB": 18,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Qh",
+            "Qd",
+            "2c"
+          ],
+          "rank": "Pair of Qs",
+          "royalties": 7,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9h",
+            "9d",
+            "9c",
+            "3s",
+            "4h"
+          ],
+          "rank": "Trip 9s",
+          "royalties": 2,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "rank": "Full House As over Ks",
+          "royalties": 6,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Jh",
+            "Jd",
+            "2d"
+          ],
+          "rank": "Pair of Js",
+          "royalties": 6,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "5s",
+            "6h"
+          ],
+          "rank": "Trip Ts",
+          "royalties": 2,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "8d",
+            "8c",
+            "8s",
+            "7h"
+          ],
+          "rank": "Quad 8s",
+          "royalties": 10,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -4,
+      "scoreB": 4,
+      "netScore": -4
+    },
+    {
+      "id": "foul-both-symmetric-suits",
+      "note": "both foul different constructions",
+      "boardA": {
+        "top": [
+          "Kh",
+          "Kd",
+          "Kc"
+        ],
+        "middle": [
+          "2h",
+          "3d",
+          "4c",
+          "5s",
+          "7h"
+        ],
+        "bottom": [
+          "8h",
+          "8d",
+          "8c",
+          "9s",
+          "9h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Ah",
+          "Ad",
+          "2s"
+        ],
+        "middle": [
+          "Qs",
+          "Qd",
+          "3c",
+          "4d",
+          "5d"
+        ],
+        "bottom": [
+          "Jh",
+          "Jd",
+          "Jc",
+          "Ts",
+          "Th"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2h",
+            "3d",
+            "4c",
+            "5s",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "8d",
+            "8c",
+            "9s",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "2s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qs",
+            "Qd",
+            "3c",
+            "4d",
+            "5d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Ts",
+            "Th"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#0",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "As",
+          "Th",
+          "3s"
+        ],
+        "middle": [
+          "5s",
+          "Qc",
+          "4h",
+          "Ad",
+          "3h"
+        ],
+        "bottom": [
+          "2h",
+          "Kd",
+          "Qd",
+          "9h",
+          "Ah"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Td",
+          "2d",
+          "8c"
+        ],
+        "middle": [
+          "Kc",
+          "Ts",
+          "Qh",
+          "8h",
+          "Qs"
+        ],
+        "bottom": [
+          "Jc",
+          "7s",
+          "3d",
+          "2s",
+          "2c"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "As",
+            "Th",
+            "3s"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5s",
+            "Qc",
+            "4h",
+            "Ad",
+            "3h"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2h",
+            "Kd",
+            "Qd",
+            "9h",
+            "Ah"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Td",
+            "2d",
+            "8c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kc",
+            "Ts",
+            "Qh",
+            "8h",
+            "Qs"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jc",
+            "7s",
+            "3d",
+            "2s",
+            "2c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#1",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Td",
+          "Jd",
+          "As"
+        ],
+        "middle": [
+          "2h",
+          "4c",
+          "Kc",
+          "3c",
+          "Tc"
+        ],
+        "bottom": [
+          "3d",
+          "8d",
+          "Ah",
+          "6h",
+          "Jh"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "9s",
+          "5d",
+          "5s"
+        ],
+        "middle": [
+          "2s",
+          "3h",
+          "5c",
+          "3s",
+          "Qd"
+        ],
+        "bottom": [
+          "Qs",
+          "Kh",
+          "9c",
+          "6d",
+          "Ts"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Td",
+            "Jd",
+            "As"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2h",
+            "4c",
+            "Kc",
+            "3c",
+            "Tc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "3d",
+            "8d",
+            "Ah",
+            "6h",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "9s",
+            "5d",
+            "5s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2s",
+            "3h",
+            "5c",
+            "3s",
+            "Qd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qs",
+            "Kh",
+            "9c",
+            "6d",
+            "Ts"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#2",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "9s",
+          "5d",
+          "2h"
+        ],
+        "middle": [
+          "9d",
+          "6c",
+          "Qs",
+          "Ad",
+          "2s"
+        ],
+        "bottom": [
+          "5s",
+          "Ah",
+          "4s",
+          "7d",
+          "4d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Ts",
+          "8s",
+          "8h"
+        ],
+        "middle": [
+          "6d",
+          "4h",
+          "Qc",
+          "7s",
+          "As"
+        ],
+        "bottom": [
+          "Th",
+          "Kc",
+          "9c",
+          "5c",
+          "6h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "9s",
+            "5d",
+            "2h"
+          ],
+          "rank": "9 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9d",
+            "6c",
+            "Qs",
+            "Ad",
+            "2s"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5s",
+            "Ah",
+            "4s",
+            "7d",
+            "4d"
+          ],
+          "rank": "Pair of 4s",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Ts",
+            "8s",
+            "8h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "6d",
+            "4h",
+            "Qc",
+            "7s",
+            "As"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "Kc",
+            "9c",
+            "5c",
+            "6h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#3",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "4s",
+          "8d",
+          "Th"
+        ],
+        "middle": [
+          "Td",
+          "3s",
+          "2s",
+          "8c",
+          "5s"
+        ],
+        "bottom": [
+          "6h",
+          "9d",
+          "2c",
+          "8s",
+          "Kc"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Js",
+          "Qs",
+          "Ah"
+        ],
+        "middle": [
+          "9c",
+          "Ad",
+          "2h",
+          "Jh",
+          "8h"
+        ],
+        "bottom": [
+          "Tc",
+          "3d",
+          "7c",
+          "4d",
+          "5h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "4s",
+            "8d",
+            "Th"
+          ],
+          "rank": "T High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Td",
+            "3s",
+            "2s",
+            "8c",
+            "5s"
+          ],
+          "rank": "T High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6h",
+            "9d",
+            "2c",
+            "8s",
+            "Kc"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Js",
+            "Qs",
+            "Ah"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9c",
+            "Ad",
+            "2h",
+            "Jh",
+            "8h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Tc",
+            "3d",
+            "7c",
+            "4d",
+            "5h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#4",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Jc",
+          "Ks",
+          "Jd"
+        ],
+        "middle": [
+          "4d",
+          "2c",
+          "7h",
+          "Ah",
+          "4c"
+        ],
+        "bottom": [
+          "Td",
+          "Qs",
+          "7s",
+          "Kh",
+          "Th"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "6c",
+          "Ts",
+          "8d"
+        ],
+        "middle": [
+          "9h",
+          "Js",
+          "Kc",
+          "6h",
+          "Jh"
+        ],
+        "bottom": [
+          "2h",
+          "3s",
+          "4s",
+          "7d",
+          "Qc"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Jc",
+            "Ks",
+            "Jd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "4d",
+            "2c",
+            "7h",
+            "Ah",
+            "4c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Td",
+            "Qs",
+            "7s",
+            "Kh",
+            "Th"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "6c",
+            "Ts",
+            "8d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9h",
+            "Js",
+            "Kc",
+            "6h",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2h",
+            "3s",
+            "4s",
+            "7d",
+            "Qc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#5",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "7s",
+          "Qh",
+          "7d"
+        ],
+        "middle": [
+          "Kc",
+          "4c",
+          "8d",
+          "9h",
+          "Qc"
+        ],
+        "bottom": [
+          "Jd",
+          "5s",
+          "2c",
+          "6d",
+          "5d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Th",
+          "Kd",
+          "Tc"
+        ],
+        "middle": [
+          "9d",
+          "6s",
+          "5h",
+          "Ad",
+          "7h"
+        ],
+        "bottom": [
+          "8s",
+          "Ac",
+          "Kh",
+          "Ts",
+          "4d"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "7s",
+            "Qh",
+            "7d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kc",
+            "4c",
+            "8d",
+            "9h",
+            "Qc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jd",
+            "5s",
+            "2c",
+            "6d",
+            "5d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Th",
+            "Kd",
+            "Tc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9d",
+            "6s",
+            "5h",
+            "Ad",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8s",
+            "Ac",
+            "Kh",
+            "Ts",
+            "4d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#6",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Td",
+          "Ad",
+          "2d"
+        ],
+        "middle": [
+          "9s",
+          "Qc",
+          "4s",
+          "6c",
+          "2h"
+        ],
+        "bottom": [
+          "9c",
+          "8s",
+          "Js",
+          "Ah",
+          "4c"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Ks",
+          "4h",
+          "Jd"
+        ],
+        "middle": [
+          "9d",
+          "Th",
+          "7c",
+          "3h",
+          "As"
+        ],
+        "bottom": [
+          "Jc",
+          "Tc",
+          "2s",
+          "6d",
+          "6s"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 3
+      },
+      "scoop": "B",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Td",
+            "Ad",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9s",
+            "Qc",
+            "4s",
+            "6c",
+            "2h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "9c",
+            "8s",
+            "Js",
+            "Ah",
+            "4c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Ks",
+            "4h",
+            "Jd"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9d",
+            "Th",
+            "7c",
+            "3h",
+            "As"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jc",
+            "Tc",
+            "2s",
+            "6d",
+            "6s"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -6,
+      "scoreB": 6,
+      "netScore": -6
+    },
+    {
+      "id": "random#7",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "3h",
+          "Qc",
+          "6s"
+        ],
+        "middle": [
+          "8s",
+          "3s",
+          "8h",
+          "9h",
+          "7c"
+        ],
+        "bottom": [
+          "6c",
+          "3c",
+          "4c",
+          "6d",
+          "4d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "9d",
+          "Jd",
+          "9c"
+        ],
+        "middle": [
+          "Qd",
+          "2h",
+          "2c",
+          "7h",
+          "2d"
+        ],
+        "bottom": [
+          "Jc",
+          "9s",
+          "Qs",
+          "Js",
+          "Kh"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "3h",
+            "Qc",
+            "6s"
+          ],
+          "rank": "Q High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "8s",
+            "3s",
+            "8h",
+            "9h",
+            "7c"
+          ],
+          "rank": "Pair of 8s",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6c",
+            "3c",
+            "4c",
+            "6d",
+            "4d"
+          ],
+          "rank": "Two Pair 6s and 4s",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "9d",
+            "Jd",
+            "9c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qd",
+            "2h",
+            "2c",
+            "7h",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jc",
+            "9s",
+            "Qs",
+            "Js",
+            "Kh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#8",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Ah",
+          "Ad",
+          "9h"
+        ],
+        "middle": [
+          "Qh",
+          "5h",
+          "7c",
+          "3d",
+          "Jc"
+        ],
+        "bottom": [
+          "2h",
+          "4d",
+          "4h",
+          "8d",
+          "Qc"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qd",
+          "7d",
+          "Qs"
+        ],
+        "middle": [
+          "Js",
+          "3c",
+          "4s",
+          "2c",
+          "Td"
+        ],
+        "bottom": [
+          "6d",
+          "Kd",
+          "Tc",
+          "4c",
+          "5s"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Ad",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qh",
+            "5h",
+            "7c",
+            "3d",
+            "Jc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2h",
+            "4d",
+            "4h",
+            "8d",
+            "Qc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qd",
+            "7d",
+            "Qs"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Js",
+            "3c",
+            "4s",
+            "2c",
+            "Td"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6d",
+            "Kd",
+            "Tc",
+            "4c",
+            "5s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#9",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Jd",
+          "Kd",
+          "6h"
+        ],
+        "middle": [
+          "7h",
+          "Ad",
+          "2c",
+          "Qh",
+          "6c"
+        ],
+        "bottom": [
+          "Ks",
+          "Qs",
+          "Ts",
+          "3s",
+          "Ah"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "3c",
+          "7d",
+          "5h"
+        ],
+        "middle": [
+          "9d",
+          "5c",
+          "4h",
+          "Tc",
+          "3h"
+        ],
+        "bottom": [
+          "8s",
+          "As",
+          "9c",
+          "Kc",
+          "Th"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Jd",
+            "Kd",
+            "6h"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7h",
+            "Ad",
+            "2c",
+            "Qh",
+            "6c"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ks",
+            "Qs",
+            "Ts",
+            "3s",
+            "Ah"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "3c",
+            "7d",
+            "5h"
+          ],
+          "rank": "7 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9d",
+            "5c",
+            "4h",
+            "Tc",
+            "3h"
+          ],
+          "rank": "T High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8s",
+            "As",
+            "9c",
+            "Kc",
+            "Th"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#10",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Th",
+          "3c",
+          "7d"
+        ],
+        "middle": [
+          "2h",
+          "8d",
+          "7c",
+          "Ah",
+          "2s"
+        ],
+        "bottom": [
+          "2c",
+          "6s",
+          "5d",
+          "4d",
+          "5s"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "9s",
+          "Ad",
+          "Tc"
+        ],
+        "middle": [
+          "Jc",
+          "8c",
+          "As",
+          "5h",
+          "9c"
+        ],
+        "bottom": [
+          "Kd",
+          "Qc",
+          "8h",
+          "6d",
+          "7h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Th",
+            "3c",
+            "7d"
+          ],
+          "rank": "T High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2h",
+            "8d",
+            "7c",
+            "Ah",
+            "2s"
+          ],
+          "rank": "Pair of 2s",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2c",
+            "6s",
+            "5d",
+            "4d",
+            "5s"
+          ],
+          "rank": "Pair of 5s",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "9s",
+            "Ad",
+            "Tc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jc",
+            "8c",
+            "As",
+            "5h",
+            "9c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kd",
+            "Qc",
+            "8h",
+            "6d",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#11",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "6s",
+          "2s",
+          "9h"
+        ],
+        "middle": [
+          "2c",
+          "5s",
+          "4h",
+          "7h",
+          "Ks"
+        ],
+        "bottom": [
+          "Kd",
+          "Kh",
+          "5d",
+          "8s",
+          "3d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "8d",
+          "Qh",
+          "Js"
+        ],
+        "middle": [
+          "3c",
+          "9s",
+          "Ad",
+          "Ac",
+          "As"
+        ],
+        "bottom": [
+          "Tc",
+          "3h",
+          "2h",
+          "5h",
+          "6c"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "6s",
+            "2s",
+            "9h"
+          ],
+          "rank": "9 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2c",
+            "5s",
+            "4h",
+            "7h",
+            "Ks"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kd",
+            "Kh",
+            "5d",
+            "8s",
+            "3d"
+          ],
+          "rank": "Pair of Ks",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "8d",
+            "Qh",
+            "Js"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "3c",
+            "9s",
+            "Ad",
+            "Ac",
+            "As"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Tc",
+            "3h",
+            "2h",
+            "5h",
+            "6c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#12",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "6s",
+          "Ks",
+          "5h"
+        ],
+        "middle": [
+          "As",
+          "7h",
+          "Kc",
+          "9h",
+          "3s"
+        ],
+        "bottom": [
+          "Jc",
+          "4h",
+          "7d",
+          "4c",
+          "2h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "4s",
+          "2d",
+          "Td"
+        ],
+        "middle": [
+          "7s",
+          "Qs",
+          "8d",
+          "3c",
+          "8h"
+        ],
+        "bottom": [
+          "Js",
+          "5c",
+          "Jh",
+          "Qc",
+          "2c"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 1,
+        "B": 2
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "6s",
+            "Ks",
+            "5h"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "As",
+            "7h",
+            "Kc",
+            "9h",
+            "3s"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jc",
+            "4h",
+            "7d",
+            "4c",
+            "2h"
+          ],
+          "rank": "Pair of 4s",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "4s",
+            "2d",
+            "Td"
+          ],
+          "rank": "T High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7s",
+            "Qs",
+            "8d",
+            "3c",
+            "8h"
+          ],
+          "rank": "Pair of 8s",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Js",
+            "5c",
+            "Jh",
+            "Qc",
+            "2c"
+          ],
+          "rank": "Pair of Js",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -1,
+      "scoreB": 1,
+      "netScore": -1
+    },
+    {
+      "id": "random#13",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "5d",
+          "Qh",
+          "3s"
+        ],
+        "middle": [
+          "7s",
+          "6c",
+          "Ks",
+          "2s",
+          "As"
+        ],
+        "bottom": [
+          "Ts",
+          "Kc",
+          "8h",
+          "4c",
+          "5s"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qc",
+          "Kd",
+          "Qd"
+        ],
+        "middle": [
+          "2d",
+          "8d",
+          "Jc",
+          "5h",
+          "4s"
+        ],
+        "bottom": [
+          "8c",
+          "9s",
+          "Qs",
+          "5c",
+          "6d"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "5d",
+            "Qh",
+            "3s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7s",
+            "6c",
+            "Ks",
+            "2s",
+            "As"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ts",
+            "Kc",
+            "8h",
+            "4c",
+            "5s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qc",
+            "Kd",
+            "Qd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2d",
+            "8d",
+            "Jc",
+            "5h",
+            "4s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8c",
+            "9s",
+            "Qs",
+            "5c",
+            "6d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#14",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "8h",
+          "Jd",
+          "6h"
+        ],
+        "middle": [
+          "Qs",
+          "9c",
+          "Ks",
+          "5c",
+          "7h"
+        ],
+        "bottom": [
+          "8d",
+          "Kh",
+          "7c",
+          "4d",
+          "4s"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "5h",
+          "3s",
+          "Th"
+        ],
+        "middle": [
+          "Ts",
+          "6c",
+          "Js",
+          "Kc",
+          "8c"
+        ],
+        "bottom": [
+          "Td",
+          "Ad",
+          "Jh",
+          "4h",
+          "6d"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "8h",
+            "Jd",
+            "6h"
+          ],
+          "rank": "J High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qs",
+            "9c",
+            "Ks",
+            "5c",
+            "7h"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8d",
+            "Kh",
+            "7c",
+            "4d",
+            "4s"
+          ],
+          "rank": "Pair of 4s",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "5h",
+            "3s",
+            "Th"
+          ],
+          "rank": "T High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ts",
+            "6c",
+            "Js",
+            "Kc",
+            "8c"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Td",
+            "Ad",
+            "Jh",
+            "4h",
+            "6d"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#15",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "9d",
+          "6c",
+          "Qc"
+        ],
+        "middle": [
+          "Js",
+          "Ah",
+          "9s",
+          "3d",
+          "Kd"
+        ],
+        "bottom": [
+          "Kc",
+          "9c",
+          "5h",
+          "4d",
+          "Jd"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "7d",
+          "3c",
+          "6s"
+        ],
+        "middle": [
+          "7s",
+          "5c",
+          "Qd",
+          "Ks",
+          "Tc"
+        ],
+        "bottom": [
+          "Ts",
+          "Qh",
+          "2c",
+          "7c",
+          "2d"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 3
+      },
+      "scoop": "B",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "9d",
+            "6c",
+            "Qc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Js",
+            "Ah",
+            "9s",
+            "3d",
+            "Kd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kc",
+            "9c",
+            "5h",
+            "4d",
+            "Jd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "7d",
+            "3c",
+            "6s"
+          ],
+          "rank": "7 High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7s",
+            "5c",
+            "Qd",
+            "Ks",
+            "Tc"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ts",
+            "Qh",
+            "2c",
+            "7c",
+            "2d"
+          ],
+          "rank": "Pair of 2s",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -6,
+      "scoreB": 6,
+      "netScore": -6
+    },
+    {
+      "id": "random#16",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "4c",
+          "7h",
+          "Jd"
+        ],
+        "middle": [
+          "4d",
+          "3c",
+          "5d",
+          "6h",
+          "Th"
+        ],
+        "bottom": [
+          "Kh",
+          "9h",
+          "5h",
+          "Ac",
+          "Qc"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qd",
+          "7s",
+          "Qs"
+        ],
+        "middle": [
+          "Js",
+          "6d",
+          "As",
+          "8s",
+          "Jh"
+        ],
+        "bottom": [
+          "8h",
+          "5s",
+          "7c",
+          "4h",
+          "5c"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "4c",
+            "7h",
+            "Jd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "4d",
+            "3c",
+            "5d",
+            "6h",
+            "Th"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kh",
+            "9h",
+            "5h",
+            "Ac",
+            "Qc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qd",
+            "7s",
+            "Qs"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Js",
+            "6d",
+            "As",
+            "8s",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "5s",
+            "7c",
+            "4h",
+            "5c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#17",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "2s",
+          "5c",
+          "6d"
+        ],
+        "middle": [
+          "8s",
+          "2d",
+          "7c",
+          "Kh",
+          "6c"
+        ],
+        "bottom": [
+          "5h",
+          "Ah",
+          "9c",
+          "Kd",
+          "2c"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Jc",
+          "9d",
+          "Td"
+        ],
+        "middle": [
+          "7d",
+          "3c",
+          "5s",
+          "Tc",
+          "As"
+        ],
+        "bottom": [
+          "6h",
+          "3d",
+          "Ad",
+          "6s",
+          "4h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 3
+      },
+      "scoop": "B",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2s",
+            "5c",
+            "6d"
+          ],
+          "rank": "6 High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "8s",
+            "2d",
+            "7c",
+            "Kh",
+            "6c"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5h",
+            "Ah",
+            "9c",
+            "Kd",
+            "2c"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Jc",
+            "9d",
+            "Td"
+          ],
+          "rank": "J High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7d",
+            "3c",
+            "5s",
+            "Tc",
+            "As"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6h",
+            "3d",
+            "Ad",
+            "6s",
+            "4h"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -6,
+      "scoreB": 6,
+      "netScore": -6
+    },
+    {
+      "id": "random#18",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Js",
+          "2c",
+          "4c"
+        ],
+        "middle": [
+          "7c",
+          "8d",
+          "Ad",
+          "5d",
+          "3c"
+        ],
+        "bottom": [
+          "6h",
+          "3s",
+          "As",
+          "7h",
+          "6d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "4d",
+          "2h",
+          "Tc"
+        ],
+        "middle": [
+          "7d",
+          "8s",
+          "Qc",
+          "9c",
+          "2d"
+        ],
+        "bottom": [
+          "Jc",
+          "9s",
+          "4h",
+          "8c",
+          "5c"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Js",
+            "2c",
+            "4c"
+          ],
+          "rank": "J High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7c",
+            "8d",
+            "Ad",
+            "5d",
+            "3c"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6h",
+            "3s",
+            "As",
+            "7h",
+            "6d"
+          ],
+          "rank": "Pair of 6s",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "4d",
+            "2h",
+            "Tc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7d",
+            "8s",
+            "Qc",
+            "9c",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jc",
+            "9s",
+            "4h",
+            "8c",
+            "5c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#19",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "3c",
+          "Jc",
+          "9h"
+        ],
+        "middle": [
+          "Ks",
+          "8c",
+          "3d",
+          "7c",
+          "Kd"
+        ],
+        "bottom": [
+          "Td",
+          "As",
+          "9c",
+          "6h",
+          "9s"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "5h",
+          "2c",
+          "5c"
+        ],
+        "middle": [
+          "9d",
+          "4d",
+          "7h",
+          "2s",
+          "6d"
+        ],
+        "bottom": [
+          "Qs",
+          "4h",
+          "Ac",
+          "5d",
+          "Qd"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "3c",
+            "Jc",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ks",
+            "8c",
+            "3d",
+            "7c",
+            "Kd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Td",
+            "As",
+            "9c",
+            "6h",
+            "9s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "5h",
+            "2c",
+            "5c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9d",
+            "4d",
+            "7h",
+            "2s",
+            "6d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qs",
+            "4h",
+            "Ac",
+            "5d",
+            "Qd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#20",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "2s",
+          "3h",
+          "Jh"
+        ],
+        "middle": [
+          "Kc",
+          "Ts",
+          "Ac",
+          "Th",
+          "6c"
+        ],
+        "bottom": [
+          "8h",
+          "5c",
+          "7c",
+          "5h",
+          "7d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2h",
+          "4h",
+          "7s"
+        ],
+        "middle": [
+          "Qs",
+          "9d",
+          "Qd",
+          "Jd",
+          "2d"
+        ],
+        "bottom": [
+          "9h",
+          "Qh",
+          "5d",
+          "Jc",
+          "4s"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2s",
+            "3h",
+            "Jh"
+          ],
+          "rank": "J High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kc",
+            "Ts",
+            "Ac",
+            "Th",
+            "6c"
+          ],
+          "rank": "Pair of Ts",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "5c",
+            "7c",
+            "5h",
+            "7d"
+          ],
+          "rank": "Two Pair 7s and 5s",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2h",
+            "4h",
+            "7s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qs",
+            "9d",
+            "Qd",
+            "Jd",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "9h",
+            "Qh",
+            "5d",
+            "Jc",
+            "4s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#21",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "7h",
+          "Kc",
+          "8c"
+        ],
+        "middle": [
+          "9h",
+          "2s",
+          "2d",
+          "3d",
+          "Qd"
+        ],
+        "bottom": [
+          "5d",
+          "9s",
+          "As",
+          "Th",
+          "Td"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Ah",
+          "Js",
+          "Jh"
+        ],
+        "middle": [
+          "4s",
+          "6h",
+          "4c",
+          "Ad",
+          "6c"
+        ],
+        "bottom": [
+          "9c",
+          "7c",
+          "7d",
+          "4d",
+          "Ks"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "7h",
+            "Kc",
+            "8c"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9h",
+            "2s",
+            "2d",
+            "3d",
+            "Qd"
+          ],
+          "rank": "Pair of 2s",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5d",
+            "9s",
+            "As",
+            "Th",
+            "Td"
+          ],
+          "rank": "Pair of Ts",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "Js",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "4s",
+            "6h",
+            "4c",
+            "Ad",
+            "6c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "9c",
+            "7c",
+            "7d",
+            "4d",
+            "Ks"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#22",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "4c",
+          "2s",
+          "2d"
+        ],
+        "middle": [
+          "Qh",
+          "8h",
+          "Th",
+          "Qd",
+          "9s"
+        ],
+        "bottom": [
+          "7d",
+          "4s",
+          "7c",
+          "Qs",
+          "2c"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Ts",
+          "6s",
+          "5d"
+        ],
+        "middle": [
+          "5h",
+          "As",
+          "Jh",
+          "2h",
+          "8d"
+        ],
+        "bottom": [
+          "6d",
+          "4d",
+          "3s",
+          "3d",
+          "8c"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 3
+      },
+      "scoop": "B",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "4c",
+            "2s",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Qh",
+            "8h",
+            "Th",
+            "Qd",
+            "9s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "7d",
+            "4s",
+            "7c",
+            "Qs",
+            "2c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Ts",
+            "6s",
+            "5d"
+          ],
+          "rank": "T High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5h",
+            "As",
+            "Jh",
+            "2h",
+            "8d"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6d",
+            "4d",
+            "3s",
+            "3d",
+            "8c"
+          ],
+          "rank": "Pair of 3s",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -6,
+      "scoreB": 6,
+      "netScore": -6
+    },
+    {
+      "id": "random#23",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Qs",
+          "5c",
+          "4h"
+        ],
+        "middle": [
+          "Js",
+          "7h",
+          "Ad",
+          "6h",
+          "9h"
+        ],
+        "bottom": [
+          "4d",
+          "Tc",
+          "7d",
+          "3c",
+          "8d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Jc",
+          "Qd",
+          "9d"
+        ],
+        "middle": [
+          "2h",
+          "8c",
+          "2c",
+          "8h",
+          "Kh"
+        ],
+        "bottom": [
+          "Ks",
+          "5d",
+          "Kd",
+          "Ts",
+          "As"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Qs",
+            "5c",
+            "4h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Js",
+            "7h",
+            "Ad",
+            "6h",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "4d",
+            "Tc",
+            "7d",
+            "3c",
+            "8d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Jc",
+            "Qd",
+            "9d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2h",
+            "8c",
+            "2c",
+            "8h",
+            "Kh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ks",
+            "5d",
+            "Kd",
+            "Ts",
+            "As"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#24",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Td",
+          "5h",
+          "9h"
+        ],
+        "middle": [
+          "As",
+          "Kh",
+          "8c",
+          "2c",
+          "Ad"
+        ],
+        "bottom": [
+          "6h",
+          "Ah",
+          "9c",
+          "Ts",
+          "9d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qh",
+          "5d",
+          "7d"
+        ],
+        "middle": [
+          "Jd",
+          "Kd",
+          "2d",
+          "Qd",
+          "Js"
+        ],
+        "bottom": [
+          "5c",
+          "3d",
+          "6s",
+          "2h",
+          "8d"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Td",
+            "5h",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "As",
+            "Kh",
+            "8c",
+            "2c",
+            "Ad"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6h",
+            "Ah",
+            "9c",
+            "Ts",
+            "9d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qh",
+            "5d",
+            "7d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jd",
+            "Kd",
+            "2d",
+            "Qd",
+            "Js"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5c",
+            "3d",
+            "6s",
+            "2h",
+            "8d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#25",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "6h",
+          "8c",
+          "9d"
+        ],
+        "middle": [
+          "5c",
+          "Qh",
+          "Jd",
+          "3s",
+          "Jc"
+        ],
+        "bottom": [
+          "7s",
+          "5d",
+          "4s",
+          "Tc",
+          "Kc"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Jh",
+          "6s",
+          "Ks"
+        ],
+        "middle": [
+          "4c",
+          "8h",
+          "Ac",
+          "Th",
+          "Ad"
+        ],
+        "bottom": [
+          "Ah",
+          "7d",
+          "3h",
+          "2s",
+          "4d"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "6h",
+            "8c",
+            "9d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5c",
+            "Qh",
+            "Jd",
+            "3s",
+            "Jc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "7s",
+            "5d",
+            "4s",
+            "Tc",
+            "Kc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Jh",
+            "6s",
+            "Ks"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "4c",
+            "8h",
+            "Ac",
+            "Th",
+            "Ad"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ah",
+            "7d",
+            "3h",
+            "2s",
+            "4d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#26",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "8c",
+          "9c",
+          "4d"
+        ],
+        "middle": [
+          "Jd",
+          "5s",
+          "7c",
+          "5d",
+          "7d"
+        ],
+        "bottom": [
+          "Kd",
+          "Ah",
+          "As",
+          "Qs",
+          "2d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "6s",
+          "6h",
+          "Jc"
+        ],
+        "middle": [
+          "Jh",
+          "7s",
+          "Tc",
+          "Qh",
+          "5h"
+        ],
+        "bottom": [
+          "Kc",
+          "7h",
+          "8h",
+          "Ac",
+          "8d"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "8c",
+            "9c",
+            "4d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jd",
+            "5s",
+            "7c",
+            "5d",
+            "7d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kd",
+            "Ah",
+            "As",
+            "Qs",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "6s",
+            "6h",
+            "Jc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jh",
+            "7s",
+            "Tc",
+            "Qh",
+            "5h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Kc",
+            "7h",
+            "8h",
+            "Ac",
+            "8d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#27",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "8h",
+          "4d",
+          "6d"
+        ],
+        "middle": [
+          "Jh",
+          "3s",
+          "Ad",
+          "5c",
+          "Qd"
+        ],
+        "bottom": [
+          "4h",
+          "6h",
+          "Kd",
+          "2d",
+          "2s"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qs",
+          "3h",
+          "Ks"
+        ],
+        "middle": [
+          "Ts",
+          "7d",
+          "4c",
+          "9s",
+          "3d"
+        ],
+        "bottom": [
+          "9c",
+          "Kh",
+          "Ac",
+          "As",
+          "Jd"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "8h",
+            "4d",
+            "6d"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Jh",
+            "3s",
+            "Ad",
+            "5c",
+            "Qd"
+          ],
+          "rank": "A High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "4h",
+            "6h",
+            "Kd",
+            "2d",
+            "2s"
+          ],
+          "rank": "Pair of 2s",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qs",
+            "3h",
+            "Ks"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ts",
+            "7d",
+            "4c",
+            "9s",
+            "3d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "9c",
+            "Kh",
+            "Ac",
+            "As",
+            "Jd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#28",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "3h",
+          "6h",
+          "Jc"
+        ],
+        "middle": [
+          "As",
+          "9d",
+          "9s",
+          "3d",
+          "Js"
+        ],
+        "bottom": [
+          "8h",
+          "Td",
+          "4s",
+          "Qd",
+          "Ad"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Qc",
+          "Kc",
+          "Ks"
+        ],
+        "middle": [
+          "Kh",
+          "Th",
+          "3c",
+          "7h",
+          "8s"
+        ],
+        "bottom": [
+          "8d",
+          "6d",
+          "2s",
+          "Ah",
+          "5c"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "3h",
+            "6h",
+            "Jc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "As",
+            "9d",
+            "9s",
+            "3d",
+            "Js"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "Td",
+            "4s",
+            "Qd",
+            "Ad"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Qc",
+            "Kc",
+            "Ks"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kh",
+            "Th",
+            "3c",
+            "7h",
+            "8s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8d",
+            "6d",
+            "2s",
+            "Ah",
+            "5c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#29",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "3c",
+          "Ks",
+          "Js"
+        ],
+        "middle": [
+          "4d",
+          "Jd",
+          "6h",
+          "2d",
+          "2c"
+        ],
+        "bottom": [
+          "9h",
+          "Ts",
+          "Tc",
+          "Kd",
+          "Th"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "3s",
+          "3h",
+          "Jh"
+        ],
+        "middle": [
+          "Ac",
+          "Jc",
+          "6d",
+          "4s",
+          "5s"
+        ],
+        "bottom": [
+          "2s",
+          "7h",
+          "Kh",
+          "7d",
+          "4h"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "3c",
+            "Ks",
+            "Js"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "4d",
+            "Jd",
+            "6h",
+            "2d",
+            "2c"
+          ],
+          "rank": "Pair of 2s",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "9h",
+            "Ts",
+            "Tc",
+            "Kd",
+            "Th"
+          ],
+          "rank": "Trip Ts",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "3s",
+            "3h",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ac",
+            "Jc",
+            "6d",
+            "4s",
+            "5s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2s",
+            "7h",
+            "Kh",
+            "7d",
+            "4h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#30",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "2d",
+          "Td",
+          "Kh"
+        ],
+        "middle": [
+          "5d",
+          "6c",
+          "7s",
+          "8c",
+          "Tc"
+        ],
+        "bottom": [
+          "6d",
+          "Qd",
+          "Ac",
+          "Jc",
+          "4d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "Ks",
+          "9s",
+          "8h"
+        ],
+        "middle": [
+          "Ah",
+          "5h",
+          "Kc",
+          "3h",
+          "3c"
+        ],
+        "bottom": [
+          "7c",
+          "6h",
+          "Jd",
+          "As",
+          "2s"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "2d",
+            "Td",
+            "Kh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5d",
+            "6c",
+            "7s",
+            "8c",
+            "Tc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6d",
+            "Qd",
+            "Ac",
+            "Jc",
+            "4d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "Ks",
+            "9s",
+            "8h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ah",
+            "5h",
+            "Kc",
+            "3h",
+            "3c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "7c",
+            "6h",
+            "Jd",
+            "As",
+            "2s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#31",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Ah",
+          "5c",
+          "2d"
+        ],
+        "middle": [
+          "7s",
+          "2h",
+          "5d",
+          "Ks",
+          "Td"
+        ],
+        "bottom": [
+          "Th",
+          "8d",
+          "6h",
+          "7c",
+          "7d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "8h",
+          "6s",
+          "8s"
+        ],
+        "middle": [
+          "2s",
+          "4c",
+          "Ad",
+          "9h",
+          "3c"
+        ],
+        "bottom": [
+          "4s",
+          "9c",
+          "Tc",
+          "Kd",
+          "3d"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Ah",
+            "5c",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7s",
+            "2h",
+            "5d",
+            "Ks",
+            "Td"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Th",
+            "8d",
+            "6h",
+            "7c",
+            "7d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "8h",
+            "6s",
+            "8s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "2s",
+            "4c",
+            "Ad",
+            "9h",
+            "3c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "4s",
+            "9c",
+            "Tc",
+            "Kd",
+            "3d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#32",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "As",
+          "7h",
+          "9h"
+        ],
+        "middle": [
+          "Td",
+          "7c",
+          "4d",
+          "7s",
+          "Kd"
+        ],
+        "bottom": [
+          "Qd",
+          "9s",
+          "Kc",
+          "Jh",
+          "3d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "3c",
+          "4c",
+          "6c"
+        ],
+        "middle": [
+          "3s",
+          "2h",
+          "6d",
+          "2d",
+          "Ts"
+        ],
+        "bottom": [
+          "Jc",
+          "8s",
+          "9d",
+          "5c",
+          "Qs"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "As",
+            "7h",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Td",
+            "7c",
+            "4d",
+            "7s",
+            "Kd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Qd",
+            "9s",
+            "Kc",
+            "Jh",
+            "3d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "3c",
+            "4c",
+            "6c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "3s",
+            "2h",
+            "6d",
+            "2d",
+            "Ts"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Jc",
+            "8s",
+            "9d",
+            "5c",
+            "Qs"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#33",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "Kh",
+          "2s",
+          "Ts"
+        ],
+        "middle": [
+          "3c",
+          "As",
+          "2h",
+          "Th",
+          "Ac"
+        ],
+        "bottom": [
+          "4h",
+          "5s",
+          "6d",
+          "Ah",
+          "5h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "9d",
+          "Ad",
+          "6c"
+        ],
+        "middle": [
+          "Kc",
+          "8s",
+          "7d",
+          "9c",
+          "8d"
+        ],
+        "bottom": [
+          "8h",
+          "Tc",
+          "7h",
+          "3d",
+          "4d"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "Kh",
+            "2s",
+            "Ts"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "3c",
+            "As",
+            "2h",
+            "Th",
+            "Ac"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "4h",
+            "5s",
+            "6d",
+            "Ah",
+            "5h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "9d",
+            "Ad",
+            "6c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kc",
+            "8s",
+            "7d",
+            "9c",
+            "8d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "Tc",
+            "7h",
+            "3d",
+            "4d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#34",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "8s",
+          "8d",
+          "Ad"
+        ],
+        "middle": [
+          "6d",
+          "Ac",
+          "4c",
+          "3h",
+          "Jd"
+        ],
+        "bottom": [
+          "2h",
+          "4h",
+          "Kc",
+          "9d",
+          "4d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "6c",
+          "3s",
+          "Ts"
+        ],
+        "middle": [
+          "7h",
+          "As",
+          "2d",
+          "Kd",
+          "5s"
+        ],
+        "bottom": [
+          "8h",
+          "Qc",
+          "Kh",
+          "5d",
+          "Jh"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "8s",
+            "8d",
+            "Ad"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "6d",
+            "Ac",
+            "4c",
+            "3h",
+            "Jd"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2h",
+            "4h",
+            "Kc",
+            "9d",
+            "4d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "6c",
+            "3s",
+            "Ts"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "7h",
+            "As",
+            "2d",
+            "Kd",
+            "5s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "8h",
+            "Qc",
+            "Kh",
+            "5d",
+            "Jh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#35",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "7d",
+          "6c",
+          "3s"
+        ],
+        "middle": [
+          "8d",
+          "8s",
+          "Jh",
+          "2s",
+          "Tc"
+        ],
+        "bottom": [
+          "4h",
+          "3c",
+          "Ks",
+          "9h",
+          "7h"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "As",
+          "Ah",
+          "4c"
+        ],
+        "middle": [
+          "Ad",
+          "2c",
+          "7c",
+          "2d",
+          "5d"
+        ],
+        "bottom": [
+          "5s",
+          "Js",
+          "Kc",
+          "6s",
+          "5c"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "7d",
+            "6c",
+            "3s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "8d",
+            "8s",
+            "Jh",
+            "2s",
+            "Tc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "4h",
+            "3c",
+            "Ks",
+            "9h",
+            "7h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "As",
+            "Ah",
+            "4c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ad",
+            "2c",
+            "7c",
+            "2d",
+            "5d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "5s",
+            "Js",
+            "Kc",
+            "6s",
+            "5c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#36",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "7h",
+          "5d",
+          "8h"
+        ],
+        "middle": [
+          "9s",
+          "Qd",
+          "Kd",
+          "4s",
+          "7s"
+        ],
+        "bottom": [
+          "7d",
+          "8c",
+          "6d",
+          "Js",
+          "8d"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "4h",
+          "Th",
+          "7c"
+        ],
+        "middle": [
+          "Kc",
+          "Ac",
+          "3s",
+          "Jd",
+          "Tc"
+        ],
+        "bottom": [
+          "Ts",
+          "4c",
+          "5h",
+          "Ad",
+          "8s"
+        ]
+      },
+      "fouledA": false,
+      "fouledB": true,
+      "rowWins": {
+        "A": 3,
+        "B": 0
+      },
+      "scoop": "A",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "7h",
+            "5d",
+            "8h"
+          ],
+          "rank": "8 High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "9s",
+            "Qd",
+            "Kd",
+            "4s",
+            "7s"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "7d",
+            "8c",
+            "6d",
+            "Js",
+            "8d"
+          ],
+          "rank": "Pair of 8s",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "4h",
+            "Th",
+            "7c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Kc",
+            "Ac",
+            "3s",
+            "Jd",
+            "Tc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ts",
+            "4c",
+            "5h",
+            "Ad",
+            "8s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "A"
+        }
+      ],
+      "scoreA": 6,
+      "scoreB": -6,
+      "netScore": 6
+    },
+    {
+      "id": "random#37",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "6d",
+          "9c",
+          "3s"
+        ],
+        "middle": [
+          "5c",
+          "Ts",
+          "2h",
+          "As",
+          "2d"
+        ],
+        "bottom": [
+          "9d",
+          "3c",
+          "Js",
+          "Th",
+          "8c"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "7s",
+          "Ks",
+          "2s"
+        ],
+        "middle": [
+          "Ah",
+          "Qh",
+          "Qc",
+          "Kc",
+          "4c"
+        ],
+        "bottom": [
+          "2c",
+          "7c",
+          "7h",
+          "4h",
+          "5s"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "6d",
+            "9c",
+            "3s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "5c",
+            "Ts",
+            "2h",
+            "As",
+            "2d"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "9d",
+            "3c",
+            "Js",
+            "Th",
+            "8c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "7s",
+            "Ks",
+            "2s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Ah",
+            "Qh",
+            "Qc",
+            "Kc",
+            "4c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "2c",
+            "7c",
+            "7h",
+            "4h",
+            "5s"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    },
+    {
+      "id": "random#38",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "5c",
+          "Qc",
+          "As"
+        ],
+        "middle": [
+          "6h",
+          "8d",
+          "7h",
+          "5s",
+          "9c"
+        ],
+        "bottom": [
+          "3h",
+          "2h",
+          "4h",
+          "Kd",
+          "Jc"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "3c",
+          "Jd",
+          "Qd"
+        ],
+        "middle": [
+          "3d",
+          "Kc",
+          "8s",
+          "2c",
+          "4s"
+        ],
+        "bottom": [
+          "Ts",
+          "Td",
+          "Ah",
+          "2d",
+          "Js"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": false,
+      "rowWins": {
+        "A": 0,
+        "B": 3
+      },
+      "scoop": "B",
+      "scoopBonus": 3,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "5c",
+            "Qc",
+            "As"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "6h",
+            "8d",
+            "7h",
+            "5s",
+            "9c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "3h",
+            "2h",
+            "4h",
+            "Kd",
+            "Jc"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "3c",
+            "Jd",
+            "Qd"
+          ],
+          "rank": "Q High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "3d",
+            "Kc",
+            "8s",
+            "2c",
+            "4s"
+          ],
+          "rank": "K High",
+          "royalties": 0,
+          "winner": "B"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Ts",
+            "Td",
+            "Ah",
+            "2d",
+            "Js"
+          ],
+          "rank": "Pair of Ts",
+          "royalties": 0,
+          "winner": "B"
+        }
+      ],
+      "scoreA": -6,
+      "scoreB": 6,
+      "netScore": -6
+    },
+    {
+      "id": "random#39",
+      "note": "random disjoint 13+13 from shuffled deck",
+      "boardA": {
+        "top": [
+          "6s",
+          "3h",
+          "6h"
+        ],
+        "middle": [
+          "Td",
+          "3d",
+          "Ad",
+          "5d",
+          "9h"
+        ],
+        "bottom": [
+          "Tc",
+          "8c",
+          "2s",
+          "Ah",
+          "5c"
+        ]
+      },
+      "boardB": {
+        "top": [
+          "2c",
+          "Ac",
+          "Kh"
+        ],
+        "middle": [
+          "As",
+          "8h",
+          "8d",
+          "3c",
+          "7c"
+        ],
+        "bottom": [
+          "6c",
+          "9c",
+          "Jc",
+          "Qs",
+          "4c"
+        ]
+      },
+      "fouledA": true,
+      "fouledB": true,
+      "rowWins": {
+        "A": 0,
+        "B": 0
+      },
+      "scoop": null,
+      "scoopBonus": 0,
+      "royaltiesA": 0,
+      "royaltiesB": 0,
+      "rowsA": [
+        {
+          "row": "top",
+          "cards": [
+            "6s",
+            "3h",
+            "6h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "Td",
+            "3d",
+            "Ad",
+            "5d",
+            "9h"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "Tc",
+            "8c",
+            "2s",
+            "Ah",
+            "5c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "rowsB": [
+        {
+          "row": "top",
+          "cards": [
+            "2c",
+            "Ac",
+            "Kh"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "middle",
+          "cards": [
+            "As",
+            "8h",
+            "8d",
+            "3c",
+            "7c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        },
+        {
+          "row": "bottom",
+          "cards": [
+            "6c",
+            "9c",
+            "Jc",
+            "Qs",
+            "4c"
+          ],
+          "rank": "FOULED",
+          "royalties": 0,
+          "winner": "tie"
+        }
+      ],
+      "scoreA": 0,
+      "scoreB": 0,
+      "netScore": 0
+    }
+  ]
+}

@@ -1,0 +1,9176 @@
+{
+  "meta": {
+    "engineCommit": "9d4f481",
+    "profiles": {
+      "normal": {
+        "label": "cash / normal",
+        "flStayTripsTop": true,
+        "flStayMidFullHouse": true,
+        "flStayQuadsBottom": true,
+        "progressiveFlCards": false,
+        "defaultFlCards": 14
+      },
+      "cash": {
+        "label": "cash (alias of normal)",
+        "flStayTripsTop": true,
+        "flStayMidFullHouse": true,
+        "flStayQuadsBottom": true,
+        "progressiveFlCards": false,
+        "defaultFlCards": 14
+      },
+      "windfall": {
+        "label": "3-max windfall mini",
+        "flStayTripsTop": true,
+        "flStayMidFullHouse": false,
+        "flStayQuadsBottom": true,
+        "progressiveFlCards": false,
+        "defaultFlCards": 14
+      },
+      "progressive": {
+        "label": "progressive FL cards",
+        "flStayTripsTop": true,
+        "flStayMidFullHouse": true,
+        "flStayQuadsBottom": true,
+        "progressiveFlCards": true,
+        "defaultFlCards": 14
+      }
+    },
+    "flQualifyRule": "Not fouled AND (trips on top OR pair QQ+ on top). Same for all profiles.",
+    "flStayRule": "Not fouled AND (trips+ top if enabled OR mid FH+ if enabled OR quads+ bottom if enabled). windfall disables mid FH stay.",
+    "flCardsRule": "progressive: QQ=14 KK=15 AA=16 trips+=17; else defaultFlCards (14). Fouled → defaultFlCards.",
+    "fields": {
+      "fouled": "isFouled(board)",
+      "royalties": "per-row and total (0 if fouled)",
+      "royaltiesIfNotFouled": "raw royalty functions ignoring foul (for debugging)",
+      "flQualify": "qualifiesForFantasyland",
+      "flStay": "qualifiesForFantasylandRepeat per profile",
+      "flCards": "fantasylandCardCountProfile per profile"
+    },
+    "seed": 265224195
+  },
+  "boards": [
+    {
+      "id": "valid-weak",
+      "note": "ascending high cards, no royalties, no FL",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "5h",
+        "6d",
+        "7c",
+        "8s",
+        "9h"
+      ],
+      "bottom": [
+        "Th",
+        "Jd",
+        "Qc",
+        "Ks",
+        "Ah"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 4,
+        "bottom": 2,
+        "total": 6
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 4,
+        "bottom": 2
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "category": 4,
+          "categoryName": "STRAIGHT",
+          "kickers": [
+            9
+          ],
+          "name": "Straight (9 high)"
+        },
+        "bottom": {
+          "cards": [
+            "Th",
+            "Jd",
+            "Qc",
+            "Ks",
+            "Ah"
+          ],
+          "category": 4,
+          "categoryName": "STRAIGHT",
+          "kickers": [
+            14
+          ],
+          "name": "Straight (A high)"
+        }
+      }
+    },
+    {
+      "id": "foul-top-gt-mid",
+      "note": "AA top over KK mid",
+      "top": [
+        "Ah",
+        "Ad",
+        "2c"
+      ],
+      "middle": [
+        "Kh",
+        "Kd",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "bottom": [
+        "Qh",
+        "Qd",
+        "Qc",
+        "Js",
+        "Jh"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 9,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            2
+          ],
+          "name": "Pair of As"
+        },
+        "middle": {
+          "cards": [
+            "Kh",
+            "Kd",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            13,
+            5,
+            4,
+            3
+          ],
+          "name": "Pair of Ks"
+        },
+        "bottom": {
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            12,
+            11
+          ],
+          "name": "Full House Qs over Js"
+        }
+      }
+    },
+    {
+      "id": "foul-mid-gt-bot",
+      "note": "FH aces mid over FH kings bot",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Ks",
+        "Kh"
+      ],
+      "bottom": [
+        "Qh",
+        "Qd",
+        "Qc",
+        "Js",
+        "Jh"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 12,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Full House As over Ks"
+        },
+        "bottom": {
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            12,
+            11
+          ],
+          "name": "Full House Qs over Js"
+        }
+      }
+    },
+    {
+      "id": "qq-fl-entry",
+      "note": "QQ top qualifies FL entry; stay only if trips/midFH/quads per profile",
+      "top": [
+        "Qh",
+        "Qd",
+        "2c"
+      ],
+      "middle": [
+        "Kh",
+        "Kd",
+        "5c",
+        "6s",
+        "7h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Js",
+        "9h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 7,
+        "middle": 0,
+        "bottom": 0,
+        "total": 7
+      },
+      "royaltiesIfNotFouled": {
+        "top": 7,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Qh",
+            "Qd",
+            "2c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            12,
+            2
+          ],
+          "name": "Pair of Qs"
+        },
+        "middle": {
+          "cards": [
+            "Kh",
+            "Kd",
+            "5c",
+            "6s",
+            "7h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            13,
+            7,
+            6,
+            5
+          ],
+          "name": "Pair of Ks"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Js",
+            "9h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            14,
+            11,
+            9
+          ],
+          "name": "Trip As"
+        }
+      }
+    },
+    {
+      "id": "kk-fl-entry",
+      "note": "KK top FL entry; progressive cards=15",
+      "top": [
+        "Kh",
+        "Kd",
+        "2c"
+      ],
+      "middle": [
+        "Ah",
+        "Ad",
+        "5c",
+        "6s",
+        "7h"
+      ],
+      "bottom": [
+        "8h",
+        "8d",
+        "8c",
+        "Js",
+        "9h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 8,
+        "middle": 0,
+        "bottom": 0,
+        "total": 8
+      },
+      "royaltiesIfNotFouled": {
+        "top": 8,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 15
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Kh",
+            "Kd",
+            "2c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            13,
+            2
+          ],
+          "name": "Pair of Ks"
+        },
+        "middle": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "5c",
+            "6s",
+            "7h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            7,
+            6,
+            5
+          ],
+          "name": "Pair of As"
+        },
+        "bottom": {
+          "cards": [
+            "8h",
+            "8d",
+            "8c",
+            "Js",
+            "9h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            8,
+            11,
+            9
+          ],
+          "name": "Trip 8s"
+        }
+      }
+    },
+    {
+      "id": "aa-fl-entry",
+      "note": "AA top; progressive cards=16; needs mid covering",
+      "top": [
+        "Ah",
+        "Ad",
+        "2c"
+      ],
+      "middle": [
+        "Kh",
+        "Kd",
+        "Kc",
+        "6s",
+        "7h"
+      ],
+      "bottom": [
+        "8h",
+        "8d",
+        "8c",
+        "8s",
+        "9h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 9,
+        "middle": 2,
+        "bottom": 10,
+        "total": 21
+      },
+      "royaltiesIfNotFouled": {
+        "top": 9,
+        "middle": 2,
+        "bottom": 10
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 16
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            2
+          ],
+          "name": "Pair of As"
+        },
+        "middle": {
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "6s",
+            "7h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            13,
+            7,
+            6
+          ],
+          "name": "Trip Ks"
+        },
+        "bottom": {
+          "cards": [
+            "8h",
+            "8d",
+            "8c",
+            "8s",
+            "9h"
+          ],
+          "category": 7,
+          "categoryName": "FOUR_OF_A_KIND",
+          "kickers": [
+            8,
+            9
+          ],
+          "name": "Quad 8s"
+        }
+      }
+    },
+    {
+      "id": "trips-top-fl",
+      "note": "trips J top; FL entry+stay all profiles; progressive=17",
+      "top": [
+        "Jh",
+        "Jd",
+        "Jc"
+      ],
+      "middle": [
+        "Qh",
+        "Qd",
+        "Qc",
+        "2s",
+        "3h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "As",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 19,
+        "middle": 2,
+        "bottom": 10,
+        "total": 31
+      },
+      "royaltiesIfNotFouled": {
+        "top": 19,
+        "middle": 2,
+        "bottom": 10
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 17
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Jh",
+            "Jd",
+            "Jc"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            11
+          ],
+          "name": "Trip Js"
+        },
+        "middle": {
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "2s",
+            "3h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            12,
+            3,
+            2
+          ],
+          "name": "Trip Qs"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "As",
+            "Kh"
+          ],
+          "category": 7,
+          "categoryName": "FOUR_OF_A_KIND",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Quad As"
+        }
+      }
+    },
+    {
+      "id": "mid-fh-stay-cash",
+      "note": "mid FH stay for cash/normal/progressive; NOT windfall; weak top",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "9h",
+        "9d",
+        "9c",
+        "8s",
+        "8h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Ks",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 12,
+        "bottom": 6,
+        "total": 18
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 12,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": false,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "9h",
+            "9d",
+            "9c",
+            "8s",
+            "8h"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            9,
+            8
+          ],
+          "name": "Full House 9s over 8s"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Full House As over Ks"
+        }
+      }
+    },
+    {
+      "id": "quads-bot-stay",
+      "note": "quads bottom → FL stay all profiles including windfall",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "5h",
+        "6d",
+        "7c",
+        "8s",
+        "9h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "As",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 4,
+        "bottom": 10,
+        "total": 14
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 4,
+        "bottom": 10
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "category": 4,
+          "categoryName": "STRAIGHT",
+          "kickers": [
+            9
+          ],
+          "name": "Straight (9 high)"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "As",
+            "Kh"
+          ],
+          "category": 7,
+          "categoryName": "FOUR_OF_A_KIND",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Quad As"
+        }
+      }
+    },
+    {
+      "id": "royalties-loaded",
+      "note": "AA top (9), mid trips (2), bot straight (2)",
+      "top": [
+        "Ah",
+        "Ad",
+        "Kc"
+      ],
+      "middle": [
+        "Qh",
+        "Qd",
+        "Qc",
+        "Js",
+        "9h"
+      ],
+      "bottom": [
+        "Th",
+        "9d",
+        "8c",
+        "7s",
+        "6h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 9,
+        "middle": 2,
+        "bottom": 2,
+        "total": 13
+      },
+      "royaltiesIfNotFouled": {
+        "top": 9,
+        "middle": 2,
+        "bottom": 2
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 16
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Kc"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Pair of As"
+        },
+        "middle": {
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "9h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            12,
+            11,
+            9
+          ],
+          "name": "Trip Qs"
+        },
+        "bottom": {
+          "cards": [
+            "Th",
+            "9d",
+            "8c",
+            "7s",
+            "6h"
+          ],
+          "category": 4,
+          "categoryName": "STRAIGHT",
+          "kickers": [
+            10
+          ],
+          "name": "Straight (T high)"
+        }
+      }
+    },
+    {
+      "id": "top-aaa",
+      "note": "AAA=22 top royalty; need quads+ bot to not foul",
+      "top": [
+        "Ah",
+        "Ad",
+        "Ac"
+      ],
+      "middle": [
+        "Kh",
+        "Kd",
+        "Kc",
+        "Qs",
+        "Qh"
+      ],
+      "bottom": [
+        "2h",
+        "2d",
+        "2c",
+        "2s",
+        "3h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 22,
+        "middle": 12,
+        "bottom": 10,
+        "total": 44
+      },
+      "royaltiesIfNotFouled": {
+        "top": 22,
+        "middle": 12,
+        "bottom": 10
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 17
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            14
+          ],
+          "name": "Trip As"
+        },
+        "middle": {
+          "cards": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "Qs",
+            "Qh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            13,
+            12
+          ],
+          "name": "Full House Ks over Qs"
+        },
+        "bottom": {
+          "cards": [
+            "2h",
+            "2d",
+            "2c",
+            "2s",
+            "3h"
+          ],
+          "category": 7,
+          "categoryName": "FOUR_OF_A_KIND",
+          "kickers": [
+            2,
+            3
+          ],
+          "name": "Quad 2s"
+        }
+      }
+    },
+    {
+      "id": "top-222",
+      "note": "222=10 royalty",
+      "top": [
+        "2h",
+        "2d",
+        "2c"
+      ],
+      "middle": [
+        "3h",
+        "3d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "As",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 10,
+        "middle": 2,
+        "bottom": 10,
+        "total": 22
+      },
+      "royaltiesIfNotFouled": {
+        "top": 10,
+        "middle": 2,
+        "bottom": 10
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 17
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "2d",
+            "2c"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            2
+          ],
+          "name": "Trip 2s"
+        },
+        "middle": {
+          "cards": [
+            "3h",
+            "3d",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            3,
+            5,
+            4
+          ],
+          "name": "Trip 3s"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "As",
+            "Kh"
+          ],
+          "category": 7,
+          "categoryName": "FOUR_OF_A_KIND",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Quad As"
+        }
+      }
+    },
+    {
+      "id": "top-66-royalty",
+      "note": "66=1 min pair royalty",
+      "top": [
+        "6h",
+        "6d",
+        "5c"
+      ],
+      "middle": [
+        "7h",
+        "7d",
+        "8c",
+        "9s",
+        "Th"
+      ],
+      "bottom": [
+        "Jh",
+        "Jd",
+        "Jc",
+        "Ks",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 1,
+        "middle": 0,
+        "bottom": 6,
+        "total": 7
+      },
+      "royaltiesIfNotFouled": {
+        "top": 1,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6h",
+            "6d",
+            "5c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            6,
+            5
+          ],
+          "name": "Pair of 6s"
+        },
+        "middle": {
+          "cards": [
+            "7h",
+            "7d",
+            "8c",
+            "9s",
+            "Th"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            7,
+            10,
+            9,
+            8
+          ],
+          "name": "Pair of 7s"
+        },
+        "bottom": {
+          "cards": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Ks",
+            "Kh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            11,
+            13
+          ],
+          "name": "Full House Js over Ks"
+        }
+      }
+    },
+    {
+      "id": "top-55-no-royalty",
+      "note": "55=0 no royalty",
+      "top": [
+        "5h",
+        "5d",
+        "3c"
+      ],
+      "middle": [
+        "6h",
+        "6d",
+        "7c",
+        "8s",
+        "9h"
+      ],
+      "bottom": [
+        "Th",
+        "Td",
+        "Tc",
+        "Js",
+        "Jh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 6,
+        "total": 6
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "5h",
+            "5d",
+            "3c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            5,
+            3
+          ],
+          "name": "Pair of 5s"
+        },
+        "middle": {
+          "cards": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            6,
+            9,
+            8,
+            7
+          ],
+          "name": "Pair of 6s"
+        },
+        "bottom": {
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "Js",
+            "Jh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            10,
+            11
+          ],
+          "name": "Full House Ts over Js"
+        }
+      }
+    },
+    {
+      "id": "mid-royal",
+      "note": "middle royal = 50 royalty; bot must be royal or SF higher… royal is max so bot also royal impossible same cards — use bot SF lower? Royal mid vs anything non-royal bot fouls. Skip impossible — use bot also needing category >= royal. Only royal ties. Use identical category royal impossible. So this FOULS if bot < royal.",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "Ah",
+        "Kh",
+        "Qh",
+        "Jh",
+        "Th"
+      ],
+      "bottom": [
+        "As",
+        "Ks",
+        "Qs",
+        "Js",
+        "Ts"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 50,
+        "bottom": 25,
+        "total": 75
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 50,
+        "bottom": 25
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "Ah",
+            "Kh",
+            "Qh",
+            "Jh",
+            "Th"
+          ],
+          "category": 9,
+          "categoryName": "ROYAL_FLUSH",
+          "kickers": [
+            14
+          ],
+          "name": "Royal Flush"
+        },
+        "bottom": {
+          "cards": [
+            "As",
+            "Ks",
+            "Qs",
+            "Js",
+            "Ts"
+          ],
+          "category": 9,
+          "categoryName": "ROYAL_FLUSH",
+          "kickers": [
+            14
+          ],
+          "name": "Royal Flush"
+        }
+      }
+    },
+    {
+      "id": "bot-royal",
+      "note": "bottom royal = 25",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "5h",
+        "6d",
+        "7c",
+        "8s",
+        "9h"
+      ],
+      "bottom": [
+        "As",
+        "Ks",
+        "Qs",
+        "Js",
+        "Ts"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 4,
+        "bottom": 25,
+        "total": 29
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 4,
+        "bottom": 25
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "category": 4,
+          "categoryName": "STRAIGHT",
+          "kickers": [
+            9
+          ],
+          "name": "Straight (9 high)"
+        },
+        "bottom": {
+          "cards": [
+            "As",
+            "Ks",
+            "Qs",
+            "Js",
+            "Ts"
+          ],
+          "category": 9,
+          "categoryName": "ROYAL_FLUSH",
+          "kickers": [
+            14
+          ],
+          "name": "Royal Flush"
+        }
+      }
+    },
+    {
+      "id": "mid-sf-bot-sf",
+      "note": "mid SF 9, bot SF K — OK; royalties 30+15",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "9h",
+        "8h",
+        "7h",
+        "6h",
+        "5h"
+      ],
+      "bottom": [
+        "Kd",
+        "Qd",
+        "Jd",
+        "Td",
+        "9d"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 30,
+        "bottom": 15,
+        "total": 45
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 30,
+        "bottom": 15
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "9h",
+            "8h",
+            "7h",
+            "6h",
+            "5h"
+          ],
+          "category": 8,
+          "categoryName": "STRAIGHT_FLUSH",
+          "kickers": [
+            9
+          ],
+          "name": "Straight Flush (9 high)"
+        },
+        "bottom": {
+          "cards": [
+            "Kd",
+            "Qd",
+            "Jd",
+            "Td",
+            "9d"
+          ],
+          "category": 8,
+          "categoryName": "STRAIGHT_FLUSH",
+          "kickers": [
+            13
+          ],
+          "name": "Straight Flush (K high)"
+        }
+      }
+    },
+    {
+      "id": "bot-fh",
+      "note": "bottom FH = 6",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "5h",
+        "5d",
+        "6c",
+        "7s",
+        "8h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Ks",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 6,
+        "total": 6
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "5h",
+            "5d",
+            "6c",
+            "7s",
+            "8h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            5,
+            8,
+            7,
+            6
+          ],
+          "name": "Pair of 5s"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Full House As over Ks"
+        }
+      }
+    },
+    {
+      "id": "mid-fh-bot-quads",
+      "note": "mid FH + bot quads; windfall stay via quads",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "9h",
+        "9d",
+        "9c",
+        "8s",
+        "8h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "As",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 12,
+        "bottom": 10,
+        "total": 22
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 12,
+        "bottom": 10
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "9h",
+            "9d",
+            "9c",
+            "8s",
+            "8h"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            9,
+            8
+          ],
+          "name": "Full House 9s over 8s"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "As",
+            "Kh"
+          ],
+          "category": 7,
+          "categoryName": "FOUR_OF_A_KIND",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Quad As"
+        }
+      }
+    },
+    {
+      "id": "equal-rows-ok",
+      "note": "top pair 8 = mid pair 8 (tie allowed, not foul)",
+      "top": [
+        "8h",
+        "8d",
+        "2c"
+      ],
+      "middle": [
+        "8c",
+        "8s",
+        "3d",
+        "4s",
+        "5h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Ks",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 3,
+        "middle": 0,
+        "bottom": 6,
+        "total": 9
+      },
+      "royaltiesIfNotFouled": {
+        "top": 3,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "8h",
+            "8d",
+            "2c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            8,
+            2
+          ],
+          "name": "Pair of 8s"
+        },
+        "middle": {
+          "cards": [
+            "8c",
+            "8s",
+            "3d",
+            "4s",
+            "5h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            8,
+            5,
+            4,
+            3
+          ],
+          "name": "Pair of 8s"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            14,
+            13
+          ],
+          "name": "Full House As over Ks"
+        }
+      }
+    },
+    {
+      "id": "cross-kicker-foul",
+      "note": "AKQ top vs AKJxx mid fouls on 3rd kicker",
+      "top": [
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "middle": [
+        "As",
+        "Kh",
+        "Jc",
+        "Ts",
+        "9h"
+      ],
+      "bottom": [
+        "2h",
+        "2d",
+        "2c",
+        "3s",
+        "3h"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ah",
+            "Kd",
+            "Qc"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            12
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "As",
+            "Kh",
+            "Jc",
+            "Ts",
+            "9h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            11,
+            10,
+            9
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "2h",
+            "2d",
+            "2c",
+            "3s",
+            "3h"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            2,
+            3
+          ],
+          "name": "Full House 2s over 3s"
+        }
+      }
+    },
+    {
+      "id": "cross-kicker-tie-ok",
+      "note": "AKQ top vs AKQxx mid: tie on 3 kickers — NOT foul",
+      "top": [
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "middle": [
+        "As",
+        "Kh",
+        "Qs",
+        "Js",
+        "9h"
+      ],
+      "bottom": [
+        "2h",
+        "2d",
+        "2c",
+        "3s",
+        "3h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 6,
+        "total": 6
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ah",
+            "Kd",
+            "Qc"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            12
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "As",
+            "Kh",
+            "Qs",
+            "Js",
+            "9h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            12,
+            11,
+            9
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "2h",
+            "2d",
+            "2c",
+            "3s",
+            "3h"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            2,
+            3
+          ],
+          "name": "Full House 2s over 3s"
+        }
+      }
+    },
+    {
+      "id": "jj-no-fl",
+      "note": "JJ top does NOT qualify FL (need QQ+)",
+      "top": [
+        "Jh",
+        "Jd",
+        "2c"
+      ],
+      "middle": [
+        "Qh",
+        "Qd",
+        "5c",
+        "6s",
+        "7h"
+      ],
+      "bottom": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Ks",
+        "9h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 6,
+        "middle": 0,
+        "bottom": 0,
+        "total": 6
+      },
+      "royaltiesIfNotFouled": {
+        "top": 6,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Jh",
+            "Jd",
+            "2c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            11,
+            2
+          ],
+          "name": "Pair of Js"
+        },
+        "middle": {
+          "cards": [
+            "Qh",
+            "Qd",
+            "5c",
+            "6s",
+            "7h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            12,
+            7,
+            6,
+            5
+          ],
+          "name": "Pair of Qs"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "9h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            14,
+            13,
+            9
+          ],
+          "name": "Trip As"
+        }
+      }
+    },
+    {
+      "id": "wheel-bot",
+      "note": "wheel straight bottom royalty 2",
+      "top": [
+        "6h",
+        "7d",
+        "8c"
+      ],
+      "middle": [
+        "9h",
+        "9d",
+        "2c",
+        "3s",
+        "4h"
+      ],
+      "bottom": [
+        "Ah",
+        "2d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 2,
+        "total": 2
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 2
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6h",
+            "7d",
+            "8c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            8,
+            7,
+            6
+          ],
+          "name": "8 High"
+        },
+        "middle": {
+          "cards": [
+            "9h",
+            "9d",
+            "2c",
+            "3s",
+            "4h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            4,
+            3,
+            2
+          ],
+          "name": "Pair of 9s"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "2d",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "category": 4,
+          "categoryName": "STRAIGHT",
+          "kickers": [
+            5
+          ],
+          "name": "Straight (5 high)"
+        }
+      }
+    },
+    {
+      "id": "steel-wheel-bot",
+      "note": "steel wheel bot = SF = 15",
+      "top": [
+        "6h",
+        "7d",
+        "8c"
+      ],
+      "middle": [
+        "9h",
+        "9d",
+        "2s",
+        "3s",
+        "4d"
+      ],
+      "bottom": [
+        "Ah",
+        "2h",
+        "3h",
+        "4h",
+        "5h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 15,
+        "total": 15
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 15
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": true,
+        "cash": true,
+        "windfall": true,
+        "progressive": true
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6h",
+            "7d",
+            "8c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            8,
+            7,
+            6
+          ],
+          "name": "8 High"
+        },
+        "middle": {
+          "cards": [
+            "9h",
+            "9d",
+            "2s",
+            "3s",
+            "4d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            4,
+            3,
+            2
+          ],
+          "name": "Pair of 9s"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "2h",
+            "3h",
+            "4h",
+            "5h"
+          ],
+          "category": 8,
+          "categoryName": "STRAIGHT_FLUSH",
+          "kickers": [
+            5
+          ],
+          "name": "Straight Flush (5 high)"
+        }
+      }
+    },
+    {
+      "id": "flush-mid-bot",
+      "note": "mid flush 8, bot FH 6",
+      "top": [
+        "2c",
+        "3d",
+        "4s"
+      ],
+      "middle": [
+        "Ah",
+        "Jh",
+        "9h",
+        "5h",
+        "3h"
+      ],
+      "bottom": [
+        "Kd",
+        "Kc",
+        "Ks",
+        "Qd",
+        "Qc"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 8,
+        "bottom": 6,
+        "total": 14
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 8,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2c",
+            "3d",
+            "4s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "Ah",
+            "Jh",
+            "9h",
+            "5h",
+            "3h"
+          ],
+          "category": 5,
+          "categoryName": "FLUSH",
+          "kickers": [
+            14,
+            11,
+            9,
+            5,
+            3
+          ],
+          "name": "Flush"
+        },
+        "bottom": {
+          "cards": [
+            "Kd",
+            "Kc",
+            "Ks",
+            "Qd",
+            "Qc"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            13,
+            12
+          ],
+          "name": "Full House Ks over Qs"
+        }
+      }
+    },
+    {
+      "id": "mid-trips-royalty",
+      "note": "middle trips = 2 royalty",
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "7h",
+        "7d",
+        "7c",
+        "8s",
+        "9h"
+      ],
+      "bottom": [
+        "Th",
+        "Td",
+        "Tc",
+        "Js",
+        "Jh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 2,
+        "bottom": 6,
+        "total": 8
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 2,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            4,
+            3,
+            2
+          ],
+          "name": "4 High"
+        },
+        "middle": {
+          "cards": [
+            "7h",
+            "7d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            7,
+            9,
+            8
+          ],
+          "name": "Trip 7s"
+        },
+        "bottom": {
+          "cards": [
+            "Th",
+            "Td",
+            "Tc",
+            "Js",
+            "Jh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            10,
+            11
+          ],
+          "name": "Full House Ts over Js"
+        }
+      }
+    },
+    {
+      "id": "all-royalties-top-kk",
+      "note": "KK=8 top, mid straight=4, bot flush=4",
+      "top": [
+        "Kh",
+        "Kd",
+        "2c"
+      ],
+      "middle": [
+        "9h",
+        "8d",
+        "7c",
+        "6s",
+        "5h"
+      ],
+      "bottom": [
+        "As",
+        "Js",
+        "9s",
+        "5s",
+        "3s"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 8,
+        "middle": 4,
+        "bottom": 4,
+        "total": 16
+      },
+      "royaltiesIfNotFouled": {
+        "top": 8,
+        "middle": 4,
+        "bottom": 4
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 15
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Kh",
+            "Kd",
+            "2c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            13,
+            2
+          ],
+          "name": "Pair of Ks"
+        },
+        "middle": {
+          "cards": [
+            "9h",
+            "8d",
+            "7c",
+            "6s",
+            "5h"
+          ],
+          "category": 4,
+          "categoryName": "STRAIGHT",
+          "kickers": [
+            9
+          ],
+          "name": "Straight (9 high)"
+        },
+        "bottom": {
+          "cards": [
+            "As",
+            "Js",
+            "9s",
+            "5s",
+            "3s"
+          ],
+          "category": 5,
+          "categoryName": "FLUSH",
+          "kickers": [
+            14,
+            11,
+            9,
+            5,
+            3
+          ],
+          "name": "Flush"
+        }
+      }
+    },
+    {
+      "id": "progressive-qq-flat14",
+      "note": "QQ → progressive flCards 14",
+      "top": [
+        "Qs",
+        "Qh",
+        "3c"
+      ],
+      "middle": [
+        "Ks",
+        "Kh",
+        "4d",
+        "5c",
+        "6h"
+      ],
+      "bottom": [
+        "Ac",
+        "Ad",
+        "Ah",
+        "2s",
+        "7d"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 7,
+        "middle": 0,
+        "bottom": 0,
+        "total": 7
+      },
+      "royaltiesIfNotFouled": {
+        "top": 7,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": true,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Qs",
+            "Qh",
+            "3c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            12,
+            3
+          ],
+          "name": "Pair of Qs"
+        },
+        "middle": {
+          "cards": [
+            "Ks",
+            "Kh",
+            "4d",
+            "5c",
+            "6h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            13,
+            6,
+            5,
+            4
+          ],
+          "name": "Pair of Ks"
+        },
+        "bottom": {
+          "cards": [
+            "Ac",
+            "Ad",
+            "Ah",
+            "2s",
+            "7d"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            14,
+            7,
+            2
+          ],
+          "name": "Trip As"
+        }
+      }
+    },
+    {
+      "id": "no-fl-weak-pair",
+      "note": "TT top no FL",
+      "top": [
+        "Th",
+        "Td",
+        "2c"
+      ],
+      "middle": [
+        "Jh",
+        "Jd",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "bottom": [
+        "Qh",
+        "Qd",
+        "Qc",
+        "Ks",
+        "Kh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 5,
+        "middle": 0,
+        "bottom": 6,
+        "total": 11
+      },
+      "royaltiesIfNotFouled": {
+        "top": 5,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Th",
+            "Td",
+            "2c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            10,
+            2
+          ],
+          "name": "Pair of Ts"
+        },
+        "middle": {
+          "cards": [
+            "Jh",
+            "Jd",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            11,
+            5,
+            4,
+            3
+          ],
+          "name": "Pair of Js"
+        },
+        "bottom": {
+          "cards": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Ks",
+            "Kh"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            12,
+            13
+          ],
+          "name": "Full House Qs over Ks"
+        }
+      }
+    },
+    {
+      "id": "fouled-no-fl-no-royalties",
+      "note": "fouled board: flQualify false, total royalties 0",
+      "top": [
+        "Ah",
+        "Ad",
+        "Ac"
+      ],
+      "middle": [
+        "2h",
+        "3d",
+        "4c",
+        "5s",
+        "7h"
+      ],
+      "bottom": [
+        "8h",
+        "8d",
+        "8c",
+        "9s",
+        "9h"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 22,
+        "middle": 0,
+        "bottom": 6
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ah",
+            "Ad",
+            "Ac"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            14
+          ],
+          "name": "Trip As"
+        },
+        "middle": {
+          "cards": [
+            "2h",
+            "3d",
+            "4c",
+            "5s",
+            "7h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            7,
+            5,
+            4,
+            3,
+            2
+          ],
+          "name": "7 High"
+        },
+        "bottom": {
+          "cards": [
+            "8h",
+            "8d",
+            "8c",
+            "9s",
+            "9h"
+          ],
+          "category": 6,
+          "categoryName": "FULL_HOUSE",
+          "kickers": [
+            8,
+            9
+          ],
+          "name": "Full House 8s over 9s"
+        }
+      }
+    },
+    {
+      "id": "random#0",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "8h",
+        "Ac",
+        "Qd"
+      ],
+      "middle": [
+        "Kc",
+        "3h",
+        "6c",
+        "Ts",
+        "5s"
+      ],
+      "bottom": [
+        "8c",
+        "3s",
+        "4s",
+        "Kh",
+        "Js"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "8h",
+            "Ac",
+            "Qd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            12,
+            8
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "Kc",
+            "3h",
+            "6c",
+            "Ts",
+            "5s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            10,
+            6,
+            5,
+            3
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "8c",
+            "3s",
+            "4s",
+            "Kh",
+            "Js"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            11,
+            8,
+            4,
+            3
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#1",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "6h",
+        "3s",
+        "2d"
+      ],
+      "middle": [
+        "9h",
+        "5s",
+        "Qc",
+        "Ts",
+        "2s"
+      ],
+      "bottom": [
+        "5d",
+        "4s",
+        "Qs",
+        "3d",
+        "Qd"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6h",
+            "3s",
+            "2d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            6,
+            3,
+            2
+          ],
+          "name": "6 High"
+        },
+        "middle": {
+          "cards": [
+            "9h",
+            "5s",
+            "Qc",
+            "Ts",
+            "2s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            10,
+            9,
+            5,
+            2
+          ],
+          "name": "Q High"
+        },
+        "bottom": {
+          "cards": [
+            "5d",
+            "4s",
+            "Qs",
+            "3d",
+            "Qd"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            12,
+            5,
+            4,
+            3
+          ],
+          "name": "Pair of Qs"
+        }
+      }
+    },
+    {
+      "id": "random#2",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "4s",
+        "5h",
+        "7d"
+      ],
+      "middle": [
+        "2s",
+        "Qs",
+        "Ad",
+        "6s",
+        "4h"
+      ],
+      "bottom": [
+        "2c",
+        "Ks",
+        "8s",
+        "Th",
+        "2h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "4s",
+            "5h",
+            "7d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            7,
+            5,
+            4
+          ],
+          "name": "7 High"
+        },
+        "middle": {
+          "cards": [
+            "2s",
+            "Qs",
+            "Ad",
+            "6s",
+            "4h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            12,
+            6,
+            4,
+            2
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "2c",
+            "Ks",
+            "8s",
+            "Th",
+            "2h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            13,
+            10,
+            8
+          ],
+          "name": "Pair of 2s"
+        }
+      }
+    },
+    {
+      "id": "random#3",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Kh",
+        "2h",
+        "As"
+      ],
+      "middle": [
+        "Kd",
+        "Th",
+        "3d",
+        "Ad",
+        "4d"
+      ],
+      "bottom": [
+        "3s",
+        "2s",
+        "2d",
+        "8h",
+        "Td"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Kh",
+            "2h",
+            "As"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            2
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "Kd",
+            "Th",
+            "3d",
+            "Ad",
+            "4d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            10,
+            4,
+            3
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "3s",
+            "2s",
+            "2d",
+            "8h",
+            "Td"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            10,
+            8,
+            3
+          ],
+          "name": "Pair of 2s"
+        }
+      }
+    },
+    {
+      "id": "random#4",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Tc",
+        "2c",
+        "Ks"
+      ],
+      "middle": [
+        "3s",
+        "5d",
+        "9s",
+        "2s",
+        "3d"
+      ],
+      "bottom": [
+        "Jc",
+        "Jd",
+        "6h",
+        "9h",
+        "Ts"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Tc",
+            "2c",
+            "Ks"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            10,
+            2
+          ],
+          "name": "K High"
+        },
+        "middle": {
+          "cards": [
+            "3s",
+            "5d",
+            "9s",
+            "2s",
+            "3d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            3,
+            9,
+            5,
+            2
+          ],
+          "name": "Pair of 3s"
+        },
+        "bottom": {
+          "cards": [
+            "Jc",
+            "Jd",
+            "6h",
+            "9h",
+            "Ts"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            11,
+            10,
+            9,
+            6
+          ],
+          "name": "Pair of Js"
+        }
+      }
+    },
+    {
+      "id": "random#5",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7s",
+        "Tc",
+        "Th"
+      ],
+      "middle": [
+        "3c",
+        "5d",
+        "8s",
+        "Qc",
+        "9d"
+      ],
+      "bottom": [
+        "Kh",
+        "3h",
+        "4s",
+        "4h",
+        "Ad"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 5,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7s",
+            "Tc",
+            "Th"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            10,
+            7
+          ],
+          "name": "Pair of Ts"
+        },
+        "middle": {
+          "cards": [
+            "3c",
+            "5d",
+            "8s",
+            "Qc",
+            "9d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            9,
+            8,
+            5,
+            3
+          ],
+          "name": "Q High"
+        },
+        "bottom": {
+          "cards": [
+            "Kh",
+            "3h",
+            "4s",
+            "4h",
+            "Ad"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            14,
+            13,
+            3
+          ],
+          "name": "Pair of 4s"
+        }
+      }
+    },
+    {
+      "id": "random#6",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Js",
+        "3d",
+        "6s"
+      ],
+      "middle": [
+        "8c",
+        "5d",
+        "Th",
+        "Ah",
+        "4c"
+      ],
+      "bottom": [
+        "2d",
+        "As",
+        "5c",
+        "Td",
+        "3s"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Js",
+            "3d",
+            "6s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            11,
+            6,
+            3
+          ],
+          "name": "J High"
+        },
+        "middle": {
+          "cards": [
+            "8c",
+            "5d",
+            "Th",
+            "Ah",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            10,
+            8,
+            5,
+            4
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "2d",
+            "As",
+            "5c",
+            "Td",
+            "3s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            10,
+            5,
+            3,
+            2
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#7",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9s",
+        "5c",
+        "3c"
+      ],
+      "middle": [
+        "Jd",
+        "7d",
+        "Ah",
+        "3s",
+        "Qh"
+      ],
+      "bottom": [
+        "As",
+        "9c",
+        "7c",
+        "8s",
+        "5d"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9s",
+            "5c",
+            "3c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            5,
+            3
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "Jd",
+            "7d",
+            "Ah",
+            "3s",
+            "Qh"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            12,
+            11,
+            7,
+            3
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "As",
+            "9c",
+            "7c",
+            "8s",
+            "5d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            9,
+            8,
+            7,
+            5
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#8",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7h",
+        "9h",
+        "2c"
+      ],
+      "middle": [
+        "6d",
+        "8c",
+        "5d",
+        "2s",
+        "7d"
+      ],
+      "bottom": [
+        "Kc",
+        "9s",
+        "Qd",
+        "4h",
+        "8s"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7h",
+            "9h",
+            "2c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            7,
+            2
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "6d",
+            "8c",
+            "5d",
+            "2s",
+            "7d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            8,
+            7,
+            6,
+            5,
+            2
+          ],
+          "name": "8 High"
+        },
+        "bottom": {
+          "cards": [
+            "Kc",
+            "9s",
+            "Qd",
+            "4h",
+            "8s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            12,
+            9,
+            8,
+            4
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#9",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "4d",
+        "9d",
+        "9s"
+      ],
+      "middle": [
+        "5s",
+        "6s",
+        "7c",
+        "Qh",
+        "Js"
+      ],
+      "bottom": [
+        "3s",
+        "9c",
+        "Ah",
+        "3h",
+        "Qs"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 4,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "4d",
+            "9d",
+            "9s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            4
+          ],
+          "name": "Pair of 9s"
+        },
+        "middle": {
+          "cards": [
+            "5s",
+            "6s",
+            "7c",
+            "Qh",
+            "Js"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            11,
+            7,
+            6,
+            5
+          ],
+          "name": "Q High"
+        },
+        "bottom": {
+          "cards": [
+            "3s",
+            "9c",
+            "Ah",
+            "3h",
+            "Qs"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            3,
+            14,
+            12,
+            9
+          ],
+          "name": "Pair of 3s"
+        }
+      }
+    },
+    {
+      "id": "random#10",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Kc",
+        "Qs",
+        "Js"
+      ],
+      "middle": [
+        "3c",
+        "9d",
+        "Ac",
+        "Kd",
+        "7c"
+      ],
+      "bottom": [
+        "6s",
+        "Ah",
+        "Qd",
+        "Qc",
+        "As"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Kc",
+            "Qs",
+            "Js"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            12,
+            11
+          ],
+          "name": "K High"
+        },
+        "middle": {
+          "cards": [
+            "3c",
+            "9d",
+            "Ac",
+            "Kd",
+            "7c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            9,
+            7,
+            3
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "6s",
+            "Ah",
+            "Qd",
+            "Qc",
+            "As"
+          ],
+          "category": 2,
+          "categoryName": "TWO_PAIR",
+          "kickers": [
+            14,
+            12,
+            6
+          ],
+          "name": "Two Pair As and Qs"
+        }
+      }
+    },
+    {
+      "id": "random#11",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9c",
+        "8h",
+        "Ah"
+      ],
+      "middle": [
+        "8d",
+        "6s",
+        "7s",
+        "2d",
+        "Kh"
+      ],
+      "bottom": [
+        "5c",
+        "Kd",
+        "Td",
+        "Tc",
+        "Th"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9c",
+            "8h",
+            "Ah"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            9,
+            8
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "8d",
+            "6s",
+            "7s",
+            "2d",
+            "Kh"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            8,
+            7,
+            6,
+            2
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "5c",
+            "Kd",
+            "Td",
+            "Tc",
+            "Th"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            10,
+            13,
+            5
+          ],
+          "name": "Trip Ts"
+        }
+      }
+    },
+    {
+      "id": "random#12",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7s",
+        "8h",
+        "5h"
+      ],
+      "middle": [
+        "6c",
+        "Jh",
+        "Tc",
+        "9d",
+        "9h"
+      ],
+      "bottom": [
+        "6h",
+        "Th",
+        "Qd",
+        "9s",
+        "3d"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7s",
+            "8h",
+            "5h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            8,
+            7,
+            5
+          ],
+          "name": "8 High"
+        },
+        "middle": {
+          "cards": [
+            "6c",
+            "Jh",
+            "Tc",
+            "9d",
+            "9h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            11,
+            10,
+            6
+          ],
+          "name": "Pair of 9s"
+        },
+        "bottom": {
+          "cards": [
+            "6h",
+            "Th",
+            "Qd",
+            "9s",
+            "3d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            10,
+            9,
+            6,
+            3
+          ],
+          "name": "Q High"
+        }
+      }
+    },
+    {
+      "id": "random#13",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9h",
+        "3s",
+        "5d"
+      ],
+      "middle": [
+        "Ad",
+        "4s",
+        "2c",
+        "6h",
+        "Td"
+      ],
+      "bottom": [
+        "2h",
+        "Kd",
+        "8h",
+        "As",
+        "9d"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9h",
+            "3s",
+            "5d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            5,
+            3
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "Ad",
+            "4s",
+            "2c",
+            "6h",
+            "Td"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            10,
+            6,
+            4,
+            2
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "2h",
+            "Kd",
+            "8h",
+            "As",
+            "9d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            9,
+            8,
+            2
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#14",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Tc",
+        "Ts",
+        "Th"
+      ],
+      "middle": [
+        "Qs",
+        "8c",
+        "4d",
+        "8h",
+        "3h"
+      ],
+      "bottom": [
+        "Qh",
+        "Jd",
+        "Ks",
+        "7d",
+        "Td"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 18,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Tc",
+            "Ts",
+            "Th"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            10
+          ],
+          "name": "Trip Ts"
+        },
+        "middle": {
+          "cards": [
+            "Qs",
+            "8c",
+            "4d",
+            "8h",
+            "3h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            8,
+            12,
+            4,
+            3
+          ],
+          "name": "Pair of 8s"
+        },
+        "bottom": {
+          "cards": [
+            "Qh",
+            "Jd",
+            "Ks",
+            "7d",
+            "Td"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            12,
+            11,
+            10,
+            7
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#15",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "2h",
+        "7c",
+        "Kd"
+      ],
+      "middle": [
+        "Js",
+        "6d",
+        "9d",
+        "Ac",
+        "Ah"
+      ],
+      "bottom": [
+        "2s",
+        "Qs",
+        "Ks",
+        "2c",
+        "7s"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "7c",
+            "Kd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            7,
+            2
+          ],
+          "name": "K High"
+        },
+        "middle": {
+          "cards": [
+            "Js",
+            "6d",
+            "9d",
+            "Ac",
+            "Ah"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            11,
+            9,
+            6
+          ],
+          "name": "Pair of As"
+        },
+        "bottom": {
+          "cards": [
+            "2s",
+            "Qs",
+            "Ks",
+            "2c",
+            "7s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            13,
+            12,
+            7
+          ],
+          "name": "Pair of 2s"
+        }
+      }
+    },
+    {
+      "id": "random#16",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9c",
+        "9d",
+        "3s"
+      ],
+      "middle": [
+        "Qh",
+        "5d",
+        "8h",
+        "As",
+        "Jh"
+      ],
+      "bottom": [
+        "Qc",
+        "Ad",
+        "4c",
+        "Qd",
+        "2h"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 4,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9c",
+            "9d",
+            "3s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            3
+          ],
+          "name": "Pair of 9s"
+        },
+        "middle": {
+          "cards": [
+            "Qh",
+            "5d",
+            "8h",
+            "As",
+            "Jh"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            12,
+            11,
+            8,
+            5
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "Qc",
+            "Ad",
+            "4c",
+            "Qd",
+            "2h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            12,
+            14,
+            4,
+            2
+          ],
+          "name": "Pair of Qs"
+        }
+      }
+    },
+    {
+      "id": "random#17",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "8c",
+        "7h",
+        "Ad"
+      ],
+      "middle": [
+        "9c",
+        "2d",
+        "Jh",
+        "8d",
+        "8h"
+      ],
+      "bottom": [
+        "2s",
+        "6s",
+        "7d",
+        "5s",
+        "Jd"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "8c",
+            "7h",
+            "Ad"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            8,
+            7
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "9c",
+            "2d",
+            "Jh",
+            "8d",
+            "8h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            8,
+            11,
+            9,
+            2
+          ],
+          "name": "Pair of 8s"
+        },
+        "bottom": {
+          "cards": [
+            "2s",
+            "6s",
+            "7d",
+            "5s",
+            "Jd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            11,
+            7,
+            6,
+            5,
+            2
+          ],
+          "name": "J High"
+        }
+      }
+    },
+    {
+      "id": "random#18",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "6d",
+        "Kc",
+        "8d"
+      ],
+      "middle": [
+        "9h",
+        "6s",
+        "2d",
+        "Ad",
+        "2s"
+      ],
+      "bottom": [
+        "6c",
+        "Jc",
+        "8s",
+        "3h",
+        "8c"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6d",
+            "Kc",
+            "8d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            8,
+            6
+          ],
+          "name": "K High"
+        },
+        "middle": {
+          "cards": [
+            "9h",
+            "6s",
+            "2d",
+            "Ad",
+            "2s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            14,
+            9,
+            6
+          ],
+          "name": "Pair of 2s"
+        },
+        "bottom": {
+          "cards": [
+            "6c",
+            "Jc",
+            "8s",
+            "3h",
+            "8c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            8,
+            11,
+            6,
+            3
+          ],
+          "name": "Pair of 8s"
+        }
+      }
+    },
+    {
+      "id": "random#19",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Th",
+        "8h",
+        "2h"
+      ],
+      "middle": [
+        "8s",
+        "9c",
+        "2s",
+        "Kh",
+        "9s"
+      ],
+      "bottom": [
+        "4c",
+        "3d",
+        "Qs",
+        "Ad",
+        "4d"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Th",
+            "8h",
+            "2h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            10,
+            8,
+            2
+          ],
+          "name": "T High"
+        },
+        "middle": {
+          "cards": [
+            "8s",
+            "9c",
+            "2s",
+            "Kh",
+            "9s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            13,
+            8,
+            2
+          ],
+          "name": "Pair of 9s"
+        },
+        "bottom": {
+          "cards": [
+            "4c",
+            "3d",
+            "Qs",
+            "Ad",
+            "4d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            14,
+            12,
+            3
+          ],
+          "name": "Pair of 4s"
+        }
+      }
+    },
+    {
+      "id": "random#20",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Ac",
+        "Tc",
+        "8h"
+      ],
+      "middle": [
+        "7c",
+        "Jh",
+        "9h",
+        "Qs",
+        "2h"
+      ],
+      "bottom": [
+        "3s",
+        "Ah",
+        "2d",
+        "2c",
+        "Ks"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ac",
+            "Tc",
+            "8h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            10,
+            8
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "7c",
+            "Jh",
+            "9h",
+            "Qs",
+            "2h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            11,
+            9,
+            7,
+            2
+          ],
+          "name": "Q High"
+        },
+        "bottom": {
+          "cards": [
+            "3s",
+            "Ah",
+            "2d",
+            "2c",
+            "Ks"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            14,
+            13,
+            3
+          ],
+          "name": "Pair of 2s"
+        }
+      }
+    },
+    {
+      "id": "random#21",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "3d",
+        "9h",
+        "6d"
+      ],
+      "middle": [
+        "7h",
+        "7d",
+        "5d",
+        "Kd",
+        "Td"
+      ],
+      "bottom": [
+        "Ad",
+        "7s",
+        "3s",
+        "2s",
+        "Jd"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "3d",
+            "9h",
+            "6d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            6,
+            3
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "7h",
+            "7d",
+            "5d",
+            "Kd",
+            "Td"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            7,
+            13,
+            10,
+            5
+          ],
+          "name": "Pair of 7s"
+        },
+        "bottom": {
+          "cards": [
+            "Ad",
+            "7s",
+            "3s",
+            "2s",
+            "Jd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            11,
+            7,
+            3,
+            2
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#22",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9c",
+        "5d",
+        "6h"
+      ],
+      "middle": [
+        "3s",
+        "7d",
+        "7h",
+        "9d",
+        "4h"
+      ],
+      "bottom": [
+        "8d",
+        "7s",
+        "Ks",
+        "Td",
+        "Jd"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9c",
+            "5d",
+            "6h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            6,
+            5
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "3s",
+            "7d",
+            "7h",
+            "9d",
+            "4h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            7,
+            9,
+            4,
+            3
+          ],
+          "name": "Pair of 7s"
+        },
+        "bottom": {
+          "cards": [
+            "8d",
+            "7s",
+            "Ks",
+            "Td",
+            "Jd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            11,
+            10,
+            8,
+            7
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#23",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "3d",
+        "8s",
+        "Td"
+      ],
+      "middle": [
+        "2h",
+        "Ah",
+        "2s",
+        "5s",
+        "4c"
+      ],
+      "bottom": [
+        "As",
+        "7s",
+        "9h",
+        "Tc",
+        "5h"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "3d",
+            "8s",
+            "Td"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            10,
+            8,
+            3
+          ],
+          "name": "T High"
+        },
+        "middle": {
+          "cards": [
+            "2h",
+            "Ah",
+            "2s",
+            "5s",
+            "4c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            14,
+            5,
+            4
+          ],
+          "name": "Pair of 2s"
+        },
+        "bottom": {
+          "cards": [
+            "As",
+            "7s",
+            "9h",
+            "Tc",
+            "5h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            10,
+            9,
+            7,
+            5
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#24",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "5h",
+        "3c",
+        "Ad"
+      ],
+      "middle": [
+        "4s",
+        "9c",
+        "Qh",
+        "6h",
+        "2c"
+      ],
+      "bottom": [
+        "2d",
+        "Th",
+        "5s",
+        "Qs",
+        "Kh"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "5h",
+            "3c",
+            "Ad"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            5,
+            3
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "4s",
+            "9c",
+            "Qh",
+            "6h",
+            "2c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            9,
+            6,
+            4,
+            2
+          ],
+          "name": "Q High"
+        },
+        "bottom": {
+          "cards": [
+            "2d",
+            "Th",
+            "5s",
+            "Qs",
+            "Kh"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            12,
+            10,
+            5,
+            2
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#25",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7c",
+        "8s",
+        "2c"
+      ],
+      "middle": [
+        "6c",
+        "6d",
+        "Qd",
+        "9d",
+        "8c"
+      ],
+      "bottom": [
+        "Kh",
+        "7d",
+        "2s",
+        "8h",
+        "9s"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7c",
+            "8s",
+            "2c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            8,
+            7,
+            2
+          ],
+          "name": "8 High"
+        },
+        "middle": {
+          "cards": [
+            "6c",
+            "6d",
+            "Qd",
+            "9d",
+            "8c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            6,
+            12,
+            9,
+            8
+          ],
+          "name": "Pair of 6s"
+        },
+        "bottom": {
+          "cards": [
+            "Kh",
+            "7d",
+            "2s",
+            "8h",
+            "9s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            9,
+            8,
+            7,
+            2
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#26",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "6d",
+        "8s",
+        "6s"
+      ],
+      "middle": [
+        "6c",
+        "8d",
+        "5h",
+        "Ts",
+        "Qs"
+      ],
+      "bottom": [
+        "5s",
+        "Th",
+        "Js",
+        "7d",
+        "Qh"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 1,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6d",
+            "8s",
+            "6s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            6,
+            8
+          ],
+          "name": "Pair of 6s"
+        },
+        "middle": {
+          "cards": [
+            "6c",
+            "8d",
+            "5h",
+            "Ts",
+            "Qs"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            10,
+            8,
+            6,
+            5
+          ],
+          "name": "Q High"
+        },
+        "bottom": {
+          "cards": [
+            "5s",
+            "Th",
+            "Js",
+            "7d",
+            "Qh"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            11,
+            10,
+            7,
+            5
+          ],
+          "name": "Q High"
+        }
+      }
+    },
+    {
+      "id": "random#27",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9c",
+        "Qs",
+        "7s"
+      ],
+      "middle": [
+        "Jd",
+        "2c",
+        "5s",
+        "8h",
+        "6s"
+      ],
+      "bottom": [
+        "Kd",
+        "Kh",
+        "Ts",
+        "Jc",
+        "7d"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9c",
+            "Qs",
+            "7s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            9,
+            7
+          ],
+          "name": "Q High"
+        },
+        "middle": {
+          "cards": [
+            "Jd",
+            "2c",
+            "5s",
+            "8h",
+            "6s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            11,
+            8,
+            6,
+            5,
+            2
+          ],
+          "name": "J High"
+        },
+        "bottom": {
+          "cards": [
+            "Kd",
+            "Kh",
+            "Ts",
+            "Jc",
+            "7d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            13,
+            11,
+            10,
+            7
+          ],
+          "name": "Pair of Ks"
+        }
+      }
+    },
+    {
+      "id": "random#28",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9s",
+        "7c",
+        "Kd"
+      ],
+      "middle": [
+        "3c",
+        "9d",
+        "Ac",
+        "7d",
+        "7s"
+      ],
+      "bottom": [
+        "2d",
+        "4h",
+        "Kc",
+        "6d",
+        "Jd"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9s",
+            "7c",
+            "Kd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            9,
+            7
+          ],
+          "name": "K High"
+        },
+        "middle": {
+          "cards": [
+            "3c",
+            "9d",
+            "Ac",
+            "7d",
+            "7s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            7,
+            14,
+            9,
+            3
+          ],
+          "name": "Pair of 7s"
+        },
+        "bottom": {
+          "cards": [
+            "2d",
+            "4h",
+            "Kc",
+            "6d",
+            "Jd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            11,
+            6,
+            4,
+            2
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#29",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9h",
+        "7d",
+        "2h"
+      ],
+      "middle": [
+        "8c",
+        "Ad",
+        "Qd",
+        "Ac",
+        "3d"
+      ],
+      "bottom": [
+        "6s",
+        "4h",
+        "4d",
+        "8h",
+        "Qh"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9h",
+            "7d",
+            "2h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            7,
+            2
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "8c",
+            "Ad",
+            "Qd",
+            "Ac",
+            "3d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            12,
+            8,
+            3
+          ],
+          "name": "Pair of As"
+        },
+        "bottom": {
+          "cards": [
+            "6s",
+            "4h",
+            "4d",
+            "8h",
+            "Qh"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            12,
+            8,
+            6
+          ],
+          "name": "Pair of 4s"
+        }
+      }
+    },
+    {
+      "id": "random#30",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Ad",
+        "3s",
+        "Ah"
+      ],
+      "middle": [
+        "Kh",
+        "6d",
+        "Th",
+        "3c",
+        "9c"
+      ],
+      "bottom": [
+        "4d",
+        "Kd",
+        "9h",
+        "4s",
+        "Qs"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 9,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ad",
+            "3s",
+            "Ah"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            3
+          ],
+          "name": "Pair of As"
+        },
+        "middle": {
+          "cards": [
+            "Kh",
+            "6d",
+            "Th",
+            "3c",
+            "9c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            10,
+            9,
+            6,
+            3
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "4d",
+            "Kd",
+            "9h",
+            "4s",
+            "Qs"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            13,
+            12,
+            9
+          ],
+          "name": "Pair of 4s"
+        }
+      }
+    },
+    {
+      "id": "random#31",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "6h",
+        "Th",
+        "5s"
+      ],
+      "middle": [
+        "4s",
+        "As",
+        "9d",
+        "4h",
+        "Jc"
+      ],
+      "bottom": [
+        "7d",
+        "3c",
+        "3s",
+        "Kh",
+        "9h"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6h",
+            "Th",
+            "5s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            10,
+            6,
+            5
+          ],
+          "name": "T High"
+        },
+        "middle": {
+          "cards": [
+            "4s",
+            "As",
+            "9d",
+            "4h",
+            "Jc"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            14,
+            11,
+            9
+          ],
+          "name": "Pair of 4s"
+        },
+        "bottom": {
+          "cards": [
+            "7d",
+            "3c",
+            "3s",
+            "Kh",
+            "9h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            3,
+            13,
+            9,
+            7
+          ],
+          "name": "Pair of 3s"
+        }
+      }
+    },
+    {
+      "id": "random#32",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "6c",
+        "2d",
+        "3d"
+      ],
+      "middle": [
+        "Jc",
+        "9h",
+        "4s",
+        "3c",
+        "Ah"
+      ],
+      "bottom": [
+        "2s",
+        "Qh",
+        "Tc",
+        "Td",
+        "4d"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6c",
+            "2d",
+            "3d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            6,
+            3,
+            2
+          ],
+          "name": "6 High"
+        },
+        "middle": {
+          "cards": [
+            "Jc",
+            "9h",
+            "4s",
+            "3c",
+            "Ah"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            11,
+            9,
+            4,
+            3
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "2s",
+            "Qh",
+            "Tc",
+            "Td",
+            "4d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            10,
+            12,
+            4,
+            2
+          ],
+          "name": "Pair of Ts"
+        }
+      }
+    },
+    {
+      "id": "random#33",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "4s",
+        "2d",
+        "6h"
+      ],
+      "middle": [
+        "5c",
+        "8h",
+        "5d",
+        "2c",
+        "Td"
+      ],
+      "bottom": [
+        "7s",
+        "7h",
+        "9s",
+        "Th",
+        "2s"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "4s",
+            "2d",
+            "6h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            6,
+            4,
+            2
+          ],
+          "name": "6 High"
+        },
+        "middle": {
+          "cards": [
+            "5c",
+            "8h",
+            "5d",
+            "2c",
+            "Td"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            5,
+            10,
+            8,
+            2
+          ],
+          "name": "Pair of 5s"
+        },
+        "bottom": {
+          "cards": [
+            "7s",
+            "7h",
+            "9s",
+            "Th",
+            "2s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            7,
+            10,
+            9,
+            2
+          ],
+          "name": "Pair of 7s"
+        }
+      }
+    },
+    {
+      "id": "random#34",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "2h",
+        "7h",
+        "9d"
+      ],
+      "middle": [
+        "6s",
+        "Jc",
+        "Kc",
+        "7d",
+        "4c"
+      ],
+      "bottom": [
+        "9h",
+        "8d",
+        "Qh",
+        "8s",
+        "Jh"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "2h",
+            "7h",
+            "9d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            7,
+            2
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "6s",
+            "Jc",
+            "Kc",
+            "7d",
+            "4c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            11,
+            7,
+            6,
+            4
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "9h",
+            "8d",
+            "Qh",
+            "8s",
+            "Jh"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            8,
+            12,
+            11,
+            9
+          ],
+          "name": "Pair of 8s"
+        }
+      }
+    },
+    {
+      "id": "random#35",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "4d",
+        "7s",
+        "8c"
+      ],
+      "middle": [
+        "4c",
+        "3h",
+        "3c",
+        "Ad",
+        "5h"
+      ],
+      "bottom": [
+        "9d",
+        "Ah",
+        "Kh",
+        "Ts",
+        "4h"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "4d",
+            "7s",
+            "8c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            8,
+            7,
+            4
+          ],
+          "name": "8 High"
+        },
+        "middle": {
+          "cards": [
+            "4c",
+            "3h",
+            "3c",
+            "Ad",
+            "5h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            3,
+            14,
+            5,
+            4
+          ],
+          "name": "Pair of 3s"
+        },
+        "bottom": {
+          "cards": [
+            "9d",
+            "Ah",
+            "Kh",
+            "Ts",
+            "4h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            10,
+            9,
+            4
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#36",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Ad",
+        "9c",
+        "8c"
+      ],
+      "middle": [
+        "5c",
+        "2d",
+        "6h",
+        "Td",
+        "Qh"
+      ],
+      "bottom": [
+        "8h",
+        "Ts",
+        "Kh",
+        "2s",
+        "9h"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ad",
+            "9c",
+            "8c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            9,
+            8
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "5c",
+            "2d",
+            "6h",
+            "Td",
+            "Qh"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            10,
+            6,
+            5,
+            2
+          ],
+          "name": "Q High"
+        },
+        "bottom": {
+          "cards": [
+            "8h",
+            "Ts",
+            "Kh",
+            "2s",
+            "9h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            10,
+            9,
+            8,
+            2
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#37",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "6c",
+        "9d",
+        "2c"
+      ],
+      "middle": [
+        "Kd",
+        "9s",
+        "5c",
+        "Qh",
+        "5h"
+      ],
+      "bottom": [
+        "3h",
+        "Jc",
+        "4s",
+        "5s",
+        "Kh"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6c",
+            "9d",
+            "2c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            6,
+            2
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "Kd",
+            "9s",
+            "5c",
+            "Qh",
+            "5h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            5,
+            13,
+            12,
+            9
+          ],
+          "name": "Pair of 5s"
+        },
+        "bottom": {
+          "cards": [
+            "3h",
+            "Jc",
+            "4s",
+            "5s",
+            "Kh"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            11,
+            5,
+            4,
+            3
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#38",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Jh",
+        "9h",
+        "7s"
+      ],
+      "middle": [
+        "4h",
+        "6d",
+        "8c",
+        "2d",
+        "2s"
+      ],
+      "bottom": [
+        "As",
+        "2h",
+        "2c",
+        "6s",
+        "9d"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Jh",
+            "9h",
+            "7s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            11,
+            9,
+            7
+          ],
+          "name": "J High"
+        },
+        "middle": {
+          "cards": [
+            "4h",
+            "6d",
+            "8c",
+            "2d",
+            "2s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            8,
+            6,
+            4
+          ],
+          "name": "Pair of 2s"
+        },
+        "bottom": {
+          "cards": [
+            "As",
+            "2h",
+            "2c",
+            "6s",
+            "9d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            14,
+            9,
+            6
+          ],
+          "name": "Pair of 2s"
+        }
+      }
+    },
+    {
+      "id": "random#39",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Tc",
+        "4d",
+        "4s"
+      ],
+      "middle": [
+        "Qh",
+        "As",
+        "4h",
+        "Td",
+        "Kc"
+      ],
+      "bottom": [
+        "Qd",
+        "3c",
+        "5d",
+        "Js",
+        "Jc"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Tc",
+            "4d",
+            "4s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            10
+          ],
+          "name": "Pair of 4s"
+        },
+        "middle": {
+          "cards": [
+            "Qh",
+            "As",
+            "4h",
+            "Td",
+            "Kc"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            12,
+            10,
+            4
+          ],
+          "name": "A High"
+        },
+        "bottom": {
+          "cards": [
+            "Qd",
+            "3c",
+            "5d",
+            "Js",
+            "Jc"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            11,
+            12,
+            5,
+            3
+          ],
+          "name": "Pair of Js"
+        }
+      }
+    },
+    {
+      "id": "random#40",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Kd",
+        "4d",
+        "4h"
+      ],
+      "middle": [
+        "Ad",
+        "2h",
+        "Ac",
+        "Js",
+        "8c"
+      ],
+      "bottom": [
+        "Kc",
+        "6s",
+        "Ah",
+        "Th",
+        "9c"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Kd",
+            "4d",
+            "4h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            13
+          ],
+          "name": "Pair of 4s"
+        },
+        "middle": {
+          "cards": [
+            "Ad",
+            "2h",
+            "Ac",
+            "Js",
+            "8c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            11,
+            8,
+            2
+          ],
+          "name": "Pair of As"
+        },
+        "bottom": {
+          "cards": [
+            "Kc",
+            "6s",
+            "Ah",
+            "Th",
+            "9c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            10,
+            9,
+            6
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#41",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "5c",
+        "5s",
+        "5h"
+      ],
+      "middle": [
+        "7d",
+        "Tc",
+        "4c",
+        "8c",
+        "6h"
+      ],
+      "bottom": [
+        "2d",
+        "Qh",
+        "4d",
+        "As",
+        "4s"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 13,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "5c",
+            "5s",
+            "5h"
+          ],
+          "category": 3,
+          "categoryName": "THREE_OF_A_KIND",
+          "kickers": [
+            5
+          ],
+          "name": "Trip 5s"
+        },
+        "middle": {
+          "cards": [
+            "7d",
+            "Tc",
+            "4c",
+            "8c",
+            "6h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            10,
+            8,
+            7,
+            6,
+            4
+          ],
+          "name": "T High"
+        },
+        "bottom": {
+          "cards": [
+            "2d",
+            "Qh",
+            "4d",
+            "As",
+            "4s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            14,
+            12,
+            2
+          ],
+          "name": "Pair of 4s"
+        }
+      }
+    },
+    {
+      "id": "random#42",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9c",
+        "7s",
+        "2c"
+      ],
+      "middle": [
+        "6d",
+        "Tc",
+        "5h",
+        "4s",
+        "4h"
+      ],
+      "bottom": [
+        "9s",
+        "Td",
+        "3c",
+        "7d",
+        "8c"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9c",
+            "7s",
+            "2c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            7,
+            2
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "6d",
+            "Tc",
+            "5h",
+            "4s",
+            "4h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            10,
+            6,
+            5
+          ],
+          "name": "Pair of 4s"
+        },
+        "bottom": {
+          "cards": [
+            "9s",
+            "Td",
+            "3c",
+            "7d",
+            "8c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            10,
+            9,
+            8,
+            7,
+            3
+          ],
+          "name": "T High"
+        }
+      }
+    },
+    {
+      "id": "random#43",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Kh",
+        "7h",
+        "Tc"
+      ],
+      "middle": [
+        "3s",
+        "5c",
+        "8c",
+        "Jc",
+        "8s"
+      ],
+      "bottom": [
+        "9c",
+        "Qh",
+        "Th",
+        "8d",
+        "Td"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Kh",
+            "7h",
+            "Tc"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            10,
+            7
+          ],
+          "name": "K High"
+        },
+        "middle": {
+          "cards": [
+            "3s",
+            "5c",
+            "8c",
+            "Jc",
+            "8s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            8,
+            11,
+            5,
+            3
+          ],
+          "name": "Pair of 8s"
+        },
+        "bottom": {
+          "cards": [
+            "9c",
+            "Qh",
+            "Th",
+            "8d",
+            "Td"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            10,
+            12,
+            9,
+            8
+          ],
+          "name": "Pair of Ts"
+        }
+      }
+    },
+    {
+      "id": "random#44",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "6c",
+        "Kc",
+        "Qs"
+      ],
+      "middle": [
+        "9s",
+        "7d",
+        "Js",
+        "6s",
+        "Th"
+      ],
+      "bottom": [
+        "2s",
+        "7c",
+        "Jd",
+        "2c",
+        "Td"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "6c",
+            "Kc",
+            "Qs"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            12,
+            6
+          ],
+          "name": "K High"
+        },
+        "middle": {
+          "cards": [
+            "9s",
+            "7d",
+            "Js",
+            "6s",
+            "Th"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            11,
+            10,
+            9,
+            7,
+            6
+          ],
+          "name": "J High"
+        },
+        "bottom": {
+          "cards": [
+            "2s",
+            "7c",
+            "Jd",
+            "2c",
+            "Td"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            11,
+            10,
+            7
+          ],
+          "name": "Pair of 2s"
+        }
+      }
+    },
+    {
+      "id": "random#45",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "As",
+        "4h",
+        "5c"
+      ],
+      "middle": [
+        "2d",
+        "Ts",
+        "Kd",
+        "7d",
+        "Js"
+      ],
+      "bottom": [
+        "9d",
+        "Qs",
+        "4d",
+        "9s",
+        "6d"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "As",
+            "4h",
+            "5c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            5,
+            4
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "2d",
+            "Ts",
+            "Kd",
+            "7d",
+            "Js"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            11,
+            10,
+            7,
+            2
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "9d",
+            "Qs",
+            "4d",
+            "9s",
+            "6d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            12,
+            6,
+            4
+          ],
+          "name": "Pair of 9s"
+        }
+      }
+    },
+    {
+      "id": "random#46",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Jh",
+        "7d",
+        "Tc"
+      ],
+      "middle": [
+        "7c",
+        "3c",
+        "Qs",
+        "Ks",
+        "2h"
+      ],
+      "bottom": [
+        "Ah",
+        "7s",
+        "As",
+        "9h",
+        "Qc"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Jh",
+            "7d",
+            "Tc"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            11,
+            10,
+            7
+          ],
+          "name": "J High"
+        },
+        "middle": {
+          "cards": [
+            "7c",
+            "3c",
+            "Qs",
+            "Ks",
+            "2h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            12,
+            7,
+            3,
+            2
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "Ah",
+            "7s",
+            "As",
+            "9h",
+            "Qc"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            12,
+            9,
+            7
+          ],
+          "name": "Pair of As"
+        }
+      }
+    },
+    {
+      "id": "random#47",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "8h",
+        "Qc",
+        "5d"
+      ],
+      "middle": [
+        "4d",
+        "2h",
+        "Ad",
+        "Kc",
+        "4c"
+      ],
+      "bottom": [
+        "Ac",
+        "Jh",
+        "6c",
+        "7d",
+        "6h"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "8h",
+            "Qc",
+            "5d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            8,
+            5
+          ],
+          "name": "Q High"
+        },
+        "middle": {
+          "cards": [
+            "4d",
+            "2h",
+            "Ad",
+            "Kc",
+            "4c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            4,
+            14,
+            13,
+            2
+          ],
+          "name": "Pair of 4s"
+        },
+        "bottom": {
+          "cards": [
+            "Ac",
+            "Jh",
+            "6c",
+            "7d",
+            "6h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            6,
+            14,
+            11,
+            7
+          ],
+          "name": "Pair of 6s"
+        }
+      }
+    },
+    {
+      "id": "random#48",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Jh",
+        "Ac",
+        "As"
+      ],
+      "middle": [
+        "6s",
+        "5s",
+        "5c",
+        "2c",
+        "Qs"
+      ],
+      "bottom": [
+        "Kh",
+        "9c",
+        "5d",
+        "Th",
+        "6c"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 9,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Jh",
+            "Ac",
+            "As"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            14,
+            11
+          ],
+          "name": "Pair of As"
+        },
+        "middle": {
+          "cards": [
+            "6s",
+            "5s",
+            "5c",
+            "2c",
+            "Qs"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            5,
+            12,
+            6,
+            2
+          ],
+          "name": "Pair of 5s"
+        },
+        "bottom": {
+          "cards": [
+            "Kh",
+            "9c",
+            "5d",
+            "Th",
+            "6c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            10,
+            9,
+            6,
+            5
+          ],
+          "name": "K High"
+        }
+      }
+    },
+    {
+      "id": "random#49",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9d",
+        "2s",
+        "Qd"
+      ],
+      "middle": [
+        "Ad",
+        "3d",
+        "3c",
+        "5s",
+        "8s"
+      ],
+      "bottom": [
+        "9h",
+        "Ah",
+        "6h",
+        "Kh",
+        "4d"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9d",
+            "2s",
+            "Qd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            9,
+            2
+          ],
+          "name": "Q High"
+        },
+        "middle": {
+          "cards": [
+            "Ad",
+            "3d",
+            "3c",
+            "5s",
+            "8s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            3,
+            14,
+            8,
+            5
+          ],
+          "name": "Pair of 3s"
+        },
+        "bottom": {
+          "cards": [
+            "9h",
+            "Ah",
+            "6h",
+            "Kh",
+            "4d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            13,
+            9,
+            6,
+            4
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#50",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7d",
+        "Qh",
+        "3c"
+      ],
+      "middle": [
+        "5s",
+        "2h",
+        "9c",
+        "Kd",
+        "6d"
+      ],
+      "bottom": [
+        "9h",
+        "4s",
+        "7c",
+        "6s",
+        "Ad"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7d",
+            "Qh",
+            "3c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            7,
+            3
+          ],
+          "name": "Q High"
+        },
+        "middle": {
+          "cards": [
+            "5s",
+            "2h",
+            "9c",
+            "Kd",
+            "6d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            9,
+            6,
+            5,
+            2
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "9h",
+            "4s",
+            "7c",
+            "6s",
+            "Ad"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            9,
+            7,
+            6,
+            4
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#51",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9s",
+        "9d",
+        "3s"
+      ],
+      "middle": [
+        "3d",
+        "Qd",
+        "Ks",
+        "5d",
+        "Qc"
+      ],
+      "bottom": [
+        "8h",
+        "Jc",
+        "8d",
+        "4d",
+        "7s"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 4,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9s",
+            "9d",
+            "3s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            3
+          ],
+          "name": "Pair of 9s"
+        },
+        "middle": {
+          "cards": [
+            "3d",
+            "Qd",
+            "Ks",
+            "5d",
+            "Qc"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            12,
+            13,
+            5,
+            3
+          ],
+          "name": "Pair of Qs"
+        },
+        "bottom": {
+          "cards": [
+            "8h",
+            "Jc",
+            "8d",
+            "4d",
+            "7s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            8,
+            11,
+            7,
+            4
+          ],
+          "name": "Pair of 8s"
+        }
+      }
+    },
+    {
+      "id": "random#52",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7c",
+        "As",
+        "Jd"
+      ],
+      "middle": [
+        "4c",
+        "Ad",
+        "7d",
+        "9s",
+        "9c"
+      ],
+      "bottom": [
+        "Ac",
+        "Th",
+        "Qh",
+        "5h",
+        "2h"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7c",
+            "As",
+            "Jd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            11,
+            7
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "4c",
+            "Ad",
+            "7d",
+            "9s",
+            "9c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            9,
+            14,
+            7,
+            4
+          ],
+          "name": "Pair of 9s"
+        },
+        "bottom": {
+          "cards": [
+            "Ac",
+            "Th",
+            "Qh",
+            "5h",
+            "2h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            12,
+            10,
+            5,
+            2
+          ],
+          "name": "A High"
+        }
+      }
+    },
+    {
+      "id": "random#53",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7c",
+        "Qc",
+        "3s"
+      ],
+      "middle": [
+        "Jh",
+        "Kh",
+        "Qd",
+        "5s",
+        "4h"
+      ],
+      "bottom": [
+        "6d",
+        "2s",
+        "2h",
+        "8d",
+        "Ad"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7c",
+            "Qc",
+            "3s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            7,
+            3
+          ],
+          "name": "Q High"
+        },
+        "middle": {
+          "cards": [
+            "Jh",
+            "Kh",
+            "Qd",
+            "5s",
+            "4h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            12,
+            11,
+            5,
+            4
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "6d",
+            "2s",
+            "2h",
+            "8d",
+            "Ad"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            14,
+            8,
+            6
+          ],
+          "name": "Pair of 2s"
+        }
+      }
+    },
+    {
+      "id": "random#54",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7h",
+        "7c",
+        "6h"
+      ],
+      "middle": [
+        "2s",
+        "6s",
+        "5s",
+        "Qd",
+        "3c"
+      ],
+      "bottom": [
+        "8d",
+        "Jc",
+        "Jh",
+        "6d",
+        "8s"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 2,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7h",
+            "7c",
+            "6h"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            7,
+            6
+          ],
+          "name": "Pair of 7s"
+        },
+        "middle": {
+          "cards": [
+            "2s",
+            "6s",
+            "5s",
+            "Qd",
+            "3c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            6,
+            5,
+            3,
+            2
+          ],
+          "name": "Q High"
+        },
+        "bottom": {
+          "cards": [
+            "8d",
+            "Jc",
+            "Jh",
+            "6d",
+            "8s"
+          ],
+          "category": 2,
+          "categoryName": "TWO_PAIR",
+          "kickers": [
+            11,
+            8,
+            6
+          ],
+          "name": "Two Pair Js and 8s"
+        }
+      }
+    },
+    {
+      "id": "random#55",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Ah",
+        "9c",
+        "7h"
+      ],
+      "middle": [
+        "2c",
+        "6c",
+        "9s",
+        "2d",
+        "As"
+      ],
+      "bottom": [
+        "Jc",
+        "3s",
+        "Qc",
+        "5c",
+        "6s"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Ah",
+            "9c",
+            "7h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            9,
+            7
+          ],
+          "name": "A High"
+        },
+        "middle": {
+          "cards": [
+            "2c",
+            "6c",
+            "9s",
+            "2d",
+            "As"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            14,
+            9,
+            6
+          ],
+          "name": "Pair of 2s"
+        },
+        "bottom": {
+          "cards": [
+            "Jc",
+            "3s",
+            "Qc",
+            "5c",
+            "6s"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            11,
+            6,
+            5,
+            3
+          ],
+          "name": "Q High"
+        }
+      }
+    },
+    {
+      "id": "random#56",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "Jd",
+        "3d",
+        "2d"
+      ],
+      "middle": [
+        "4s",
+        "5c",
+        "8c",
+        "5h",
+        "6s"
+      ],
+      "bottom": [
+        "Td",
+        "4c",
+        "Ah",
+        "Ts",
+        "9c"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "Jd",
+            "3d",
+            "2d"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            11,
+            3,
+            2
+          ],
+          "name": "J High"
+        },
+        "middle": {
+          "cards": [
+            "4s",
+            "5c",
+            "8c",
+            "5h",
+            "6s"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            5,
+            8,
+            6,
+            4
+          ],
+          "name": "Pair of 5s"
+        },
+        "bottom": {
+          "cards": [
+            "Td",
+            "4c",
+            "Ah",
+            "Ts",
+            "9c"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            10,
+            14,
+            9,
+            4
+          ],
+          "name": "Pair of Ts"
+        }
+      }
+    },
+    {
+      "id": "random#57",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "4s",
+        "9c",
+        "6c"
+      ],
+      "middle": [
+        "4d",
+        "2s",
+        "Jh",
+        "7d",
+        "Ks"
+      ],
+      "bottom": [
+        "Tc",
+        "8h",
+        "6h",
+        "7c",
+        "Qd"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "4s",
+            "9c",
+            "6c"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            9,
+            6,
+            4
+          ],
+          "name": "9 High"
+        },
+        "middle": {
+          "cards": [
+            "4d",
+            "2s",
+            "Jh",
+            "7d",
+            "Ks"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            11,
+            7,
+            4,
+            2
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "Tc",
+            "8h",
+            "6h",
+            "7c",
+            "Qd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            10,
+            8,
+            7,
+            6
+          ],
+          "name": "Q High"
+        }
+      }
+    },
+    {
+      "id": "random#58",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "7s",
+        "5h",
+        "Kd"
+      ],
+      "middle": [
+        "Qd",
+        "8c",
+        "2c",
+        "Qc",
+        "6d"
+      ],
+      "bottom": [
+        "2s",
+        "2h",
+        "6c",
+        "Ad",
+        "3d"
+      ],
+      "fouled": true,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "7s",
+            "5h",
+            "Kd"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            7,
+            5
+          ],
+          "name": "K High"
+        },
+        "middle": {
+          "cards": [
+            "Qd",
+            "8c",
+            "2c",
+            "Qc",
+            "6d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            12,
+            8,
+            6,
+            2
+          ],
+          "name": "Pair of Qs"
+        },
+        "bottom": {
+          "cards": [
+            "2s",
+            "2h",
+            "6c",
+            "Ad",
+            "3d"
+          ],
+          "category": 1,
+          "categoryName": "PAIR",
+          "kickers": [
+            2,
+            14,
+            6,
+            3
+          ],
+          "name": "Pair of 2s"
+        }
+      }
+    },
+    {
+      "id": "random#59",
+      "note": "random 13-card deal split 3/5/5",
+      "top": [
+        "9h",
+        "Qh",
+        "Ts"
+      ],
+      "middle": [
+        "Kd",
+        "6s",
+        "Qd",
+        "Td",
+        "3h"
+      ],
+      "bottom": [
+        "2c",
+        "Ad",
+        "9d",
+        "5c",
+        "Tc"
+      ],
+      "fouled": false,
+      "royalties": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0,
+        "total": 0
+      },
+      "royaltiesIfNotFouled": {
+        "top": 0,
+        "middle": 0,
+        "bottom": 0
+      },
+      "flQualify": false,
+      "flStay": {
+        "normal": false,
+        "cash": false,
+        "windfall": false,
+        "progressive": false
+      },
+      "flCards": {
+        "normal": 14,
+        "cash": 14,
+        "windfall": 14,
+        "progressive": 14
+      },
+      "rowRanks": {
+        "top": {
+          "cards": [
+            "9h",
+            "Qh",
+            "Ts"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            12,
+            10,
+            9
+          ],
+          "name": "Q High"
+        },
+        "middle": {
+          "cards": [
+            "Kd",
+            "6s",
+            "Qd",
+            "Td",
+            "3h"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            13,
+            12,
+            10,
+            6,
+            3
+          ],
+          "name": "K High"
+        },
+        "bottom": {
+          "cards": [
+            "2c",
+            "Ad",
+            "9d",
+            "5c",
+            "Tc"
+          ],
+          "category": 0,
+          "categoryName": "HIGH_CARD",
+          "kickers": [
+            14,
+            10,
+            9,
+            5,
+            2
+          ],
+          "name": "A High"
+        }
+      }
+    }
+  ]
+}

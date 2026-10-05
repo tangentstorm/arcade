@@ -1,0 +1,3895 @@
+{
+  "meta": {
+    "engineCommit": "9d4f481",
+    "cardEncoding": "rank char + suit char, e.g. 'As'=Ace of spades, 'Td'=Ten of diamonds, '2c'=Two of clubs. Ranks: 2-9,T,J,Q,K,A. Suits: h,d,c,s.",
+    "categoryEnum": {
+      "0": "HIGH_CARD",
+      "1": "PAIR",
+      "2": "TWO_PAIR",
+      "3": "THREE_OF_A_KIND",
+      "4": "STRAIGHT",
+      "5": "FLUSH",
+      "6": "FULL_HOUSE",
+      "7": "FOUR_OF_A_KIND",
+      "8": "STRAIGHT_FLUSH",
+      "9": "ROYAL_FLUSH"
+    },
+    "fields": {
+      "hands": "cards[], category (0-9), categoryName, kickers[] (engine tiebreakers descending), name (human), optional note",
+      "compare": "pair of 5-card hands a,b → result -1 (a<b), 0 (tie), 1 (a>b) via compareHands; ports need not match kickers numeric encoding if compare agrees"
+    },
+    "seed": 265224193
+  },
+  "hands": [
+    {
+      "cards": [
+        "Ah",
+        "Kh",
+        "Qh",
+        "Jh",
+        "Th"
+      ],
+      "category": 9,
+      "categoryName": "ROYAL_FLUSH",
+      "kickers": [
+        14
+      ],
+      "name": "Royal Flush",
+      "note": "royal flush hearts"
+    },
+    {
+      "cards": [
+        "As",
+        "Ks",
+        "Qs",
+        "Js",
+        "Ts"
+      ],
+      "category": 9,
+      "categoryName": "ROYAL_FLUSH",
+      "kickers": [
+        14
+      ],
+      "name": "Royal Flush",
+      "note": "royal flush spades"
+    },
+    {
+      "cards": [
+        "9s",
+        "8s",
+        "7s",
+        "6s",
+        "5s"
+      ],
+      "category": 8,
+      "categoryName": "STRAIGHT_FLUSH",
+      "kickers": [
+        9
+      ],
+      "name": "Straight Flush (9 high)",
+      "note": "straight flush 9-high"
+    },
+    {
+      "cards": [
+        "Ah",
+        "2h",
+        "3h",
+        "4h",
+        "5h"
+      ],
+      "category": 8,
+      "categoryName": "STRAIGHT_FLUSH",
+      "kickers": [
+        5
+      ],
+      "name": "Straight Flush (5 high)",
+      "note": "steel wheel (A-5 SF)"
+    },
+    {
+      "cards": [
+        "Ad",
+        "2d",
+        "3d",
+        "4d",
+        "5d"
+      ],
+      "category": 8,
+      "categoryName": "STRAIGHT_FLUSH",
+      "kickers": [
+        5
+      ],
+      "name": "Straight Flush (5 high)",
+      "note": "steel wheel diamonds"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Qh",
+        "Jh",
+        "Th",
+        "9h"
+      ],
+      "category": 8,
+      "categoryName": "STRAIGHT_FLUSH",
+      "kickers": [
+        13
+      ],
+      "name": "Straight Flush (K high)",
+      "note": "SF K-high"
+    },
+    {
+      "cards": [
+        "6c",
+        "5c",
+        "4c",
+        "3c",
+        "2c"
+      ],
+      "category": 8,
+      "categoryName": "STRAIGHT_FLUSH",
+      "kickers": [
+        6
+      ],
+      "name": "Straight Flush (6 high)",
+      "note": "SF 6-high (lowest non-wheel)"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "As",
+        "Kh"
+      ],
+      "category": 7,
+      "categoryName": "FOUR_OF_A_KIND",
+      "kickers": [
+        14,
+        13
+      ],
+      "name": "Quad As",
+      "note": "quad aces K kicker"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "As",
+        "2h"
+      ],
+      "category": 7,
+      "categoryName": "FOUR_OF_A_KIND",
+      "kickers": [
+        14,
+        2
+      ],
+      "name": "Quad As",
+      "note": "quad aces 2 kicker"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "2c",
+        "2s",
+        "Ah"
+      ],
+      "category": 7,
+      "categoryName": "FOUR_OF_A_KIND",
+      "kickers": [
+        2,
+        14
+      ],
+      "name": "Quad 2s",
+      "note": "quad deuces A kicker"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Kd",
+        "Kc",
+        "Ks",
+        "3h"
+      ],
+      "category": 7,
+      "categoryName": "FOUR_OF_A_KIND",
+      "kickers": [
+        13,
+        3
+      ],
+      "name": "Quad Ks",
+      "note": "quad kings"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Kh",
+        "Kd"
+      ],
+      "category": 6,
+      "categoryName": "FULL_HOUSE",
+      "kickers": [
+        14,
+        13
+      ],
+      "name": "Full House As over Ks",
+      "note": "FH aces over kings"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "2h",
+        "2d"
+      ],
+      "category": 6,
+      "categoryName": "FULL_HOUSE",
+      "kickers": [
+        14,
+        2
+      ],
+      "name": "Full House As over 2s",
+      "note": "FH aces over deuces"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "2c",
+        "Ah",
+        "Ad"
+      ],
+      "category": 6,
+      "categoryName": "FULL_HOUSE",
+      "kickers": [
+        2,
+        14
+      ],
+      "name": "Full House 2s over As",
+      "note": "FH deuces over aces"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Kd",
+        "Kc",
+        "Qh",
+        "Qd"
+      ],
+      "category": 6,
+      "categoryName": "FULL_HOUSE",
+      "kickers": [
+        13,
+        12
+      ],
+      "name": "Full House Ks over Qs",
+      "note": "FH kings over queens"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Jh",
+        "9h",
+        "5h",
+        "3h"
+      ],
+      "category": 5,
+      "categoryName": "FLUSH",
+      "kickers": [
+        14,
+        11,
+        9,
+        5,
+        3
+      ],
+      "name": "Flush",
+      "note": "A-high flush"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Qh",
+        "Jh",
+        "9h",
+        "8h"
+      ],
+      "category": 5,
+      "categoryName": "FLUSH",
+      "kickers": [
+        13,
+        12,
+        11,
+        9,
+        8
+      ],
+      "name": "Flush",
+      "note": "K-high flush (not SF)"
+    },
+    {
+      "cards": [
+        "7d",
+        "5d",
+        "4d",
+        "3d",
+        "2d"
+      ],
+      "category": 5,
+      "categoryName": "FLUSH",
+      "kickers": [
+        7,
+        5,
+        4,
+        3,
+        2
+      ],
+      "name": "Flush",
+      "note": "7-high flush"
+    },
+    {
+      "cards": [
+        "As",
+        "Ks",
+        "Qs",
+        "Js",
+        "9s"
+      ],
+      "category": 5,
+      "categoryName": "FLUSH",
+      "kickers": [
+        14,
+        13,
+        12,
+        11,
+        9
+      ],
+      "name": "Flush",
+      "note": "A-high flush missing T (not royal)"
+    },
+    {
+      "cards": [
+        "9h",
+        "8d",
+        "7c",
+        "6s",
+        "5h"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        9
+      ],
+      "name": "Straight (9 high)",
+      "note": "straight 9-high"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "Th"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        14
+      ],
+      "name": "Straight (A high)",
+      "note": "broadway straight"
+    },
+    {
+      "cards": [
+        "Ah",
+        "2d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        5
+      ],
+      "name": "Straight (5 high)",
+      "note": "wheel A-5 straight"
+    },
+    {
+      "cards": [
+        "Ad",
+        "2h",
+        "3s",
+        "4c",
+        "5d"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        5
+      ],
+      "name": "Straight (5 high)",
+      "note": "wheel alternate suits"
+    },
+    {
+      "cards": [
+        "6h",
+        "5d",
+        "4c",
+        "3s",
+        "2h"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        6
+      ],
+      "name": "Straight (6 high)",
+      "note": "straight 6-high"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Qd",
+        "Jc",
+        "Ts",
+        "9h"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        13
+      ],
+      "name": "Straight (K high)",
+      "note": "straight K-high"
+    },
+    {
+      "cards": [
+        "Jh",
+        "Jd",
+        "Jc",
+        "9s",
+        "5h"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        11,
+        9,
+        5
+      ],
+      "name": "Trip Js",
+      "note": "trips J"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Kd",
+        "Qs"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        14,
+        13,
+        12
+      ],
+      "name": "Trip As",
+      "note": "trips A KQ kickers"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "2c",
+        "Ah",
+        "Kd"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        2,
+        14,
+        13
+      ],
+      "name": "Trip 2s",
+      "note": "trips 2"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Ks",
+        "5h"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        14,
+        13,
+        5
+      ],
+      "name": "Two Pair As and Ks",
+      "note": "two pair AK"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Ks",
+        "Qh"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        14,
+        13,
+        12
+      ],
+      "name": "Two Pair As and Ks",
+      "note": "two pair AK Q kicker"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Ks",
+        "2h"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        14,
+        13,
+        2
+      ],
+      "name": "Two Pair As and Ks",
+      "note": "two pair AK 2 kicker"
+    },
+    {
+      "cards": [
+        "3h",
+        "3d",
+        "2c",
+        "2s",
+        "Ah"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        3,
+        2,
+        14
+      ],
+      "name": "Two Pair 3s and 2s",
+      "note": "two pair 32 A kicker"
+    },
+    {
+      "cards": [
+        "Th",
+        "Td",
+        "9c",
+        "7s",
+        "3h"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        10,
+        9,
+        7,
+        3
+      ],
+      "name": "Pair of Ts",
+      "note": "pair tens"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Qs",
+        "Jh"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        14,
+        13,
+        12,
+        11
+      ],
+      "name": "Pair of As",
+      "note": "pair aces KQJ"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        2,
+        14,
+        13,
+        12
+      ],
+      "name": "Pair of 2s",
+      "note": "pair deuces"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "9h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12,
+        11,
+        9
+      ],
+      "name": "A High",
+      "note": "A-high (broadway miss)"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Jd",
+        "9c",
+        "7s",
+        "3h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        11,
+        9,
+        7,
+        3
+      ],
+      "name": "A High",
+      "note": "A-high"
+    },
+    {
+      "cards": [
+        "7h",
+        "5d",
+        "4c",
+        "3s",
+        "2h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        7,
+        5,
+        4,
+        3,
+        2
+      ],
+      "name": "7 High",
+      "note": "7-high (not straight — missing 6)"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Qd",
+        "Jc",
+        "9s",
+        "8h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        11,
+        9,
+        8
+      ],
+      "name": "K High",
+      "note": "K-high"
+    },
+    {
+      "cards": [
+        "Ah",
+        "2d",
+        "3c",
+        "4s",
+        "6h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        6,
+        4,
+        3,
+        2
+      ],
+      "name": "A High",
+      "note": "A-high not wheel (gap at 5)"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kh",
+        "Qh",
+        "Jh",
+        "9h"
+      ],
+      "category": 5,
+      "categoryName": "FLUSH",
+      "kickers": [
+        14,
+        13,
+        12,
+        11,
+        9
+      ],
+      "name": "Flush",
+      "note": "A-flush not royal"
+    },
+    {
+      "cards": [
+        "9h",
+        "8h",
+        "7h",
+        "6h",
+        "4h"
+      ],
+      "category": 5,
+      "categoryName": "FLUSH",
+      "kickers": [
+        9,
+        8,
+        7,
+        6,
+        4
+      ],
+      "name": "Flush",
+      "note": "9-flush not SF (gap)"
+    },
+    {
+      "cards": [
+        "8h",
+        "7h",
+        "6h",
+        "5h",
+        "4h"
+      ],
+      "category": 8,
+      "categoryName": "STRAIGHT_FLUSH",
+      "kickers": [
+        8
+      ],
+      "name": "Straight Flush (8 high)"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Jh",
+        "9h",
+        "5h",
+        "2h"
+      ],
+      "category": 5,
+      "categoryName": "FLUSH",
+      "kickers": [
+        14,
+        11,
+        9,
+        5,
+        2
+      ],
+      "name": "Flush"
+    },
+    {
+      "cards": [
+        "Ah",
+        "2h",
+        "3h",
+        "4c",
+        "5c"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        5
+      ],
+      "name": "Straight (5 high)"
+    },
+    {
+      "cards": [
+        "Jh",
+        "Jd",
+        "Jc",
+        "9s",
+        "4h"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        11,
+        9,
+        4
+      ],
+      "name": "Trip Js"
+    },
+    {
+      "cards": [
+        "Jh",
+        "Jd",
+        "Jc",
+        "As",
+        "5h"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        11,
+        14,
+        5
+      ],
+      "name": "Trip Js"
+    },
+    {
+      "cards": [
+        "Qh",
+        "Qd",
+        "Qc",
+        "2s",
+        "3h"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        12,
+        3,
+        2
+      ],
+      "name": "Trip Qs"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Qc",
+        "Qs",
+        "Kh"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        14,
+        12,
+        13
+      ],
+      "name": "Two Pair As and Qs"
+    },
+    {
+      "cards": [
+        "Th",
+        "Td",
+        "9c",
+        "7s",
+        "2h"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        10,
+        9,
+        7,
+        2
+      ],
+      "name": "Pair of Ts"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Kd",
+        "Ac",
+        "Qs",
+        "Jh"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        13,
+        14,
+        12,
+        11
+      ],
+      "name": "Pair of Ks"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "8h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12,
+        11,
+        8
+      ],
+      "name": "A High"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "9d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12,
+        11,
+        9
+      ],
+      "name": "A High"
+    },
+    {
+      "cards": [
+        "2h",
+        "3d",
+        "4c",
+        "5s",
+        "7h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        7,
+        5,
+        4,
+        3,
+        2
+      ],
+      "name": "7 High"
+    },
+    {
+      "cards": [
+        "2c",
+        "2d",
+        "3h",
+        "4d",
+        "5d"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        2,
+        5,
+        4,
+        3
+      ],
+      "name": "Pair of 2s"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "3c",
+        "3s",
+        "4h"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        3,
+        2,
+        4
+      ],
+      "name": "Two Pair 3s and 2s"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "2c",
+        "3s",
+        "4h"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        2,
+        4,
+        3
+      ],
+      "name": "Trip 2s"
+    },
+    {
+      "cards": [
+        "2h",
+        "4h",
+        "6h",
+        "8h",
+        "Th"
+      ],
+      "category": 5,
+      "categoryName": "FLUSH",
+      "kickers": [
+        10,
+        8,
+        6,
+        4,
+        2
+      ],
+      "name": "Flush"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "2c",
+        "3s",
+        "3h"
+      ],
+      "category": 6,
+      "categoryName": "FULL_HOUSE",
+      "kickers": [
+        2,
+        3
+      ],
+      "name": "Full House 2s over 3s"
+    },
+    {
+      "cards": [
+        "4h",
+        "4d",
+        "4c",
+        "4s",
+        "5h"
+      ],
+      "category": 7,
+      "categoryName": "FOUR_OF_A_KIND",
+      "kickers": [
+        4,
+        5
+      ],
+      "name": "Quad 4s"
+    },
+    {
+      "cards": [
+        "6c",
+        "5c",
+        "4d",
+        "3d",
+        "2d"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        6
+      ],
+      "name": "Straight (6 high)"
+    },
+    {
+      "cards": [
+        "3c",
+        "6h",
+        "5s",
+        "Ks",
+        "7s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        7,
+        6,
+        5,
+        3
+      ],
+      "name": "K High",
+      "note": "random#0"
+    },
+    {
+      "cards": [
+        "6s",
+        "Js",
+        "Qh",
+        "9c",
+        "Jd"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        11,
+        12,
+        9,
+        6
+      ],
+      "name": "Pair of Js",
+      "note": "random#1"
+    },
+    {
+      "cards": [
+        "3h",
+        "Ad",
+        "6d",
+        "8h",
+        "8c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        8,
+        14,
+        6,
+        3
+      ],
+      "name": "Pair of 8s",
+      "note": "random#2"
+    },
+    {
+      "cards": [
+        "8s",
+        "9h",
+        "5h",
+        "6c",
+        "5d"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        5,
+        9,
+        8,
+        6
+      ],
+      "name": "Pair of 5s",
+      "note": "random#3"
+    },
+    {
+      "cards": [
+        "4s",
+        "As",
+        "8s",
+        "Ah",
+        "9s"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        14,
+        9,
+        8,
+        4
+      ],
+      "name": "Pair of As",
+      "note": "random#4"
+    },
+    {
+      "cards": [
+        "7c",
+        "Qh",
+        "2s",
+        "7h",
+        "2c"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        7,
+        2,
+        12
+      ],
+      "name": "Two Pair 7s and 2s",
+      "note": "random#5"
+    },
+    {
+      "cards": [
+        "8s",
+        "3h",
+        "7h",
+        "2d",
+        "As"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        8,
+        7,
+        3,
+        2
+      ],
+      "name": "A High",
+      "note": "random#6"
+    },
+    {
+      "cards": [
+        "7h",
+        "Js",
+        "6s",
+        "7d",
+        "9c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        7,
+        11,
+        9,
+        6
+      ],
+      "name": "Pair of 7s",
+      "note": "random#7"
+    },
+    {
+      "cards": [
+        "9c",
+        "Qh",
+        "Kd",
+        "9h",
+        "6h"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        9,
+        13,
+        12,
+        6
+      ],
+      "name": "Pair of 9s",
+      "note": "random#8"
+    },
+    {
+      "cards": [
+        "Jd",
+        "Ac",
+        "7c",
+        "Td",
+        "3d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        11,
+        10,
+        7,
+        3
+      ],
+      "name": "A High",
+      "note": "random#9"
+    },
+    {
+      "cards": [
+        "9h",
+        "5d",
+        "2s",
+        "Jd",
+        "Kh"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        11,
+        9,
+        5,
+        2
+      ],
+      "name": "K High",
+      "note": "random#10"
+    },
+    {
+      "cards": [
+        "8h",
+        "3d",
+        "Ks",
+        "3s",
+        "Kc"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        13,
+        3,
+        8
+      ],
+      "name": "Two Pair Ks and 3s",
+      "note": "random#11"
+    },
+    {
+      "cards": [
+        "7s",
+        "Td",
+        "2h",
+        "Tc",
+        "Th"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        10,
+        7,
+        2
+      ],
+      "name": "Trip Ts",
+      "note": "random#12"
+    },
+    {
+      "cards": [
+        "Kh",
+        "4c",
+        "2h",
+        "Ad",
+        "Qd"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12,
+        4,
+        2
+      ],
+      "name": "A High",
+      "note": "random#13"
+    },
+    {
+      "cards": [
+        "2s",
+        "7d",
+        "4h",
+        "5h",
+        "Ac"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        7,
+        5,
+        4,
+        2
+      ],
+      "name": "A High",
+      "note": "random#14"
+    },
+    {
+      "cards": [
+        "4s",
+        "Ks",
+        "5s",
+        "2s",
+        "Kh"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        13,
+        5,
+        4,
+        2
+      ],
+      "name": "Pair of Ks",
+      "note": "random#15"
+    },
+    {
+      "cards": [
+        "5d",
+        "2h",
+        "Ac",
+        "Qs",
+        "9d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        12,
+        9,
+        5,
+        2
+      ],
+      "name": "A High",
+      "note": "random#16"
+    },
+    {
+      "cards": [
+        "7d",
+        "As",
+        "Qd",
+        "8d",
+        "7c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        7,
+        14,
+        12,
+        8
+      ],
+      "name": "Pair of 7s",
+      "note": "random#17"
+    },
+    {
+      "cards": [
+        "4s",
+        "3h",
+        "Ad",
+        "Tc",
+        "Js"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        11,
+        10,
+        4,
+        3
+      ],
+      "name": "A High",
+      "note": "random#18"
+    },
+    {
+      "cards": [
+        "Ks",
+        "4c",
+        "Kh",
+        "3c",
+        "Jh"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        13,
+        11,
+        4,
+        3
+      ],
+      "name": "Pair of Ks",
+      "note": "random#19"
+    },
+    {
+      "cards": [
+        "Jh",
+        "8d",
+        "Ac",
+        "Kd",
+        "5s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        11,
+        8,
+        5
+      ],
+      "name": "A High",
+      "note": "random#20"
+    },
+    {
+      "cards": [
+        "Jc",
+        "6h",
+        "Qs",
+        "Jh",
+        "As"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        11,
+        14,
+        12,
+        6
+      ],
+      "name": "Pair of Js",
+      "note": "random#21"
+    },
+    {
+      "cards": [
+        "Jh",
+        "3s",
+        "8s",
+        "5d",
+        "Jd"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        11,
+        8,
+        5,
+        3
+      ],
+      "name": "Pair of Js",
+      "note": "random#22"
+    },
+    {
+      "cards": [
+        "8c",
+        "2h",
+        "Jc",
+        "Kd",
+        "9s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        11,
+        9,
+        8,
+        2
+      ],
+      "name": "K High",
+      "note": "random#23"
+    },
+    {
+      "cards": [
+        "6h",
+        "6c",
+        "9h",
+        "2c",
+        "As"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        6,
+        14,
+        9,
+        2
+      ],
+      "name": "Pair of 6s",
+      "note": "random#24"
+    },
+    {
+      "cards": [
+        "Th",
+        "5d",
+        "Tc",
+        "Qh",
+        "Kc"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        10,
+        13,
+        12,
+        5
+      ],
+      "name": "Pair of Ts",
+      "note": "random#25"
+    },
+    {
+      "cards": [
+        "Qh",
+        "8s",
+        "7s",
+        "Ah",
+        "9h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        12,
+        9,
+        8,
+        7
+      ],
+      "name": "A High",
+      "note": "random#26"
+    },
+    {
+      "cards": [
+        "Qh",
+        "Jd",
+        "Ks",
+        "Td",
+        "Qs"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        12,
+        13,
+        11,
+        10
+      ],
+      "name": "Pair of Qs",
+      "note": "random#27"
+    },
+    {
+      "cards": [
+        "2h",
+        "Jh",
+        "8s",
+        "8c",
+        "Ts"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        8,
+        11,
+        10,
+        2
+      ],
+      "name": "Pair of 8s",
+      "note": "random#28"
+    },
+    {
+      "cards": [
+        "7h",
+        "9d",
+        "Js",
+        "Kd",
+        "7s"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        7,
+        13,
+        11,
+        9
+      ],
+      "name": "Pair of 7s",
+      "note": "random#29"
+    },
+    {
+      "cards": [
+        "8h",
+        "4s",
+        "Qs",
+        "4c",
+        "6s"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        4,
+        12,
+        8,
+        6
+      ],
+      "name": "Pair of 4s",
+      "note": "random#30"
+    },
+    {
+      "cards": [
+        "6s",
+        "7s",
+        "Tc",
+        "2h",
+        "6c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        6,
+        10,
+        7,
+        2
+      ],
+      "name": "Pair of 6s",
+      "note": "random#31"
+    },
+    {
+      "cards": [
+        "Jd",
+        "8c",
+        "6c",
+        "5h",
+        "2c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        8,
+        6,
+        5,
+        2
+      ],
+      "name": "J High",
+      "note": "random#32"
+    },
+    {
+      "cards": [
+        "Jh",
+        "Qh",
+        "Tc",
+        "5d",
+        "As"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        12,
+        11,
+        10,
+        5
+      ],
+      "name": "A High",
+      "note": "random#33"
+    },
+    {
+      "cards": [
+        "Ks",
+        "2s",
+        "9c",
+        "Kh",
+        "Qs"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        13,
+        12,
+        9,
+        2
+      ],
+      "name": "Pair of Ks",
+      "note": "random#34"
+    },
+    {
+      "cards": [
+        "2s",
+        "Kc",
+        "6h",
+        "7c",
+        "Ad"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        7,
+        6,
+        2
+      ],
+      "name": "A High",
+      "note": "random#35"
+    },
+    {
+      "cards": [
+        "Jc",
+        "Qs",
+        "Th",
+        "7d",
+        "2h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        12,
+        11,
+        10,
+        7,
+        2
+      ],
+      "name": "Q High",
+      "note": "random#36"
+    },
+    {
+      "cards": [
+        "5d",
+        "Js",
+        "Jd",
+        "3d",
+        "Kd"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        11,
+        13,
+        5,
+        3
+      ],
+      "name": "Pair of Js",
+      "note": "random#37"
+    },
+    {
+      "cards": [
+        "7h",
+        "Qc",
+        "6s",
+        "Ts",
+        "Kh"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        10,
+        7,
+        6
+      ],
+      "name": "K High",
+      "note": "random#38"
+    },
+    {
+      "cards": [
+        "6h",
+        "Kc",
+        "Ad",
+        "Ah",
+        "2h"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        14,
+        13,
+        6,
+        2
+      ],
+      "name": "Pair of As",
+      "note": "random#39"
+    },
+    {
+      "cards": [
+        "Kc",
+        "6c",
+        "Th",
+        "6h",
+        "6s"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        6,
+        13,
+        10
+      ],
+      "name": "Trip 6s",
+      "note": "random#40"
+    },
+    {
+      "cards": [
+        "8h",
+        "9h",
+        "9c",
+        "3d",
+        "Ah"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        9,
+        14,
+        8,
+        3
+      ],
+      "name": "Pair of 9s",
+      "note": "random#41"
+    },
+    {
+      "cards": [
+        "Ah",
+        "9d",
+        "Jh",
+        "3h",
+        "2h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        11,
+        9,
+        3,
+        2
+      ],
+      "name": "A High",
+      "note": "random#42"
+    },
+    {
+      "cards": [
+        "Jh",
+        "3c",
+        "4h",
+        "8h",
+        "3d"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        3,
+        11,
+        8,
+        4
+      ],
+      "name": "Pair of 3s",
+      "note": "random#43"
+    },
+    {
+      "cards": [
+        "Tc",
+        "5s",
+        "Jd",
+        "4h",
+        "2d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        10,
+        5,
+        4,
+        2
+      ],
+      "name": "J High",
+      "note": "random#44"
+    },
+    {
+      "cards": [
+        "3d",
+        "2h",
+        "Kh",
+        "Ac",
+        "9h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        9,
+        3,
+        2
+      ],
+      "name": "A High",
+      "note": "random#45"
+    },
+    {
+      "cards": [
+        "9h",
+        "9s",
+        "Ac",
+        "Ts",
+        "5d"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        9,
+        14,
+        10,
+        5
+      ],
+      "name": "Pair of 9s",
+      "note": "random#46"
+    },
+    {
+      "cards": [
+        "6c",
+        "9c",
+        "Tc",
+        "Ac",
+        "As"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        14,
+        10,
+        9,
+        6
+      ],
+      "name": "Pair of As",
+      "note": "random#47"
+    },
+    {
+      "cards": [
+        "7s",
+        "2s",
+        "3d",
+        "9d",
+        "Jc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        9,
+        7,
+        3,
+        2
+      ],
+      "name": "J High",
+      "note": "random#48"
+    },
+    {
+      "cards": [
+        "Jd",
+        "5s",
+        "Ah",
+        "2c",
+        "Kh"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        11,
+        5,
+        2
+      ],
+      "name": "A High",
+      "note": "random#49"
+    },
+    {
+      "cards": [
+        "Tc",
+        "5s",
+        "Qc",
+        "Kd",
+        "Jc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        11,
+        10,
+        5
+      ],
+      "name": "K High",
+      "note": "random#50"
+    },
+    {
+      "cards": [
+        "7c",
+        "Jc",
+        "3d",
+        "Th",
+        "Ah"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        11,
+        10,
+        7,
+        3
+      ],
+      "name": "A High",
+      "note": "random#51"
+    },
+    {
+      "cards": [
+        "Jh",
+        "Td",
+        "Kh",
+        "Ah",
+        "Qs"
+      ],
+      "category": 4,
+      "categoryName": "STRAIGHT",
+      "kickers": [
+        14
+      ],
+      "name": "Straight (A high)",
+      "note": "random#52"
+    },
+    {
+      "cards": [
+        "Jc",
+        "9c",
+        "8d",
+        "Th",
+        "9s"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        9,
+        11,
+        10,
+        8
+      ],
+      "name": "Pair of 9s",
+      "note": "random#53"
+    },
+    {
+      "cards": [
+        "Jd",
+        "4s",
+        "4h",
+        "Td",
+        "Ad"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        4,
+        14,
+        11,
+        10
+      ],
+      "name": "Pair of 4s",
+      "note": "random#54"
+    },
+    {
+      "cards": [
+        "5s",
+        "3h",
+        "Ad",
+        "Jc",
+        "Ac"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        14,
+        11,
+        5,
+        3
+      ],
+      "name": "Pair of As",
+      "note": "random#55"
+    },
+    {
+      "cards": [
+        "7s",
+        "Ks",
+        "4c",
+        "5h",
+        "Qs"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        7,
+        5,
+        4
+      ],
+      "name": "K High",
+      "note": "random#56"
+    },
+    {
+      "cards": [
+        "9s",
+        "Ac",
+        "Kc",
+        "Kd",
+        "8s"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        13,
+        14,
+        9,
+        8
+      ],
+      "name": "Pair of Ks",
+      "note": "random#57"
+    },
+    {
+      "cards": [
+        "6s",
+        "Td",
+        "Qd",
+        "5s",
+        "Kc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        10,
+        6,
+        5
+      ],
+      "name": "K High",
+      "note": "random#58"
+    },
+    {
+      "cards": [
+        "4h",
+        "8c",
+        "9c",
+        "3h",
+        "7c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        9,
+        8,
+        7,
+        4,
+        3
+      ],
+      "name": "9 High",
+      "note": "random#59"
+    },
+    {
+      "cards": [
+        "Qs",
+        "Th",
+        "Jd",
+        "3h",
+        "8d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        12,
+        11,
+        10,
+        8,
+        3
+      ],
+      "name": "Q High",
+      "note": "random#60"
+    },
+    {
+      "cards": [
+        "2c",
+        "7d",
+        "Tc",
+        "Ts",
+        "2h"
+      ],
+      "category": 2,
+      "categoryName": "TWO_PAIR",
+      "kickers": [
+        10,
+        2,
+        7
+      ],
+      "name": "Two Pair Ts and 2s",
+      "note": "random#61"
+    },
+    {
+      "cards": [
+        "Ts",
+        "8h",
+        "Qs",
+        "7h",
+        "4c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        12,
+        10,
+        8,
+        7,
+        4
+      ],
+      "name": "Q High",
+      "note": "random#62"
+    },
+    {
+      "cards": [
+        "Kc",
+        "8d",
+        "Qs",
+        "9s",
+        "Qh"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        12,
+        13,
+        9,
+        8
+      ],
+      "name": "Pair of Qs",
+      "note": "random#63"
+    },
+    {
+      "cards": [
+        "9s",
+        "Tc",
+        "3d",
+        "4d",
+        "5d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        10,
+        9,
+        5,
+        4,
+        3
+      ],
+      "name": "T High",
+      "note": "random#64"
+    },
+    {
+      "cards": [
+        "Ks",
+        "Qc",
+        "3d",
+        "2d",
+        "Ac"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12,
+        3,
+        2
+      ],
+      "name": "A High",
+      "note": "random#65"
+    },
+    {
+      "cards": [
+        "4s",
+        "7d",
+        "Ts",
+        "5d",
+        "9c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        10,
+        9,
+        7,
+        5,
+        4
+      ],
+      "name": "T High",
+      "note": "random#66"
+    },
+    {
+      "cards": [
+        "Th",
+        "8s",
+        "3d",
+        "Ad",
+        "2h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        10,
+        8,
+        3,
+        2
+      ],
+      "name": "A High",
+      "note": "random#67"
+    },
+    {
+      "cards": [
+        "6c",
+        "3c",
+        "Js",
+        "6h",
+        "Qs"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        6,
+        12,
+        11,
+        3
+      ],
+      "name": "Pair of 6s",
+      "note": "random#68"
+    },
+    {
+      "cards": [
+        "Kh",
+        "5s",
+        "6s",
+        "Qc",
+        "Jc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        11,
+        6,
+        5
+      ],
+      "name": "K High",
+      "note": "random#69"
+    },
+    {
+      "cards": [
+        "4s",
+        "8s",
+        "Ad",
+        "5s",
+        "Kc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        8,
+        5,
+        4
+      ],
+      "name": "A High",
+      "note": "random#70"
+    },
+    {
+      "cards": [
+        "9s",
+        "Ad",
+        "Qs",
+        "8c",
+        "Kc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12,
+        9,
+        8
+      ],
+      "name": "A High",
+      "note": "random#71"
+    },
+    {
+      "cards": [
+        "2c",
+        "4c",
+        "3c",
+        "9c",
+        "3h"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        3,
+        9,
+        4,
+        2
+      ],
+      "name": "Pair of 3s",
+      "note": "random#72"
+    },
+    {
+      "cards": [
+        "3h",
+        "7c",
+        "9d",
+        "8c",
+        "Jc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        9,
+        8,
+        7,
+        3
+      ],
+      "name": "J High",
+      "note": "random#73"
+    },
+    {
+      "cards": [
+        "2c",
+        "8h",
+        "Qc",
+        "2s",
+        "4c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        2,
+        12,
+        8,
+        4
+      ],
+      "name": "Pair of 2s",
+      "note": "random#74"
+    },
+    {
+      "cards": [
+        "6s",
+        "4s",
+        "9s",
+        "Ad",
+        "Jd"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        11,
+        9,
+        6,
+        4
+      ],
+      "name": "A High",
+      "note": "random#75"
+    },
+    {
+      "cards": [
+        "Js",
+        "2c",
+        "4h",
+        "Kc",
+        "6s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        11,
+        6,
+        4,
+        2
+      ],
+      "name": "K High",
+      "note": "random#76"
+    },
+    {
+      "cards": [
+        "2h",
+        "2s",
+        "Qs",
+        "Kd",
+        "Jd"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        2,
+        13,
+        12,
+        11
+      ],
+      "name": "Pair of 2s",
+      "note": "random#77"
+    },
+    {
+      "cards": [
+        "Tc",
+        "Jc",
+        "3h",
+        "Qs",
+        "Kh"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        11,
+        10,
+        3
+      ],
+      "name": "K High",
+      "note": "random#78"
+    },
+    {
+      "cards": [
+        "3h",
+        "As",
+        "Jc",
+        "Js",
+        "8h"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        11,
+        14,
+        8,
+        3
+      ],
+      "name": "Pair of Js",
+      "note": "random#79"
+    }
+  ],
+  "compare": [
+    {
+      "a": [
+        "Ah",
+        "Kh",
+        "Qh",
+        "Jh",
+        "Th"
+      ],
+      "b": [
+        "As",
+        "Ks",
+        "Qs",
+        "Js",
+        "Ts"
+      ],
+      "result": 0,
+      "note": "two royals tie"
+    },
+    {
+      "a": [
+        "9s",
+        "8s",
+        "7s",
+        "6s",
+        "5s"
+      ],
+      "b": [
+        "8h",
+        "7h",
+        "6h",
+        "5h",
+        "4h"
+      ],
+      "result": 1,
+      "note": "SF 9 > SF 8"
+    },
+    {
+      "a": [
+        "Ah",
+        "2h",
+        "3h",
+        "4h",
+        "5h"
+      ],
+      "b": [
+        "6c",
+        "5c",
+        "4c",
+        "3c",
+        "2c"
+      ],
+      "result": -1,
+      "note": "steel wheel (5) < SF 6"
+    },
+    {
+      "a": [
+        "Ah",
+        "2h",
+        "3h",
+        "4h",
+        "5h"
+      ],
+      "b": [
+        "Ah",
+        "2d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "result": 1,
+      "note": "steel wheel > wheel"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "As",
+        "Kh"
+      ],
+      "b": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "As",
+        "2h"
+      ],
+      "result": 1,
+      "note": "quads kicker K > 2"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "Kh",
+        "Kd"
+      ],
+      "b": [
+        "Ah",
+        "Ad",
+        "Ac",
+        "2h",
+        "2d"
+      ],
+      "result": 1,
+      "note": "FH A/K > A/2"
+    },
+    {
+      "a": [
+        "2h",
+        "2d",
+        "2c",
+        "Ah",
+        "Ad"
+      ],
+      "b": [
+        "Kh",
+        "Kd",
+        "Kc",
+        "Qh",
+        "Qd"
+      ],
+      "result": -1,
+      "note": "FH 2/A < FH K/Q"
+    },
+    {
+      "a": [
+        "Ah",
+        "Jh",
+        "9h",
+        "5h",
+        "3h"
+      ],
+      "b": [
+        "Ah",
+        "Jh",
+        "9h",
+        "5h",
+        "2h"
+      ],
+      "result": 1,
+      "note": "flush kicker 3 > 2"
+    },
+    {
+      "a": [
+        "Ah",
+        "Jh",
+        "9h",
+        "5h",
+        "3h"
+      ],
+      "b": [
+        "Kh",
+        "Qh",
+        "Jh",
+        "9h",
+        "8h"
+      ],
+      "result": 1,
+      "note": "A-flush > K-flush"
+    },
+    {
+      "a": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "Th"
+      ],
+      "b": [
+        "9h",
+        "8d",
+        "7c",
+        "6s",
+        "5h"
+      ],
+      "result": 1,
+      "note": "broadway > 9-straight"
+    },
+    {
+      "a": [
+        "Ah",
+        "2d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "b": [
+        "6h",
+        "5d",
+        "4c",
+        "3s",
+        "2h"
+      ],
+      "result": -1,
+      "note": "wheel (5) < 6-straight"
+    },
+    {
+      "a": [
+        "Ah",
+        "2d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "b": [
+        "Ah",
+        "2h",
+        "3h",
+        "4c",
+        "5c"
+      ],
+      "result": 0,
+      "note": "two wheels tie"
+    },
+    {
+      "a": [
+        "Jh",
+        "Jd",
+        "Jc",
+        "9s",
+        "5h"
+      ],
+      "b": [
+        "Jh",
+        "Jd",
+        "Jc",
+        "9s",
+        "4h"
+      ],
+      "result": 1,
+      "note": "trips kicker"
+    },
+    {
+      "a": [
+        "Jh",
+        "Jd",
+        "Jc",
+        "As",
+        "5h"
+      ],
+      "b": [
+        "Qh",
+        "Qd",
+        "Qc",
+        "2s",
+        "3h"
+      ],
+      "result": -1,
+      "note": "trips J A5 < trips Q"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Ks",
+        "Qh"
+      ],
+      "b": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Ks",
+        "2h"
+      ],
+      "result": 1,
+      "note": "two pair kicker"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Ks",
+        "5h"
+      ],
+      "b": [
+        "Ah",
+        "Ad",
+        "Qc",
+        "Qs",
+        "Kh"
+      ],
+      "result": 1,
+      "note": "AAKK > AAQQ"
+    },
+    {
+      "a": [
+        "Th",
+        "Td",
+        "9c",
+        "7s",
+        "3h"
+      ],
+      "b": [
+        "Th",
+        "Td",
+        "9c",
+        "7s",
+        "2h"
+      ],
+      "result": 1,
+      "note": "pair kicker"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Qs",
+        "Jh"
+      ],
+      "b": [
+        "Kh",
+        "Kd",
+        "Ac",
+        "Qs",
+        "Jh"
+      ],
+      "result": 1,
+      "note": "AA > KK"
+    },
+    {
+      "a": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "9h"
+      ],
+      "b": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "8h"
+      ],
+      "result": 1,
+      "note": "high card kicker"
+    },
+    {
+      "a": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "9h"
+      ],
+      "b": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "9d"
+      ],
+      "result": 0,
+      "note": "identical high card tie"
+    },
+    {
+      "a": [
+        "2h",
+        "3d",
+        "4c",
+        "5s",
+        "7h"
+      ],
+      "b": [
+        "2c",
+        "2d",
+        "3h",
+        "4d",
+        "5d"
+      ],
+      "result": -1,
+      "note": "high < pair"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Qs",
+        "Jh"
+      ],
+      "b": [
+        "2h",
+        "2d",
+        "3c",
+        "3s",
+        "4h"
+      ],
+      "result": -1,
+      "note": "pair < two pair"
+    },
+    {
+      "a": [
+        "3h",
+        "3d",
+        "2c",
+        "2s",
+        "Ah"
+      ],
+      "b": [
+        "2h",
+        "2d",
+        "2c",
+        "3s",
+        "4h"
+      ],
+      "result": -1,
+      "note": "two pair < trips"
+    },
+    {
+      "a": [
+        "Jh",
+        "Jd",
+        "Jc",
+        "9s",
+        "5h"
+      ],
+      "b": [
+        "Ah",
+        "2d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "result": -1,
+      "note": "trips < straight"
+    },
+    {
+      "a": [
+        "Ah",
+        "2d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "b": [
+        "2h",
+        "4h",
+        "6h",
+        "8h",
+        "Th"
+      ],
+      "result": -1,
+      "note": "straight < flush"
+    },
+    {
+      "a": [
+        "Ah",
+        "Jh",
+        "9h",
+        "5h",
+        "3h"
+      ],
+      "b": [
+        "2h",
+        "2d",
+        "2c",
+        "3s",
+        "3h"
+      ],
+      "result": -1,
+      "note": "flush < FH"
+    },
+    {
+      "a": [
+        "2h",
+        "2d",
+        "2c",
+        "3s",
+        "3h"
+      ],
+      "b": [
+        "4h",
+        "4d",
+        "4c",
+        "4s",
+        "5h"
+      ],
+      "result": -1,
+      "note": "FH < quads"
+    },
+    {
+      "a": [
+        "4h",
+        "4d",
+        "4c",
+        "4s",
+        "5h"
+      ],
+      "b": [
+        "6c",
+        "5c",
+        "4d",
+        "3d",
+        "2d"
+      ],
+      "result": 1,
+      "note": "quads < SF (diff suits ok)"
+    },
+    {
+      "a": [
+        "9s",
+        "8s",
+        "7s",
+        "6s",
+        "5s"
+      ],
+      "b": [
+        "Ah",
+        "Kh",
+        "Qh",
+        "Jh",
+        "Th"
+      ],
+      "result": -1,
+      "note": "SF < royal"
+    },
+    {
+      "a": [
+        "7c",
+        "3d",
+        "Jh",
+        "5h",
+        "6s"
+      ],
+      "b": [
+        "Kh",
+        "6d",
+        "Td",
+        "6h",
+        "Ac"
+      ],
+      "result": -1,
+      "note": "random-cmp#0"
+    },
+    {
+      "a": [
+        "Kh",
+        "Tc",
+        "Ah",
+        "Qc",
+        "7h"
+      ],
+      "b": [
+        "5h",
+        "2d",
+        "9h",
+        "Th",
+        "5d"
+      ],
+      "result": -1,
+      "note": "random-cmp#1"
+    },
+    {
+      "a": [
+        "6d",
+        "2h",
+        "Js",
+        "5d",
+        "8d"
+      ],
+      "b": [
+        "6s",
+        "Ad",
+        "Ks",
+        "3s",
+        "Ah"
+      ],
+      "result": -1,
+      "note": "random-cmp#2"
+    },
+    {
+      "a": [
+        "7h",
+        "Jh",
+        "5s",
+        "Ah",
+        "Ad"
+      ],
+      "b": [
+        "Kd",
+        "3s",
+        "Qh",
+        "Kc",
+        "6s"
+      ],
+      "result": 1,
+      "note": "random-cmp#3"
+    },
+    {
+      "a": [
+        "8d",
+        "7d",
+        "6s",
+        "7h",
+        "3d"
+      ],
+      "b": [
+        "9s",
+        "9c",
+        "5d",
+        "Ks",
+        "5s"
+      ],
+      "result": -1,
+      "note": "random-cmp#4"
+    },
+    {
+      "a": [
+        "9c",
+        "Ad",
+        "4c",
+        "8s",
+        "9h"
+      ],
+      "b": [
+        "6h",
+        "Kd",
+        "8h",
+        "Qd",
+        "Jc"
+      ],
+      "result": 1,
+      "note": "random-cmp#5"
+    },
+    {
+      "a": [
+        "3c",
+        "3s",
+        "5d",
+        "Jc",
+        "Qc"
+      ],
+      "b": [
+        "Qd",
+        "6h",
+        "4d",
+        "Qs",
+        "Js"
+      ],
+      "result": -1,
+      "note": "random-cmp#6"
+    },
+    {
+      "a": [
+        "9h",
+        "As",
+        "3s",
+        "3d",
+        "Qs"
+      ],
+      "b": [
+        "7d",
+        "Ac",
+        "8d",
+        "8c",
+        "Th"
+      ],
+      "result": -1,
+      "note": "random-cmp#7"
+    },
+    {
+      "a": [
+        "Th",
+        "2c",
+        "Jd",
+        "As",
+        "7s"
+      ],
+      "b": [
+        "6d",
+        "Qs",
+        "3c",
+        "7d",
+        "9h"
+      ],
+      "result": 1,
+      "note": "random-cmp#8"
+    },
+    {
+      "a": [
+        "2h",
+        "9c",
+        "Js",
+        "As",
+        "Ad"
+      ],
+      "b": [
+        "4s",
+        "5d",
+        "7h",
+        "Td",
+        "4c"
+      ],
+      "result": 1,
+      "note": "random-cmp#9"
+    },
+    {
+      "a": [
+        "Jd",
+        "2h",
+        "Th",
+        "Td",
+        "Jc"
+      ],
+      "b": [
+        "As",
+        "6h",
+        "9s",
+        "2s",
+        "7d"
+      ],
+      "result": 1,
+      "note": "random-cmp#10"
+    },
+    {
+      "a": [
+        "2c",
+        "Ts",
+        "7d",
+        "7c",
+        "9c"
+      ],
+      "b": [
+        "5h",
+        "4d",
+        "7h",
+        "8d",
+        "3h"
+      ],
+      "result": 1,
+      "note": "random-cmp#11"
+    },
+    {
+      "a": [
+        "Jh",
+        "5c",
+        "Qs",
+        "9s",
+        "9d"
+      ],
+      "b": [
+        "2s",
+        "Qh",
+        "Ks",
+        "9h",
+        "Th"
+      ],
+      "result": 1,
+      "note": "random-cmp#12"
+    },
+    {
+      "a": [
+        "6c",
+        "8h",
+        "7s",
+        "Kc",
+        "2s"
+      ],
+      "b": [
+        "Qd",
+        "Ts",
+        "Th",
+        "Qc",
+        "9c"
+      ],
+      "result": -1,
+      "note": "random-cmp#13"
+    },
+    {
+      "a": [
+        "2d",
+        "Ks",
+        "8d",
+        "7s",
+        "Kd"
+      ],
+      "b": [
+        "5s",
+        "3d",
+        "Ts",
+        "4d",
+        "9s"
+      ],
+      "result": 1,
+      "note": "random-cmp#14"
+    },
+    {
+      "a": [
+        "8s",
+        "Qd",
+        "7h",
+        "2s",
+        "2c"
+      ],
+      "b": [
+        "Jd",
+        "8c",
+        "6h",
+        "3s",
+        "Kc"
+      ],
+      "result": 1,
+      "note": "random-cmp#15"
+    },
+    {
+      "a": [
+        "Qc",
+        "7s",
+        "Ah",
+        "Kh",
+        "3s"
+      ],
+      "b": [
+        "2h",
+        "6s",
+        "Js",
+        "Qs",
+        "9s"
+      ],
+      "result": 1,
+      "note": "random-cmp#16"
+    },
+    {
+      "a": [
+        "7d",
+        "4s",
+        "6c",
+        "Th",
+        "7s"
+      ],
+      "b": [
+        "Ah",
+        "Qd",
+        "2s",
+        "7h",
+        "Ac"
+      ],
+      "result": -1,
+      "note": "random-cmp#17"
+    },
+    {
+      "a": [
+        "Qc",
+        "6d",
+        "6s",
+        "2h",
+        "Jh"
+      ],
+      "b": [
+        "Ks",
+        "8s",
+        "5h",
+        "Kh",
+        "Jc"
+      ],
+      "result": -1,
+      "note": "random-cmp#18"
+    },
+    {
+      "a": [
+        "2s",
+        "Kc",
+        "5s",
+        "Jh",
+        "Tc"
+      ],
+      "b": [
+        "2h",
+        "9d",
+        "6s",
+        "Kh",
+        "5c"
+      ],
+      "result": 1,
+      "note": "random-cmp#19"
+    },
+    {
+      "a": [
+        "Ac",
+        "Ts",
+        "6d",
+        "Ks",
+        "8h"
+      ],
+      "b": [
+        "9c",
+        "8s",
+        "Jc",
+        "Qc",
+        "3d"
+      ],
+      "result": 1,
+      "note": "random-cmp#20"
+    },
+    {
+      "a": [
+        "4d",
+        "3c",
+        "Jd",
+        "2h",
+        "7h"
+      ],
+      "b": [
+        "9h",
+        "7s",
+        "Jh",
+        "9s",
+        "8d"
+      ],
+      "result": -1,
+      "note": "random-cmp#21"
+    },
+    {
+      "a": [
+        "6d",
+        "5d",
+        "4c",
+        "4s",
+        "Qc"
+      ],
+      "b": [
+        "Tc",
+        "4h",
+        "2c",
+        "3h",
+        "Th"
+      ],
+      "result": -1,
+      "note": "random-cmp#22"
+    },
+    {
+      "a": [
+        "2h",
+        "3c",
+        "2d",
+        "9h",
+        "4s"
+      ],
+      "b": [
+        "6s",
+        "Ac",
+        "7h",
+        "Ah",
+        "8s"
+      ],
+      "result": -1,
+      "note": "random-cmp#23"
+    },
+    {
+      "a": [
+        "Tc",
+        "As",
+        "Jd",
+        "5c",
+        "4d"
+      ],
+      "b": [
+        "Kd",
+        "2s",
+        "6h",
+        "4s",
+        "7s"
+      ],
+      "result": 1,
+      "note": "random-cmp#24"
+    },
+    {
+      "a": [
+        "3s",
+        "Jh",
+        "Jc",
+        "Js",
+        "4s"
+      ],
+      "b": [
+        "8c",
+        "2s",
+        "Ts",
+        "5c",
+        "4c"
+      ],
+      "result": 1,
+      "note": "random-cmp#25"
+    },
+    {
+      "a": [
+        "Ah",
+        "2s",
+        "Kc",
+        "4d",
+        "Kh"
+      ],
+      "b": [
+        "Qd",
+        "2h",
+        "3s",
+        "9h",
+        "5h"
+      ],
+      "result": 1,
+      "note": "random-cmp#26"
+    },
+    {
+      "a": [
+        "4d",
+        "7c",
+        "2s",
+        "7s",
+        "2c"
+      ],
+      "b": [
+        "9h",
+        "Jh",
+        "Js",
+        "Kh",
+        "2d"
+      ],
+      "result": 1,
+      "note": "random-cmp#27"
+    },
+    {
+      "a": [
+        "Tc",
+        "5s",
+        "5h",
+        "Ah",
+        "3s"
+      ],
+      "b": [
+        "4d",
+        "Ts",
+        "8h",
+        "Ad",
+        "Jd"
+      ],
+      "result": 1,
+      "note": "random-cmp#28"
+    },
+    {
+      "a": [
+        "7s",
+        "Kh",
+        "Qs",
+        "Ac",
+        "8h"
+      ],
+      "b": [
+        "9s",
+        "4c",
+        "4d",
+        "Qd",
+        "9h"
+      ],
+      "result": -1,
+      "note": "random-cmp#29"
+    },
+    {
+      "a": [
+        "9s",
+        "2s",
+        "5d",
+        "5s",
+        "4s"
+      ],
+      "b": [
+        "7c",
+        "Ks",
+        "Kd",
+        "8d",
+        "4h"
+      ],
+      "result": -1,
+      "note": "random-cmp#30"
+    },
+    {
+      "a": [
+        "4c",
+        "Ks",
+        "6c",
+        "Th",
+        "9c"
+      ],
+      "b": [
+        "9s",
+        "Jc",
+        "6h",
+        "6d",
+        "8h"
+      ],
+      "result": -1,
+      "note": "random-cmp#31"
+    },
+    {
+      "a": [
+        "7h",
+        "Qs",
+        "9s",
+        "Ks",
+        "Ah"
+      ],
+      "b": [
+        "8c",
+        "Tc",
+        "6d",
+        "Qd",
+        "5h"
+      ],
+      "result": 1,
+      "note": "random-cmp#32"
+    },
+    {
+      "a": [
+        "2s",
+        "9c",
+        "6h",
+        "3d",
+        "4c"
+      ],
+      "b": [
+        "8d",
+        "Ah",
+        "Kc",
+        "4d",
+        "7d"
+      ],
+      "result": -1,
+      "note": "random-cmp#33"
+    },
+    {
+      "a": [
+        "4d",
+        "Qh",
+        "Qd",
+        "8s",
+        "3d"
+      ],
+      "b": [
+        "7d",
+        "7c",
+        "5c",
+        "3h",
+        "9d"
+      ],
+      "result": 1,
+      "note": "random-cmp#34"
+    },
+    {
+      "a": [
+        "5h",
+        "2c",
+        "As",
+        "4s",
+        "Qh"
+      ],
+      "b": [
+        "2d",
+        "5d",
+        "6d",
+        "Th",
+        "9d"
+      ],
+      "result": 1,
+      "note": "random-cmp#35"
+    },
+    {
+      "a": [
+        "Jd",
+        "5s",
+        "4s",
+        "4d",
+        "8d"
+      ],
+      "b": [
+        "Jc",
+        "9d",
+        "Ks",
+        "2d",
+        "5d"
+      ],
+      "result": 1,
+      "note": "random-cmp#36"
+    },
+    {
+      "a": [
+        "8s",
+        "Tc",
+        "Qc",
+        "6d",
+        "Ts"
+      ],
+      "b": [
+        "5d",
+        "4d",
+        "Ah",
+        "Th",
+        "2c"
+      ],
+      "result": 1,
+      "note": "random-cmp#37"
+    },
+    {
+      "a": [
+        "8s",
+        "6h",
+        "Kd",
+        "Qh",
+        "3h"
+      ],
+      "b": [
+        "Ah",
+        "4h",
+        "3s",
+        "8h",
+        "9s"
+      ],
+      "result": -1,
+      "note": "random-cmp#38"
+    },
+    {
+      "a": [
+        "Ac",
+        "8d",
+        "2s",
+        "Ks",
+        "5s"
+      ],
+      "b": [
+        "Td",
+        "Tc",
+        "Qc",
+        "Kh",
+        "4d"
+      ],
+      "result": -1,
+      "note": "random-cmp#39"
+    }
+  ]
+}

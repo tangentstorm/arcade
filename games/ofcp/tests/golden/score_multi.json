@@ -1,0 +1,4853 @@
+{
+  "meta": {
+    "engineCommit": "9d4f481",
+    "scoringRules": {
+      "method": "scoreVsOpponents = sum of scoreHeadToHead vs each opponent",
+      "foulPaysBoth": "a fouled player loses 6+oppRoyalties to EACH non-fouled opponent pairwise",
+      "sumNets": "should be 0 (zero-sum across all pairwise exchanges)"
+    },
+    "seed": 265224197
+  },
+  "cases": [
+    {
+      "id": "strong-med-weak",
+      "note": "clear hierarchy; foul pays both opponents",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Ad",
+            "Kc"
+          ],
+          "middle": [
+            "Qh",
+            "Qd",
+            "Jc",
+            "Js",
+            "2h"
+          ],
+          "bottom": [
+            "Th",
+            "Td",
+            "Tc",
+            "9s",
+            "9h"
+          ],
+          "fouled": false,
+          "royalties": 15,
+          "net": 18
+        },
+        {
+          "player": "B",
+          "top": [
+            "9h",
+            "5d",
+            "2c"
+          ],
+          "middle": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "Th"
+          ],
+          "bottom": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Ks",
+            "Kh"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": -11
+        },
+        {
+          "player": "C",
+          "top": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "middle": [
+            "5h",
+            "6d",
+            "7c",
+            "8d",
+            "9d"
+          ],
+          "bottom": [
+            "2s",
+            "3s",
+            "4s",
+            "5s",
+            "7s"
+          ],
+          "fouled": false,
+          "royalties": 8,
+          "net": -7
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 10,
+          "scoreJ": -10,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 8,
+          "scoreJ": -8,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -1,
+          "scoreJ": 1,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": 18,
+        "B": -11,
+        "C": -7
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "one-foul",
+      "note": "A fouls — pays B and C each (6+roy)",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Ad",
+            "2d"
+          ],
+          "middle": [
+            "Kh",
+            "Kd",
+            "3c",
+            "4d",
+            "5d"
+          ],
+          "bottom": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -26
+        },
+        {
+          "player": "B",
+          "top": [
+            "9h",
+            "5d",
+            "2c"
+          ],
+          "middle": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "Th"
+          ],
+          "bottom": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Ks",
+            "Kh"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": 11
+        },
+        {
+          "player": "C",
+          "top": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "middle": [
+            "5h",
+            "6d",
+            "7c",
+            "8d",
+            "9d"
+          ],
+          "bottom": [
+            "2s",
+            "3s",
+            "4s",
+            "5s",
+            "7s"
+          ],
+          "fouled": false,
+          "royalties": 8,
+          "net": 15
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -12,
+          "scoreJ": 12,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -14,
+          "scoreJ": 14,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -1,
+          "scoreJ": 1,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -26,
+        "B": 11,
+        "C": 15
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "two-foul",
+      "note": "A and B foul; C collects from both; A vs B = 0",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Ad",
+            "2d"
+          ],
+          "middle": [
+            "Kh",
+            "Kd",
+            "3c",
+            "4d",
+            "5d"
+          ],
+          "bottom": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        },
+        {
+          "player": "B",
+          "top": [
+            "As",
+            "Ac",
+            "3h"
+          ],
+          "middle": [
+            "Ks",
+            "Kc",
+            "2s",
+            "6c",
+            "7h"
+          ],
+          "bottom": [
+            "Qs",
+            "Qh",
+            "Qd",
+            "Jd",
+            "Jc"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        },
+        {
+          "player": "C",
+          "top": [
+            "9h",
+            "5d",
+            "2c"
+          ],
+          "middle": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "Th"
+          ],
+          "bottom": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Ks",
+            "Kh"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": 24
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -12,
+          "scoreJ": 12,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -12,
+          "scoreJ": 12,
+          "fouledI": true,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -12,
+        "B": -12,
+        "C": 24
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "all-foul",
+      "note": "all three foul → all nets 0",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Ad",
+            "2d"
+          ],
+          "middle": [
+            "Kh",
+            "Kd",
+            "3c",
+            "4d",
+            "5d"
+          ],
+          "bottom": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "As",
+            "Ac",
+            "3h"
+          ],
+          "middle": [
+            "Ks",
+            "Kc",
+            "2s",
+            "6c",
+            "7h"
+          ],
+          "bottom": [
+            "Qs",
+            "Qh",
+            "Qd",
+            "Jd",
+            "Jc"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "Ah",
+            "Kh",
+            "Qh"
+          ],
+          "middle": [
+            "2h",
+            "3h",
+            "4h",
+            "5h",
+            "7d"
+          ],
+          "bottom": [
+            "8c",
+            "8d",
+            "8h",
+            "9c",
+            "9d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "close-three",
+      "note": "competitive three-way",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Kh",
+            "Kd",
+            "2c"
+          ],
+          "middle": [
+            "9h",
+            "9d",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "bottom": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "6s",
+            "6h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        },
+        {
+          "player": "B",
+          "top": [
+            "Qh",
+            "Qd",
+            "2d"
+          ],
+          "middle": [
+            "Th",
+            "Td",
+            "3d",
+            "4d",
+            "5d"
+          ],
+          "bottom": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "7s",
+            "7h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        },
+        {
+          "player": "C",
+          "top": [
+            "Jh",
+            "8d",
+            "3c"
+          ],
+          "middle": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "9c"
+          ],
+          "bottom": [
+            "Kh",
+            "Kc",
+            "Ks",
+            "Qs",
+            "Qh"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": 24
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -12,
+          "scoreJ": 12,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -12,
+          "scoreJ": 12,
+          "fouledI": true,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -12,
+        "B": -12,
+        "C": 24
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "scoop-machine",
+      "note": "A scoops both opponents",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Ad",
+            "Kc"
+          ],
+          "middle": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "2h"
+          ],
+          "bottom": [
+            "Th",
+            "Td",
+            "Tc",
+            "Ts",
+            "9h"
+          ],
+          "fouled": false,
+          "royalties": 21,
+          "net": 54
+        },
+        {
+          "player": "B",
+          "top": [
+            "2c",
+            "3c",
+            "4d"
+          ],
+          "middle": [
+            "5c",
+            "6c",
+            "7d",
+            "8d",
+            "9c"
+          ],
+          "bottom": [
+            "2d",
+            "3d",
+            "4h",
+            "5d",
+            "7h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -27
+        },
+        {
+          "player": "C",
+          "top": [
+            "2s",
+            "3s",
+            "4s"
+          ],
+          "middle": [
+            "5s",
+            "6s",
+            "7s",
+            "8h",
+            "9s"
+          ],
+          "bottom": [
+            "2h",
+            "3h",
+            "4c",
+            "5h",
+            "7c"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -27
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 27,
+          "scoreJ": -27,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 27,
+          "scoreJ": -27,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 54,
+        "B": -27,
+        "C": -27
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "royalty-heavy",
+      "note": "royalties dominate row points",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Ad",
+            "Ac"
+          ],
+          "middle": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "Qs",
+            "Qh"
+          ],
+          "bottom": [
+            "2h",
+            "2d",
+            "2c",
+            "2s",
+            "3h"
+          ],
+          "fouled": false,
+          "royalties": 44,
+          "net": 59
+        },
+        {
+          "player": "B",
+          "top": [
+            "6h",
+            "6d",
+            "5c"
+          ],
+          "middle": [
+            "7h",
+            "7d",
+            "8c",
+            "9s",
+            "Th"
+          ],
+          "bottom": [
+            "Jh",
+            "Jd",
+            "Jc",
+            "Ks",
+            "Kh"
+          ],
+          "fouled": false,
+          "royalties": 7,
+          "net": -66
+        },
+        {
+          "player": "C",
+          "top": [
+            "2c",
+            "3d",
+            "4c"
+          ],
+          "middle": [
+            "5d",
+            "6c",
+            "7c",
+            "8s",
+            "9d"
+          ],
+          "bottom": [
+            "Tc",
+            "Jc",
+            "Qc",
+            "Kc",
+            "Ac"
+          ],
+          "fouled": false,
+          "royalties": 29,
+          "net": 7
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 43,
+          "scoreJ": -43,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 16,
+          "scoreJ": -16,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -23,
+          "scoreJ": 23,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": 59,
+        "B": -66,
+        "C": 7
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "two-scoop-one-medium",
+      "note": "A scoops B and C almost",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Ad",
+            "Kc"
+          ],
+          "middle": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "2s",
+            "3h"
+          ],
+          "bottom": [
+            "Th",
+            "Td",
+            "Tc",
+            "Ts",
+            "9h"
+          ],
+          "fouled": false,
+          "royalties": 21,
+          "net": 48
+        },
+        {
+          "player": "B",
+          "top": [
+            "5h",
+            "4d",
+            "2c"
+          ],
+          "middle": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "9d"
+          ],
+          "bottom": [
+            "Jh",
+            "Jd",
+            "3c",
+            "4s",
+            "5d"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": -39
+        },
+        {
+          "player": "C",
+          "top": [
+            "3d",
+            "4d",
+            "5c"
+          ],
+          "middle": [
+            "7h",
+            "7d",
+            "8c",
+            "9s",
+            "Td"
+          ],
+          "bottom": [
+            "2h",
+            "2d",
+            "2c",
+            "3s",
+            "3h"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": -9
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 27,
+          "scoreJ": -27,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 21,
+          "scoreJ": -21,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -12,
+          "scoreJ": 12,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": 48,
+        "B": -39,
+        "C": -9
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "foul-pays-two-loaded",
+      "note": "fouler pays two royalty-rich opponents",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Ad",
+            "2c"
+          ],
+          "middle": [
+            "Kh",
+            "Kd",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "bottom": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "Js",
+            "Jh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -55
+        },
+        {
+          "player": "B",
+          "top": [
+            "Qs",
+            "Qc",
+            "2d"
+          ],
+          "middle": [
+            "9h",
+            "9d",
+            "9c",
+            "8s",
+            "8h"
+          ],
+          "bottom": [
+            "As",
+            "Ac",
+            "Ah",
+            "Ks",
+            "Kh"
+          ],
+          "fouled": false,
+          "royalties": 25,
+          "net": 39
+        },
+        {
+          "player": "C",
+          "top": [
+            "Jh",
+            "Jd",
+            "2s"
+          ],
+          "middle": [
+            "Th",
+            "Td",
+            "Tc",
+            "6s",
+            "5d"
+          ],
+          "bottom": [
+            "7h",
+            "7d",
+            "7c",
+            "7s",
+            "3h"
+          ],
+          "fouled": false,
+          "royalties": 18,
+          "net": 16
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -31,
+          "scoreJ": 31,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -24,
+          "scoreJ": 24,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 8,
+          "scoreJ": -8,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -55,
+        "B": 39,
+        "C": 16
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "cycle-ish",
+      "note": "rock-paper-scissors row strengths",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ah",
+            "Kd",
+            "Qc"
+          ],
+          "middle": [
+            "2h",
+            "2d",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "bottom": [
+            "6h",
+            "6d",
+            "6c",
+            "7s",
+            "7h"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": 9
+        },
+        {
+          "player": "B",
+          "top": [
+            "9h",
+            "5d",
+            "2c"
+          ],
+          "middle": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "3s",
+            "4h"
+          ],
+          "bottom": [
+            "8h",
+            "8d",
+            "8c",
+            "9s",
+            "9d"
+          ],
+          "fouled": false,
+          "royalties": 8,
+          "net": 17
+        },
+        {
+          "player": "C",
+          "top": [
+            "Qh",
+            "Qd",
+            "2d"
+          ],
+          "middle": [
+            "Jh",
+            "Jd",
+            "3d",
+            "4d",
+            "5d"
+          ],
+          "bottom": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ts",
+            "Th"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -26
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -3,
+          "scoreJ": 3,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 12,
+          "scoreJ": -12,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 14,
+          "scoreJ": -14,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 9,
+        "B": 17,
+        "C": -26
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "all-clean-no-royalties",
+      "note": "three weak clean boards",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "middle": [
+            "5h",
+            "6d",
+            "7c",
+            "8s",
+            "9h"
+          ],
+          "bottom": [
+            "Th",
+            "Jd",
+            "Qc",
+            "Ks",
+            "Ah"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "2s",
+            "3s",
+            "4s"
+          ],
+          "middle": [
+            "5s",
+            "6s",
+            "7s",
+            "8h",
+            "9d"
+          ],
+          "bottom": [
+            "Td",
+            "Jc",
+            "Qd",
+            "Kd",
+            "Ad"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "2c",
+            "3c",
+            "4d"
+          ],
+          "middle": [
+            "5c",
+            "6c",
+            "7d",
+            "8d",
+            "9c"
+          ],
+          "bottom": [
+            "Ts",
+            "Jh",
+            "Qh",
+            "Kh",
+            "As"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "one-foul-two-tieish",
+      "note": "A fouls; B and C close",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Kh",
+            "Kd",
+            "Kc"
+          ],
+          "middle": [
+            "2h",
+            "3d",
+            "4c",
+            "5s",
+            "7h"
+          ],
+          "bottom": [
+            "8h",
+            "9d",
+            "Tc",
+            "Js",
+            "Qh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -25
+        },
+        {
+          "player": "B",
+          "top": [
+            "6h",
+            "6d",
+            "2c"
+          ],
+          "middle": [
+            "7h",
+            "7d",
+            "3c",
+            "4s",
+            "5h"
+          ],
+          "bottom": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "9s",
+            "9h"
+          ],
+          "fouled": false,
+          "royalties": 7,
+          "net": 15
+        },
+        {
+          "player": "C",
+          "top": [
+            "5d",
+            "5c",
+            "2d"
+          ],
+          "middle": [
+            "8c",
+            "8d",
+            "3d",
+            "4d",
+            "6s"
+          ],
+          "bottom": [
+            "Th",
+            "Td",
+            "Tc",
+            "Js",
+            "Jh"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": 10
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -13,
+          "scoreJ": 13,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -12,
+          "scoreJ": 12,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 2,
+          "scoreJ": -2,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -25,
+        "B": 15,
+        "C": 10
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "mid-fh-stay-shape",
+      "note": "boards shaped for FL stay tests in multi",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "2h",
+            "3d",
+            "4c"
+          ],
+          "middle": [
+            "9h",
+            "9d",
+            "9c",
+            "8s",
+            "8h"
+          ],
+          "bottom": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "Ks",
+            "Kh"
+          ],
+          "fouled": false,
+          "royalties": 18,
+          "net": 10
+        },
+        {
+          "player": "B",
+          "top": [
+            "2s",
+            "3s",
+            "4s"
+          ],
+          "middle": [
+            "5h",
+            "6d",
+            "7c",
+            "8d",
+            "9d"
+          ],
+          "bottom": [
+            "Th",
+            "Td",
+            "Tc",
+            "Ts",
+            "Jh"
+          ],
+          "fouled": false,
+          "royalties": 14,
+          "net": -2
+        },
+        {
+          "player": "C",
+          "top": [
+            "Qh",
+            "Qd",
+            "2d"
+          ],
+          "middle": [
+            "Kh",
+            "Kd",
+            "5c",
+            "6s",
+            "7h"
+          ],
+          "bottom": [
+            "8c",
+            "8h",
+            "8s",
+            "Js",
+            "Jd"
+          ],
+          "fouled": false,
+          "royalties": 13,
+          "net": -8
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 4,
+          "scoreJ": -4,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 2,
+          "scoreJ": -2,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": 10,
+        "B": -2,
+        "C": -8
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "trips-top-multi",
+      "note": "trips top A vs two opponents",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Jh",
+            "Jd",
+            "Jc"
+          ],
+          "middle": [
+            "Qh",
+            "Qd",
+            "Qc",
+            "2s",
+            "3h"
+          ],
+          "bottom": [
+            "Ah",
+            "Ad",
+            "Ac",
+            "As",
+            "Kh"
+          ],
+          "fouled": false,
+          "royalties": 31,
+          "net": 62
+        },
+        {
+          "player": "B",
+          "top": [
+            "9h",
+            "5d",
+            "2c"
+          ],
+          "middle": [
+            "6h",
+            "6d",
+            "7c",
+            "8s",
+            "Th"
+          ],
+          "bottom": [
+            "Kh",
+            "Kd",
+            "Kc",
+            "Qs",
+            "Qh"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": -25
+        },
+        {
+          "player": "C",
+          "top": [
+            "8h",
+            "3d",
+            "2d"
+          ],
+          "middle": [
+            "5h",
+            "5d",
+            "6c",
+            "7s",
+            "9d"
+          ],
+          "bottom": [
+            "Th",
+            "Td",
+            "Tc",
+            "Js",
+            "Jh"
+          ],
+          "fouled": false,
+          "royalties": 6,
+          "net": -37
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 31,
+          "scoreJ": -31,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 31,
+          "scoreJ": -31,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": 62,
+        "B": -25,
+        "C": -37
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#0",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "2s",
+            "Qc",
+            "9d"
+          ],
+          "middle": [
+            "9h",
+            "5c",
+            "4s",
+            "Ad",
+            "3d"
+          ],
+          "bottom": [
+            "3h",
+            "9c",
+            "Qh",
+            "7c",
+            "Ts"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "Jh",
+            "Ac",
+            "7d"
+          ],
+          "middle": [
+            "7h",
+            "Td",
+            "9s",
+            "Qs",
+            "Jd"
+          ],
+          "bottom": [
+            "Qd",
+            "6s",
+            "8d",
+            "Jc",
+            "As"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "Kh",
+            "7s",
+            "2d"
+          ],
+          "middle": [
+            "6h",
+            "6c",
+            "Tc",
+            "8s",
+            "6d"
+          ],
+          "bottom": [
+            "Kd",
+            "4h",
+            "Th",
+            "Kc",
+            "5s"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#1",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "As",
+            "2s",
+            "9h"
+          ],
+          "middle": [
+            "8h",
+            "6h",
+            "Jd",
+            "6d",
+            "3c"
+          ],
+          "bottom": [
+            "9s",
+            "8c",
+            "Th",
+            "3h",
+            "Qd"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "Kh",
+            "9c",
+            "Ad"
+          ],
+          "middle": [
+            "4d",
+            "Ac",
+            "2c",
+            "Kd",
+            "3d"
+          ],
+          "bottom": [
+            "8d",
+            "5h",
+            "Ks",
+            "7d",
+            "8s"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "2d",
+            "6c",
+            "4h"
+          ],
+          "middle": [
+            "7c",
+            "5s",
+            "5c",
+            "Qs",
+            "Ts"
+          ],
+          "bottom": [
+            "9d",
+            "6s",
+            "Td",
+            "7s",
+            "Qh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#2",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "6s",
+            "Kc",
+            "2d"
+          ],
+          "middle": [
+            "9c",
+            "7s",
+            "9h",
+            "Kd",
+            "Js"
+          ],
+          "bottom": [
+            "As",
+            "4c",
+            "8c",
+            "7h",
+            "Qd"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "3c",
+            "Kh",
+            "Th"
+          ],
+          "middle": [
+            "6h",
+            "2c",
+            "Tc",
+            "Ac",
+            "3s"
+          ],
+          "bottom": [
+            "3h",
+            "Jd",
+            "4s",
+            "4h",
+            "2s"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "5h",
+            "8d",
+            "9d"
+          ],
+          "middle": [
+            "8h",
+            "Td",
+            "Qs",
+            "Ts",
+            "Jc"
+          ],
+          "bottom": [
+            "7c",
+            "Ad",
+            "8s",
+            "Ks",
+            "4d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": 12,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#3",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "7h",
+            "Jd",
+            "Js"
+          ],
+          "middle": [
+            "7d",
+            "Jc",
+            "Tc",
+            "Th",
+            "Qs"
+          ],
+          "bottom": [
+            "Qh",
+            "As",
+            "8c",
+            "9c",
+            "6d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "3h",
+            "6s",
+            "Td"
+          ],
+          "middle": [
+            "3s",
+            "Jh",
+            "8d",
+            "Kc",
+            "5s"
+          ],
+          "bottom": [
+            "5h",
+            "8h",
+            "Ad",
+            "2h",
+            "3c"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "4s",
+            "7c",
+            "Ac"
+          ],
+          "middle": [
+            "Qc",
+            "9s",
+            "4d",
+            "Kd",
+            "4c"
+          ],
+          "bottom": [
+            "Qd",
+            "9h",
+            "3d",
+            "2c",
+            "7s"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": 12,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#4",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Qd",
+            "5d",
+            "Jd"
+          ],
+          "middle": [
+            "Qc",
+            "6s",
+            "9s",
+            "4s",
+            "5h"
+          ],
+          "bottom": [
+            "Qs",
+            "9c",
+            "2s",
+            "Td",
+            "Kh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "2c",
+            "Kc",
+            "4d"
+          ],
+          "middle": [
+            "Tc",
+            "Th",
+            "9h",
+            "7c",
+            "Qh"
+          ],
+          "bottom": [
+            "7d",
+            "As",
+            "6c",
+            "3c",
+            "6d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "8h",
+            "2d",
+            "4h"
+          ],
+          "middle": [
+            "8c",
+            "5c",
+            "3h",
+            "8s",
+            "7h"
+          ],
+          "bottom": [
+            "4c",
+            "5s",
+            "9d",
+            "Jh",
+            "Ah"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#5",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Ad",
+            "Js",
+            "Kc"
+          ],
+          "middle": [
+            "9s",
+            "6s",
+            "Ts",
+            "Th",
+            "6d"
+          ],
+          "bottom": [
+            "Ah",
+            "3d",
+            "2h",
+            "6c",
+            "7d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        },
+        {
+          "player": "B",
+          "top": [
+            "Jc",
+            "2d",
+            "7s"
+          ],
+          "middle": [
+            "8s",
+            "5c",
+            "9c",
+            "Qh",
+            "Qs"
+          ],
+          "bottom": [
+            "Ks",
+            "Qc",
+            "Qd",
+            "7c",
+            "6h"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "2c",
+            "9d",
+            "8c"
+          ],
+          "middle": [
+            "4d",
+            "2s",
+            "3s",
+            "Jh",
+            "Kh"
+          ],
+          "bottom": [
+            "8h",
+            "4c",
+            "7h",
+            "4h",
+            "Tc"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -12,
+        "B": 12,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#6",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Js",
+            "Ks",
+            "Kh"
+          ],
+          "middle": [
+            "6s",
+            "Qs",
+            "9s",
+            "3d",
+            "3h"
+          ],
+          "bottom": [
+            "Td",
+            "2c",
+            "Tc",
+            "Qh",
+            "Ah"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "7h",
+            "Ts",
+            "Qd"
+          ],
+          "middle": [
+            "2h",
+            "Ad",
+            "5h",
+            "Jd",
+            "7c"
+          ],
+          "bottom": [
+            "Ac",
+            "9h",
+            "6h",
+            "5s",
+            "7s"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "Th",
+            "8h",
+            "As"
+          ],
+          "middle": [
+            "9d",
+            "6c",
+            "3s",
+            "Kc",
+            "8c"
+          ],
+          "bottom": [
+            "2s",
+            "Kd",
+            "4s",
+            "5c",
+            "5d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#7",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Qh",
+            "2h",
+            "2d"
+          ],
+          "middle": [
+            "Qd",
+            "3d",
+            "Kc",
+            "9d",
+            "Jh"
+          ],
+          "bottom": [
+            "As",
+            "Jc",
+            "4s",
+            "5s",
+            "Kd"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "Ah",
+            "Qs",
+            "Td"
+          ],
+          "middle": [
+            "Js",
+            "7c",
+            "Ks",
+            "9s",
+            "Ts"
+          ],
+          "bottom": [
+            "7d",
+            "8h",
+            "Th",
+            "Kh",
+            "6h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "4h",
+            "Tc",
+            "4d"
+          ],
+          "middle": [
+            "5d",
+            "9c",
+            "6d",
+            "Qc",
+            "2s"
+          ],
+          "bottom": [
+            "4c",
+            "7s",
+            "8s",
+            "3s",
+            "7h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#8",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "8s",
+            "4c",
+            "Qh"
+          ],
+          "middle": [
+            "Tc",
+            "Kd",
+            "Jc",
+            "Qc",
+            "Kh"
+          ],
+          "bottom": [
+            "Ah",
+            "Td",
+            "6h",
+            "Qd",
+            "8d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "9h",
+            "3d",
+            "7c"
+          ],
+          "middle": [
+            "As",
+            "4h",
+            "Ts",
+            "Js",
+            "4s"
+          ],
+          "bottom": [
+            "7d",
+            "2c",
+            "Kc",
+            "2d",
+            "2h"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "3c",
+            "8c",
+            "Ac"
+          ],
+          "middle": [
+            "4d",
+            "5h",
+            "Ks",
+            "5s",
+            "Qs"
+          ],
+          "bottom": [
+            "6d",
+            "Ad",
+            "8h",
+            "7s",
+            "5c"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": 12,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#9",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "5h",
+            "5d",
+            "Qc"
+          ],
+          "middle": [
+            "Kd",
+            "2d",
+            "7s",
+            "7h",
+            "6s"
+          ],
+          "bottom": [
+            "Ks",
+            "Kh",
+            "5c",
+            "9s",
+            "Qd"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "B",
+          "top": [
+            "3s",
+            "Th",
+            "4c"
+          ],
+          "middle": [
+            "7c",
+            "6h",
+            "6c",
+            "4d",
+            "9h"
+          ],
+          "bottom": [
+            "Ah",
+            "Qs",
+            "Jh",
+            "8d",
+            "3d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "Kc",
+            "2c",
+            "Jd"
+          ],
+          "middle": [
+            "Ad",
+            "2s",
+            "3h",
+            "Ac",
+            "Ts"
+          ],
+          "bottom": [
+            "Tc",
+            "Qh",
+            "5s",
+            "Js",
+            "8h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 12,
+        "B": -6,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#10",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "8c",
+            "9s",
+            "6s"
+          ],
+          "middle": [
+            "2h",
+            "6d",
+            "8h",
+            "Ac",
+            "5d"
+          ],
+          "bottom": [
+            "4d",
+            "7s",
+            "Ah",
+            "As",
+            "Kd"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "Qh",
+            "Ad",
+            "Ts"
+          ],
+          "middle": [
+            "Qd",
+            "7c",
+            "5h",
+            "Js",
+            "5s"
+          ],
+          "bottom": [
+            "9d",
+            "Kc",
+            "9c",
+            "Kh",
+            "2d"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "4h",
+            "8d",
+            "Td"
+          ],
+          "middle": [
+            "2c",
+            "2s",
+            "Jh",
+            "6c",
+            "Qc"
+          ],
+          "bottom": [
+            "Jd",
+            "7d",
+            "9h",
+            "8s",
+            "3d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 12,
+        "C": -12
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#11",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "5s",
+            "9h",
+            "Qd"
+          ],
+          "middle": [
+            "5d",
+            "Ks",
+            "Jc",
+            "7h",
+            "Kc"
+          ],
+          "bottom": [
+            "Ac",
+            "8s",
+            "Jh",
+            "6h",
+            "3c"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "Ad",
+            "7c",
+            "As"
+          ],
+          "middle": [
+            "6s",
+            "6d",
+            "Qc",
+            "4h",
+            "9s"
+          ],
+          "bottom": [
+            "7s",
+            "Th",
+            "6c",
+            "5c",
+            "Js"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "Ts",
+            "3s",
+            "4s"
+          ],
+          "middle": [
+            "8d",
+            "Tc",
+            "Kd",
+            "5h",
+            "7d"
+          ],
+          "bottom": [
+            "2s",
+            "Ah",
+            "Jd",
+            "Td",
+            "9c"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": -6,
+        "C": 12
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#12",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "5s",
+            "9s",
+            "Qc"
+          ],
+          "middle": [
+            "Ah",
+            "2h",
+            "9d",
+            "4h",
+            "4d"
+          ],
+          "bottom": [
+            "5h",
+            "7d",
+            "Ks",
+            "Kc",
+            "Qs"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "B",
+          "top": [
+            "Js",
+            "8c",
+            "2c"
+          ],
+          "middle": [
+            "Td",
+            "2d",
+            "4s",
+            "3s",
+            "2s"
+          ],
+          "bottom": [
+            "6s",
+            "5c",
+            "Kd",
+            "6d",
+            "8h"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": -7
+        },
+        {
+          "player": "C",
+          "top": [
+            "Tc",
+            "7c",
+            "Jh"
+          ],
+          "middle": [
+            "7s",
+            "6h",
+            "Ac",
+            "Jc",
+            "Kh"
+          ],
+          "bottom": [
+            "6c",
+            "8s",
+            "Qh",
+            "8d",
+            "3h"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": -5
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -1,
+          "scoreJ": 1,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": 12,
+        "B": -7,
+        "C": -5
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#13",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "7h",
+            "Ks",
+            "Qs"
+          ],
+          "middle": [
+            "2d",
+            "Ad",
+            "Jh",
+            "2s",
+            "Th"
+          ],
+          "bottom": [
+            "Ah",
+            "5d",
+            "9d",
+            "Jd",
+            "3c"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "Qh",
+            "8s",
+            "5s"
+          ],
+          "middle": [
+            "9h",
+            "Ts",
+            "4s",
+            "7c",
+            "5h"
+          ],
+          "bottom": [
+            "3s",
+            "Kh",
+            "3h",
+            "6c",
+            "7s"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "Td",
+            "Tc",
+            "8d"
+          ],
+          "middle": [
+            "Kc",
+            "4h",
+            "Jc",
+            "3d",
+            "6h"
+          ],
+          "bottom": [
+            "Ac",
+            "As",
+            "4d",
+            "4c",
+            "9s"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#14",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "3h",
+            "Tc",
+            "8h"
+          ],
+          "middle": [
+            "Jd",
+            "2c",
+            "Ad",
+            "5h",
+            "5d"
+          ],
+          "bottom": [
+            "Ts",
+            "Kh",
+            "Th",
+            "Kc",
+            "Js"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "B",
+          "top": [
+            "7s",
+            "3c",
+            "8d"
+          ],
+          "middle": [
+            "2d",
+            "9c",
+            "Jh",
+            "Qc",
+            "Ah"
+          ],
+          "bottom": [
+            "6c",
+            "Kd",
+            "Ac",
+            "Ks",
+            "Jc"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "9s",
+            "2h",
+            "3d"
+          ],
+          "middle": [
+            "6d",
+            "Qh",
+            "4d",
+            "2s",
+            "Qd"
+          ],
+          "bottom": [
+            "5s",
+            "9d",
+            "8s",
+            "Td",
+            "8c"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 12,
+        "B": 0,
+        "C": -12
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#15",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "As",
+            "5h",
+            "Kc"
+          ],
+          "middle": [
+            "7s",
+            "2h",
+            "Qd",
+            "5c",
+            "9d"
+          ],
+          "bottom": [
+            "3h",
+            "6c",
+            "8c",
+            "Js",
+            "Td"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "8s",
+            "2c",
+            "Ad"
+          ],
+          "middle": [
+            "9s",
+            "Jc",
+            "Qc",
+            "3c",
+            "Ks"
+          ],
+          "bottom": [
+            "Ts",
+            "5s",
+            "2d",
+            "7d",
+            "7c"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "4d",
+            "2s",
+            "Kh"
+          ],
+          "middle": [
+            "Qh",
+            "Qs",
+            "4c",
+            "Tc",
+            "4h"
+          ],
+          "bottom": [
+            "3s",
+            "7h",
+            "Ah",
+            "Kd",
+            "5d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#16",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "3d",
+            "Kh",
+            "Js"
+          ],
+          "middle": [
+            "Th",
+            "Ts",
+            "5s",
+            "Ah",
+            "4d"
+          ],
+          "bottom": [
+            "7s",
+            "5c",
+            "8s",
+            "Tc",
+            "9d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "9c",
+            "4c",
+            "5h"
+          ],
+          "middle": [
+            "2h",
+            "Kc",
+            "8d",
+            "3s",
+            "Kd"
+          ],
+          "bottom": [
+            "Qh",
+            "Ad",
+            "7c",
+            "8h",
+            "6h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "8c",
+            "2c",
+            "9s"
+          ],
+          "middle": [
+            "Qs",
+            "3h",
+            "5d",
+            "4s",
+            "3c"
+          ],
+          "bottom": [
+            "Ac",
+            "6d",
+            "7d",
+            "Jc",
+            "Jh"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": -6,
+        "C": 12
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#17",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "4c",
+            "8s",
+            "6s"
+          ],
+          "middle": [
+            "5c",
+            "2c",
+            "Ts",
+            "9d",
+            "Ks"
+          ],
+          "bottom": [
+            "Kd",
+            "5d",
+            "4h",
+            "Qd",
+            "3h"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "4d",
+            "5h",
+            "6h"
+          ],
+          "middle": [
+            "9h",
+            "5s",
+            "6c",
+            "9s",
+            "Jd"
+          ],
+          "bottom": [
+            "8h",
+            "7d",
+            "9c",
+            "2s",
+            "8c"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        },
+        {
+          "player": "C",
+          "top": [
+            "7h",
+            "Th",
+            "Jh"
+          ],
+          "middle": [
+            "2d",
+            "2h",
+            "Ad",
+            "8d",
+            "Qc"
+          ],
+          "bottom": [
+            "Kc",
+            "3c",
+            "Jc",
+            "Js",
+            "7c"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": false,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": -12,
+        "C": 12
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#18",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Jc",
+            "Ad",
+            "5d"
+          ],
+          "middle": [
+            "As",
+            "Kd",
+            "7h",
+            "5h",
+            "8h"
+          ],
+          "bottom": [
+            "7s",
+            "7d",
+            "Qc",
+            "Ks",
+            "4h"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "B",
+          "top": [
+            "9s",
+            "5c",
+            "4c"
+          ],
+          "middle": [
+            "4d",
+            "6s",
+            "Ac",
+            "2s",
+            "9c"
+          ],
+          "bottom": [
+            "Th",
+            "2c",
+            "4s",
+            "3d",
+            "Qs"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "9d",
+            "Tc",
+            "Td"
+          ],
+          "middle": [
+            "Qh",
+            "Ah",
+            "Qd",
+            "8d",
+            "6h"
+          ],
+          "bottom": [
+            "3s",
+            "6c",
+            "7c",
+            "2h",
+            "Ts"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 12,
+        "B": -6,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#19",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Jc",
+            "Jh",
+            "3h"
+          ],
+          "middle": [
+            "Qd",
+            "6d",
+            "7h",
+            "9h",
+            "8d"
+          ],
+          "bottom": [
+            "6c",
+            "Td",
+            "5h",
+            "Tc",
+            "Kd"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "Ts",
+            "9c",
+            "3s"
+          ],
+          "middle": [
+            "4h",
+            "8h",
+            "5d",
+            "4d",
+            "Kh"
+          ],
+          "bottom": [
+            "4s",
+            "Ks",
+            "5s",
+            "9s",
+            "3d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "Ah",
+            "6h",
+            "Qc"
+          ],
+          "middle": [
+            "Jd",
+            "6s",
+            "3c",
+            "Th",
+            "2d"
+          ],
+          "bottom": [
+            "Ac",
+            "2h",
+            "8s",
+            "4c",
+            "2s"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#20",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "7d",
+            "3s",
+            "Ks"
+          ],
+          "middle": [
+            "Ac",
+            "4h",
+            "2h",
+            "6s",
+            "6d"
+          ],
+          "bottom": [
+            "Kh",
+            "Kc",
+            "4d",
+            "Qh",
+            "8h"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "B",
+          "top": [
+            "As",
+            "Qs",
+            "9h"
+          ],
+          "middle": [
+            "7s",
+            "6h",
+            "Jh",
+            "3h",
+            "9d"
+          ],
+          "bottom": [
+            "2c",
+            "Kd",
+            "3c",
+            "Jd",
+            "Qc"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "Qd",
+            "4s",
+            "5d"
+          ],
+          "middle": [
+            "8d",
+            "Ah",
+            "2s",
+            "3d",
+            "8s"
+          ],
+          "bottom": [
+            "Tc",
+            "8c",
+            "9c",
+            "5h",
+            "5s"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 12,
+        "B": -6,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#21",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "3s",
+            "5h",
+            "Ks"
+          ],
+          "middle": [
+            "Ah",
+            "Qd",
+            "Ad",
+            "6h",
+            "As"
+          ],
+          "bottom": [
+            "Ac",
+            "Th",
+            "7h",
+            "Js",
+            "Ts"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "3c",
+            "Kh",
+            "9h"
+          ],
+          "middle": [
+            "Qh",
+            "9d",
+            "6s",
+            "3d",
+            "Qs"
+          ],
+          "bottom": [
+            "7d",
+            "Kd",
+            "6c",
+            "8s",
+            "Qc"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "8c",
+            "4s",
+            "9c"
+          ],
+          "middle": [
+            "7c",
+            "2c",
+            "Jc",
+            "4d",
+            "8d"
+          ],
+          "bottom": [
+            "5d",
+            "Td",
+            "5c",
+            "9s",
+            "Jd"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": -6,
+        "C": 12
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#22",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Jd",
+            "8c",
+            "6s"
+          ],
+          "middle": [
+            "5s",
+            "Qs",
+            "Th",
+            "8h",
+            "Tc"
+          ],
+          "bottom": [
+            "Qh",
+            "3s",
+            "4d",
+            "4s",
+            "9d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "3h",
+            "Qc",
+            "2s"
+          ],
+          "middle": [
+            "Js",
+            "5d",
+            "2d",
+            "Kc",
+            "3c"
+          ],
+          "bottom": [
+            "7c",
+            "9c",
+            "9s",
+            "5h",
+            "Qd"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "Jh",
+            "2c",
+            "4c"
+          ],
+          "middle": [
+            "8s",
+            "7s",
+            "Kd",
+            "Kh",
+            "Jc"
+          ],
+          "bottom": [
+            "Ts",
+            "2h",
+            "5c",
+            "Ad",
+            "9h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": 12,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#23",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "8h",
+            "Jh",
+            "4h"
+          ],
+          "middle": [
+            "2h",
+            "5c",
+            "6d",
+            "6s",
+            "8c"
+          ],
+          "bottom": [
+            "Qs",
+            "3d",
+            "Jd",
+            "5h",
+            "Ah"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "Qh",
+            "6h",
+            "2d"
+          ],
+          "middle": [
+            "7s",
+            "9h",
+            "3s",
+            "8d",
+            "Ac"
+          ],
+          "bottom": [
+            "9c",
+            "7c",
+            "4s",
+            "Ts",
+            "Kd"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "6c",
+            "8s",
+            "Qd"
+          ],
+          "middle": [
+            "Ks",
+            "Th",
+            "4c",
+            "3h",
+            "7h"
+          ],
+          "bottom": [
+            "9s",
+            "Td",
+            "Ad",
+            "Js",
+            "2c"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": -6,
+        "C": 12
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#24",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "5h",
+            "Kh",
+            "7c"
+          ],
+          "middle": [
+            "9s",
+            "6h",
+            "7d",
+            "Js",
+            "9d"
+          ],
+          "bottom": [
+            "4s",
+            "9h",
+            "Ah",
+            "4c",
+            "7h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -12
+        },
+        {
+          "player": "B",
+          "top": [
+            "Jc",
+            "Kc",
+            "8c"
+          ],
+          "middle": [
+            "7s",
+            "3s",
+            "Ks",
+            "As",
+            "6d"
+          ],
+          "bottom": [
+            "2h",
+            "5s",
+            "2s",
+            "Td",
+            "Qh"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "2d",
+            "5d",
+            "3d"
+          ],
+          "middle": [
+            "Th",
+            "6s",
+            "8d",
+            "4h",
+            "3h"
+          ],
+          "bottom": [
+            "Qs",
+            "Jd",
+            "Ts",
+            "Kd",
+            "6c"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": false
+        }
+      ],
+      "nets": {
+        "A": -12,
+        "B": 12,
+        "C": 0
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#25",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "Js",
+            "9s",
+            "8d"
+          ],
+          "middle": [
+            "3c",
+            "Ah",
+            "Jd",
+            "Qc",
+            "8h"
+          ],
+          "bottom": [
+            "Ks",
+            "Jc",
+            "9h",
+            "4c",
+            "Kc"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "B",
+          "top": [
+            "4d",
+            "4s",
+            "Ad"
+          ],
+          "middle": [
+            "7d",
+            "Tc",
+            "As",
+            "7s",
+            "3h"
+          ],
+          "bottom": [
+            "2d",
+            "9d",
+            "5h",
+            "6s",
+            "8c"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "5s",
+            "Th",
+            "Qs"
+          ],
+          "middle": [
+            "7c",
+            "Td",
+            "Kh",
+            "5d",
+            "2s"
+          ],
+          "bottom": [
+            "6h",
+            "9c",
+            "8s",
+            "7h",
+            "3d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 12,
+        "B": -6,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#26",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "6d",
+            "2d",
+            "3s"
+          ],
+          "middle": [
+            "5d",
+            "2s",
+            "8s",
+            "5c",
+            "Kh"
+          ],
+          "bottom": [
+            "3d",
+            "9h",
+            "Jh",
+            "Ts",
+            "Jc"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "B",
+          "top": [
+            "8d",
+            "4h",
+            "Ks"
+          ],
+          "middle": [
+            "Qd",
+            "4c",
+            "8h",
+            "3h",
+            "7c"
+          ],
+          "bottom": [
+            "Js",
+            "Kd",
+            "6c",
+            "5h",
+            "4d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "C",
+          "top": [
+            "Ah",
+            "Th",
+            "4s"
+          ],
+          "middle": [
+            "9s",
+            "Tc",
+            "9d",
+            "5s",
+            "7d"
+          ],
+          "bottom": [
+            "Td",
+            "7s",
+            "Qh",
+            "Ac",
+            "2h"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 12,
+        "B": -6,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#27",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "2h",
+            "Kh",
+            "Kc"
+          ],
+          "middle": [
+            "3d",
+            "5h",
+            "Ad",
+            "2s",
+            "5s"
+          ],
+          "bottom": [
+            "6c",
+            "8s",
+            "6h",
+            "7c",
+            "Ks"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "3h",
+            "Tc",
+            "8h"
+          ],
+          "middle": [
+            "Td",
+            "4s",
+            "Qs",
+            "4d",
+            "6d"
+          ],
+          "bottom": [
+            "7s",
+            "Ah",
+            "Qc",
+            "Ac",
+            "3c"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "Jc",
+            "4h",
+            "3s"
+          ],
+          "middle": [
+            "7h",
+            "As",
+            "9d",
+            "6s",
+            "8c"
+          ],
+          "bottom": [
+            "4c",
+            "8d",
+            "7d",
+            "5c",
+            "Kd"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": 12,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#28",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "2d",
+            "6s",
+            "8h"
+          ],
+          "middle": [
+            "4d",
+            "8s",
+            "5c",
+            "Qh",
+            "4c"
+          ],
+          "bottom": [
+            "5s",
+            "6h",
+            "7h",
+            "Qs",
+            "Jh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        },
+        {
+          "player": "B",
+          "top": [
+            "6d",
+            "Qc",
+            "9s"
+          ],
+          "middle": [
+            "Td",
+            "Jd",
+            "7s",
+            "Ad",
+            "Kh"
+          ],
+          "bottom": [
+            "9h",
+            "4s",
+            "Ts",
+            "As",
+            "Th"
+          ],
+          "fouled": false,
+          "royalties": 0,
+          "net": 12
+        },
+        {
+          "player": "C",
+          "top": [
+            "Kc",
+            "2s",
+            "6c"
+          ],
+          "middle": [
+            "5d",
+            "Js",
+            "Tc",
+            "4h",
+            "3d"
+          ],
+          "bottom": [
+            "9c",
+            "Ah",
+            "3c",
+            "8c",
+            "Kd"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": -6
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": -6,
+          "scoreJ": 6,
+          "fouledI": true,
+          "fouledJ": false
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 6,
+          "scoreJ": -6,
+          "fouledI": false,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": -6,
+        "B": 12,
+        "C": -6
+      },
+      "sumNets": 0
+    },
+    {
+      "id": "random#29",
+      "note": "random 3×13 from one shuffled deck",
+      "boards": [
+        {
+          "player": "A",
+          "top": [
+            "5c",
+            "8c",
+            "9c"
+          ],
+          "middle": [
+            "Jh",
+            "Ac",
+            "4h",
+            "7s",
+            "Js"
+          ],
+          "bottom": [
+            "Ts",
+            "Tc",
+            "7d",
+            "5h",
+            "Jc"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "B",
+          "top": [
+            "2h",
+            "6c",
+            "3s"
+          ],
+          "middle": [
+            "2c",
+            "6d",
+            "9s",
+            "9d",
+            "5d"
+          ],
+          "bottom": [
+            "Kh",
+            "8s",
+            "2d",
+            "5s",
+            "Qh"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        },
+        {
+          "player": "C",
+          "top": [
+            "Ks",
+            "8h",
+            "4s"
+          ],
+          "middle": [
+            "Jd",
+            "6s",
+            "Qc",
+            "Ad",
+            "3h"
+          ],
+          "bottom": [
+            "Th",
+            "7c",
+            "As",
+            "Qd",
+            "4d"
+          ],
+          "fouled": true,
+          "royalties": 0,
+          "net": 0
+        }
+      ],
+      "pairwise": [
+        {
+          "pair": "AvsB",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "AvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        },
+        {
+          "pair": "BvsC",
+          "scoreI": 0,
+          "scoreJ": 0,
+          "fouledI": true,
+          "fouledJ": true
+        }
+      ],
+      "nets": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "sumNets": 0
+    }
+  ]
+}

@@ -1,0 +1,2853 @@
+{
+  "meta": {
+    "engineCommit": "9d4f481",
+    "cardEncoding": "same as eval5: 'As','Td','2c'",
+    "categoryEnum": {
+      "0": "HIGH_CARD",
+      "1": "PAIR",
+      "2": "TWO_PAIR",
+      "3": "THREE_OF_A_KIND",
+      "4": "STRAIGHT",
+      "5": "FLUSH",
+      "6": "FULL_HOUSE",
+      "7": "FOUR_OF_A_KIND",
+      "8": "STRAIGHT_FLUSH",
+      "9": "ROYAL_FLUSH"
+    },
+    "topRowNote": "evaluate3 only produces HIGH_CARD, PAIR, THREE_OF_A_KIND. Straights and flushes do NOT count on top.",
+    "crossRowNote": "Foul check compares evaluate3(top) vs evaluate5(middle) via compareHands. compareHands only compares min(kickers.length) entries, so a 3-card high card can TIE a 5-card high card that matches on the first 3 kickers (4th/5th ignored). wouldFoulTopVsMid = compareTopVsMiddle > 0.",
+    "fields": {
+      "hands": "3-card top evaluations",
+      "compare": "3-card vs 3-card compareHands → -1/0/1",
+      "crossRow": "top (3) vs middle (5) compare for foul semantics"
+    },
+    "seed": 265224194
+  },
+  "hands": [
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Ac"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        14
+      ],
+      "name": "Trip As",
+      "note": "trips aces"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Kd",
+        "Kc"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        13
+      ],
+      "name": "Trip Ks",
+      "note": "trips kings"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "2c"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        2
+      ],
+      "name": "Trip 2s",
+      "note": "trips deuces"
+    },
+    {
+      "cards": [
+        "Qh",
+        "Qd",
+        "Qc"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        12
+      ],
+      "name": "Trip Qs",
+      "note": "trips queens"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Kc"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        14,
+        13
+      ],
+      "name": "Pair of As",
+      "note": "pair aces K kicker"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "2c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        14,
+        2
+      ],
+      "name": "Pair of As",
+      "note": "pair aces 2 kicker"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Kd",
+        "Ac"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        13,
+        14
+      ],
+      "name": "Pair of Ks",
+      "note": "pair kings A kicker"
+    },
+    {
+      "cards": [
+        "Qh",
+        "Qd",
+        "2c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        12,
+        2
+      ],
+      "name": "Pair of Qs",
+      "note": "pair queens (FL entry min)"
+    },
+    {
+      "cards": [
+        "Jh",
+        "Jd",
+        "Ac"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        11,
+        14
+      ],
+      "name": "Pair of Js",
+      "note": "pair jacks"
+    },
+    {
+      "cards": [
+        "6h",
+        "6d",
+        "5c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        6,
+        5
+      ],
+      "name": "Pair of 6s",
+      "note": "pair sixes (min royalty)"
+    },
+    {
+      "cards": [
+        "5h",
+        "5d",
+        "Ac"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        5,
+        14
+      ],
+      "name": "Pair of 5s",
+      "note": "pair fives (no royalty)"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "3c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        2,
+        3
+      ],
+      "name": "Pair of 2s",
+      "note": "pair deuces"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12
+      ],
+      "name": "A High",
+      "note": "AKQ high (NOT straight — top ignores straight/flush)"
+    },
+    {
+      "cards": [
+        "Ah",
+        "2d",
+        "3c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        3,
+        2
+      ],
+      "name": "A High",
+      "note": "A23 high"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Qd",
+        "Jc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        11
+      ],
+      "name": "K High",
+      "note": "KQJ high"
+    },
+    {
+      "cards": [
+        "9h",
+        "5d",
+        "2c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        9,
+        5,
+        2
+      ],
+      "name": "9 High",
+      "note": "952 high"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kh",
+        "Qh"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12
+      ],
+      "name": "A High",
+      "note": "AKQ same suit still high card on top"
+    },
+    {
+      "cards": [
+        "2h",
+        "3h",
+        "4h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        4,
+        3,
+        2
+      ],
+      "name": "4 High",
+      "note": "234 suited still high card"
+    },
+    {
+      "cards": [
+        "Th",
+        "Td",
+        "9c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        10,
+        9
+      ],
+      "name": "Pair of Ts",
+      "note": "pair tens"
+    },
+    {
+      "cards": [
+        "9h",
+        "9d",
+        "8c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        9,
+        8
+      ],
+      "name": "Pair of 9s",
+      "note": "pair nines"
+    },
+    {
+      "cards": [
+        "8h",
+        "8d",
+        "7c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        8,
+        7
+      ],
+      "name": "Pair of 8s",
+      "note": "pair eights"
+    },
+    {
+      "cards": [
+        "7h",
+        "7d",
+        "6c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        7,
+        6
+      ],
+      "name": "Pair of 7s",
+      "note": "pair sevens"
+    },
+    {
+      "cards": [
+        "3h",
+        "3d",
+        "Ac"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        3,
+        14
+      ],
+      "name": "Pair of 3s",
+      "note": "pair threes"
+    },
+    {
+      "cards": [
+        "4h",
+        "4d",
+        "Kc"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        4,
+        13
+      ],
+      "name": "Pair of 4s",
+      "note": "pair fours"
+    },
+    {
+      "cards": [
+        "Jh",
+        "Td",
+        "9c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        10,
+        9
+      ],
+      "name": "J High",
+      "note": "JT9 high"
+    },
+    {
+      "cards": [
+        "As",
+        "Kd",
+        "2c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        2
+      ],
+      "name": "A High",
+      "note": "AK2 high"
+    },
+    {
+      "cards": [
+        "Qh",
+        "Jd",
+        "Tc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        12,
+        11,
+        10
+      ],
+      "name": "Q High",
+      "note": "QJT high"
+    },
+    {
+      "cards": [
+        "6h",
+        "5d",
+        "4c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        6,
+        5,
+        4
+      ],
+      "name": "6 High",
+      "note": "654 high"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Ad",
+        "Qc"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        14,
+        12
+      ],
+      "name": "Pair of As",
+      "note": "AAQ"
+    },
+    {
+      "cards": [
+        "Kh",
+        "Kd",
+        "Qc"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        13,
+        12
+      ],
+      "name": "Pair of Ks",
+      "note": "KKQ"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kd",
+        "Jc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        11
+      ],
+      "name": "A High"
+    },
+    {
+      "cards": [
+        "Ah",
+        "Kd",
+        "Qd"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12
+      ],
+      "name": "A High"
+    },
+    {
+      "cards": [
+        "As",
+        "Kd",
+        "Qc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12
+      ],
+      "name": "A High"
+    },
+    {
+      "cards": [
+        "8h",
+        "8d",
+        "Ac"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        8,
+        14
+      ],
+      "name": "Pair of 8s"
+    },
+    {
+      "cards": [
+        "2h",
+        "2d",
+        "Kc"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        2,
+        13
+      ],
+      "name": "Pair of 2s"
+    },
+    {
+      "cards": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        4,
+        3,
+        2
+      ],
+      "name": "4 High"
+    },
+    {
+      "cards": [
+        "6h",
+        "6d",
+        "Ac"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        6,
+        14
+      ],
+      "name": "Pair of 6s"
+    },
+    {
+      "cards": [
+        "Jh",
+        "Jd",
+        "Jc"
+      ],
+      "category": 3,
+      "categoryName": "THREE_OF_A_KIND",
+      "kickers": [
+        11
+      ],
+      "name": "Trip Js"
+    },
+    {
+      "cards": [
+        "8h",
+        "7d",
+        "6c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        8,
+        7,
+        6
+      ],
+      "name": "8 High"
+    },
+    {
+      "cards": [
+        "7h",
+        "5d",
+        "4c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        7,
+        5,
+        4
+      ],
+      "name": "7 High"
+    },
+    {
+      "cards": [
+        "7d",
+        "Th",
+        "Td"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        10,
+        7
+      ],
+      "name": "Pair of Ts",
+      "note": "random#0"
+    },
+    {
+      "cards": [
+        "2d",
+        "5c",
+        "7h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        7,
+        5,
+        2
+      ],
+      "name": "7 High",
+      "note": "random#1"
+    },
+    {
+      "cards": [
+        "7d",
+        "4d",
+        "4c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        4,
+        7
+      ],
+      "name": "Pair of 4s",
+      "note": "random#2"
+    },
+    {
+      "cards": [
+        "Qs",
+        "Qd",
+        "2c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        12,
+        2
+      ],
+      "name": "Pair of Qs",
+      "note": "random#3"
+    },
+    {
+      "cards": [
+        "5d",
+        "3s",
+        "5s"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        5,
+        3
+      ],
+      "name": "Pair of 5s",
+      "note": "random#4"
+    },
+    {
+      "cards": [
+        "4h",
+        "3s",
+        "9s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        9,
+        4,
+        3
+      ],
+      "name": "9 High",
+      "note": "random#5"
+    },
+    {
+      "cards": [
+        "Qd",
+        "8d",
+        "Ad"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        12,
+        8
+      ],
+      "name": "A High",
+      "note": "random#6"
+    },
+    {
+      "cards": [
+        "3s",
+        "As",
+        "3c"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        3,
+        14
+      ],
+      "name": "Pair of 3s",
+      "note": "random#7"
+    },
+    {
+      "cards": [
+        "Td",
+        "4d",
+        "Qc"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        12,
+        10,
+        4
+      ],
+      "name": "Q High",
+      "note": "random#8"
+    },
+    {
+      "cards": [
+        "Ks",
+        "4h",
+        "As"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        4
+      ],
+      "name": "A High",
+      "note": "random#9"
+    },
+    {
+      "cards": [
+        "Td",
+        "Tc",
+        "Qc"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        10,
+        12
+      ],
+      "name": "Pair of Ts",
+      "note": "random#10"
+    },
+    {
+      "cards": [
+        "4c",
+        "Ac",
+        "4d"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        4,
+        14
+      ],
+      "name": "Pair of 4s",
+      "note": "random#11"
+    },
+    {
+      "cards": [
+        "Qd",
+        "Jc",
+        "5h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        12,
+        11,
+        5
+      ],
+      "name": "Q High",
+      "note": "random#12"
+    },
+    {
+      "cards": [
+        "2d",
+        "8d",
+        "Ac"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        8,
+        2
+      ],
+      "name": "A High",
+      "note": "random#13"
+    },
+    {
+      "cards": [
+        "2c",
+        "6s",
+        "8c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        8,
+        6,
+        2
+      ],
+      "name": "8 High",
+      "note": "random#14"
+    },
+    {
+      "cards": [
+        "Ad",
+        "7h",
+        "Th"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        10,
+        7
+      ],
+      "name": "A High",
+      "note": "random#15"
+    },
+    {
+      "cards": [
+        "3h",
+        "7h",
+        "8s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        8,
+        7,
+        3
+      ],
+      "name": "8 High",
+      "note": "random#16"
+    },
+    {
+      "cards": [
+        "Ad",
+        "Js",
+        "2s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        11,
+        2
+      ],
+      "name": "A High",
+      "note": "random#17"
+    },
+    {
+      "cards": [
+        "6c",
+        "6d",
+        "Qh"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        6,
+        12
+      ],
+      "name": "Pair of 6s",
+      "note": "random#18"
+    },
+    {
+      "cards": [
+        "Kd",
+        "6h",
+        "3h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        6,
+        3
+      ],
+      "name": "K High",
+      "note": "random#19"
+    },
+    {
+      "cards": [
+        "3h",
+        "9c",
+        "7s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        9,
+        7,
+        3
+      ],
+      "name": "9 High",
+      "note": "random#20"
+    },
+    {
+      "cards": [
+        "8h",
+        "Ac",
+        "3c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        8,
+        3
+      ],
+      "name": "A High",
+      "note": "random#21"
+    },
+    {
+      "cards": [
+        "Kd",
+        "8h",
+        "7h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        8,
+        7
+      ],
+      "name": "K High",
+      "note": "random#22"
+    },
+    {
+      "cards": [
+        "Js",
+        "9h",
+        "5d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        9,
+        5
+      ],
+      "name": "J High",
+      "note": "random#23"
+    },
+    {
+      "cards": [
+        "6d",
+        "Qd",
+        "4d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        12,
+        6,
+        4
+      ],
+      "name": "Q High",
+      "note": "random#24"
+    },
+    {
+      "cards": [
+        "6s",
+        "2c",
+        "8d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        8,
+        6,
+        2
+      ],
+      "name": "8 High",
+      "note": "random#25"
+    },
+    {
+      "cards": [
+        "8c",
+        "6h",
+        "7s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        8,
+        7,
+        6
+      ],
+      "name": "8 High",
+      "note": "random#26"
+    },
+    {
+      "cards": [
+        "Ad",
+        "Qd",
+        "7d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        12,
+        7
+      ],
+      "name": "A High",
+      "note": "random#27"
+    },
+    {
+      "cards": [
+        "Qd",
+        "Ks",
+        "9s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        9
+      ],
+      "name": "K High",
+      "note": "random#28"
+    },
+    {
+      "cards": [
+        "Jd",
+        "Kh",
+        "6c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        11,
+        6
+      ],
+      "name": "K High",
+      "note": "random#29"
+    },
+    {
+      "cards": [
+        "Kd",
+        "Ac",
+        "5s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        5
+      ],
+      "name": "A High",
+      "note": "random#30"
+    },
+    {
+      "cards": [
+        "Td",
+        "3h",
+        "Js"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        10,
+        3
+      ],
+      "name": "J High",
+      "note": "random#31"
+    },
+    {
+      "cards": [
+        "5s",
+        "Ah",
+        "Qd"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        12,
+        5
+      ],
+      "name": "A High",
+      "note": "random#32"
+    },
+    {
+      "cards": [
+        "Ad",
+        "Tc",
+        "9d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        10,
+        9
+      ],
+      "name": "A High",
+      "note": "random#33"
+    },
+    {
+      "cards": [
+        "3d",
+        "5c",
+        "4d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        5,
+        4,
+        3
+      ],
+      "name": "5 High",
+      "note": "random#34"
+    },
+    {
+      "cards": [
+        "4c",
+        "Qh",
+        "3h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        12,
+        4,
+        3
+      ],
+      "name": "Q High",
+      "note": "random#35"
+    },
+    {
+      "cards": [
+        "9d",
+        "3s",
+        "Js"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        9,
+        3
+      ],
+      "name": "J High",
+      "note": "random#36"
+    },
+    {
+      "cards": [
+        "3c",
+        "8d",
+        "Js"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        8,
+        3
+      ],
+      "name": "J High",
+      "note": "random#37"
+    },
+    {
+      "cards": [
+        "Th",
+        "Kc",
+        "Ac"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        10
+      ],
+      "name": "A High",
+      "note": "random#38"
+    },
+    {
+      "cards": [
+        "3d",
+        "8h",
+        "3h"
+      ],
+      "category": 1,
+      "categoryName": "PAIR",
+      "kickers": [
+        3,
+        8
+      ],
+      "name": "Pair of 3s",
+      "note": "random#39"
+    },
+    {
+      "cards": [
+        "Jc",
+        "Ad",
+        "6s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        11,
+        6
+      ],
+      "name": "A High",
+      "note": "random#40"
+    },
+    {
+      "cards": [
+        "Ah",
+        "8h",
+        "9h"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        9,
+        8
+      ],
+      "name": "A High",
+      "note": "random#41"
+    },
+    {
+      "cards": [
+        "Qd",
+        "8c",
+        "Kd"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        12,
+        8
+      ],
+      "name": "K High",
+      "note": "random#42"
+    },
+    {
+      "cards": [
+        "Ks",
+        "As",
+        "Qh"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        13,
+        12
+      ],
+      "name": "A High",
+      "note": "random#43"
+    },
+    {
+      "cards": [
+        "4s",
+        "Kd",
+        "2s"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        13,
+        4,
+        2
+      ],
+      "name": "K High",
+      "note": "random#44"
+    },
+    {
+      "cards": [
+        "7s",
+        "Js",
+        "8c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        8,
+        7
+      ],
+      "name": "J High",
+      "note": "random#45"
+    },
+    {
+      "cards": [
+        "6s",
+        "5d",
+        "Js"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        11,
+        6,
+        5
+      ],
+      "name": "J High",
+      "note": "random#46"
+    },
+    {
+      "cards": [
+        "2d",
+        "7s",
+        "9d"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        9,
+        7,
+        2
+      ],
+      "name": "9 High",
+      "note": "random#47"
+    },
+    {
+      "cards": [
+        "5d",
+        "3s",
+        "9c"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        9,
+        5,
+        3
+      ],
+      "name": "9 High",
+      "note": "random#48"
+    },
+    {
+      "cards": [
+        "2c",
+        "6h",
+        "Ah"
+      ],
+      "category": 0,
+      "categoryName": "HIGH_CARD",
+      "kickers": [
+        14,
+        6,
+        2
+      ],
+      "name": "A High",
+      "note": "random#49"
+    }
+  ],
+  "compare": [
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Ac"
+      ],
+      "b": [
+        "Kh",
+        "Kd",
+        "Kc"
+      ],
+      "result": 1,
+      "note": "trips A > trips K"
+    },
+    {
+      "a": [
+        "2h",
+        "2d",
+        "2c"
+      ],
+      "b": [
+        "Ah",
+        "Ad",
+        "Kc"
+      ],
+      "result": 1,
+      "note": "trips 2 > pair A"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Kc"
+      ],
+      "b": [
+        "Ah",
+        "Ad",
+        "2c"
+      ],
+      "result": 1,
+      "note": "AA kicker K > 2"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Kc"
+      ],
+      "b": [
+        "Kh",
+        "Kd",
+        "Ac"
+      ],
+      "result": 1,
+      "note": "AA > KK"
+    },
+    {
+      "a": [
+        "Qh",
+        "Qd",
+        "2c"
+      ],
+      "b": [
+        "Jh",
+        "Jd",
+        "Ac"
+      ],
+      "result": 1,
+      "note": "QQ > JJ"
+    },
+    {
+      "a": [
+        "6h",
+        "6d",
+        "5c"
+      ],
+      "b": [
+        "5h",
+        "5d",
+        "Ac"
+      ],
+      "result": 1,
+      "note": "66 > 55"
+    },
+    {
+      "a": [
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "b": [
+        "Ah",
+        "Kd",
+        "Jc"
+      ],
+      "result": 1,
+      "note": "AKQ > AKJ"
+    },
+    {
+      "a": [
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "b": [
+        "Ah",
+        "Kd",
+        "Qd"
+      ],
+      "result": 0,
+      "note": "AKQ tie (suit ignored)"
+    },
+    {
+      "a": [
+        "Ah",
+        "Kh",
+        "Qh"
+      ],
+      "b": [
+        "As",
+        "Kd",
+        "Qc"
+      ],
+      "result": 0,
+      "note": "suited AKQ ties offsuit AKQ"
+    },
+    {
+      "a": [
+        "Kh",
+        "Qd",
+        "Jc"
+      ],
+      "b": [
+        "Ah",
+        "2d",
+        "3c"
+      ],
+      "result": -1,
+      "note": "KQJ < A23"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "Ac"
+      ],
+      "b": [
+        "2h",
+        "2d",
+        "2c"
+      ],
+      "result": 1,
+      "note": "trips A > trips 2"
+    },
+    {
+      "a": [
+        "9h",
+        "9d",
+        "8c"
+      ],
+      "b": [
+        "8h",
+        "8d",
+        "Ac"
+      ],
+      "result": 1,
+      "note": "99 > 88"
+    },
+    {
+      "a": [
+        "Ah",
+        "Ad",
+        "2c"
+      ],
+      "b": [
+        "Kh",
+        "Kd",
+        "Qc"
+      ],
+      "result": 1,
+      "note": "AA > KK"
+    },
+    {
+      "a": [
+        "3h",
+        "3d",
+        "Ac"
+      ],
+      "b": [
+        "2h",
+        "2d",
+        "Kc"
+      ],
+      "result": 1,
+      "note": "33 > 22"
+    },
+    {
+      "a": [
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "b": [
+        "Kh",
+        "Qd",
+        "Jc"
+      ],
+      "result": 1,
+      "note": "AKQ > KQJ"
+    },
+    {
+      "a": [
+        "6c",
+        "7s",
+        "3d"
+      ],
+      "b": [
+        "Td",
+        "As",
+        "Kc"
+      ],
+      "result": -1,
+      "note": "random-cmp#0"
+    },
+    {
+      "a": [
+        "6h",
+        "8s",
+        "Jc"
+      ],
+      "b": [
+        "3s",
+        "Jh",
+        "2d"
+      ],
+      "result": 1,
+      "note": "random-cmp#1"
+    },
+    {
+      "a": [
+        "Ts",
+        "2d",
+        "Th"
+      ],
+      "b": [
+        "7h",
+        "Kc",
+        "7s"
+      ],
+      "result": 1,
+      "note": "random-cmp#2"
+    },
+    {
+      "a": [
+        "2h",
+        "Ks",
+        "Ad"
+      ],
+      "b": [
+        "Ac",
+        "5d",
+        "5s"
+      ],
+      "result": -1,
+      "note": "random-cmp#3"
+    },
+    {
+      "a": [
+        "9h",
+        "7s",
+        "2h"
+      ],
+      "b": [
+        "5s",
+        "7d",
+        "Qd"
+      ],
+      "result": -1,
+      "note": "random-cmp#4"
+    },
+    {
+      "a": [
+        "Ts",
+        "4s",
+        "9d"
+      ],
+      "b": [
+        "9h",
+        "5h",
+        "6c"
+      ],
+      "result": 1,
+      "note": "random-cmp#5"
+    },
+    {
+      "a": [
+        "Ad",
+        "9d",
+        "2d"
+      ],
+      "b": [
+        "9c",
+        "Tc",
+        "As"
+      ],
+      "result": -1,
+      "note": "random-cmp#6"
+    },
+    {
+      "a": [
+        "Js",
+        "4h",
+        "Jh"
+      ],
+      "b": [
+        "Ad",
+        "Td",
+        "5s"
+      ],
+      "result": 1,
+      "note": "random-cmp#7"
+    },
+    {
+      "a": [
+        "Tc",
+        "4h",
+        "5s"
+      ],
+      "b": [
+        "Ks",
+        "6c",
+        "9s"
+      ],
+      "result": -1,
+      "note": "random-cmp#8"
+    },
+    {
+      "a": [
+        "Ac",
+        "4c",
+        "3h"
+      ],
+      "b": [
+        "8d",
+        "3d",
+        "Th"
+      ],
+      "result": 1,
+      "note": "random-cmp#9"
+    },
+    {
+      "a": [
+        "Ad",
+        "8s",
+        "Kh"
+      ],
+      "b": [
+        "8d",
+        "4h",
+        "6c"
+      ],
+      "result": 1,
+      "note": "random-cmp#10"
+    },
+    {
+      "a": [
+        "3d",
+        "Ts",
+        "9h"
+      ],
+      "b": [
+        "3h",
+        "Tc",
+        "Jc"
+      ],
+      "result": -1,
+      "note": "random-cmp#11"
+    },
+    {
+      "a": [
+        "Jc",
+        "Qd",
+        "Th"
+      ],
+      "b": [
+        "Ah",
+        "Jh",
+        "4c"
+      ],
+      "result": -1,
+      "note": "random-cmp#12"
+    },
+    {
+      "a": [
+        "Td",
+        "3c",
+        "Jc"
+      ],
+      "b": [
+        "6h",
+        "7d",
+        "7s"
+      ],
+      "result": -1,
+      "note": "random-cmp#13"
+    },
+    {
+      "a": [
+        "3d",
+        "6s",
+        "5d"
+      ],
+      "b": [
+        "Jc",
+        "4c",
+        "8s"
+      ],
+      "result": -1,
+      "note": "random-cmp#14"
+    },
+    {
+      "a": [
+        "3c",
+        "Qd",
+        "5c"
+      ],
+      "b": [
+        "2c",
+        "7h",
+        "9c"
+      ],
+      "result": 1,
+      "note": "random-cmp#15"
+    },
+    {
+      "a": [
+        "5h",
+        "Td",
+        "Tc"
+      ],
+      "b": [
+        "Qh",
+        "6d",
+        "8s"
+      ],
+      "result": 1,
+      "note": "random-cmp#16"
+    },
+    {
+      "a": [
+        "7h",
+        "3c",
+        "Jd"
+      ],
+      "b": [
+        "Tc",
+        "5s",
+        "2s"
+      ],
+      "result": 1,
+      "note": "random-cmp#17"
+    },
+    {
+      "a": [
+        "6h",
+        "Td",
+        "As"
+      ],
+      "b": [
+        "Qc",
+        "9c",
+        "6c"
+      ],
+      "result": 1,
+      "note": "random-cmp#18"
+    },
+    {
+      "a": [
+        "8c",
+        "Th",
+        "Qh"
+      ],
+      "b": [
+        "5s",
+        "Ts",
+        "2s"
+      ],
+      "result": 1,
+      "note": "random-cmp#19"
+    },
+    {
+      "a": [
+        "Qs",
+        "4d",
+        "9d"
+      ],
+      "b": [
+        "4h",
+        "3s",
+        "9c"
+      ],
+      "result": 1,
+      "note": "random-cmp#20"
+    },
+    {
+      "a": [
+        "9c",
+        "Ts",
+        "8c"
+      ],
+      "b": [
+        "3c",
+        "Jc",
+        "Ah"
+      ],
+      "result": -1,
+      "note": "random-cmp#21"
+    },
+    {
+      "a": [
+        "9d",
+        "5d",
+        "As"
+      ],
+      "b": [
+        "9c",
+        "9s",
+        "3d"
+      ],
+      "result": -1,
+      "note": "random-cmp#22"
+    },
+    {
+      "a": [
+        "3h",
+        "6h",
+        "Th"
+      ],
+      "b": [
+        "Jc",
+        "9d",
+        "Kc"
+      ],
+      "result": -1,
+      "note": "random-cmp#23"
+    },
+    {
+      "a": [
+        "Qc",
+        "Th",
+        "Ks"
+      ],
+      "b": [
+        "5d",
+        "Ts",
+        "3c"
+      ],
+      "result": 1,
+      "note": "random-cmp#24"
+    },
+    {
+      "a": [
+        "6c",
+        "9h",
+        "4s"
+      ],
+      "b": [
+        "3s",
+        "7c",
+        "4h"
+      ],
+      "result": 1,
+      "note": "random-cmp#25"
+    },
+    {
+      "a": [
+        "6s",
+        "Qh",
+        "Jd"
+      ],
+      "b": [
+        "As",
+        "2s",
+        "Th"
+      ],
+      "result": -1,
+      "note": "random-cmp#26"
+    },
+    {
+      "a": [
+        "Kh",
+        "Jh",
+        "Jc"
+      ],
+      "b": [
+        "8s",
+        "Qd",
+        "8h"
+      ],
+      "result": 1,
+      "note": "random-cmp#27"
+    },
+    {
+      "a": [
+        "Js",
+        "9s",
+        "9h"
+      ],
+      "b": [
+        "Qs",
+        "As",
+        "5s"
+      ],
+      "result": 1,
+      "note": "random-cmp#28"
+    },
+    {
+      "a": [
+        "5s",
+        "2s",
+        "5h"
+      ],
+      "b": [
+        "6h",
+        "9d",
+        "Ah"
+      ],
+      "result": 1,
+      "note": "random-cmp#29"
+    }
+  ],
+  "crossRow": [
+    {
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "5h",
+        "6d",
+        "7c",
+        "8s",
+        "9h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "high < straight — OK"
+    },
+    {
+      "top": [
+        "Ah",
+        "Ad",
+        "2c"
+      ],
+      "middle": [
+        "Kh",
+        "Kd",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "AA top > KK mid — FOUL"
+    },
+    {
+      "top": [
+        "Ah",
+        "Ad",
+        "2c"
+      ],
+      "middle": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "9h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "AA top > A-high mid — FOUL"
+    },
+    {
+      "top": [
+        "Kh",
+        "Kd",
+        "Kc"
+      ],
+      "middle": [
+        "Ah",
+        "Ad",
+        "2c",
+        "3s",
+        "4h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "trips K > pair A mid — FOUL"
+    },
+    {
+      "top": [
+        "2h",
+        "2d",
+        "2c"
+      ],
+      "middle": [
+        "3h",
+        "3d",
+        "3c",
+        "4s",
+        "5h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "trips 2 < trips 3 — OK"
+    },
+    {
+      "top": [
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "middle": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "9h"
+      ],
+      "compareTopVsMiddle": 0,
+      "wouldFoulTopVsMid": false,
+      "note": "AKQ vs AKQJx: first 3 kickers tie → NOT foul"
+    },
+    {
+      "top": [
+        "Ah",
+        "Kd",
+        "Qc"
+      ],
+      "middle": [
+        "Ah",
+        "Kd",
+        "Jc",
+        "Ts",
+        "9h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "AKQ top > AKJ mid on 3rd kicker — FOUL"
+    },
+    {
+      "top": [
+        "Ah",
+        "Kd",
+        "Jc"
+      ],
+      "middle": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "2s",
+        "3h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "AKJ < AKQ mid — OK"
+    },
+    {
+      "top": [
+        "Qh",
+        "Qd",
+        "2c"
+      ],
+      "middle": [
+        "Qh",
+        "Qd",
+        "Qc",
+        "Js",
+        "9h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "QQ < trips Q — OK"
+    },
+    {
+      "top": [
+        "Ah",
+        "Ad",
+        "Ac"
+      ],
+      "middle": [
+        "Kh",
+        "Kd",
+        "Kc",
+        "Qs",
+        "Jh"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "trips A > trips K — FOUL"
+    },
+    {
+      "top": [
+        "5h",
+        "5d",
+        "Ac"
+      ],
+      "middle": [
+        "6h",
+        "6d",
+        "2c",
+        "3s",
+        "4h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "55 < 66 — OK"
+    },
+    {
+      "top": [
+        "6h",
+        "6d",
+        "Ac"
+      ],
+      "middle": [
+        "5h",
+        "5d",
+        "2c",
+        "3s",
+        "4h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "66 > 55 — FOUL"
+    },
+    {
+      "top": [
+        "Ah",
+        "2d",
+        "3c"
+      ],
+      "middle": [
+        "Kh",
+        "Qd",
+        "Jc",
+        "9s",
+        "8h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "A23 > KQJ98 — FOUL (high card)"
+    },
+    {
+      "top": [
+        "2h",
+        "3d",
+        "4c"
+      ],
+      "middle": [
+        "Ah",
+        "Kd",
+        "Qc",
+        "Js",
+        "9h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "234 < A-high — OK"
+    },
+    {
+      "top": [
+        "Jh",
+        "Jd",
+        "Jc"
+      ],
+      "middle": [
+        "Th",
+        "Td",
+        "Tc",
+        "9s",
+        "8h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "trips J > trips T — FOUL"
+    },
+    {
+      "top": [
+        "Ah",
+        "Ad",
+        "Kc"
+      ],
+      "middle": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "Qs",
+        "Jh"
+      ],
+      "compareTopVsMiddle": 0,
+      "wouldFoulTopVsMid": false,
+      "note": "AAK vs AAKQJ: first 2 kickers (pair A, K) then… top kickers=[14,13], mid pair kickers=[14,13,12,11] → tie on min → NOT foul"
+    },
+    {
+      "top": [
+        "Ah",
+        "Ad",
+        "Qc"
+      ],
+      "middle": [
+        "Ah",
+        "Ad",
+        "Kc",
+        "2s",
+        "3h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "AAQ < AAK — OK"
+    },
+    {
+      "top": [
+        "Ah",
+        "Ad",
+        "Kc"
+      ],
+      "middle": [
+        "Ah",
+        "Ad",
+        "Qc",
+        "2s",
+        "3h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "AAK > AAQ — FOUL"
+    },
+    {
+      "top": [
+        "9h",
+        "5d",
+        "2c"
+      ],
+      "middle": [
+        "8h",
+        "7d",
+        "6c",
+        "4s",
+        "3h"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "952 > 87643 — FOUL"
+    },
+    {
+      "top": [
+        "8h",
+        "7d",
+        "6c"
+      ],
+      "middle": [
+        "9h",
+        "5d",
+        "4c",
+        "3s",
+        "2h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "876 < 95432 — OK"
+    },
+    {
+      "top": [
+        "7h",
+        "5d",
+        "4c"
+      ],
+      "middle": [
+        "7h",
+        "5d",
+        "4c",
+        "3s",
+        "2h"
+      ],
+      "compareTopVsMiddle": 0,
+      "wouldFoulTopVsMid": false,
+      "note": "754 vs 75432: tie on 3 kickers — NOT foul"
+    },
+    {
+      "top": [
+        "7h",
+        "5d",
+        "4c"
+      ],
+      "middle": [
+        "7h",
+        "5d",
+        "3c",
+        "2s",
+        "9h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "754 > 753 — wait mid is 9-high actually"
+    },
+    {
+      "top": [
+        "8h",
+        "4s",
+        "Kc"
+      ],
+      "middle": [
+        "Ac",
+        "5s",
+        "5d",
+        "2c",
+        "3s"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#0"
+    },
+    {
+      "top": [
+        "Qd",
+        "5d",
+        "7h"
+      ],
+      "middle": [
+        "Tc",
+        "Ad",
+        "Jh",
+        "Jd",
+        "2s"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#1"
+    },
+    {
+      "top": [
+        "Kh",
+        "6c",
+        "4s"
+      ],
+      "middle": [
+        "9s",
+        "3h",
+        "Tc",
+        "9h",
+        "7s"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#2"
+    },
+    {
+      "top": [
+        "Th",
+        "9h",
+        "8h"
+      ],
+      "middle": [
+        "Jh",
+        "Td",
+        "9s",
+        "8d",
+        "Qh"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#3"
+    },
+    {
+      "top": [
+        "9d",
+        "Ks",
+        "9s"
+      ],
+      "middle": [
+        "4d",
+        "3d",
+        "7s",
+        "6c",
+        "Jd"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "random-cross#4"
+    },
+    {
+      "top": [
+        "4d",
+        "Td",
+        "Ad"
+      ],
+      "middle": [
+        "2h",
+        "4c",
+        "6d",
+        "8d",
+        "6c"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#5"
+    },
+    {
+      "top": [
+        "Qc",
+        "2d",
+        "Jd"
+      ],
+      "middle": [
+        "4c",
+        "2c",
+        "Js",
+        "5d",
+        "As"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#6"
+    },
+    {
+      "top": [
+        "7c",
+        "Qc",
+        "6c"
+      ],
+      "middle": [
+        "5c",
+        "4d",
+        "2h",
+        "3h",
+        "9d"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "random-cross#7"
+    },
+    {
+      "top": [
+        "5h",
+        "6d",
+        "Ad"
+      ],
+      "middle": [
+        "4h",
+        "Jd",
+        "8c",
+        "4c",
+        "Js"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#8"
+    },
+    {
+      "top": [
+        "4s",
+        "Kh",
+        "3d"
+      ],
+      "middle": [
+        "5d",
+        "Qd",
+        "8d",
+        "Qh",
+        "Ac"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#9"
+    },
+    {
+      "top": [
+        "9d",
+        "8c",
+        "4s"
+      ],
+      "middle": [
+        "3h",
+        "Tc",
+        "5s",
+        "7d",
+        "3d"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#10"
+    },
+    {
+      "top": [
+        "9h",
+        "Kc",
+        "Ah"
+      ],
+      "middle": [
+        "Ac",
+        "Th",
+        "5s",
+        "5c",
+        "8c"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#11"
+    },
+    {
+      "top": [
+        "Qs",
+        "Jd",
+        "Kd"
+      ],
+      "middle": [
+        "2c",
+        "7h",
+        "8s",
+        "9d",
+        "6d"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "random-cross#12"
+    },
+    {
+      "top": [
+        "Jc",
+        "Ah",
+        "7s"
+      ],
+      "middle": [
+        "5h",
+        "Tc",
+        "6s",
+        "Qd",
+        "As"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#13"
+    },
+    {
+      "top": [
+        "Tc",
+        "As",
+        "5c"
+      ],
+      "middle": [
+        "6h",
+        "5s",
+        "Js",
+        "Jd",
+        "Ah"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#14"
+    },
+    {
+      "top": [
+        "Ac",
+        "2c",
+        "Kh"
+      ],
+      "middle": [
+        "3h",
+        "7c",
+        "8h",
+        "As",
+        "Qc"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "random-cross#15"
+    },
+    {
+      "top": [
+        "Kh",
+        "6h",
+        "Jd"
+      ],
+      "middle": [
+        "4d",
+        "Qc",
+        "6d",
+        "7d",
+        "Th"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "random-cross#16"
+    },
+    {
+      "top": [
+        "Tc",
+        "3s",
+        "Qd"
+      ],
+      "middle": [
+        "7h",
+        "4d",
+        "Jd",
+        "Jh",
+        "5d"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#17"
+    },
+    {
+      "top": [
+        "Qs",
+        "As",
+        "Kc"
+      ],
+      "middle": [
+        "5c",
+        "Jc",
+        "Qd",
+        "8s",
+        "Qh"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#18"
+    },
+    {
+      "top": [
+        "Jc",
+        "Qd",
+        "5h"
+      ],
+      "middle": [
+        "7s",
+        "Kh",
+        "2s",
+        "9s",
+        "7d"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#19"
+    },
+    {
+      "top": [
+        "7s",
+        "Ah",
+        "8s"
+      ],
+      "middle": [
+        "7d",
+        "Kh",
+        "8h",
+        "9s",
+        "2d"
+      ],
+      "compareTopVsMiddle": 1,
+      "wouldFoulTopVsMid": true,
+      "note": "random-cross#20"
+    },
+    {
+      "top": [
+        "9h",
+        "Qc",
+        "Ad"
+      ],
+      "middle": [
+        "Js",
+        "5d",
+        "Jh",
+        "9s",
+        "2c"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#21"
+    },
+    {
+      "top": [
+        "Th",
+        "3s",
+        "6d"
+      ],
+      "middle": [
+        "Ac",
+        "3c",
+        "Qh",
+        "4c",
+        "5h"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#22"
+    },
+    {
+      "top": [
+        "3h",
+        "6s",
+        "4h"
+      ],
+      "middle": [
+        "Jc",
+        "3c",
+        "6c",
+        "Jh",
+        "Qs"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#23"
+    },
+    {
+      "top": [
+        "7s",
+        "5c",
+        "Th"
+      ],
+      "middle": [
+        "9d",
+        "9c",
+        "Ad",
+        "5h",
+        "8d"
+      ],
+      "compareTopVsMiddle": -1,
+      "wouldFoulTopVsMid": false,
+      "note": "random-cross#24"
+    }
+  ]
+}

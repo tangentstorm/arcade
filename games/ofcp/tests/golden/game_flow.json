@@ -1,0 +1,491 @@
+{
+  "meta": {
+    "engineCommit": "9d4f481",
+    "prng": "mulberry32",
+    "shuffle": "Fisher-Yates identical to src/deck.ts shuffle, but with seeded RNG instead of Math.random",
+    "dealSequence": [
+      "shuffle createDeck()",
+      "startIndex = (dealer + 1) % nPlayers",
+      "deal initial 5 (or FL count) to each player from startIndex",
+      "place initial",
+      "4 pineapple rounds × nPlayers: deal 3, place 2, discard 1 (skip completed FL boards)",
+      "score when all boards full"
+    ],
+    "rowSizes": {
+      "top": 3,
+      "middle": 5,
+      "bottom": 5
+    },
+    "pineapple": {
+      "deal": 3,
+      "place": 2,
+      "discard": 1,
+      "rounds": 4
+    },
+    "seeds": {
+      "twoPlayer": 265224433,
+      "threePlayer": 265224434
+    }
+  },
+  "twoPlayer": {
+    "dealer": 0,
+    "startIndex": 1,
+    "shuffledDeck": [
+      "4c",
+      "Kd",
+      "2s",
+      "Ac",
+      "6d",
+      "Kh",
+      "8c",
+      "Tc",
+      "2d",
+      "Th",
+      "7d",
+      "5h",
+      "3h",
+      "Td",
+      "Qh",
+      "Jc",
+      "3d",
+      "6c",
+      "5d",
+      "Kc",
+      "3c",
+      "Jh",
+      "Qc",
+      "Ah",
+      "7s",
+      "9d",
+      "Ad",
+      "7h",
+      "2c",
+      "8d",
+      "9c",
+      "6h",
+      "Js",
+      "Qd",
+      "Jd",
+      "7c",
+      "Ts",
+      "2h",
+      "6s",
+      "5s",
+      "4d",
+      "8s",
+      "4h",
+      "9s",
+      "Ks",
+      "3s",
+      "As",
+      "8h",
+      "Qs",
+      "9h",
+      "5c",
+      "4s"
+    ],
+    "initial": [
+      {
+        "player": 1,
+        "cards": [
+          "4c",
+          "Kd",
+          "2s",
+          "Ac",
+          "6d"
+        ]
+      },
+      {
+        "player": 0,
+        "cards": [
+          "Kh",
+          "8c",
+          "Tc",
+          "2d",
+          "Th"
+        ]
+      }
+    ],
+    "pineappleRounds": [
+      {
+        "round": 1,
+        "player": 1,
+        "dealt": [
+          "7d",
+          "5h",
+          "3h"
+        ]
+      },
+      {
+        "round": 1,
+        "player": 0,
+        "dealt": [
+          "Td",
+          "Qh",
+          "Jc"
+        ]
+      },
+      {
+        "round": 2,
+        "player": 1,
+        "dealt": [
+          "3d",
+          "6c",
+          "5d"
+        ]
+      },
+      {
+        "round": 2,
+        "player": 0,
+        "dealt": [
+          "Kc",
+          "3c",
+          "Jh"
+        ]
+      },
+      {
+        "round": 3,
+        "player": 1,
+        "dealt": [
+          "Qc",
+          "Ah",
+          "7s"
+        ]
+      },
+      {
+        "round": 3,
+        "player": 0,
+        "dealt": [
+          "9d",
+          "Ad",
+          "7h"
+        ]
+      },
+      {
+        "round": 4,
+        "player": 1,
+        "dealt": [
+          "2c",
+          "8d",
+          "9c"
+        ]
+      },
+      {
+        "round": 4,
+        "player": 0,
+        "dealt": [
+          "6h",
+          "Js",
+          "Qd"
+        ]
+      }
+    ],
+    "remainingAfter": [
+      "Jd",
+      "7c",
+      "Ts",
+      "2h",
+      "6s",
+      "5s",
+      "4d",
+      "8s",
+      "4h",
+      "9s",
+      "Ks",
+      "3s",
+      "As",
+      "8h",
+      "Qs",
+      "9h",
+      "5c",
+      "4s"
+    ]
+  },
+  "threePlayer": {
+    "dealer": 0,
+    "startIndex": 1,
+    "shuffledDeck": [
+      "Kd",
+      "2h",
+      "Ac",
+      "4s",
+      "8s",
+      "Td",
+      "Js",
+      "Ah",
+      "Qd",
+      "9d",
+      "8h",
+      "3h",
+      "Jc",
+      "4c",
+      "7c",
+      "6c",
+      "6s",
+      "3c",
+      "5c",
+      "7d",
+      "Ts",
+      "3s",
+      "4h",
+      "Qh",
+      "8c",
+      "Ad",
+      "Th",
+      "9c",
+      "Kh",
+      "8d",
+      "6h",
+      "2c",
+      "9s",
+      "Ks",
+      "2s",
+      "Jh",
+      "5h",
+      "As",
+      "5d",
+      "9h",
+      "3d",
+      "7s",
+      "Jd",
+      "4d",
+      "Qs",
+      "Tc",
+      "5s",
+      "7h",
+      "Qc",
+      "2d",
+      "Kc",
+      "6d"
+    ],
+    "initial": [
+      {
+        "player": 1,
+        "cards": [
+          "Kd",
+          "2h",
+          "Ac",
+          "4s",
+          "8s"
+        ]
+      },
+      {
+        "player": 2,
+        "cards": [
+          "Td",
+          "Js",
+          "Ah",
+          "Qd",
+          "9d"
+        ]
+      },
+      {
+        "player": 0,
+        "cards": [
+          "8h",
+          "3h",
+          "Jc",
+          "4c",
+          "7c"
+        ]
+      }
+    ],
+    "pineappleRounds": [
+      {
+        "round": 1,
+        "player": 1,
+        "dealt": [
+          "6c",
+          "6s",
+          "3c"
+        ]
+      },
+      {
+        "round": 1,
+        "player": 2,
+        "dealt": [
+          "5c",
+          "7d",
+          "Ts"
+        ]
+      },
+      {
+        "round": 1,
+        "player": 0,
+        "dealt": [
+          "3s",
+          "4h",
+          "Qh"
+        ]
+      },
+      {
+        "round": 2,
+        "player": 1,
+        "dealt": [
+          "8c",
+          "Ad",
+          "Th"
+        ]
+      },
+      {
+        "round": 2,
+        "player": 2,
+        "dealt": [
+          "9c",
+          "Kh",
+          "8d"
+        ]
+      },
+      {
+        "round": 2,
+        "player": 0,
+        "dealt": [
+          "6h",
+          "2c",
+          "9s"
+        ]
+      },
+      {
+        "round": 3,
+        "player": 1,
+        "dealt": [
+          "Ks",
+          "2s",
+          "Jh"
+        ]
+      },
+      {
+        "round": 3,
+        "player": 2,
+        "dealt": [
+          "5h",
+          "As",
+          "5d"
+        ]
+      },
+      {
+        "round": 3,
+        "player": 0,
+        "dealt": [
+          "9h",
+          "3d",
+          "7s"
+        ]
+      },
+      {
+        "round": 4,
+        "player": 1,
+        "dealt": [
+          "Jd",
+          "4d",
+          "Qs"
+        ]
+      },
+      {
+        "round": 4,
+        "player": 2,
+        "dealt": [
+          "Tc",
+          "5s",
+          "7h"
+        ]
+      },
+      {
+        "round": 4,
+        "player": 0,
+        "dealt": [
+          "Qc",
+          "2d",
+          "Kc"
+        ]
+      }
+    ],
+    "remainingAfter": [
+      "6d"
+    ]
+  },
+  "flDealSizes": {
+    "cash": 14,
+    "normal": 14,
+    "windfall": 14,
+    "progressive": {
+      "QQ": 14,
+      "KK": 15,
+      "AA": 16,
+      "tripsOrBetter": 17
+    }
+  },
+  "fantasylandExampleHands": {
+    "seed14": 265224435,
+    "cards14": [
+      "6h",
+      "6d",
+      "5d",
+      "Qc",
+      "8s",
+      "9d",
+      "Th",
+      "Ah",
+      "9s",
+      "9c",
+      "2c",
+      "As",
+      "Ac",
+      "4d"
+    ],
+    "cards15": [
+      "4c",
+      "5c",
+      "3s",
+      "Ts",
+      "2d",
+      "3h",
+      "8s",
+      "4s",
+      "Ad",
+      "Qc",
+      "Kd",
+      "8c",
+      "Tc",
+      "7h",
+      "Qd"
+    ],
+    "cards16": [
+      "2h",
+      "Td",
+      "6s",
+      "Qs",
+      "6d",
+      "Ts",
+      "Jd",
+      "9c",
+      "8d",
+      "8h",
+      "7d",
+      "5h",
+      "Kd",
+      "2s",
+      "4h",
+      "Jh"
+    ],
+    "cards17": [
+      "2h",
+      "Jd",
+      "7d",
+      "6s",
+      "Kh",
+      "Qc",
+      "4h",
+      "Qs",
+      "9h",
+      "As",
+      "Td",
+      "Ah",
+      "Kc",
+      "5h",
+      "9d",
+      "5c",
+      "Ac"
+    ]
+  }
+}
