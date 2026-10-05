@@ -1,0 +1,108 @@
+// ---- block 1 ----
+var Brick = Class.create();
+Brick.count = 0;
+Brick.prototype = Object.extend(new Sprite(), {
+            
+    initialize : function (x, y, start_shade) {
+        this.id = 'brick_' + Brick.count++;
+        this.start_shade = start_shade;
+        
+        this.node = document.createElement('div');
+        this.node.setAttribute("id", this.id);
+        this.reset();
+        this.setX(x);
+        this.setY(y);
+        $('bricks').appendChild(this.node);
+    },
+    
+    reset : function() {
+        this.solid = true;
+        this.node.style.display = 'block';
+        this.setShade(this.start_shade);
+    },
+
+    setShade : function(shade) {
+        this.shade = shade;
+        // setAttribute('class') doesn't work in IE!!
+        this.node.className = "sprite shade" + shade;
+    },
+});
+
+// ---- block 2 ----
+#bricks div {
+  width: 32px;
+  max-width: 32px;
+  height: 16px;
+  max-height: 16px;
+  border: solid #999 1px;
+  background-color:#CCCCCC;
+  display:block;
+  position: absolute;
+}
+#bricks .shade5 {
+  background-color: #777;	
+}
+#bricks .shade4 {
+  background-color: #999;	
+}
+#bricks .shade3 {
+  background-color: #bbb;	
+}
+#bricks .shade2 {
+  background-color: #ddd;	
+}
+#bricks .shade1 {
+  background-color: #fff;	
+}
+
+// ---- block 3 ----
+ <div id="bricks"></div>
+DEBUG = false;
+function create_bricks() {    
+    if (DEBUG) {
+        bricks.push(new Brick(240, 100, 1));
+        bricks.push(new Brick(280, 100, 1));
+    } else {
+        for (x=0; x<10; x++) {
+            // the order is important here, because we do
+            // collision testing in the order of the array.
+            // generally, we want to test the bottom bricks 
+            // for collisions first.
+            for (y=4; y>=0; y--) {
+                bricks.push(new Brick(x * 39 + 8, y * 22 + 30, 5-y));
+            }
+        }
+    }
+}
+    create_bricks();
+
+// ---- block 4 ----
+<div id="lake"></div>
+#lake {
+  position:absolute;
+  top: 280px;
+  height: 20px;
+  width: 100%;
+  background-color:#CCCCCC;
+  background: #ccc;
+  border-top: solid #999 1px;	
+  margin: 0px;
+}
+
+// ---- block 5 ----
+ <div class="wall" id="leftWall"></div>
+    <div class="wall" id="rightWall"></div>
+    <div class="wall" id="ceiling"></div>
+    <div class="wall" id="floor"></div>
+.wall {
+  display: none;
+  width: 400px;
+  height: 300px;
+  position: absolute;
+  margin:0;
+  padding:0;
+}
+#leftWall  { top: 0px;  left: -400px; } 
+#rightWall { top: 0px;  left:  400px; }
+#ceiling   { top: -300px; left: 0px;  }
+#floor     { top:  300px; left: 0px;  }

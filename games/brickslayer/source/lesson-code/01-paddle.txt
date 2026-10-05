@@ -1,0 +1,134 @@
+// ---- block 1 ----
+#console {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+<div id="console">
+</div>
+
+// ---- block 2 ----
+ <!-- main screen of the game -->
+  <div id="game" class="screen">
+  </div>
+.screen {
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+// ---- block 3 ----
+.sprite {
+  position: absolute;
+  padding:0px;
+  margin:0px;
+}
+
+#paddle {
+  background-image:url(../../sprites/paddle.png);
+  left: 168px;
+  top: 250px;
+  height:16px;
+  width:64px;
+}
+
+// ---- block 4 ----
+>>> $('paddle')
+>>> $('paddle').offsetLeft
+just press up to retype
+
+You might think you can just change this value, but you can't.
+
+>>> $('paddle').offsetLeft = 5
+@x setting a property that only has a getter
+you have to set through the stylesheet instead:
+
+>>> $('paddle').style.left='200px'
+if you're changing multiple styles, prototype provides a shortcut:
+
+>>> $('paddle').setStyle({'left':'10px'})
+there's also getStyle('left'), but it gives you a string with "px"
+
+>>> inspect($('paddle'))
+you can even type .set TAB TAB until you get setStyle
+
+Now that we know how to move things, let's write some code to do it for us.
+
+// ---- block 5 ----
+// Sprite ////////////////////////////////////////
+
+var Sprite = Class.create();
+Sprite.prototype = {
+    initialize : function(id) {
+        this.id = id;
+        this.node = $(id);
+    },
+    
+    getX : function() {
+        return this.node.offsetLeft;
+    },
+    
+    setX : function(x) {
+        this.node.setStyle({'left' : x + 'px'});
+    },
+
+
+
+};
+
+// ---- block 6 ----
+getY : function () {
+        return this.node.offsetTop;
+    },
+    
+    setY : function(y) {
+        this.node.setStyle({'top' : y + 'px'});
+    },    
+    
+
+    moveBy: function(dx, dy) {
+        this.setX(this.getX()+dx);
+        this.setY(this.getY()+dy);
+    },
+
+// ---- block 7 ----
+<!-- code to run when the page loads -->
+<script language="javascript">
+  initGame();
+</script>
+function initGame() {
+    paddle = new Paddle('paddle');
+}
+var paddle;
+// Paddle ////////////////////////////////////////
+
+var Paddle = Class.create();
+Paddle.prototype = Object.extend(new Sprite(), {
+
+    initialize: function(id) {
+        this.id = id;
+        this.node = $(id);
+        this.speed = 5;
+        this.friction = 0.5;
+        this.velocity = 0;
+    },
+    
+    center: function () {
+        this.setX(game.getW()/2 - this.getW()/2);
+        this.velocity = 0;
+    },
+   
+});
+
+// ---- block 8 ----
+>>> paddle = new Sprite('paddle')
+>>> paddle.moveBy(10,-10)
+In the next step, we'll hook it up to the keyboard.

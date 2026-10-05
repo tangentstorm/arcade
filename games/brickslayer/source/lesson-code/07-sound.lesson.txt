@@ -1,0 +1,55 @@
+
+
+				Adding Sound			 
+
+2007/07/22 – alpha releaseThe code needs some cleanup, but everything is here.Suggestions welcome in the forum.
+
+Audio feedback with soundManager.
+
+Set Up the SoundManager
+
+<script type="text/javascript" src="soundmanager2.js"></script>
+  <script type="text/javascript">
+    soundManager.url = '../../soundmanager2.swf'; // path to movie
+    soundManager.onload = function () { loadSounds() }; 
+    soundManager.debugMode = false;
+  </script>
+
+get SoundManager2
+
+http://schillmania.com/projects/soundmanager2
+
+Grant Flash Permission to Play Local Files
+
+http://www.macromedia.com/support/en/flashplayer/help/settings_manager04.html It’s a page on the adobe (previously macromedia) site, but it lets you configure your flash security settings. You only need this so that flash can access YOUR file system.
+
+Define Sound Collection
+
+var SOUND_PATH = '../sounds/';
+function loadSounds() {
+    soundManager.createSound('serve', SOUND_PATH + 'whish.mp3');
+    soundManager.createSound('hit', SOUND_PATH + 'plopp.mp3');
+    soundManager.createSound('break', SOUND_PATH + 'glass2.mp3');
+    soundManager.createSound('bounce', SOUND_PATH + 'boing.mp3');
+    soundManager.createSound('fall', SOUND_PATH + 'deepsplosh.mp3');
+}
+
+where to get sounds
+
+Play Sound on Serve
+
+soundManager.play(‘serve’);
+
+Play Sound On Collision With Each Object
+
+Brick.onHit
+
+soundManager.play(‘break’); soundManager.play(‘hit’);
+
+Wall.onHit
+
+Lake.onHit
+
+Paddle.onHit
+
+			

@@ -59,7 +59,8 @@ const TITLES := [
 	["godotlab_tilemap", "GodotLab Tilemap", "planned", "From godotlab/tilemap."],
 	["cupid", "Cupid", "planned", ""],
 	["mineswpr", "Mineswpr", "planned", "Retro Forth via b4-gd tooling."],
-	["brickslayer", "Brickslayer", "planned", "From javascriptgamer.com trail (2007)."],
+	["brickslayer", "Brickslayer", {"direct": "playable", "enhanced": "planned"},
+		"javascriptgamer.com Breakout + lesson trail (2007), JS → GDScript."],
 	["ofcp", "OFCP", {"direct": "playable", "enhanced": "planned"},
 		"Pineapple OFC vs AI; thin client over wss://ofcp.tangentcode.com/ws."],
 ]

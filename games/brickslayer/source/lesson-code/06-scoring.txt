@@ -1,0 +1,84 @@
+// ---- block 1 ----
+function game_reset() {
+    score_set(0);
+    level_init(1);
+    ballsLeft = SPARES_START;
+    $('spare1', 'spare2', 'spare3').each(
+	function (x){ x.style.display = 'block' });
+}
+    game_reset();
+var score = 0;
+function score_set(value) {
+    score = value;
+     $("score").innerHTML = '' + score;
+}
+#levelarea, #level, #scorecard, #score {
+  position:absolute;
+  top: 282px;
+  color: white;
+  font-weight: bold;
+}
+
+#scorecard {
+  left: 300px;
+}
+
+#score {
+  left: 350px;
+  width: 45px;
+  text-align: right;
+}
+
+#levelarea {
+  left: 150px;
+}
+
+#level {
+  left: 200px;
+}
+
+
+.spare { top: 282px;}
+#spare1 { left: 4px; }
+#spare2 { left: 24px; }
+#spare3 { left: 44px; }
+    <div id="scorecard">score:</div><div id="score">0</div>
+    <div id="levelarea">level:</div>
+    <div id="level">1</div>
+    <div class="spare" id="spare1"></div>
+    <div class="spare" id="spare2"></div>
+    <div class="spare" id="spare3"></div>
+
+// ---- block 2 ----
+function score_inc() {
+    score_set(score+1);
+}
+                score_inc();
+
+// ---- block 3 ----
+ loseLife();
+function loseLife() {
+    soundManager.play('fall');
+    if (ballsLeft == 0) {
+        // game over
+        //posted_scores = false;
+    } else {
+        if (el = $("spare" + ballsLeft)) {
+	    el.style.display = 'none';
+	}
+        ballsLeft--;
+        ball.stickToPaddle();
+    }
+}
+var ballsLeft;
+var SPARES_START = 3;
+
+// ---- block 4 ----
+function level_init(level) {
+    bricks.each(function (b) { b.reset() });
+    Brick.count = bricks.length;
+    current_level = level;
+    paddle.center();
+    ball.stickToPaddle();
+    Element.update($('level'), current_level.toString());
+}
