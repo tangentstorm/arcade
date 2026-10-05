@@ -1,8 +1,8 @@
-# tangentstorm/tangentgames — Auditable Playbook
+# tangentstorm/arcade — Auditable Playbook
 
 **Status:** DRAFT plan only — repo not created yet.  
 **Owner:** Michal Wallace (`tangentstorm`)  
-**Target:** `https://github.com/tangentstorm/tangentgames` → GitHub Pages WIP  
+**Target:** `https://github.com/tangentstorm/arcade` → GitHub Pages WIP  
 **Engine:** Godot 4.7.x (match box editor `/workspace/tools/godot/Godot_v4.7.2-stable_linux.x86_64` unless decision log says otherwise)  
 **Decision log:** [`DECISION_LOG.md`](./DECISION_LOG.md)  
 **Architecture:** [`ARCHITECTURE.md`](./ARCHITECTURE.md)  
@@ -16,9 +16,9 @@
 |------|---------|
 | Drafts OK | Write plans, scaffolds, CI configs freely |
 | Don't notify others | No @-mentions, no cross-repo pings, no Slack/email blasts |
-| Own-repo PRs/creates OK | Creating `tangentstorm/tangentgames` and PRs on Michal's projects needs no extra ask |
+| Own-repo PRs/creates OK | Creating `tangentstorm/arcade` and PRs on Michal's projects needs no extra ask |
 | No Cursor cloud agents | Work via local executors + `gh` CLI on the box |
-| This pass | **Repo already created at tangentstorm/tangentgames; continue scaffolding; **do not** mass-clone source titles |
+| This pass | **Repo already created at tangentstorm/arcade; continue scaffolding; **do not** mass-clone source titles |
 
 ---
 
@@ -26,8 +26,8 @@
 
 The playbook is **done for a phase** only when every checkbox for that phase is true and independently re-checkable. Global product DoD:
 
-1. **Repo exists** at `tangentstorm/tangentgames` (public, MIT unless decision log overrides).
-2. **Single arcade app** boots in browser at `https://tangentstorm.github.io/tangentgames/` (or `…/tangentgames/index.html`) with:
+1. **Repo exists** at `tangentstorm/arcade` (public, MIT unless decision log overrides).
+2. **Single arcade app** boots in browser at `https://tangentstorm.github.io/arcade/` (or `…/arcade/index.html`) with:
    - title / splash → game picker → play → pause → return-to-arcade (no hard browser refresh required).
 3. **At least one title** ships both editions (`direct` + `enhanced`) selectable from the picker.
 4. **CI green:** push to `main` (or designated WIP branch) produces a Pages artifact; workflow log shows Godot export exit 0 and artifact size bound (see §5).
@@ -106,7 +106,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 
 **Unknown killed:** Can we publish a nothreads Godot 4 Web build to GitHub Pages that loads?
 
-1. Create repo `tangentstorm/tangentgames` (when operator greenlights; **not this draft pass**).
+1. Create repo `tangentstorm/arcade` (when operator greenlights; **not this draft pass**).
 2. Scaffold layout per `ARCHITECTURE.md` (shell scenes only; zero real games).
 3. Add `export_presets.cfg` Web preset: `variant/thread_support=false`, relative assets, `gl_compatibility`.
 4. Add Actions workflow: install/cache Godot 4.7.2 + export templates → `--export-release "Web"` → upload Pages artifact / `peaceiris`/`actions/deploy-pages`.
@@ -186,8 +186,8 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | **Catalog** | Godot headless script dumping registered editions | Matches `games/**/manifest.tres` (or JSON) count |
 | **Lifecycle** | Automated input or `--proof` prints | `LOAD ok` / `RETURN ok` for fixture + target game |
 | **Size** | `python3 -c '…gzip…'` on KEY files | ≤ gate; numbers pasted into evidence + decision log |
-| **Pages** | `curl -sI https://tangentstorm.github.io/tangentgames/` | 200; follow-up wasm request not 404 |
-| **CI** | `gh run list --repo tangentstorm/tangentgames` | latest workflow success on tip commit |
+| **Pages** | `curl -sI https://tangentstorm.github.io/arcade/` | 200; follow-up wasm request not 404 |
+| **CI** | `gh run list --repo tangentstorm/arcade` | latest workflow success on tip commit |
 
 **Evidence layout**
 
@@ -226,7 +226,7 @@ Safe parallel units **after Phase B exit**:
 ## 7. Decision log template path
 
 - **Canonical file:** [`/workspace/tangentgames-plan/DECISION_LOG.md`](./DECISION_LOG.md)  
-- **After repo creation:** copy/move to `tangentgames/DECISION_LOG.md` (repo root) and keep this plan dir as historical snapshot or delete once mirrored.
+- **After repo creation:** copy/move to `docs/DECISION_LOG.md` in the repo and keep this plan dir as historical snapshot or delete once mirrored.
 - **Columns:** `date | decision | alternatives | why | evidence path`
 - **Rule:** Any change to export threading, renderer, slim-template flags, license, first-port title, or Pages URL base path **requires** a new row before merge.
 
@@ -235,7 +235,7 @@ Safe parallel units **after Phase B exit**:
 ## 8. Immediate next actions (when implementation starts)
 
 1. Operator confirms Phase C first slug (`ld48` vs `mineswpr` vs other).
-2. Create `tangentstorm/tangentgames` (MIT, empty README pointing at Pages WIP).
+2. Create `tangentstorm/arcade` (MIT, empty README pointing at Pages WIP).
 3. Execute Phase A on the box with Godot 4.7.2; record evidence.
 4. Do **not** clone the full title list until each port PR needs it.
 

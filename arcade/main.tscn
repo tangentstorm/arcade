@@ -39,7 +39,7 @@ theme_override_constants/separation = 24
 [node name="Title" type="Label" parent="Margin/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 56
-text = "Tangent Games Arcade"
+text = "tangentstorm arcade"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="Margin/VBox"]

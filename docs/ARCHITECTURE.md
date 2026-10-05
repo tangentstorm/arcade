@@ -1,4 +1,4 @@
-# tangentstorm/tangentgames — Architecture
+# tangentstorm/arcade — Architecture
 
 **Status:** Proposed layout for a **single** Godot 4 arcade app (monorepo).  
 **Companion:** [`PLAYBOOK.md`](./PLAYBOOK.md) · [`DECISION_LOG.md`](./DECISION_LOG.md)  
@@ -19,7 +19,7 @@
 ## 2. Proposed repository layout
 
 ```
-tangentgames/
+arcade/                            # repo root (formerly tangentgames)
   README.md
   LICENSE                          # MIT (confirm in decision log)
   DECISION_LOG.md
@@ -244,7 +244,7 @@ GitHub Pages serves static files; nothreads needs **no** COOP/COEP. Confirm:
 | `.js` | javascript |
 | `.pck` | octet-stream |
 
-All asset URLs in `index.html` must stay **relative** so the app works under `/tangentgames/`.
+All asset URLs in `index.html` must stay **relative** so the app works under `/arcade/`.
 
 ---
 
@@ -318,7 +318,7 @@ jobs:
 
 ```bash
 GODOT=/workspace/tools/godot/Godot_v4.7.2-stable_linux.x86_64
-$GODOT --headless --path /path/to/tangentgames \
+$GODOT --headless --path /path/to/arcade \
   --export-release "Web" build/web/index.html
 python3 tools/measure_key_size.py build/web
 (cd build/web && python3 -m http.server 8765)
@@ -327,7 +327,7 @@ python3 tools/measure_key_size.py build/web
 ### 7.3 Repo / Pages settings (when creating repo)
 
 - Settings → Pages → Deploy from **GitHub Actions** (preferred) or `gh-pages` branch.
-- Site: `https://tangentstorm.github.io/tangentgames/`
+- Site: `https://tangentstorm.github.io/arcade/`
 - Do **not** enable forced HTTPS-only quirks that break local smoke; Pages is already HTTPS.
 
 ---

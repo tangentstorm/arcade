@@ -1,6 +1,6 @@
-# tangentgames — Decision Log
+# tangentstorm arcade — Decision Log
 
-**Project:** `tangentstorm/tangentgames`  
+**Project:** `tangentstorm/arcade`  
 **Plan home:** `/workspace/tangentgames-plan/`  
 **Rule:** Append-only. One row per decision. Link evidence; do not rewrite history — add a superseding row instead.
 
@@ -34,3 +34,4 @@ Seed topics to log when implementation starts:
 | 2026-10-05 | Restore flappy from unitylabs | Stay dropped / recreate | Operator: flappyclone is in https://github.com/tangentstorm/unitylabs — port that, do not invent | chat t3u |
 | 2026-10-05 | Pure GDScript OFCP port + golden vectors; Pages gated on explicit OK | JS bridge / ship to Pages immediately | ofcp bot inventory; private repo secrecy | ofcp bot message |
 | 2026-10-05 | Expand multi-game repos into per-game gallery tiles | One tile per repo | Operator: GameSketchLib, gamemaker-stuff, etc. contain multiple games | chat t10u |
+| 2026-10-05 | Rename repo tangentstorm/tangentgames → tangentstorm/arcade; display name "tangentstorm arcade"; Pages base path /tangentgames/ → /arcade/ | Keep "Tangent Games" name | Company-name conflict (operator). History preserved via in-place GitHub rename (old URLs redirect); gh-pages branch + legacy Pages source carried over; local checkout moved to /workspace/arcade with /workspace/tangentgames symlink | https://github.com/tangentstorm/arcade · https://tangentstorm.github.io/arcade/ |

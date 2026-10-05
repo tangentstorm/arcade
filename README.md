@@ -1,8 +1,8 @@
-# Tangent Games Arcade
+# tangentstorm arcade
 
 Godot 4.7 monorepo: Direct + Enhanced ports of tangentstorm classics, plus OFCP (private build).
 
-**Live (WIP):** https://tangentstorm.github.io/tangentgames/
+**Live (WIP):** https://tangentstorm.github.io/arcade/
 
 ## Run locally
 
