@@ -1,9 +1,11 @@
 # mineswpr
 
-Status: **planned** (placeholder; no port yet).
+Minesweeper for Retro Forth 11, written by Michal J Wallace in 2013 as a
+literate org file ([gitweb/mineswpr.org](https://github.com/tangentstorm/gitweb/blob/main/mineswpr.org)).
+It plays on a 16×16 grid with 24 mines. You type Forth-style commands with hex
+coordinates (`5 C ?`), and it draws with ANSI terminal colors.
 
-To be built with Retro Forth via the b4-gd tooling.
+- **Direct:** playable. A native GDScript port on an 80×25 terminal grid. You can type the original commands or use the mouse. See [PORT.md](PORT.md).
+- **Enhanced:** planned.
 
-When porting, follow games/_template/: put the faithful port in `direct/game.tscn`
-and the modernized version in `enhanced/game.tscn`, then set status in
-`arcade/game_registry.gd`.
+The source has no license file. It's tangentstorm's own work, and a reference copy is in `source/`.
