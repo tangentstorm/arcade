@@ -60,7 +60,8 @@ const TITLES := [
 	["cupid", "Cupid", "planned", ""],
 	["mineswpr", "Mineswpr", "planned", "Retro Forth via b4-gd tooling."],
 	["brickslayer", "Brickslayer", "planned", "From javascriptgamer.com trail (2007)."],
-	["ofcp", "OFCP", "planned", "Private build — not in public export."],
+	["ofcp", "OFCP", {"direct": "playable", "enhanced": "planned"},
+		"Pineapple OFC vs AI; thin client over wss://ofcp.tangentcode.com/ws."],
 ]
 
 var entries: Array[GameEntry] = []

@@ -17,4 +17,4 @@ mkdir -p build/web
 /workspace/tools/godot4 --headless --path . --export-release "Web" build/web/index.html
 ```
 
-OFCP rules/AI are excluded from the public Pages build until a private packaging path exists.
+OFCP Direct ships as a thin WebSocket client to `wss://ofcp.tangentcode.com/ws`; the OFCP rules engine (`games/ofcp/shared/`), golden tests and any AI weights stay out of the public build. See `games/ofcp/README.md`.
