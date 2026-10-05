@@ -57,6 +57,7 @@ const TITLES := [
 	["godotlab_tilemap", "GodotLab Tilemap", "planned", "From godotlab/tilemap."],
 	["cupid", "Cupid", "planned", ""],
 	["mineswpr", "Mineswpr", "planned", "Retro Forth via b4-gd tooling."],
+	["brickslayer", "Brickslayer", "planned", "From javascriptgamer.com trail (2007)."],
 	["ofcp", "OFCP", "planned", "Private build — not in public export."],
 ]
 
