@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	width="656" height="350"
+	applicationComplete="onAppComplete()">
+
+<mx:Script>
+<![CDATA[
+
+   import org.flixel.FlxGame;
+
+   private function onAppComplete():void 
+   {
+   	 
+   	 Const.STAGE_HEIGHT = stage.stageHeight;
+   	 Const.STAGE_WIDTH = stage.stageWidth;
+   	 
+  	 var game:FlxGame = new FlxGame(Const.STAGE_WIDTH, Const.STAGE_HEIGHT, GameState, 1);
+  	 game.showLogo = false;
+  	 this.addChild(new DisplayObjectUIComponent(game));
+   }
+
+]]>
+</mx:Script>
+	
+</mx:Application>
