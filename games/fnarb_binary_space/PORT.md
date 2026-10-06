@@ -26,4 +26,41 @@ Files: `BinarySpace.tscn`, `widgets/TruthTable.*`, `widgets/ShadedGrid.gd` → `
 
 Tests: `tools/test_fnarb_demos.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same 5-input truth-table space. **No rules are duplicated:**
+`enhanced/game.gd` instances Direct `binary_space.tscn` (shared `truth_table.gd` /
+`shaded_grid.gd`). The 32×32 conjunction grid, 25% fade on non-power-of-two rows, hidden
+first VBoxContainer and Camera2D at (960, 540) stay Direct. Enhanced only wraps the demo
+in 1280×720 letterbox chrome and derives juice from watching Direct row bits / modulate.
+No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: field, HUD, title card, scan juice |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). Direct's 1920×1080 demo runs in a
+  SubViewport scaled into a 960×540 field (½) between thin side HUD panels.
+- **Look / HUD:** deep-space gradient + twinkles, neon frame around the field, scan-row /
+  bits / lit-vs-faded readouts, pattern explainer, controls strip.
+- **Juice:** row-scan highlight with bursts/floaters on lit rows; banner after a full
+  pass ("SIERPINSKI PATTERN"); soft flash on Start.
+- **Title card** on boot (Space/Enter/Start); **R** reloads the Direct demo to watch
+  the scan again. Back to Arcade is `FOCUS_NONE`. Esc → PauseOverlay.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Truth tables / shaded grid | `direct/binary_space.tscn` scripts | same scene (instance), no copy |
+| Stage | 1920×1080 SubViewport scaled to window | 1280×720 chrome around ½-scale Direct demo |
+| Start | demo visible immediately | title card, then the same Direct demo |
+| Interaction | none | presentation scan / R replay only |
+| Esc / Back | PauseOverlay + help label | same + explicit Back (FOCUS_NONE) |
+
+### Deferred
+- Interactive bit toggles or nvars slider (would be new mechanics)
+- Dedicated `_enhanced` gallery preview (card can use the Direct shot)
+
+Tests: `tools/test_fnarb_binary_space_enhanced.gd` (run by `tools/smoke_headless.sh`).
