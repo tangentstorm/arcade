@@ -33,4 +33,53 @@
 
 Tests: `tools/test_giraffe.gd` (picked up by `tools/smoke_headless.sh`).
 
-## Enhanced edition — planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same Pico platformer. **No rules are duplicated:**
+`enhanced/game.gd` preloads `direct/giraffe_logic.gd`, `direct/map_data.gd` and the Direct sprites
+under `direct/assets/`. Gravity, walk accel/friction, jump, the walk-frame toggle, map collision and the
+fall reset are the Direct simulation at the same fixed 30 Hz. Enhanced only reads state after each
+`step()` and derives presentation from the deltas, so a rules fix in Direct lands in both editions.
+No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: 5× field, backdrop, side HUD, title card, juice |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). The 128×128 room draws at 5× (640×640) centered,
+  with left (stats) and right (controls) panels and a top "Back to Arcade" button (FOCUS_NONE).
+- **Backdrop:** savanna dusk sky gradient with twinkling stars, a setting sun and drifting clouds; two
+  parallax hill layers with acacia silhouettes rise to the tile-17 décor strip (now with an ember
+  shimmer). Below the strip a misty chasm with fireflies and a red danger glow at y=128 marks the
+  Direct fall-reset line. Stray clouds/particles are masked to the field.
+- **Ledges:** Direct tile-16 art at 5× with a drop shadow and a top highlight. Landing on a ledge
+  (a contiguous run of tile 16; the map has 7) lights its top gold.
+- **Hero:** same Direct sprites/frames/flip, rendered at 5× with interpolation between 30 Hz steps
+  (no lerp across the respawn), squash/stretch anchored at the feet (stretch on jump, squash on land
+  scaled by impact), a soft glow, and a ground shadow on the first ledge below that shrinks with height.
+- **Juice:** dust on jump / landing / every walk-frame flip; small shake on hard landings; "LEDGE n/7"
+  sparkle; fall → "WHOOPS!" floater, flash and respawn sparkle; all ledges → "ALL LEDGES!" toast.
+- **HUD:** time, jumps, falls, ledges visited (n/7), best air time, best all-ledges run time. All are
+  view-only counters derived from Direct state (the snap condition is re-evaluated read-only).
+- **Title card:** Enhanced boots on a title card with the sim idle; Space / Z / X / Enter / arrows /
+  A,D start it. Esc opens the arcade PauseOverlay (tree pause freezes the 30 Hz step).
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rules / sim | `giraffe_logic.gd` + `map_data.gd` | same scripts (preload), no copy |
+| Stage | 128×128 scaled to fit, black `cls(0)` | 1280×720 chrome around a 5× (640×640) field |
+| Look | nearest-filtered cart sprites | same sprites + dusk backdrop, shadows, squash/stretch, dust, floaters |
+| Start | immediately in play | title card, then the same sim |
+| Esc / Back | PauseOverlay | same + explicit Back to Arcade (FOCUS_NONE) |
+
+### Deferred
+- No new sprites or audio (the cart's `__sfx__` / `__music__` are empty).
+- No dedicated Enhanced gallery preview in this PR (card can use the Direct shot).
+
+Tests: `tools/test_giraffe_enhanced.gd` (run by `tools/smoke_headless.sh`): Direct logic ownership,
+frame-by-frame parity of a 455-frame scripted session (walks, hops, falls/resets) against a bare Direct
+twin, ledge grouping/visits, jump/land/fall juice + counters, all-ledges toast, registry entry, launch +
+letterbox, title idles the sim, Space → play, Esc → PauseOverlay freezes the step → Back to Arcade.
