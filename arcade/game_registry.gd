@@ -176,7 +176,7 @@ const TITLES := [
 	["terratri", "Terratri", {"direct": "playable", "enhanced": "playable"},
 		"Adam Atomic's 5x5 territory game (Terratri Online, 2011/2026 TS) -> GDScript rules, hotseat 2P; Enhanced = lit tabletop, hopping pawns, rising forts + player cards over the same Direct rules."],
 	["doth", "Doth", {"direct": "playable", "enhanced": "playable"},
-		"silverware Doth-A (Turbo Pascal, 1993-1996) Kroz-like adventure -> 80×25 CP437 TermGrid Direct (DOSBox look); Enhanced still torchlit tiles pending TermGrid restyle."],
+		"silverware Doth-A (Turbo Pascal, 1993-1996) Kroz-like adventure -> 80x25 CP437 TermGrid Direct (DOSBox look); Enhanced still torchlit tiles pending TermGrid restyle."],
 	["marigold", "Marigold Homestead", {"direct": "playable", "enhanced": "planned"},
 		"Claude artifact BjKJn834 (Starflight II x Farming Sim pixel OS) -> Direct: tractor-driven fractal homestead + 6 chrome screens; Enhanced stub later. Issue #105."],
 ]

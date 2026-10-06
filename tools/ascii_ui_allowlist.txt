@@ -7,3 +7,6 @@
 # fnarb_ast Direct draws op glyphs via NotoSansMono (has ∧∨≠⊤⊥ and subscripts).
 games/fnarb_ast/direct/ast_node.gd          # font: games/fnarb_ast/direct/assets/NotoSansMono-Regular.ttf (draw_string)
 games/fnarb_ast/direct/ast_node.tscn        # font: games/fnarb_ast/direct/assets/NotoSansMono-Regular.ttf (Label theme font)
+
+# doth Direct TermGrid paints CP437 box/UI glyphs via IBM VGA 8x16 bitmap font.
+games/doth/direct/game.gd                 # font: arcade/assets/ibm_vga_8x16.png (TermGrid CP437)
