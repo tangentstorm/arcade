@@ -49,6 +49,7 @@ Fixed-stage notes:
 | `chesscoach` (Enhanced) | 1280×720 stage; Direct ~400×400 board in SubViewport → 520×520 field + side HUD | `letterbox` | Presentation over Direct scene (instance). Walnut board, move-list HUD, replay juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `fnarb_binary_adder` (Enhanced) | 1280×720 stage; Direct 1920×1080 @½ (960×540) clipped field + side HUD | `letterbox` | Presentation over Direct demo (instance `binary_addition.tscn`). Circuit chrome, equation HUD, bit-flip juice; gold highlight kept. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `fnarb_overlap` (Enhanced) | 1280×720 stage; Direct 1920×1080 @½ (960×540) clipped field + side HUD | `letterbox` | Presentation over Direct demo (instance `overlap_demo.tscn`). Slate chrome, mouse/subject/overlap HUD, colour-change juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `ofcp` (Enhanced) | 1280×720 designed stage self-fitted; Direct 1280×720 SubViewport @0.8 (1024×576) clipped field + side HUD | `expand` (title) | Presentation over Direct thin client (instance `game.tscn`). Felt chrome, place/score/FL juice, cash/normal·windfall·progressive labels. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `fnarb_ast` (Enhanced) | 1280×720 stage; Direct 1920×1080 @½ (960×540) clipped field + side HUD | `letterbox` | Presentation over Direct demo (instance `ast_node_demo.tscn`). Indigo chrome, grow-in + traversal-wave juice, hover op inspector. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
 | `flappy_clone` (Enhanced) | 1280×720 stage, 107 px/unit | `letterbox` | First Enhanced edition. Procedural art, scaled to fit the viewport. No `_enhanced` preview yet (the gallery card uses the Direct shot) |
@@ -106,6 +107,7 @@ Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-by
 | `fnarb_binary_space` | Fnarbmlyx Binary Space | playable (Direct + Enhanced) | letterbox (Direct 1920×1080; Enhanced 1280×720) | fnarbmlyx 5-input truth-table space; Enhanced = chrome/HUD/scan juice over Direct demo |
 | `fnarb_binary_tree` | Fnarbmlyx Binary Tree | playable (Direct + Enhanced) | letterbox (Direct 1920×1080; Enhanced 1280×720) | fnarbmlyx depth-5 tree drawing; Enhanced = chrome, grow-in + traversal-wave juice, hover inspector over Direct tree scene |
 | `godotlab_collatz` | Collatz (GodotLab) | playable (Direct + Enhanced) | expand (Direct Control UI; Enhanced self-fitted 1280×720) | godotlab bit-register Collatz stepper; Enhanced = chrome, bit flip/shift/carry juice, step breakdown + trajectory chart over Direct scene |
+| `ofcp` | OFCP | playable (Direct + Enhanced) | expand (Direct Control UI; Enhanced self-fitted 1280×720) | Pineapple OFC thin WSS client; Enhanced = felt chrome + place/score/FL juice over Direct |
 | `terratri` | Terratri | playable (+ Enhanced) | expand | hotseat 2P, pure GDScript rules (see below); Enhanced = tabletop makeover over the same rules |
 
 ## Local hotseat titles
