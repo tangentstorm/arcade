@@ -37,6 +37,7 @@ Fixed-stage notes:
 | `giraffe` (Enhanced) | 1280×720 stage; 128×128 Pico room @5× (640×640) + side HUD | `letterbox` | Presentation over Direct logic (preload). Dusk backdrop, squash/stretch, dust, ledge tracker. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `killem_all` (Enhanced) | 1280×720 stage; 1024×768 room0 @0.8125 (832×624) + side HUD panels | `letterbox` | Presentation over Direct logic (preload `ka_world.gd`). Neon arena, tracers, thrust flame, radar. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `canyon_run` | 240×320 portrait @2× (480×640) centred in 1280×720 | `letterbox` | Procedural Direct MVP (#36); Enhanced will follow the Claude Design mock |
+| `doth` (Enhanced) | 1280×720 stage; 70×20 @16px (1120×320) + bottom HUD | `letterbox` | Presentation over Direct world + SvA-like tiles (preload). Torchlit chrome, pickup juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
 | `flappy_clone` (Enhanced) | 1280×720 stage, 107 px/unit | `letterbox` | First Enhanced edition. Procedural art, scaled to fit the viewport. No `_enhanced` preview yet (the gallery card uses the Direct shot) |
 | `tentraminos` (Enhanced) | 568×646 board + 520 px HUD panel (1124×646) in 1280×720 | `letterbox` | Same rules as Direct. `tentraminos_enhanced.png` preview |

@@ -62,8 +62,51 @@ No `.ROO` / `.WLD` world files survive in the archive (`gotoroom` expects `N.ROO
 - Pickups on the overworld are placed for playability (archive has map terrain only).
 - Boulder push is one-cell into empty floor (no full `walkinto` recursion).
 
-## Enhanced: planned
-Full adventure: enemy kinds, stairs/nextroom, `.WLD` format if reconstructed, richer tileset,
-sound, and quest progression.
+## Enhanced edition (`enhanced/`): playable
 
-Tests: `tools/test_doth.gd` (also run by `tools/smoke_headless.sh`).
+A presentation makeover of the same Doth-A MVP. **No rules are duplicated:**
+`enhanced/game.gd` preloads `direct/doth_world.gd` (and through it `doth_levels.gd`) plus the
+Direct SvA-like procedural atlas from `direct/doth_tiles.gd`. Movement, walls, pickups, boulder
+push, score and win are the Direct simulation. Enhanced only reads state after each `try_move()`
+and derives presentation from the deltas, so a rules fix in Direct lands in both editions.
+No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: torchlit field, bottom HUD, title/win cards, juice |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). The 70×20 map draws at the same 16 px tiles
+  (1120×320) centered under a title bar, with a bottom stats panel and "Back to Arcade"
+  (FOCUS_NONE).
+- **Look:** same Direct SvA-like atlas; soft dungeon wash + ember motes behind the grid; wall
+  drop shadows; pickup bob/pulse with coloured glow; hero squash on step / bump with a torch
+  radius and ground shadow.
+- **Juice:** particle bursts + floaters on coin/gem/heart/ammo; boulder-push sparkle; wall-bump
+  shake; room-cleared flash + toast. View-only counters (coins/gems/hearts/ammo taken, pushes,
+  bumps) derived from Direct deltas.
+- **HUD:** gold / magic / health (bar) / ammo / moves / picks left / score / map id / message.
+- **Title / win cards:** Enhanced boots on a title card with the sim idle; Enter/Space/2 →
+  overworld, `1` → starter. Clearing the last pickup shows a win card; Enter/Space → title.
+  Esc opens the arcade PauseOverlay.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rules / sim | `doth_world.gd` + `doth_levels.gd` | same scripts (preload), no copy |
+| Tiles | procedural SvA-like 16×16 atlas | same atlas (preload), no copy |
+| Stage | 1120×368 Control letterbox | 1280×720 chrome around 1120×320 field |
+| Look | flat map + HUD strip | torchlit chrome, pickup pulse, collect juice |
+| Start | title drawn in-room | title card overlay, then the same sim |
+| Esc / Back | PauseOverlay | same + explicit Back to Arcade (FOCUS_NONE) |
+
+### Deferred (still planned beyond this makeover)
+- Enemy AI, shooting, spells, multi-room `.ROO` / `.WLD`, save/load, editor, music.
+- Dedicated Enhanced gallery preview (card can use the Direct shot).
+
+Tests: `tools/test_doth.gd` (Direct) and `tools/test_doth_enhanced.gd` (Enhanced; both run by
+`tools/smoke_headless.sh`): Direct logic + tile ownership, move-by-move parity of starter/overworld
+sessions (coin, wall bump, boulder push, 40 wander steps) against a bare Direct twin, collect /
+win juice + counters, registry entry, launch + letterbox, title idles, `1` → starter, Esc →
+PauseOverlay → Back to Arcade.

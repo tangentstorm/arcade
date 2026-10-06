@@ -64,6 +64,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `shep` | `tangentstorm/shep` (Haxe/Flash 9 + physaxe) | Direct + Enhanced playable (Enhanced = clearer fuse/ship UI + juice over the same physics); see `games/shep/PORT.md` |
 | `silly-game` | `tangentstorm/silly-game` (Godot 3, archived) | Direct + Enhanced playable (Enhanced = animated ocean, trails, hit juice + minimap HUD over the same Direct scene); see `games/silly_game/PORT.md` |
 | `pico-games` | `tangentstorm/pico-games` (Pico-8) | `giraffe`: Direct + Enhanced playable (Enhanced = savanna-dusk restyle + landing juice over the same rules); see `games/giraffe/PORT.md` |
+| `silverware` | `tangentstorm/silverware` (Turbo Pascal) | `doth`: Direct + Enhanced playable (Enhanced = torchlit dungeon chrome + pickup juice over the same Direct world/tiles); see `games/doth/PORT.md` |
 | `gamemaker-stuff` | `tangentstorm/gamemaker-stuff` (archived) | Multi-mini, one slug per project. `gm_defense`: Direct + Enhanced playable (Enhanced = deep-space room, ship/squid glow + off-room locator over the same rules); see `games/gm_defense/PORT.md` |
 | `killem-all` | `tangentstorm/gamemaker-stuff` `killem-all.gmx` (GameMaker: Studio 1.x, archived) | Direct + Enhanced playable (Enhanced = neon arena, tracers, thrust flame, radar + flight HUD over the same rules; still no enemies, as in the source); see `games/killem_all/PORT.md` |
 | `fnarbmlyx` | `tangentstorm/fnarbmlyx` (GDScript, archived) | GSL/Godot lineage |
