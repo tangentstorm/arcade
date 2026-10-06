@@ -58,6 +58,7 @@ const SCALE_MODE := {
 	"mineswpr": "letterbox",         # 80×25 terminal grid
 	"brickslayer": "letterbox",      # 400×300 console @2x
 	"ofcp": "expand",                # live client UI reflows
+	"terratri": "expand",            # Control UI; board picks an integer cell size
 }
 
 
@@ -157,6 +158,8 @@ const TITLES := [
 		"javascriptgamer.com Breakout + lesson trail (2007), JS → GDScript."],
 	["ofcp", "OFCP", {"direct": "playable", "enhanced": "planned"},
 		"Pineapple OFC vs AI; thin client over wss://ofcp.tangentcode.com/ws."],
+	["terratri", "Terratri", {"direct": "playable", "enhanced": "planned"},
+		"Adam Atomic's 5×5 territory game (Terratri Online, 2011/2026 TS) → GDScript rules, hotseat 2P."],
 ]
 
 var entries: Array[GameEntry] = []

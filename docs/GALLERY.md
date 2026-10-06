@@ -54,3 +54,12 @@ progress bar, on the gallery background colour. No custom HTML shell is needed:
 
 Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-byte avatar
 (+27,955 B, about +0.2% of the gzipped KEY total). `index.pck` +192 B, `index.html` +465 B.
+
+## Local hotseat titles
+Some board games ship as **hotseat 2P** Direct editions: both players share one
+window and take turns, with no network. The first is `terratri`, which was a
+two-browser WebSocket game in the original. Its card launches straight into a
+game with Red to move. It uses the `expand` scale mode, and the board picks a
+whole-number cell size so it stays crisp at any window size. Rules are pure
+GDScript, checked against golden playouts recorded from the original TS
+(`tools/test_terratri.gd`).
