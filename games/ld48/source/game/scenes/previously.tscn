@@ -1,0 +1,249 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://floor-tiles.tres" type="TileSet" id=1]
+[ext_resource path="res://ernie.tscn" type="PackedScene" id=2]
+[ext_resource path="res://teleporter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://episode0/screenshot.png" type="Texture" id=4]
+[ext_resource path="res://sprites/exit.png" type="Texture" id=5]
+[ext_resource path="res://sprites/ivan.png" type="Texture" id=6]
+[ext_resource path="res://sprites/teddy.png" type="Texture" id=7]
+[ext_resource path="res://chatroom.gd" type="Script" id=8]
+[ext_resource path="res://scenes/room0.gd" type="Script" id=9]
+[ext_resource path="res://sidebar.gd" type="Script" id=10]
+[ext_resource path="res://camshaker.gd" type="Script" id=11]
+[ext_resource path="res://helptext.gd" type="Script" id=12]
+[ext_resource path="res://ui_theme.tres" type="Theme" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://fonts/RobotoCondensed-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+font_data = SubResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.0666667, 0.0627451, 0.0745098, 1 )
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://fonts/RobotoCondensed-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+size = 24
+font_data = SubResource( 6 )
+
+[node name="scene" type="Node2D"]
+position = Vector2( -9.88818, -48.0291 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 1599.69 ],
+"_edit_vertical_guides_": [ 1598.77 ]
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="e00-screenshot" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1023.42, 1029.73 )
+scale = Vector2( 3.16684, 3.16684 )
+texture = ExtResource( 4 )
+
+[node name="room" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="background" type="TileMap" parent="room"]
+position = Vector2( 0.378296, 1.6369 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( -2, 1, 0, -1, 1, 65537, -65536, 2, 0, -65535, 2, 65537, -65534, 1, 0, -65533, 1, 65536, -65532, 1, 2, -65531, 1, 2, -65530, 1, 65538, -65529, 1, 1, -65528, 1, 2, -65527, 1, 2, -65526, 1, 1, -65525, 1, 65537, -65524, 1, 65538, -65523, 1, 2, -65522, 1, 65536, -65521, 1, 1, -65520, 1, 65536, -65519, 1, 1, 65534, 1, 65537, 65535, 1, 65536, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 2, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 9, 2, 0, 10, 2, 0, 11, 2, 0, 12, 2, 0, 13, 2, 0, 14, 2, 0, 15, 2, 0, 16, 1, 65536, 17, 1, 65537, 131070, 1, 65537, 131071, 1, 2, 65536, 2, 0, 65537, 2, 0, 65538, 2, 0, 65539, 2, 0, 65540, 2, 0, 65541, 2, 0, 65542, 2, 0, 65543, 2, 0, 65544, 2, 0, 65545, 2, 0, 65546, 2, 0, 65547, 2, 0, 65548, 2, 0, 65549, 2, 0, 65550, 2, 0, 65551, 2, 0, 65552, 1, 65538, 65553, 1, 1, 196606, 1, 65537, 196607, 1, 1, 131072, 2, 0, 131073, 2, 0, 131074, 2, 0, 131075, 2, 0, 131076, 2, 0, 131077, 1, 2, 131078, 2, 0, 131079, 2, 0, 131080, 2, 0, 131081, 2, 0, 131082, 2, 0, 131083, 2, 0, 131084, 2, 0, 131085, 2, 0, 131086, 2, 0, 131087, 2, 0, 131088, 1, 2, 131089, 1, 65538, 262142, 1, 65537, 262143, 1, 0, 196608, 2, 0, 196609, 2, 0, 196610, 2, 0, 196611, 2, 0, 196612, 2, 0, 196613, 2, 0, 196614, 2, 0, 196615, 2, 0, 196616, 1, 0, 196617, 1, 65537, 196618, 2, 0, 196619, 2, 0, 196620, 2, 0, 196621, 2, 1, 196622, 2, 65537, 196623, 1, 65536, 196624, 1, 0, 196625, 1, 2, 327678, 1, 2, 327679, 1, 65538, 262144, 2, 0, 262145, 2, 0, 262146, 2, 0, 262147, 2, 0, 262148, 2, 0, 262149, 2, 0, 262150, 2, 0, 262151, 2, 0, 262152, 2, 0, 262153, 2, 0, 262154, 1, 2, 262155, 2, 65536, 262156, 2, 1, 262157, 2, 65537, 262158, 2, 65536, 262159, 2, 65537, 262160, 1, 1, 262161, 1, 0, 393214, 1, 65537, 393215, 1, 65536, 327680, 2, 0, 327681, 2, 0, 327682, 2, 0, 327683, 2, 0, 327684, 2, 0, 327685, 2, 0, 327686, 2, 0, 327687, 2, 0, 327688, 2, 0, 327689, 1, 65537, 327690, 2, 65537, 327691, 1, 1, 327692, 2, 65537, 327693, 1, 65536, 327694, 2, 1, 327695, 2, 65536, 327696, 1, 65538, 327697, 1, 0, 458750, 1, 2, 458751, 1, 65537, 393216, 2, 0, 393217, 2, 0, 393218, 2, 0, 393219, 1, 0, 393220, 1, 2, 393221, 1, 65536, 393222, 2, 0, 393223, 2, 0, 393224, 2, 0, 393225, 2, 65536, 393226, 1, 0, 393227, 1, 65537, 393228, 2, 1, 393229, 2, 1, 393230, 1, 0, 393231, 2, 0, 393232, 1, 65538, 393233, 1, 65538, 524286, 1, 65536, 524287, 1, 1, 458752, 2, 0, 458753, 2, 0, 458754, 2, 0, 458755, 2, 0, 458756, 1, 65538, 458757, 2, 65537, 458758, 2, 65536, 458759, 1, 65538, 458760, 2, 0, 458761, 2, 0, 458762, 2, 65537, 458763, 2, 65536, 458764, 2, 65536, 458765, 2, 0, 458766, 2, 65537, 458767, 2, 0, 458768, 1, 1, 458769, 1, 65536, 589822, 1, 65536, 589823, 1, 65538, 524288, 2, 0, 524289, 2, 0, 524290, 2, 0, 524291, 2, 0, 524292, 1, 65538, 524293, 1, 2, 524294, 1, 1, 524295, 2, 1, 524296, 2, 1, 524297, 1, 65538, 524298, 2, 65537, 524299, 2, 65536, 524300, 1, 65538, 524301, 1, 65538, 524302, 2, 1, 524303, 2, 65537, 524304, 1, 65538, 524305, 1, 2, 655358, 1, 65538, 655359, 1, 65536, 589824, 2, 0, 589825, 2, 0, 589826, 2, 0, 589827, 1, 2, 589828, 1, 65537, 589829, 1, 0, 589830, 2, 1, 589831, 2, 65537, 589832, 2, 65537, 589833, 1, 65536, 589834, 1, 0, 589835, 2, 65536, 589836, 2, 1, 589837, 1, 0, 589838, 1, 65538, 589839, 2, 65536, 589840, 1, 65538, 589841, 1, 65538, 720894, 1, 65536, 720895, 1, 65537, 655360, 1, 65536, 655361, 1, 65538, 655362, 1, 65537, 655363, 1, 1, 655364, 2, 0, 655365, 2, 65537, 655366, 2, 1, 655367, 2, 65536, 655368, 2, 1, 655369, 1, 2, 655370, 1, 65538, 655371, 1, 65538, 655372, 2, 65537, 655373, 2, 0, 655374, 2, 1, 655375, 2, 0, 655376, 2, 0, 655377, 2, 65537, 786430, 1, 1, 786431, 1, 0, 720896, 2, 65536, 720897, 2, 65536, 720898, 2, 65537, 720899, 2, 1, 720900, 2, 1, 720901, 2, 65537, 720902, 2, 65537, 720903, 2, 0, 720904, 1, 1, 720905, 1, 65537, 720906, 1, 65536, 720907, 1, 65538, 720908, 1, 65537, 720909, 2, 1, 720910, 2, 65537, 720911, 2, 65536, 720912, 2, 65537, 720913, 2, 65536, 851966, 1, 2, 851967, 1, 1, 786432, 2, 65537, 786433, 2, 0, 786434, 2, 0, 786435, 2, 1, 786436, 2, 65537, 786437, 1, 65537, 786438, 1, 65537, 786439, 1, 65537, 786440, 1, 1, 786441, 2, 0, 786442, 2, 65537, 786443, 1, 1, 786444, 2, 65536, 786445, 1, 0, 786446, 1, 2, 786447, 1, 65536, 786448, 1, 2, 786449, 1, 2, 917502, 1, 2, 917503, 1, 2, 851968, 1, 2, 851969, 2, 0, 851970, 2, 65537, 851971, 2, 65537, 851972, 1, 65538, 851973, 1, 65538, 851974, 1, 0, 851975, 2, 65537, 851976, 2, 1, 851977, 2, 0, 851978, 2, 65537, 851979, 2, 65537, 851980, 2, 65537, 851981, 2, 65537, 851982, 2, 65537, 851983, 2, 65537, 851984, 1, 65536, 851985, 1, 1, 983038, 1, 2, 983039, 1, 2, 917504, 2, 0, 917505, 2, 65537, 917506, 2, 0, 917507, 1, 2, 917508, 2, 1, 917509, 2, 1, 917510, 2, 65536, 917511, 2, 0, 917512, 2, 0, 917513, 1, 1, 917514, 1, 65537, 917515, 1, 2, 917516, 1, 65536, 917517, 1, 2, 917518, 2, 1, 917519, 2, 65537, 917520, 1, 65537, 917521, 1, 2, 1048574, 1, 1, 1048575, 1, 65537, 983040, 1, 65538, 983041, 1, 1, 983042, 2, 65536, 983043, 2, 65537, 983044, 2, 65537, 983045, 2, 0, 983046, 1, 65537, 983047, 1, 65537, 983048, 2, 1, 983049, 1, 65536, 983050, 2, 1, 983051, 1, 1, 983052, 2, 0, 983053, 2, 1, 983054, 1, 65538, 983055, 2, 1, 983056, 1, 0, 983057, 1, 2, 1114110, 1, 2, 1114111, 1, 0, 1048576, 1, 2, 1048577, 1, 0, 1048578, 1, 65538, 1048579, 1, 65536, 1048580, 1, 65538, 1048581, 1, 65538, 1048582, 1, 65537, 1048583, 1, 0, 1048584, 1, 2, 1048585, 1, 0, 1048586, 1, 0, 1048587, 1, 65536, 1048588, 1, 65538, 1048589, 1, 1, 1048590, 1, 2, 1048591, 1, 0, 1048592, 1, 0, 1048593, 1, 2 )
+
+[node name="sprites" type="Node2D" parent="room"]
+
+[node name="ernie" parent="room/sprites" instance=ExtResource( 2 )]
+position = Vector2( 881.004, 1424.39 )
+
+[node name="teleporter" parent="room/sprites" instance=ExtResource( 3 )]
+position = Vector2( 1147.75, 974.078 )
+
+[node name="ivan" type="RigidBody2D" parent="room/sprites"]
+visible = false
+position = Vector2( 718.686, 686.172 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="sprite" type="Sprite" parent="room/sprites/ivan"]
+texture = ExtResource( 6 )
+
+[node name="shape" type="CollisionShape2D" parent="room/sprites/ivan"]
+visible = false
+position = Vector2( -3, 2 )
+scale = Vector2( 2, 6 )
+shape = SubResource( 1 )
+
+[node name="teddy" type="RigidBody2D" parent="room/sprites"]
+position = Vector2( 1848.76, 1465.15 )
+rotation = 1.24966
+continuous_cd = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="sprite" type="Sprite" parent="room/sprites/teddy"]
+texture = ExtResource( 7 )
+
+[node name="shape-body" type="CollisionShape2D" parent="room/sprites/teddy"]
+visible = false
+position = Vector2( 0, 26 )
+scale = Vector2( 2.5, 2.5 )
+shape = SubResource( 2 )
+
+[node name="shape-head" type="CollisionShape2D" parent="room/sprites/teddy"]
+visible = false
+position = Vector2( 1.88562, -27.7401 )
+scale = Vector2( 6, 2.5 )
+shape = SubResource( 2 )
+
+[node name="exit" type="Sprite" parent="room/sprites"]
+visible = false
+position = Vector2( 198.296, 1347.86 )
+texture = ExtResource( 5 )
+
+[node name="camshaker" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="camera" type="Camera2D" parent="camshaker"]
+position = Vector2( 369.717, 1046.55 )
+scale = Vector2( 2, 2 )
+current = true
+zoom = Vector2( 2, 2 )
+
+[node name="helptext" type="Label" parent="camshaker/camera"]
+margin_left = -297.0
+margin_top = -484.0
+margin_right = 949.0
+margin_bottom = -424.0
+rect_pivot_offset = Vector2( 28.8586, 7 )
+theme = ExtResource( 13 )
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.92549, 0.768627, 0.14902, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Previously..."
+align = 1
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sidebar" type="PanelContainer" parent="camshaker/camera"]
+margin_left = -955.0
+margin_top = -535.0
+margin_right = -315.0
+margin_bottom = 545.0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vbox" type="VBoxContainer" parent="camshaker/camera/sidebar"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 633.0
+margin_bottom = 1073.0
+custom_constants/separation = 10
+
+[node name="logo" type="Label" parent="camshaker/camera/sidebar/vbox"]
+margin_right = 626.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( 28.8586, 7 )
+theme = ExtResource( 13 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
+text = "Tetraminex"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="card" type="HBoxContainer" parent="camshaker/camera/sidebar/vbox"]
+visible = false
+margin_top = 70.0
+margin_right = 626.0
+margin_bottom = 130.0
+custom_constants/separation = 8
+
+[node name="box" type="VBoxContainer" parent="camshaker/camera/sidebar/vbox/card"]
+margin_right = 32.0
+margin_bottom = 60.0
+
+[node name="space" type="Panel" parent="camshaker/camera/sidebar/vbox/card/box"]
+margin_right = 32.0
+
+[node name="icon" type="TextureRect" parent="camshaker/camera/sidebar/vbox/card/box"]
+margin_top = 4.0
+margin_right = 32.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_stretch_ratio = 0.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+
+[node name="text" type="RichTextLabel" parent="camshaker/camera/sidebar/vbox/card"]
+margin_left = 40.0
+margin_right = 626.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 13 )
+custom_fonts/bold_font = SubResource( 7 )
+bbcode_enabled = true
+bbcode_text = "[b]Teddy Tetraminus[/b]
+[color=#ccc]hello? here is some long text that needs to wrap.[/color]"
+text = "Teddy Tetraminus
+hello? here is some long text that needs to wrap."
+fit_content_height = true
+scroll_active = false
+
+[node name="chatroom" type="ScrollContainer" parent="camshaker/camera/sidebar/vbox"]
+margin_top = 70.0
+margin_right = 626.0
+margin_bottom = 1066.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vbox" type="VBoxContainer" parent="camshaker/camera/sidebar/vbox/chatroom"]
+margin_right = 626.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 480, 200 )
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="camshaker/camera"]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="timeout" from="Timer" to="room" method="_on_step"]
+[connection signal="helptext" from="room" to="camshaker/camera/helptext" method="_on_room_helptext"]
+[connection signal="showchat" from="room" to="camshaker/camera/sidebar" method="_on_room_showchat"]
+[connection signal="speak" from="room" to="camshaker/camera/sidebar/vbox/chatroom" method="_on_room0_speak"]
+[connection signal="leave_object" from="room/sprites/ernie" to="room" method="_on_ernie_leave_object"]
+[connection signal="reach_object" from="room/sprites/ernie" to="room" method="_on_ernie_reach_object"]
+[connection signal="teleport" from="room/sprites/teleporter" to="room" method="_on_teleporter_teleport"]

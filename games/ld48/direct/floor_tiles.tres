@@ -1,0 +1,51 @@
+[gd_resource type="TileSet" load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://games/ld48/direct/sprites/tiles.png" id="1_tex"]
+
+[sub_resource type="TileSetAtlasSource" id="src_0"]
+texture = ExtResource("1_tex")
+margins = Vector2i(0, 256)
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="src_1"]
+texture = ExtResource("1_tex")
+margins = Vector2i(256, 0)
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="src_2"]
+texture = ExtResource("1_tex")
+margins = Vector2i(0, 0)
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[resource]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("src_0")
+sources/1 = SubResource("src_1")
+sources/2 = SubResource("src_2")

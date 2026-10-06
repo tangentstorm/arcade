@@ -1,9 +1,14 @@
-# ld48
+# LD48: Deeper and Deeper
 
-Status: **planned** (placeholder; no port yet).
+Status: **direct: playable**, enhanced: planned.
 
-Ludum Dare 48 entry.
+tangentstorm's Ludum Dare 48 entry (April 2021, theme "deeper and deeper"), a
+short Tetraminex-universe platformer originally built in Godot 3. You play
+Ernie Goldsmile, who is stuck in a hole after the "earthquake".
 
-When porting, follow games/_template/: put the faithful port in `direct/game.tscn`
-and the modernized version in `enhanced/game.tscn`, then set status in
-`arcade/game_registry.gd`.
+- `direct/game.tscn`: the faithful Godot 4 port. It starts in the intro room ("Previously..."), and the teleporter takes you on to Ivan's office.
+- `source/`: the original Godot 3 scripts and scenes, kept for reference
+  (`.gdignore`d, so they're not imported).
+- `tools/`: the Python helpers that turned the Godot 3 TileMap data into Godot 4 TileMapLayer data.
+
+See [PORT.md](PORT.md) for the details.
