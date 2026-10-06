@@ -95,7 +95,7 @@ class GameEntry:
 ## edition (missing editions default to "planned").
 const TITLES := [
 	["_template", "Template Demo", "playable", "Reference stub for new ports."],
-	["tetraminex", "Tetraminex", {"direct": "playable", "enhanced": "planned"},
+	["tetraminex", "Tetraminex", {"direct": "playable", "enhanced": "playable"},
 		"Episode 0 Training Day (2011), AS3/Flixel → GDScript grid rewrite."],
 	["spiders_v_aliens", "Spiders vs Aliens", {"direct": "playable", "enhanced": "playable"},
 		"Ludum Dare 21 \"Escape\" (2011), tangentstorm/spiders-v-aliens AS3/Flixel 2.55 → GDScript; Enhanced = lit widescreen makeover over the same rules."],
@@ -113,7 +113,8 @@ const TITLES := [
 		"gamemaker-stuff/killem-all.gmx (GameMaker: Studio 1.x) twin-stick prototype: thrust, aim, spray bullets. No enemies yet."],
 	["toroidal_zombie_herder", "Toroidal Zombie Herder", {"direct": "playable", "enhanced": "planned"},
 		"From gamemaker-stuff (GameMaker: Studio 1.x)."],
-	["flappy_clone", "Flappy Clone", {"direct": "playable", "enhanced": "planned"}, "Unity 5 (2015) unitylabs/flappyclone → GDScript."],
+	["flappy_clone", "Flappy Clone", {"direct": "playable", "enhanced": "playable"},
+		"Unity 5 (2015) unitylabs/flappyclone → GDScript."],
 	["sketchbots", "SketchBots", {"direct": "playable", "enhanced": "planned"},
 		"From GameSketchLib course w01 (Processing, ~2011)."],
 	["invader_sketch", "Invader Sketch", {"direct": "playable", "enhanced": "planned"},
