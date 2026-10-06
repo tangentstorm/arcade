@@ -37,15 +37,19 @@ await settle();
 const l0 = await histLen();
 
 await page.evaluate(() => window.webBackLaunch('tetraminex', 'direct'));
-await until('launch Tetraminex Direct', s => s.scene === TETRA && s.hash === '#play/tetraminex/direct');
+await until('launch Tetraminex Direct', s => s.scene === TETRA && s.hash === '#play/tetraminex/direct'
+  && (s.path || '').includes('/tetraminex/'));
 check('launch pushed one history entry', await histLen() === l0 + 1);
+check('pretty path on launch', page.url().includes('/tetraminex/'));
 
 await page.goBack({ waitUntil: 'commit' });
-await until('browser Back -> gallery', s => s.scene === ARCADE && s.hash === '');
+await until('browser Back -> gallery', s => s.scene === ARCADE && s.hash === ''
+  && !(s.path || '').includes('/tetraminex/'));
 check('still on the arcade page after Back', page.url().startsWith(`${base}?back=1`));
+check('gallery root path after Back', !page.url().includes('/tetraminex/'));
 
 await page.goForward({ waitUntil: 'commit' });
-await until('browser Forward -> Tetraminex again', s => s.scene === TETRA && s.hash === '#play/tetraminex/direct');
+await until('browser Forward -> Tetraminex again', s => s.scene === TETRA && s.hash === '#play/tetraminex/direct' && (s.path || '').includes('/tetraminex/'));
 
 await settle();
 await page.keyboard.press('Escape');
@@ -54,13 +58,13 @@ await page.goBack({ waitUntil: 'commit' });
 await until('Back while paused -> gallery, unpaused, panel hidden', s => s.scene === ARCADE && !s.paused && !s.panel && s.hash === '');
 
 await page.evaluate(() => window.webBackLaunch('tetraminex', 'direct'));
-await until('relaunch', s => s.scene === TETRA && s.hash === '#play/tetraminex/direct');
+await until('relaunch', s => s.scene === TETRA && s.hash === '#play/tetraminex/direct' && (s.path || '').includes('/tetraminex/'));
 const l1 = await histLen();
 await settle();
 await page.keyboard.press('Escape');
 await until('Esc #1 pauses', s => s.paused && s.panel);
 await page.keyboard.press('Escape');
-await until('Esc #2 -> gallery, play hash replaced away', s => s.scene === ARCADE && !s.paused && !s.panel && s.hash === '');
+await until('Esc #2 -> gallery, play hash replaced away', s => s.scene === ARCADE && !s.paused && !s.panel && s.hash === '' && !(s.path || '').includes('/tetraminex/'));
 check('Esc return did not add or pop history', await histLen() === l1);
 
 state = null;

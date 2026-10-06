@@ -34,6 +34,8 @@ func _process(_d: float) -> void:
 		"paused": get_tree().paused,
 		"panel": get_node("/root/PauseOverlay/Panel").visible,
 		"hash": str(JavaScriptBridge.eval("location.hash")),
+		"path": str(JavaScriptBridge.eval("location.pathname")),
+		"search": str(JavaScriptBridge.eval("location.search")),
 	}
 	var line := JSON.stringify(state)
 	if line != _last:
