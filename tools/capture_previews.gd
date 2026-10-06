@@ -217,7 +217,7 @@ func _warmup(id: String, inst: Node) -> void:
 			await _frames(10)
 			await _tap_key(KEY_ENTER)
 			await _frames(10)
-			_try_click_button(inst, ["Play", "Start", "1", "0000"])
+			await _try_click_button(inst, ["Play", "Start", "1", "0000"])
 			await _frames(20)
 		"brickslayer":
 			await _tap_key(KEY_SPACE)
@@ -320,12 +320,27 @@ func _warmup(id: String, inst: Node) -> void:
 
 
 ## Enhanced scenes whose controls/flow differ from Direct. Anything not listed
-## here reuses the Direct warmup in _warmup().
-const ENHANCED_WARMUPS: Array[String] = ["mineswpr", "tetraminex"]
+## here reuses the Direct warmup in _warmup(). Most Enhanced shells open on a
+## title card that Space/Enter dismisses; Direct warmups that never tap Space
+## therefore freeze on the card.
+const ENHANCED_WARMUPS: Array[String] = [
+	"mineswpr", "tetraminex",
+	"shep", "ld48", "ok_defender", "silly_game", "sketchbots", "terratri",
+	"killem_all", "toroidal_zombie_herder", "godotlab_game00", "godotlab_game01",
+	"godotlab_tilemap", "godotlab_collatz", "ofcp", "gm_defense", "invader_sketch",
+]
 
 
 func _has_enhanced_warmup(id: String) -> bool:
 	return id in ENHANCED_WARMUPS
+
+
+func _dismiss_enhanced_title(inst: Node) -> void:
+	# Space/Enter start most Enhanced shells; also poke a Start/Play button.
+	await _tap_key(KEY_SPACE)
+	await _frames(10)
+	await _try_click_button(inst, ["Start", "Play", "Press Space to begin"])
+	await _frames(20)
 
 
 func _warmup_enhanced(id: String, inst: Node) -> void:
@@ -375,6 +390,82 @@ func _warmup_enhanced(id: String, inst: Node) -> void:
 						flagged += 1
 						await _frames(5)
 						break
+		"shep":
+			# Title -> Play -> Level 1 -> brief settle on the airlock puzzle.
+			await _try_click_button(inst, ["Play"])
+			await _frames(20)
+			await _try_click_button(inst, ["Level 1"])
+			await _frames(40)
+			await _hold_key(KEY_RIGHT, 15)
+			await _hold_key(KEY_UP, 10)
+		"ok_defender":
+			# Space starts play AND is fire — tap once to leave title, then fly only.
+			await _tap_key(KEY_SPACE)
+			await _frames(20)
+			await _hold_key(KEY_RIGHT, 40)
+			await _hold_key(KEY_UP, 20)
+		"terratri":
+			await _dismiss_enhanced_title(inst)
+			# Golden seed 2 one step before Red's winning fort (4 forts each side).
+			for ch in "wk|EES|ex|WK|enx|ESF|wk|NK|nenf|NK|ef|WWX|wk|WX|ek|WESX|wwfs|FWF|fw|SF|".replace("|", ""):
+				inst.play_step(ch)
+			await _move_mouse(Vector2(640, 330))
+			await _frames(15)
+		"ld48", "silly_game":
+			await _dismiss_enhanced_title(inst)
+			await _hold_key(KEY_RIGHT, 25)
+			await _hold_key(KEY_UP, 15)
+			await _hold_key(KEY_D, 20)
+		"sketchbots":
+			await _dismiss_enhanced_title(inst)
+			await _hold_key(KEY_D, 30)
+			await _hold_key(KEY_W, 20)
+			await _hold_key(KEY_RIGHT, 25)
+		"killem_all":
+			await _dismiss_enhanced_title(inst)
+			Input.warp_mouse(Vector2(1000, 150))
+			await _move_mouse(Vector2(1000, 150))
+			await _hold_key(KEY_D, 12)
+			var fire := InputEventMouseButton.new()
+			fire.button_index = MOUSE_BUTTON_LEFT
+			fire.position = Vector2(1000, 150)
+			fire.global_position = fire.position
+			fire.pressed = true
+			Input.parse_input_event(fire)
+			create_timer(2.0).timeout.connect(func() -> void:
+				var up := fire.duplicate() as InputEventMouseButton
+				up.pressed = false
+				Input.parse_input_event(up))
+			await _frames(30)
+		"toroidal_zombie_herder":
+			await _dismiss_enhanced_title(inst)
+			await _hold_key(KEY_RIGHT, 35)
+			await _hold_key(KEY_UP, 25)
+		"godotlab_game00", "godotlab_game01", "godotlab_tilemap":
+			await _dismiss_enhanced_title(inst)
+			await _hold_key(KEY_RIGHT, 30)
+			await _hold_key(KEY_UP, 20)
+			await _hold_key(KEY_D, 15)
+		"godotlab_collatz":
+			await _dismiss_enhanced_title(inst)
+			await _tap_key(KEY_SPACE)
+			await _frames(40)
+			await _tap_key(KEY_SPACE)
+			await _frames(40)
+		"ofcp":
+			await _dismiss_enhanced_title(inst)
+			await _frames(90)
+		"gm_defense":
+			await _dismiss_enhanced_title(inst)
+			await _tap_key(KEY_LEFT)
+			await _frames(30)
+			await _tap_key(KEY_RIGHT)
+			await _frames(20)
+		"invader_sketch":
+			await _dismiss_enhanced_title(inst)
+			await _hold_key(KEY_LEFT, 25)
+			await _tap_key(KEY_SPACE)
+			await _frames(20)
 		_:
 			await _warmup(id, inst)
 
