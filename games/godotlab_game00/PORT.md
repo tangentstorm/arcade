@@ -25,5 +25,36 @@ then the velocity is multiplied by `friction = 0.975`, and `position += delta * 
   This is the `wrap` flag in `icon.gd`.
 - **HUD hint label** with the controls. **Esc** opens the arcade PauseOverlay.
 
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same drift sprite. **Nothing is re-implemented:** `enhanced/game.gd`
+preloads Direct `game.tscn` and instances it (shared `icon.gd`) in a native 1280×720
+`SubViewport`, so SPEED, friction, wrap and arrow-key impulse are all Direct. Enhanced only
+frames that viewport and draws overlays on top of it.
+
+### Visuals / UI
+- 1280×720 letterbox stage; the Direct viewport is framed at ¾ (`stretch=false` + `scale`,
+  not `stretch=true`) inside a 960×540 clipped field, between a title bar and a bottom HUD row
+- Deep-blue gradient + drifting motes. The SubViewport is transparent, so this chrome shows
+  behind the Direct icon; a faint grid sits in the field frame
+- **Motion trail** sampled from the Direct icon's positions; **speed glow** + velocity vector
+  over the sprite; thrust sparks while an arrow is building speed
+- **Wrap pops:** when Direct wraps at a SubViewport edge, Enhanced flashes, shakes lightly and
+  floats a "WRAP" label
+- Telemetry HUD: speed, position, distance, peak, wraps, boosts. **R** resets the Direct icon
+  to its spawn without reloading the scene
+- Title card (Start / Enter / Space, Back to Arcade) and HUD Back to Arcade. All buttons
+  `FOCUS_NONE`. **Esc** → PauseOverlay
+
+### Behaviour notes
+- Direct `icon.gd` still reads `Input` actions itself; Enhanced does not copy SPEED / friction.
+- Juice only observes Direct: `icon.position`, `icon.velocity`, and wrap jumps.
+- Title `scale_mode` stays `letterbox`. No Alchementrix IP. No `_enhanced` preview yet
+  (gallery can use the Direct shot).
+
+Tests: `tools/test_godotlab_game00_enhanced.gd` (run by `tools/smoke_headless.sh`): parity vs a
+bare Direct twin under the same arrow hold, trail / boost / wrap juice, launch / title /
+FOCUS_NONE and Esc.
+
 ### Todos
-- Enhanced edition: not started.
+- None for Enhanced; game01 / tilemap Enhanced still planned.

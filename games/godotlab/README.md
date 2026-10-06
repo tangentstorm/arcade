@@ -6,7 +6,7 @@ It's a set of small Godot 3 experiments. Each playable one is its own gallery ti
 | Tile | Folder | Status |
 |---|---|---|
 | Collatz (GodotLab) | [`../godotlab_collatz/`](../godotlab_collatz/PORT.md) | Direct playable |
-| GodotLab Game 00 | [`../godotlab_game00/`](../godotlab_game00/PORT.md) | Direct playable |
+| GodotLab Game 00 | [`../godotlab_game00/`](../godotlab_game00/PORT.md) | Direct + Enhanced playable |
 | GodotLab Game 01 | [`../godotlab_game01/`](../godotlab_game01/PORT.md) | Direct playable |
 | GodotLab Tilemap | [`../godotlab_tilemap/`](../godotlab_tilemap/PORT.md) | Direct playable |
 
