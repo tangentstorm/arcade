@@ -36,6 +36,7 @@ Fixed-stage notes:
 | `silly_game` (Enhanced) | camera-followed open map (Direct zoom ½) + overlay HUD/minimap | `expand` (title) | Presentation over the Direct scene (instance). Ocean shader, trails, hit juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `giraffe` (Enhanced) | 1280×720 stage; 128×128 Pico room @5× (640×640) + side HUD | `letterbox` | Presentation over Direct logic (preload). Dusk backdrop, squash/stretch, dust, ledge tracker. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `killem_all` (Enhanced) | 1280×720 stage; 1024×768 room0 @0.8125 (832×624) + side HUD panels | `letterbox` | Presentation over Direct logic (preload `ka_world.gd`). Neon arena, tracers, thrust flame, radar. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `terratri` (Enhanced) | 1280×720 designed stage (560 px board + two 312 px player cards) self-fitted; backdrop fills the window | `expand` (title) | Presentation over Direct rules (preload). Tabletop board, hop/claim/fort juice, turn banners. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `canyon_run` (Enhanced) | 1280×720 stage; 240×320 Direct stage @2× (480×640) clipped field + side HUD | `letterbox` | Presentation over Direct logic (preload `canyon_logic.gd`). Layered canyon, craft/exhaust juice, clearer HUD. Design parity deferred. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `doth` (Enhanced) | 1280×720 stage; 70×20 @16px (1120×320) + bottom HUD | `letterbox` | Presentation over Direct world + SvA-like tiles (preload). Torchlit chrome, pickup juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `chesscoach` (Enhanced) | 1280×720 stage; Direct ~400×400 board in SubViewport → 520×520 field + side HUD | `letterbox` | Presentation over Direct scene (instance). Walnut board, move-list HUD, replay juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
@@ -86,7 +87,7 @@ Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-by
 |----|-------|--------|-------|-------|
 | `chesscoach` | Chess Coach | playable (Direct + Enhanced) | letterbox (Direct 400×400; Enhanced 1280×720) | gd-chesscoach FEN board + trays; Enhanced = walnut chrome over Direct scene; no Stockfish |
 | `canyon_run` | Canyon Run | playable (Direct + Enhanced) | letterbox (Direct 240×320 @2×; Enhanced 1280×720) | Original River Raid–style flyer; Enhanced = layered canyon chrome + HUD/juice over Direct logic; Design parity deferred |
-| `terratri` | Terratri | playable | expand | hotseat 2P, pure GDScript rules (see below) |
+| `terratri` | Terratri | playable (+ Enhanced) | expand | hotseat 2P, pure GDScript rules (see below); Enhanced = tabletop makeover over the same rules |
 
 ## Local hotseat titles
 Some board games ship as **hotseat 2P** Direct editions: both players share one

@@ -169,8 +169,8 @@ const TITLES := [
 		"tangentstorm/gd-chesscoach (Godot 4.3): tiny FEN board + trays; Enhanced = walnut chrome + move-list HUD over the same Direct scene. No Stockfish."],
 	["canyon_run", "Canyon Run", {"direct": "playable", "enhanced": "playable"},
 		"Original River Raid-style canyon flyer (2026): procedural Godot 4 MVP; Enhanced = layered canyon chrome + clearer HUD + juice over the same Direct logic (Design parity deferred)."],
-	["terratri", "Terratri", {"direct": "playable", "enhanced": "planned"},
-		"Adam Atomic's 5×5 territory game (Terratri Online, 2011/2026 TS) → GDScript rules, hotseat 2P."],
+	["terratri", "Terratri", {"direct": "playable", "enhanced": "playable"},
+		"Adam Atomic's 5×5 territory game (Terratri Online, 2011/2026 TS) → GDScript rules, hotseat 2P; Enhanced = lit tabletop, hopping pawns, rising forts + player cards over the same Direct rules."],
 	["doth", "Doth", {"direct": "playable", "enhanced": "playable"},
 		"silverware Doth-A (Turbo Pascal, 1993–1996) Kroz-like adventure → SvA-like pixel Direct; Enhanced = torchlit chrome + pickup juice over the same rules."],
 ]
