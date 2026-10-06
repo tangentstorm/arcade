@@ -65,6 +65,7 @@ const SCALE_MODE := {
 	"terratri": "expand",            # Control UI; board picks an integer cell size
 	"doth": "letterbox",             # Direct 80x25 TermGrid @2x (1280x800); Enhanced 1280x720 tiles
 	"marigold": "letterbox",         # 1280x720 homestead OS chrome
+	"typing": "letterbox",            # Decker 512x342 falling-words stage
 }
 
 
@@ -179,6 +180,8 @@ const TITLES := [
 		"silverware Doth-A (Turbo Pascal, 1993-1996) Kroz-like adventure -> 80x25 CP437 TermGrid Direct (DOSBox look); Enhanced still torchlit tiles pending TermGrid restyle."],
 	["marigold", "Marigold Homestead", {"direct": "playable", "enhanced": "planned"},
 		"Claude artifact BjKJn834 (Starflight II x Farming Sim pixel OS) -> Direct: tractor-driven fractal homestead + 6 chrome screens; Enhanced stub later. Issue #105."],
+	["typing", "Typing", {"direct": "playable", "enhanced": "planned"},
+		"Decker falling-words typer (typing.deck); Direct = Godot 4 port. Issue #109."],
 ]
 
 var entries: Array[GameEntry] = []
