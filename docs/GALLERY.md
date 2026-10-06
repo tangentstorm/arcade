@@ -29,6 +29,7 @@ Fixed-stage notes:
 | `brickslayer` (Enhanced) | 1280×720 stage; 400×300 field @2× + side HUD | `letterbox` | Procedural restyle on the Direct rules (subclass). No `_enhanced` preview yet (the gallery card uses the Direct shot) |
 | `mineswpr` (Enhanced) | 1280×720 stage; 16×16 board of 38 px tiles + side panels | `letterbox` | Presentation over the Direct logic + shell (preload). No `_enhanced` preview yet (the gallery card uses the Direct shot) |
 | `shep` (Enhanced) | 1280×720 stage; 800×575 Direct field centered + side HUD | `letterbox` | Presentation over Direct physics (preload). Color rings, aim assist, juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `ok_defender` (Enhanced) | 1280×720 stage; 320×200 Direct world @3× (960×600) + side HUD | `letterbox` | Presentation over Direct logic (preload). Ship/terrain/HUD juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `canyon_run` | 240×320 portrait @2× (480×640) centred in 1280×720 | `letterbox` | Procedural Direct MVP (#36); Enhanced will follow the Claude Design mock |
 | `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
 | `flappy_clone` (Enhanced) | 1280×720 stage, 107 px/unit | `letterbox` | First Enhanced edition. Procedural art, scaled to fit the viewport. No `_enhanced` preview yet (the gallery card uses the Direct shot) |
