@@ -33,4 +33,44 @@ Files: `Adder.gd`, `Rect.gd`, `BinaryAddition.tscn`, `widgets/TruthTable.*`, `wi
 
 Tests: `tools/test_fnarb_demos.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same ripple-carry sketch. **No rules are duplicated:**
+`enhanced/game.gd` instances Direct `binary_addition.tscn` (shared `adder.gd` /
+`rect.gd` / `truth_table.gd` / `shaded_grid.gd` + AnimationTree / gold carriage).
+The scripted `['sync'|'set'|'travel', …]` walk, 1 s Timer cadence, a=3 / b=7 and the
+plays-once quirk stay Direct. Enhanced only wraps the demo in 1280×720 letterbox
+chrome and derives juice from result/carry bit colour deltas and carriage steps.
+No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: field, HUD, title/done cards, juice |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). Direct's 1920×1080 demo runs in a
+  SubViewport scaled into a 960×540 field (½) between thin side HUD panels.
+- **Look / HUD:** circuit-glow backdrop, neon frame around the field, equation /
+  column / live row readouts, controls strip. Direct gold/yellow carriage highlight
+  is kept unchanged.
+- **Juice:** bursts + floaters when a result or carry bit flips on; column banners;
+  done flash/confetti when the result reads `1010`.
+- **Title card** on boot (Space/Enter/Start); **Done card** after the walk; **R**
+  reloads the Direct demo to watch again. Back to Arcade is `FOCUS_NONE`. Esc →
+  PauseOverlay.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Adder / bits / AnimationTree | `direct/binary_addition.tscn` scripts | same scene (instance), no copy |
+| Stage | 1920×1080 SubViewport scaled to window | 1280×720 chrome around ½-scale Direct demo |
+| Start | animation begins immediately | title card, then the same Direct boot |
+| End | sits on final frame | done card + optional R replay |
+| Esc / Back | PauseOverlay + help label | same + explicit Back (FOCUS_NONE) |
+
+### Deferred
+- Interactive a/b inputs or step-through controls (would be new mechanics)
+- Dedicated `_enhanced` gallery preview (card can use the Direct shot)
+
+Tests: `tools/test_fnarb_binary_adder_enhanced.gd` (run by `tools/smoke_headless.sh`).
