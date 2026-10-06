@@ -3,6 +3,11 @@
 .import/
 *.import
 !icon.svg.import
+# Shep 800x575 art imports as lossy WebP (pck size; docs/SLIM_WEB_ENGINE.md)
+!games/shep/direct/assets/bg*.png.import
+!games/shep/direct/assets/fg*.png.import
+!games/shep/direct/assets/blank_overlay.png.import
+!games/shep/direct/assets/screens/*.png.import
 export.cfg
 export_credentials.cfg
 *.translation

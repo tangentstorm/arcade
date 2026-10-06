@@ -30,8 +30,34 @@ The "before" numbers match the live https://tangentstorm.github.io/arcade/ files
 | **KEY total** (wasm+js+pck+html+worklets) | **56,098,903** | **18,625,127** | **28,421,250** | **13,319,574** |
 
 Engine: −27.7 MB raw (−57%), −5.3 MB gzip (−46%). KEY total: −49% raw, −28.5% gzip.
-`index.pck` is unchanged and is now the biggest download (7.2 MB gz, mostly PNG textures and
-previews that don't compress further). The PLAYBOOK's 12 MB gzip KEY gate needs a pck diet next.
+`index.pck` is unchanged here and became the biggest download; see the pck diet below.
+
+## pck diet (main @ a06510a)
+
+More games landed after the table above, so the pck had grown to 9.1 MB gz. Two changes:
+
+1. **Gallery previews** (`arcade/previews/*.png`): 1280×720 → 640×360 (cards are 260–400 px
+   wide), opaque RGB, `pngquant --quality 70-95` + `optipng -o5`. Sources 3.3 MB → 0.65 MB.
+   `tools/capture_previews.gd` now saves at 640×360 so new captures stay small.
+2. **Shep 800×575 art** (`games/shep/direct/assets/{bg*,fg*,blank_overlay}.png`, `screens/*.png`,
+   25 files): imported as lossy WebP (`compress/mode=1`, `lossy_quality=0.8`) instead of lossless.
+   Their `.png.import` files are committed (un-ignored in `.gitignore`) so CI uses the same
+   settings. Sources are untouched; side-by-side at q80 shows no visible difference.
+
+| | pck raw | pck gz | KEY raw | KEY gz |
+|---|---:|---:|---:|---:|
+| Before (main @ a06510a) | 9,728,188 | 9,142,190 | 30,514,499 | 15,272,322 |
+| + previews 640×360 | 8,418,764 | 7,862,802 | 29,205,075 | 13,992,934 |
+| + shep lossy WebP | 6,304,460 | 5,746,475 | 27,090,771 | **11,876,606** |
+
+KEY gz is now **11.9 MB, under the PLAYBOOK 12 MB gate** (≈120 KB headroom). Next levers if a
+new game pushes it over: lossy import for other large painted art (ld48 `tiles.png`, cupid
+`bg-00.png`), or re-encoding the two big mp3s (shep `wah-danube.mp3` 0.96 MB, spiders
+`sva-music.mp3` 0.66 MB). Pixel-art textures should stay lossless.
+
+If an existing checkout already has untracked versions of those 25 `.import` files, `git pull`
+refuses to overwrite them: delete them first (`rm games/shep/direct/assets/{bg,fg}*.png.import
+games/shep/direct/assets/blank_overlay.png.import games/shep/direct/assets/screens/*.png.import`).
 
 Variants measured on the way (engine `.wasm` only):
 
@@ -53,7 +79,7 @@ Variants measured on the way (engine `.wasm` only):
 | `module_text_server_adv=no` (fallback text server only) | All arcade text is Latin; no BiDi/complex shaping. Fonts still load (freetype on) |
 | `disable_navigation_2d` | No `Navigation*` usage |
 | modules `theora`, `webrtc`, `enet`, `upnp`, `msdfgen`, `noise`, `camera`, `jsonrpc`, `interactive_music`, `multiplayer`, `regex`, `visual_shader`, `zip`, `objectdb_profiler` | No references (grep below); no font imports use MSDF |
-| modules `basis_universal`, `ktx`, `dds`, `tga`, `hdr`, `bmp`, `jpg`, `tinyexr`, `astcenc`, `etcpak`, `cvtt`, `betsy`, `bcdec`, `glslang` | Runtime image loaders/encoders: textures ship as lossless ctex and there are no jpg/tga/bmp/hdr/exr/dds/ktx/basis files |
+| modules `basis_universal`, `ktx`, `dds`, `tga`, `hdr`, `bmp`, `jpg`, `tinyexr`, `astcenc`, `etcpak`, `cvtt`, `betsy`, `bcdec`, `glslang` | Runtime image loaders/encoders: textures ship as ctex (lossless, or lossy WebP for shep art) and there are no jpg/tga/bmp/hdr/exr/dds/ktx/basis files |
 | `module_mbedtls=no` | On the web `WebSocketPeer` uses the browser's WebSocket, which does `wss://` itself. Verified: OFCP's `wss://ofcp.tangentcode.com/ws` reaches `STATE_OPEN` |
 
 **Kept on purpose:** 3D *rendering* classes (`disable_3d` stays off: `games/fnarb_binary_adder`

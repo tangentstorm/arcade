@@ -4,6 +4,8 @@ extends SceneTree
 ## Output: res://arcade/previews/<id>_direct.png
 
 const OUT_DIR := "res://arcade/previews"
+const PREVIEW_W := 640
+const PREVIEW_H := 360
 const WARM_FRAMES := 45
 const AFTER_INPUT_FRAMES := 90
 const SETTLE_FRAMES := 12
@@ -76,6 +78,8 @@ func _capture_one(entry) -> bool:
 		return false
 	if _mostly_black(img):
 		print("CAPTURE WARN: mostly black for ", entry.id, " (saving anyway)")
+	## Cards are ~260-400 px wide; 640x360 keeps index.pck small (see docs/SLIM_WEB_ENGINE.md).
+	img.resize(PREVIEW_W, PREVIEW_H, Image.INTERPOLATE_LANCZOS)
 	var path := "%s/%s_direct.png" % [OUT_DIR, entry.id]
 	var err := img.save_png(path)
 	if err != OK:
