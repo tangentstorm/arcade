@@ -8,6 +8,20 @@
 !games/shep/direct/assets/fg*.png.import
 !games/shep/direct/assets/blank_overlay.png.import
 !games/shep/direct/assets/screens/*.png.import
+# Painted/photographic gallery previews import as lossy WebP too (only where it beats lossless)
+!arcade/previews/cupid_direct.png.import
+!arcade/previews/flappy_clone_direct.png.import
+!arcade/previews/fnarb_ast_direct.png.import
+!arcade/previews/fnarb_binary_adder_direct.png.import
+!arcade/previews/fnarb_binary_space_direct.png.import
+!arcade/previews/invader_sketch_direct.png.import
+!arcade/previews/ld48_direct.png.import
+!arcade/previews/shep_direct.png.import
+!arcade/previews/sketchbots_direct.png.import
+!arcade/previews/spiders_v_aliens_direct.png.import
+!arcade/previews/spiders_v_aliens_enhanced.png.import
+!arcade/previews/tentraminos_direct.png.import
+!arcade/previews/tentraminos_enhanced.png.import
 export.cfg
 export_credentials.cfg
 *.translation
