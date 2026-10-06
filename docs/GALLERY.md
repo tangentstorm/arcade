@@ -26,6 +26,7 @@ Fixed-stage notes:
 | id | stage | mode | notes |
 |----|-------|------|-------|
 | `canyon_run` | 240×320 portrait @2× (480×640) centred in 1280×720 | `letterbox` | Procedural Direct MVP (#36); Enhanced will follow the Claude Design mock |
+| `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
 
 ## Back button (`ArcadeHistory` autoload)
 Every edition gets Back support from the shell. No per-game code is needed: it hooks

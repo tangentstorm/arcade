@@ -62,6 +62,7 @@ const SCALE_MODE := {
 	"chesscoach": "letterbox",       # 400×400 board
 	"canyon_run": "letterbox",       # 240×320 portrait stage @2× (480×640)
 	"terratri": "expand",            # Control UI; board picks an integer cell size
+	"doth": "letterbox",             # 1120×368 Doth-A pixel stage
 }
 
 
@@ -169,6 +170,8 @@ const TITLES := [
 		"Original River Raid-style canyon flyer (2026): procedural Godot 4 MVP; Claude Design mock pending for Enhanced."],
 	["terratri", "Terratri", {"direct": "playable", "enhanced": "planned"},
 		"Adam Atomic's 5×5 territory game (Terratri Online, 2011/2026 TS) → GDScript rules, hotseat 2P."],
+	["doth", "Doth", {"direct": "playable", "enhanced": "planned"},
+		"silverware Doth-A (Turbo Pascal, 1993–1996) Kroz-like adventure → SvA-like pixel Direct."],
 ]
 
 var entries: Array[GameEntry] = []
