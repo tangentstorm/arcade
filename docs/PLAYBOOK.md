@@ -59,7 +59,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `tetraminex` | `tangentstorm/tetraminex` (ActionScript) | Series; pick one playable slice for direct |
 | `spiders-v-aliens` | `tangentstorm/spiders-v-aliens` (AS3/Flixel 2.55, LD21); box archive `/workspace/src-inventory/spiders-v-aliens/` | Direct + Enhanced playable (full AlienShip level; Enhanced is a lit widescreen makeover over the same rules); see `games/spiders_v_aliens/PORT.md` |
 | `tentraminos` | `tangentstorm/tentraminos` (TypeScript/d3, LD27) | Direct + Enhanced playable (Enhanced = clearer board, modern HUD and juice over the same rules); see `games/tentraminos/PORT.md` |
-| `ld48` | `tangentstorm/ld48` (GDScript) | Already Godot — high-leverage first port |
+| `ld48` | `tangentstorm/ld48` (GDScript) | Direct + Enhanced playable (Enhanced = restyled chat/help + juice over the same Direct rooms); see `games/ld48/PORT.md` |
 | `ok-defender` | `tangentstorm/ok-defender` (oK/iKe, LD49) | Direct + Enhanced playable (Enhanced = ship/terrain/HUD juice over the same rules); see `games/ok_defender/PORT.md` |
 | `shep` | `tangentstorm/shep` (Haxe/Flash 9 + physaxe) | Direct + Enhanced playable (Enhanced = clearer fuse/ship UI + juice over the same physics); see `games/shep/PORT.md` |
 | `gamemaker-stuff` | `tangentstorm/gamemaker-stuff` (archived) | Multi-mini; treat as pack of slugs later |

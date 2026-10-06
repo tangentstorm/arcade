@@ -70,6 +70,54 @@ dialog (the original's debug key).
   differ slightly (for example, walking into the 1-tile step zeroes `dxy.x` every frame, as in the original).
 - Rigid-body behavior (Teddy tipping, how the teleporter tumbles) comes from Godot 4 physics and may
   differ in detail from the Godot 3 run.
-- Enhanced edition: not started.
-
 Tests: `tools/test_ld48.gd` (run by `tools/smoke_headless.sh`).
+
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same LD48 jam prologue. **No rooms or rules are
+duplicated:** `enhanced/game.gd` instances `direct/game.tscn` (room0) and
+`direct/ivan_office.tscn` into a SubViewport. Ernie physics, the teleporter,
+the dialog coroutine, TileMapLayers and sprites are the Direct scripts and
+assets. Enhanced adds only chrome, restyled chat/help, juice, and a title card,
+so a physics or dialog fix in Direct lands in both editions. No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: SubViewport field, chat/help overlay, juice, title card |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (self-letterboxed). A full-bleed SubViewport hosts
+  the Direct room so Camera2D framing matches Direct (room0 zoom ⅓, office zoom ⅔).
+  Title scale_mode stays `expand` for Direct; Enhanced letterboxes its own stage.
+- **Chat / help:** Direct's camera-parented sidebar and help Label are hidden.
+  Enhanced draws a restyled chat panel (speaker accents, icons from Direct
+  `*-chat.png`) and a gold help toast, driven by the same `speak` / `helptext` /
+  `showchat` signals from Direct `room0.gd`.
+- **Warp:** Direct `room0.gd` would `change_scene_to_file` into Ivan's office.
+  Enhanced disconnects that handler and loads `direct/ivan_office.tscn` into the
+  same SubViewport so the shell (Back to Arcade, chrome, juice) stays put.
+- **Juice:** landing dust and walk puffs from Ernie floor transitions; teleporter
+  charge ring + percent while holding E; warp flash/shake/floater; ambient dust
+  while the Direct camshaker is quaking.
+- **Screens:** title card (Space / button to begin). Esc opens the arcade
+  PauseOverlay (tree pause freezes Direct physics). "Back to Arcade" is top-left
+  and never takes keyboard focus. **R** still reloads via Direct Ernie (restarts
+  the Enhanced scene).
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rooms / physics / dialog | `direct/*.gd` + scenes | same scenes/scripts (instance), no copy |
+| Stage | Camera2D fills window (`expand`) | 1280×720 chrome around a full-bleed Direct SubViewport |
+| Chat / help | camera-parented sidebar + Label | restyled overlay panel + toast |
+| Esc / Back | PauseOverlay | same + explicit Back to Arcade (FOCUS_NONE) |
+
+### Deferred
+- No new rooms, dialog lines, or mechanics.
+- No dedicated Enhanced gallery preview in this PR (card can use the Direct shot).
+- Rigid-body feel (Teddy/teleporter tumble) remains Godot 4 physics, same as Direct.
+
+Tests: `tools/test_ld48_enhanced.gd` (run by `tools/smoke_headless.sh`): registry entry,
+scene launch, Direct script ownership, title → play, walk under Enhanced, chat/help
+wire-up, warp interception to office, juice burst, Esc → PauseOverlay → Back to Arcade.
