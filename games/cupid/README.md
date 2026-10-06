@@ -7,6 +7,8 @@ couple clears the storm a little. Five couples wins.
 
 - **Direct:** playable. A GDScript port of `GameState.as` and friends with the original art and
   rain loop; see [PORT.md](PORT.md).
-- **Enhanced:** planned.
+- **Enhanced:** playable. Presentation makeover on the same Direct rules: the city warms from
+  storm to sunset as couples clear the clouds, tinted walkers, crisp bubbles, a drop guide,
+  match juice, couples HUD and street radar. Esc → PauseOverlay; letterbox; Back to Arcade.
 
 License: none stated in the source repo (Michal's own work).
