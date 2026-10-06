@@ -64,6 +64,7 @@ const SCALE_MODE := {
 	"canyon_run": "letterbox",       # 240×320 portrait stage @2× (480×640)
 	"terratri": "expand",            # Control UI; board picks an integer cell size
 	"doth": "letterbox",             # Direct 1120×368; Enhanced 1280×720 around 1120×320 field
+	"marigold": "letterbox",         # 1280×720 homestead OS chrome
 }
 
 
@@ -176,6 +177,8 @@ const TITLES := [
 		"Adam Atomic's 5x5 territory game (Terratri Online, 2011/2026 TS) -> GDScript rules, hotseat 2P; Enhanced = lit tabletop, hopping pawns, rising forts + player cards over the same Direct rules."],
 	["doth", "Doth", {"direct": "playable", "enhanced": "playable"},
 		"silverware Doth-A (Turbo Pascal, 1993-1996) Kroz-like adventure -> SvA-like pixel Direct; Enhanced = torchlit chrome + pickup juice over the same rules."],
+	["marigold", "Marigold Homestead", {"direct": "playable", "enhanced": "planned"},
+		"Claude artifact BjKJn834 (Starflight II × Farming Sim pixel OS) -> Direct: tractor-driven fractal homestead + 6 chrome screens; Enhanced stub later. Issue #105."],
 ]
 
 var entries: Array[GameEntry] = []
