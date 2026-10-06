@@ -62,7 +62,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `ld48` | `tangentstorm/ld48` (GDScript) | Direct + Enhanced playable (Enhanced = restyled chat/help + juice over the same Direct rooms); see `games/ld48/PORT.md` |
 | `ok-defender` | `tangentstorm/ok-defender` (oK/iKe, LD49) | Direct + Enhanced playable (Enhanced = ship/terrain/HUD juice over the same rules); see `games/ok_defender/PORT.md` |
 | `shep` | `tangentstorm/shep` (Haxe/Flash 9 + physaxe) | Direct + Enhanced playable (Enhanced = clearer fuse/ship UI + juice over the same physics); see `games/shep/PORT.md` |
-| `gamemaker-stuff` | `tangentstorm/gamemaker-stuff` (archived) | Multi-mini; treat as pack of slugs later |
+| `gamemaker-stuff` | `tangentstorm/gamemaker-stuff` (archived) | Multi-mini, one slug per project. `gm_defense`: Direct + Enhanced playable (Enhanced = deep-space room, ship/squid glow + off-room locator over the same rules); see `games/gm_defense/PORT.md` |
 | `fnarbmlyx` | `tangentstorm/fnarbmlyx` (GDScript, archived) | GSL/Godot lineage |
 | `GameSketchLib` | `tangentstorm/GameSketchLib` (Processing) | Engine/lessons — port **demos**, not whole lib, unless decision says otherwise |
 | `godotlab` | `tangentstorm/godotlab` | Experiments — cherry-pick playable scenes |
