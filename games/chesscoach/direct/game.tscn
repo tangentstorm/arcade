@@ -967,7 +967,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.55)
 theme_override_font_sizes/font_size = 14
-text = "Chess Coach · Esc: pause"
+text = "Chess Coach | Esc: pause"
 
 [node name="Editor" type="Node" parent="." node_paths=PackedStringArray("player", "pieces", "board")]
 script = ExtResource("16_73dlk")

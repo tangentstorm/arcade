@@ -107,7 +107,7 @@ func _run() -> void:
 	ok(t.is_game_over() and not t.is_my_turn(), "game over")
 	ok(int(t.breakdown(0).netScore) == 6, "breakdown accessor")
 	ok(t.build_submit().is_empty(), "no submit after game over")
-	ok(OfcpTable.card_label(c("Th")) == "10♥" and OfcpTable.is_red(c("Th")), "card label")
+	ok(OfcpTable.card_label(c("Th")) == "10H" and OfcpTable.is_red(c("Th")), "card label")
 	ok(OfcpTable.suit_color(c("Ah")) == Color(0.78, 0.08, 0.1), "hearts red")
 	ok(OfcpTable.suit_color(c("Ad")) == Color(0.12, 0.35, 0.85), "diamonds blue")
 	ok(OfcpTable.suit_color(c("Ac")) == Color(0.08, 0.55, 0.28), "clubs green")

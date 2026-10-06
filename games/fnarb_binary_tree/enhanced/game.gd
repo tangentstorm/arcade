@@ -316,7 +316,7 @@ func _tick_wave(delta: float) -> void:
 		_burst(to_stage(_pts[i]), node_color(i).lightened(0.3), 6, 140.0)
 		if cursor == order.size() - 1:
 			_flash = 0.6
-			_banner = "%s  ·  %d NODES" % [MODES[mode].to_upper(), order.size()]
+			_banner = "%s  |  %d NODES" % [MODES[mode].to_upper(), order.size()]
 			_banner_t = 1.2
 			_floater("done", to_stage(_pts[1]) + Vector2(-18, -34), GOLD)
 
@@ -329,7 +329,7 @@ func _refresh_hud() -> void:
 	var t := PackedStringArray()
 	for i in _trail:
 		t.append(str(i))
-	_trail_label.text = " → ".join(t) if t.size() else "…"
+	_trail_label.text = " -> ".join(t) if t.size() else "..."
 	if hover:
 		var d := level_of(hover)
 		var sub: int = (1 << (demo.DEPTH - d + 1)) - 1
@@ -505,7 +505,7 @@ func _build_ui() -> void:
 	_hud.add_child(top)
 	top.add_child(_label("FNARB BINARY TREE", 26, GOLD, Vector2(18, 16)))
 	top.add_child(_label("Enhanced", 14, ACCENT, Vector2(300, 28)))
-	top.add_child(_label("depth 5  ·  63 nodes  ·  32 leaves  ·  62 edges", 14, MUTED, Vector2(400, 28)))
+	top.add_child(_label("depth 5  |  63 nodes  |  32 leaves  |  62 edges", 14, MUTED, Vector2(400, 28)))
 	var back := _btn("Back to Arcade", Vector2(1062, 16), Vector2(124, 36))
 	back.pressed.connect(GameRegistry.return_to_arcade)
 	top.add_child(back)
@@ -517,7 +517,7 @@ func _build_ui() -> void:
 	wave.add_child(_mode_label)
 	_visit_label = _label("Visited  0 / 63", 13, INK, Vector2(14, 60))
 	wave.add_child(_visit_label)
-	_trail_label = _label("…", 12, ACCENT, Vector2(14, 88))
+	_trail_label = _label("...", 12, ACCENT, Vector2(14, 88))
 	_trail_label.size = Vector2(440, 56)
 	_trail_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	wave.add_child(_trail_label)

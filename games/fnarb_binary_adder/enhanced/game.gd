@@ -282,16 +282,16 @@ func _refresh_hud() -> void:
 	if res == "1010":
 		eq = "%d + %d = 10  (0b%s)" % [a, b, res]
 	elif res != "0000" and res != "":
-		eq = "%d + %d → 0b%s…" % [a, b, res]
+		eq = "%d + %d -> 0b%s..." % [a, b, res]
 	_eq_label.text = eq
 	_col_label.text = "Column  %d / 3" % _column
 	_bits_label.text = "Result bits set  %d\nCarry bits set   %d" % [_bits_set, _carries_set]
 	_carry_label.text = "Carry row  %s\nResult row %s" % [
-		_carry_bits() if _carry_bits() != "" else "····",
-		res if res != "" else "····",
+		_carry_bits() if _carry_bits() != "" else "----",
+		res if res != "" else "----",
 	]
 	if state == DONE:
-		_status_label.text = "Done — plays once, as in Direct"
+		_status_label.text = "Done - plays once, as in Direct"
 		_status_label.add_theme_color_override("font_color", GOLD)
 	elif state == PLAY:
 		_status_label.text = "Ripple-carry walk (gold box)"
@@ -459,7 +459,7 @@ func _build_ui() -> void:
 	left.add_child(_col_label)
 	_bits_label = _label("Result bits set  0\nCarry bits set   0", 12, INK, Vector2(10, 120))
 	left.add_child(_bits_label)
-	_status_label = _label("Waiting…", 11, MUTED, Vector2(10, 180))
+	_status_label = _label("Waiting...", 11, MUTED, Vector2(10, 180))
 	_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status_label.size = Vector2(110, 60)
 	left.add_child(_status_label)
@@ -473,10 +473,10 @@ func _build_ui() -> void:
 	var right := _panel(Rect2(1134, 96, 130, 320))
 	_hud.add_child(right)
 	right.add_child(_label("LIVE ROWS", 11, MUTED, Vector2(10, 10)))
-	_carry_label = _label("Carry row  ····\nResult row ····", 12, INK, Vector2(10, 36))
+	_carry_label = _label("Carry row  ----\nResult row ----", 12, INK, Vector2(10, 36))
 	right.add_child(_carry_label)
 	right.add_child(_label("Direct gold box\ntracks the column\nbeing added.", 11, MUTED, Vector2(10, 100)))
-	right.add_child(_label("a=3  b=7\n→ 1010 / c 0111", 12, ACCENT, Vector2(10, 170)))
+	right.add_child(_label("a=3  b=7\n-> 1010 / c 0111", 12, ACCENT, Vector2(10, 170)))
 	right.add_child(_label("Same Adder.gd\nscript as Direct.", 11, MUTED, Vector2(10, 230)))
 
 	var back := _btn("Back to Arcade", Vector2(16, 660), Vector2(160, 36))
@@ -492,7 +492,7 @@ func _build_ui() -> void:
 	card.add_child(_label("FNARB BINARY ADDER", 30, GOLD, Vector2(36, 36)))
 	card.add_child(_label("Enhanced edition", 16, ACCENT, Vector2(36, 80)))
 	card.add_child(_label(
-		"A chrome shell over the Direct ripple-carry sketch.\nSame Adder script, same gold column highlight,\nsame 3 + 7 → 1010 walk — just clearer HUD + juice.",
+		"A chrome shell over the Direct ripple-carry sketch.\nSame Adder script, same gold column highlight,\nsame 3 + 7 -> 1010 walk - just clearer HUD + juice.",
 		14, INK, Vector2(36, 120)))
 	var start := _btn("Start", Vector2(36, 230), Vector2(120, 40))
 	start.focus_mode = Control.FOCUS_NONE
@@ -512,7 +512,7 @@ func _build_ui() -> void:
 	_ui.add_child(done)
 	_cards["done"] = done
 	done.add_child(_label("3 + 7 = 10", 34, GOLD, Vector2(36, 28)))
-	done.add_child(_label("Result 1010   ·   Carries 0111", 16, ACCENT, Vector2(36, 80)))
+	done.add_child(_label("Result 1010   |   Carries 0111", 16, ACCENT, Vector2(36, 80)))
 	done.add_child(_label("Plays once, as in the Direct edition.\nR / Space  to watch again.", 14, INK, Vector2(36, 120)))
 	var again := _btn("Watch again", Vector2(36, 180), Vector2(140, 36))
 	again.focus_mode = Control.FOCUS_NONE

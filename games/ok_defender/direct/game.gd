@@ -202,7 +202,7 @@ func _draw_hud() -> void:
 	match world.state:
 		Logic.TITLE:
 			_text("oK DEFENDER", Vector2(cx, 80), 24, Color("#f7e26b"), HORIZONTAL_ALIGNMENT_CENTER)
-			_text("Ludum Dare 49  ·  oK/iKe → Godot", Vector2(cx, 96), 8, dim, HORIZONTAL_ALIGNMENT_CENTER)
+			_text("Ludum Dare 49  |  oK/iKe -> Godot", Vector2(cx, 96), 8, dim, HORIZONTAL_ALIGNMENT_CENTER)
 			_text("Arrows / WASD: fly    Space (hold): phasers", Vector2(cx, 118), 8, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
 			_text("Shoot carriers, catch falling humans, fly low to set them down", Vector2(cx, 130), 7, dim, HORIZONTAL_ALIGNMENT_CENTER)
 			_text("Press Space to start    Esc: pause", Vector2(cx, 150), 9, Color("#a3ce27"), HORIZONTAL_ALIGNMENT_CENTER)
@@ -210,7 +210,7 @@ func _draw_hud() -> void:
 			var why := "You crashed into an alien" if world.crashed else "Every human is gone"
 			_text("GAME OVER", Vector2(cx, 80), 24, Color("#be2633"), HORIZONTAL_ALIGNMENT_CENTER)
 			_text(why, Vector2(cx, 96), 9, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER)
-			_text("time %ds + kills %d + saved %d − lost %d" % [secs, world.kills, world.saved, world.lost],
+			_text("time %ds + kills %d + saved %d - lost %d" % [secs, world.kills, world.saved, world.lost],
 					Vector2(cx, 114), 8, dim, HORIZONTAL_ALIGNMENT_CENTER)
 			_text("SCORE %d" % world.score(), Vector2(cx, 132), 14, Color("#f7e26b"), HORIZONTAL_ALIGNMENT_CENTER)
 			_text("Press Space to play again", Vector2(cx, 150), 9, Color("#a3ce27"), HORIZONTAL_ALIGNMENT_CENTER)

@@ -92,7 +92,7 @@ func _refresh_labels() -> void:
 	_clock.text = str(floori(game.shown_clock / float(Logic.SECONDS)))
 	_score.text = str(game.shown_score)
 	if game.next == Logic.THEEND:
-		_status.text = "game over — press Enter to play again"
+		_status.text = "game over - press Enter to play again"
 	elif game.paused:
 		_status.text = "paused (p)"
 	else:

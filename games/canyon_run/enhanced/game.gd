@@ -409,11 +409,11 @@ func _build_ui() -> void:
 	title.position = Vector2(16, 14)
 	title.size = Vector2(248, 36)
 	left.add_child(title)
-	var sub := _label("Enhanced · River Raid style", 14, MUTED)
+	var sub := _label("Enhanced | River Raid style", 14, MUTED)
 	sub.position = Vector2(16, 48)
 	sub.size = Vector2(248, 22)
 	left.add_child(sub)
-	_hint_label = _label("←/→ or A/D  steer\n↑/↓ or W/S  throttle\nSpace / Z   fire\nEsc         pause\n\nFly the canyon.\nDon't kiss the walls\nor the red drifters.", 15, INK)
+	_hint_label = _label("<-/-> or A/D  steer\n^/v or W/S  throttle\nSpace / Z   fire\nEsc         pause\n\nFly the canyon.\nDon't kiss the walls\nor the red drifters.", 15, INK)
 	_hint_label.position = Vector2(16, 88)
 	_hint_label.size = Vector2(248, 280)
 	_hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -446,7 +446,7 @@ func _build_ui() -> void:
 	_kills_label.position = Vector2(16, 164)
 	_kills_label.size = Vector2(248, 26)
 	right.add_child(_kills_label)
-	_width_label = _label("CHANNEL  —", 18, MUTED)
+	_width_label = _label("CHANNEL  -", 18, MUTED)
 	_width_label.position = Vector2(16, 196)
 	_width_label.size = Vector2(248, 26)
 	right.add_child(_width_label)
@@ -473,7 +473,7 @@ func _build_ui() -> void:
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	right.add_child(tip)
 	# Title card.
-	_cards["title"] = _make_card("CANYON RUN", "River Raid–style canyon flyer\n\nSteer clear of the walls.\nBlast the red drifters.\n\nSpace / Enter to fly", true)
+	_cards["title"] = _make_card("CANYON RUN", "River Raid-style canyon flyer\n\nSteer clear of the walls.\nBlast the red drifters.\n\nSpace / Enter to fly", true)
 	# Crash card.
 	_cards["crash"] = _make_card("CRASHED", "score 0\n\nSpace to fly again", false)
 

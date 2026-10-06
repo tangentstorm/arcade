@@ -682,7 +682,7 @@ func _refresh_hud() -> void:
 	var zl: int = world.of_kind(World.ZOMBIE).size()
 	_score_label.text = str(world.score)
 	_coins_label.text = "%d / %d" % [_coin_total - coins_left, _coin_total]
-	_zombies_label.text = "%d left · %d trapped" % [zl, _trapped]
+	_zombies_label.text = "%d left | %d trapped" % [zl, _trapped]
 	_traps_label.text = str(world.of_kind(World.TRAP).size())
 	_caught_label.text = str(_caught)
 	var secs: int = world.steps / Room0.SPEED
@@ -776,7 +776,7 @@ func _build_ui() -> void:
 	var title := _label("TOROIDAL ZOMBIE HERDER", 30, TOXIC)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(_ui, title, Rect2(0, 6, STAGE.x, 38))
-	var sub := _label("Enhanced  ·  GameMaker maze herder (2017)  ·  the maze wraps around", 14, MUTED)
+	var sub := _label("Enhanced  |  GameMaker maze herder (2017)  |  the maze wraps around", 14, MUTED)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(_ui, sub, Rect2(0, 42, STAGE.x, 22))
 	var back := _button("Back to Arcade", Color(0.18, 0.36, 0.26))

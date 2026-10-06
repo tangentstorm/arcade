@@ -115,7 +115,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 autowrap_mode = 3
-text = "Arrows move · WASD/,AOE grab · R restart"
+text = "Arrows move | WASD/,AOE grab | R restart"
 
 [node name="LevelButtons" type="VBoxContainer" parent="Center/Row/HUD/Margin/VBox"]
 unique_name_in_owner = true

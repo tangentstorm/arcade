@@ -118,7 +118,7 @@ func _update_footer() -> void:
 			parts.append("R: restart")
 	parts.append("Esc: arcade menu")
 	parts.append("T: code trail")
-	_footer.text = "   ·   ".join(parts)
+	_footer.text = "   |   ".join(parts)
 
 
 # ---- drawing ------------------------------------------------------------

@@ -289,7 +289,7 @@ func _run_game_flow() -> void:
 
 	# Resolve profile aliases
 	_assert_eq(fname, OfcpPlayProfile.resolve("cash")["id"], "cash", "resolve cash")
-	_assert_eq(fname, OfcpPlayProfile.resolve("unknown_xyz")["id"], "normal", "resolve unknown→normal")
+	_assert_eq(fname, OfcpPlayProfile.resolve("unknown_xyz")["id"], "normal", "resolve unknown->normal")
 
 	# Progressive card counts via synthetic boards (QQ/KK/AA/trips)
 	_check_progressive_counts(fname)

@@ -642,7 +642,7 @@ func _build_ui() -> void:
 	var title := _label("KILL 'EM ALL", 30, GOLD)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(_ui, title, Rect2(0, 6, STAGE.x, 38))
-	var sub := _label("Enhanced  ·  GameMaker twin-stick prototype (2017)", 14, MUTED)
+	var sub := _label("Enhanced  |  GameMaker twin-stick prototype (2017)", 14, MUTED)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(_ui, sub, Rect2(0, 42, STAGE.x, 22))
 	var back := _button("Back to Arcade", Color(0.22, 0.28, 0.62))
@@ -656,7 +656,7 @@ func _build_ui() -> void:
 	_speed_label = _stat(lp, 76, "SPEED", 20, CYAN)
 	_add(lp, _label("gold tick = top speed", 11, Color(GOLD, 0.8)), Rect2(16, 150, 170, 14))
 	_add(lp, _label("VECTOR", 13, MUTED), Rect2(16, 254, 160, 18))
-	_add(lp, _label("white velocity · gold aim\ncyan thrust", 11, MUTED), Rect2(16, 268, 170, 30))
+	_add(lp, _label("white velocity | gold aim\ncyan thrust", 11, MUTED), Rect2(16, 268, 170, 30))
 	_pos_label = _stat(lp, 470, "POSITION", 20, INK)
 	_dist_label = _stat(lp, 530, "TRAVELLED", 20, INK)
 
@@ -679,7 +679,7 @@ func _build_ui() -> void:
 	_gauges.draw.connect(_draw_gauges)
 	_ui.add_child(_gauges)
 
-	_out_banner = _label("OUT OF ROOM  ·  no walls in the original, thrust back", 16, HOT)
+	_out_banner = _label("OUT OF ROOM  |  no walls in the original, thrust back", 16, HOT)
 	_out_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_out_banner.visible = false
 	_add(_ui, _out_banner, Rect2(FIELD_POS.x, FIELD_POS.y + FIELD.y - 34, FIELD.x, 24))

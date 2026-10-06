@@ -13,7 +13,7 @@ const ROW_CAP := {"top": 3, "middle": 5, "bottom": 5}
 const PHASE_INITIAL := "INITIAL_PLACE"
 const PHASE_PINEAPPLE := "PINEAPPLE_PLACE"
 const PHASE_GAME_OVER := "GAME_OVER"
-const SUIT_GLYPH := {"h": "♥", "d": "♦", "c": "♣", "s": "♠"}
+const SUIT_GLYPH := {"h": "H", "d": "D", "c": "C", "s": "S"}
 ## 4-color deck: red hearts, blue diamonds, green clubs, black spades.
 const SUIT_COLOR := {
 	"h": Color(0.78, 0.08, 0.1),

@@ -386,7 +386,7 @@ func _refresh_hud() -> void:
 	_lost_label.text = str(world.lost)
 	_humans_label.text = str(maxi(0, world.humans_left() - world.carried))
 	_carry_label.text = str(world.carried)
-	_score_label.text = str(world.score()) if world.state != Logic.TITLE else "—"
+	_score_label.text = str(world.score()) if world.state != Logic.TITLE else "-"
 	_carry_label.modulate = GOLD if world.carried > 0 else MUTED
 
 
@@ -399,7 +399,7 @@ func _show_gameover() -> void:
 	var secs: int = world.f / Logic.FPS
 	_over_why.text = "You crashed into an alien" if world.crashed else "Every human is gone"
 	_over_score.text = "SCORE %d" % world.score()
-	_over_detail.text = "time %ds  ·  kills %d  ·  saved %d  ·  lost %d" % [
+	_over_detail.text = "time %ds  |  kills %d  |  saved %d  |  lost %d" % [
 			secs, world.kills, world.saved, world.lost]
 	_show_card("over")
 
@@ -463,7 +463,7 @@ func _build_ui() -> void:
 	var title := _label("oK DEFENDER", 28, FRAME.lightened(0.25))
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, title, Rect2(0, 8, STAGE.x, 36))
-	var sub := _label("Enhanced  ·  Ludum Dare 49 Defender clone", 14, MUTED)
+	var sub := _label("Enhanced  |  Ludum Dare 49 Defender clone", 14, MUTED)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, sub, Rect2(0, 40, STAGE.x, 22))
 
@@ -487,7 +487,7 @@ func _build_ui() -> void:
 	_add(lp, _label("CARRY", 14, MUTED), Rect2(16, 410, 100, 20))
 	_carry_label = _add(lp, _label("0", 36, MUTED), Rect2(16, 430, 100, 44)) as Label
 	_add(lp, _label("SCORE", 14, MUTED), Rect2(16, 500, 100, 20))
-	_score_label = _add(lp, _label("—", 28, GOLD), Rect2(16, 520, 100, 40)) as Label
+	_score_label = _add(lp, _label("-", 28, GOLD), Rect2(16, 520, 100, 40)) as Label
 
 	# Right help
 	var rp := _panel(root, Rect2(STAGE.x - 148, 72, 132, 600))
@@ -528,7 +528,7 @@ func _build_ui() -> void:
 	var t2 := _label("Enhanced edition", 18, FRAME)
 	t2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tv.add_child(t2)
-	var t3 := _label("Shoot carriers · catch falling humans · fly low to set them down", 15, MUTED)
+	var t3 := _label("Shoot carriers | catch falling humans | fly low to set them down", 15, MUTED)
 	t3.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tv.add_child(t3)
 	var t4 := _label("Press Space to start", 20, GREEN)

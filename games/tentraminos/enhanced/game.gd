@@ -362,7 +362,7 @@ func _clear_juice(mid: PackedInt32Array, prev_score: int) -> void:
 		popups.append({"pos": Board.GRID_ORIGIN + Vector2(Board.CELL * 4.5, Board.CELL * 1.2),
 				"text": "%d GROUPS!  +%d" % [groups.size(), total], "color": Color("#ffffff"),
 				"life": 1.3, "size": 34})
-	last_clear = "+%d  ·  %d tiles in %d group%s" % [total, cleared.size(), groups.size(),
+	last_clear = "+%d  |  %d tiles in %d group%s" % [total, cleared.size(), groups.size(),
 			"" if groups.size() == 1 else "s"]
 	shake = clampf(0.35 + 0.15 * groups.size() + cleared.size() / 40.0, 0.0, 1.0)
 	if total <= 20:
@@ -449,14 +449,14 @@ func danger_columns() -> Array[int]:
 
 func _refresh_hud() -> void:
 	_score.text = str(roundi(display_score))
-	_best.text = "BEST  %d%s" % [maxi(best, game.score), "  ★ NEW" if new_best else ""]
+	_best.text = "BEST  %d%s" % [maxi(best, game.score), "  * NEW" if new_best else ""]
 	_stats.text = "ROUND %d    TILES %d    BIGGEST %d" % [rounds, tiles_cleared, biggest_group]
 	if not started:
 		_status.text = "Press Space to start"
 	elif game.next == Logic.THEEND:
 		_status.text = "Game over"
 	elif game.paused:
-		_status.text = "Paused  ·  P to resume"
+		_status.text = "Paused  |  P to resume"
 	elif last_clear != "":
 		_status.text = "Last clear  " + last_clear
 	else:
@@ -475,8 +475,8 @@ If a tile gets stuck in the top row, it's game over."
 			_card_hint.text = "Space / Enter to start"
 		"over":
 			_card_title.text = "GAME OVER"
-			var lines := "Score  %d\nBest  %d%s\n\nRounds %d   ·   Tiles cleared %d   ·   Biggest group %d" % [
-					game.score, best, "   ★ new best!" if new_best else "", rounds, tiles_cleared, biggest_group]
+			var lines := "Score  %d\nBest  %d%s\n\nRounds %d   |   Tiles cleared %d   |   Biggest group %d" % [
+					game.score, best, "   * new best!" if new_best else "", rounds, tiles_cleared, biggest_group]
 			_card_body.text = lines
 			_card_hint.text = "Enter / R / Space to play again"
 

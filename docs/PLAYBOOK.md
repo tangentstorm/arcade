@@ -252,3 +252,13 @@ Safe parallel units **after Phase B exit**:
 ## Scope correction
 
 - **flappy_clone**: source in `tangentstorm/unitylabs` — port existing; do not invent.
+
+## ASCII UI lint (tofu gate)
+
+Default Godot fonts are Latin-focused; non-ASCII UI (arrows, suits, em dashes) can ship as tofu (`□`).
+
+- **Run:** `./tools/lint_ascii_ui.sh` (also the first step of `tools/smoke_headless.sh`, so Pages CI smoke covers it).
+- **Scope:** string literals in `arcade/` + `games/` (`.gd` / `.tscn`); skips `games/*/source/` and comment-only lines.
+- **Exceptions:** `tools/ascii_ui_allowlist.txt` — path or `path:line` plus a `# font: …` note when a FontFile (or primitive draw path) covers the glyphs.
+- **Docs:** `tools/README.md`.
+

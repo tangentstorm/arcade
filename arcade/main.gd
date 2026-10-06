@@ -130,7 +130,7 @@ func _apply_mode_buttons() -> void:
 	_mode_direct.button_pressed = is_direct
 	_mode_enhanced.button_pressed = not is_direct
 	var label := "Original" if is_direct else "Enhanced"
-	_mode_hint.text = "Showing %s editions — click a screenshot to play." % label
+	_mode_hint.text = "Showing %s editions - click a screenshot to play." % label
 
 
 func _load_pref() -> void:
