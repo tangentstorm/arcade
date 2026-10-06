@@ -61,6 +61,7 @@ const SCALE_MODE := {
 	"ofcp": "expand",                # live client UI reflows
 	"chesscoach": "letterbox",       # 400×400 board
 	"canyon_run": "letterbox",       # 240×320 portrait stage @2× (480×640)
+	"doth": "letterbox",             # 1120×368 Doth-A pixel stage
 }
 
 
@@ -166,6 +167,8 @@ const TITLES := [
 		"tangentstorm/gd-chesscoach (Godot 4.3): tiny FEN board + trays. No Stockfish."],
 	["canyon_run", "Canyon Run", {"direct": "playable", "enhanced": "planned"},
 		"Original River Raid-style canyon flyer (2026): procedural Godot 4 MVP; Claude Design mock pending for Enhanced."],
+	["doth", "Doth", {"direct": "playable", "enhanced": "planned"},
+		"silverware Doth-A (Turbo Pascal, 1993–1996) Kroz-like adventure → SvA-like pixel Direct."],
 ]
 
 var entries: Array[GameEntry] = []
