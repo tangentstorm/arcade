@@ -32,4 +32,44 @@ BulletDemo rebuilt on the first cut of the GameSketchLib engine (flixel-style Ga
 
 Tests: `tools/test_gsl_demos.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same BulletDemo-on-GameSketchLib tech demo. **No rules
+are duplicated:** `enhanced/game.gd` preloads Direct `gsl_demo_logic.gd` and paints
+its `render()` list. The click-to-start menu, `firstDead()` firing from mouse x,
+three bullets, overlap-before-move, dead squares that still soak up bullets, and
+clear-the-board → menu all stay Direct. Enhanced only wraps the sim in a 1280×720
+letterbox shell and derives juice from state deltas (bullet fired / died, square
+killed, menu ⇄ play switches).
+
+### Visuals / UI
+- 1280×720 letterbox stage; Direct 300×300 sketch @2× (600×600) in a clipped
+  field between left/right gutter HUD panels
+- Stage gradient + neon frame. Direct's black menu gets drifting specks and a
+  glowing copy of the Direct prompt (same text, position, 16 px @2×); Direct's
+  #3366FF play field gets a light-from-above wash, faint grid, and a rack shelf
+- Direct rects with glow: live squares pulse, dead squares go cracked gray (still
+  solid), bullets glow gold with motion trails; Processing's 1 px black stroke @2×
+- Juice: muzzle burst + ring on fire, white/gold burst + "HIT" + shake/flash on a
+  kill, steel ping + "SOAK" when a dead square absorbs a shot, fizzle when a bullet
+  leaves the top, "EMPTY" on a click with no bullet racked, "GO!" on start,
+  "BOARD CLEAR!" burst if Direct switches back to the menu
+- Aim guide (view-only): dashed lane from the launch slot at mouse x up to the
+  first square it would meet: green bracket = live target, gray X = dead square
+  that will soak the shot
+- Left HUD: title, controls, quirk notes, Back to Arcade (`FOCUS_NONE`). Right
+  HUD: menu/play state, rack meter, live squares, shots / hits / soaked / missed,
+  boards cleared (view-only)
+- Title card on boot (Space/Enter/Start, `FOCUS_NONE`); Esc → PauseOverlay
+
+### Behaviour notes
+- Input matches Direct: mouse presses on the 300×300 field reach `mouse_pressed`
+  in sketch coords (field px ÷ 2); releases/drags are forwarded too (Direct no-ops).
+- Title card freezes the sim until Start; then `world.step` runs at Direct's 60 Hz.
+  After Start you see Direct's own black menu and click to begin, as in Direct.
+- Only the bottom row can be shot: a dead bottom square soaks every later bullet in
+  its column (Direct quirk, kept). The aim guide and SOAK juice make that readable.
+- Esc → PauseOverlay. Title `scale_mode` stays `letterbox`.
+- No Alchementrix IP. No `_enhanced` preview yet (gallery can use the Direct shot).
+
+Tests: `tools/test_gamesketchlib_demo_enhanced.gd` (run by `tools/smoke_headless.sh`).
