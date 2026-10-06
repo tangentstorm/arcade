@@ -32,4 +32,50 @@ Drag the nine white squares around a blue 300×300 canvas. Any square that overl
 
 Tests: `tools/test_gsl_demos.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same nine-square sketch. **No rules are duplicated:**
+`enhanced/game.gd` instances Direct `game.tscn` (shared `overlap_logic.gd` + `game.gd`
+input mapping) in a SubViewport. The n² overlap scan, strict-`<` edges, lowest-index grab,
+unclamped drags and the fixed 60 Hz step all stay Direct. Enhanced only frames the sketch
+and derives juice from watching Direct square colours / `in_hand` / positions. No
+Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: 2× field, juice layer, HUD, title card |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). Direct runs in a native **300×300 SubViewport**
+  shown @2× (600×600) via `SubViewportContainer.stretch = false` + `scale = 2` (nearest
+  filter, crisp pixels). Not `stretch = true`: that resizes the SubViewport and breaks the
+  juice mapping (the Overlap #78 lesson). Direct's own margin hint is hidden (Enhanced HUD
+  replaces it).
+- **Juice (Fx layer above the SubViewport):** hatched, pulsing overlap zones (the intersection
+  of each overlapping pair), pulsing outline on gray squares, gold outline + alignment guides on
+  the held square, green hint on the square a press would grab (the lowest index, explaining
+  the Direct quirk), grab/drop rings, OVERLAP / clear bursts + floaters, first-overlap banner +
+  flash + light shake, LOST burst and edge arrows pointing at off-canvas squares.
+- **HUD:** gray count, overlap zones, held square #/position, mouse in sketch px, grabs, overlap
+  events / peak gray, off-canvas count, colour legend.
+- **Title card** on boot (Start / Space / Enter, Back to Arcade); Direct is frozen
+  (`PROCESS_MODE_DISABLED`) and click-blocked behind it. **R** reloads a fresh Direct scene.
+  Back to Arcade buttons are `FOCUS_NONE`. Esc → PauseOverlay.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Overlap / drag rules | `direct/overlap_logic.gd` | same scene (instance), no copy |
+| Stage | 300×300 scaled to window | 1280×720 chrome around a 300×300 SubViewport @2× |
+| Start | sketch live immediately | title card, then the same Direct sketch |
+| Help | margin label | side HUD + legend (Direct label hidden) |
+| Esc / Back | PauseOverlay | same + explicit Back (FOCUS_NONE) |
+
+### Deferred
+- Dedicated `_enhanced` gallery preview (card can use the Direct shot)
+
+Tests: `tools/test_overlap_demo_enhanced.gd` (run by `tools/smoke_headless.sh`): no-rules-copy
+scan, registry, title/buttons, SubViewport size/stretch/scale and Fx layering, real mouse
+grab/drag/off-canvas through the Enhanced stage vs a bare Direct logic twin (squares + render
+list), overlap/clear/lost juice + HUD, R reset, Esc → PauseOverlay → arcade.
