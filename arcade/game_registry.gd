@@ -103,7 +103,7 @@ const TITLES := [
 		"Ludum Dare 27 (2013), TypeScript/d3 → GDScript."],
 	["ld48", "LD48: Deeper and Deeper", {"direct": "playable", "enhanced": "planned"},
 		"Ludum Dare 48 (2021), Godot 3 → Godot 4 scene migration."],
-	["ok_defender", "oK Defender", {"direct": "playable", "enhanced": "planned"},
+	["ok_defender", "oK Defender", {"direct": "playable", "enhanced": "playable"},
 		"Ludum Dare 49 (2021) Defender clone, oK/iKe (K) → GDScript."],
 	["shep", "Shep", {"direct": "playable", "enhanced": "playable"},
 		"robocognito zero-g fuse puzzler (2010), Haxe/Flash 9 + physaxe → GDScript; Enhanced = clearer fuse/ship UI + juice over the same physics."],

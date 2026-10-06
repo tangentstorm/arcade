@@ -100,4 +100,48 @@ reference. It has a `.gdignore`, so Godot doesn't import it. The demo GIFs are i
 
 Tests: `tools/test_ok_defender.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same Defender clone. **No rules are duplicated:**
+`enhanced/game.gd` preloads `direct/ok_defender_logic.gd` and the Direct sprites under
+`direct/sprites/`. Terrain generation, aliens, phasers, catch/drop-off, scoring, and
+win/lose are the Direct simulation at the same fixed 30 Hz. Enhanced adds only read-only
+presentation and juice, so a rules fix in Direct lands in both editions. No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: field view, side HUD, title/over cards, juice |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). The Direct 320×200 world draws at 3×
+  (960×600) centered in the stage, with left/right chrome panels for stats and controls.
+- **Terrain / sky:** Direct solarized sky bands plus a twinkling starfield; ground tiles keep
+  Direct colours but get a lit ridge and darker footing so hills read at the larger scale.
+- **Ship juice:** thrust trail and cyan exhaust sparks while moving in x; soft glow under the
+  thrust sprite. Phaser shots keep Direct's four-colour bar and gain a bright tip streak.
+- **Alien / human juice:** tractor-beam pulse glow; kill / catch / save / lost floaters and
+  particle bursts driven from Direct score deltas (no rules branch). Crash: red flash, shake,
+  and debris.
+- **HUD / radar:** larger side counters (time, kills, saved, lost, humans, carry, score) and a
+  wider minimap with the same seam-aware camera box and blips as Direct.
+- **Screens:** restyled title and game-over cards. Space still starts / restarts through Direct
+  (fresh press latch). Esc opens the arcade PauseOverlay (tree pause freezes the 30 Hz step).
+  "Back to Arcade" is top-left and never takes keyboard focus.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rules / sim | `ok_defender_logic.gd` | same script (preload), no copy |
+| Stage | 320×200 scaled to fit | 1280×720 chrome around a 3× (960×600) field |
+| Look | nearest-filtered original sprites + HUD text | same sprites + trails, glows, floaters, side panels |
+| Esc / Back | PauseOverlay | same + explicit Back to Arcade (FOCUS_NONE) |
+
+### Deferred
+- No new sprites or audio (Direct has none either beyond the salvaged PNGs).
+- No dedicated Enhanced gallery preview in this PR (card can use the Direct shot).
+- Phaser facing / inertia / smooth camera remain Direct TODOs from `tasks.org`.
+
+Tests: `tools/test_ok_defender_enhanced.gd` (run by `tools/smoke_headless.sh`): registry entry,
+scene launch + letterbox, Direct logic ownership, title → play via Space, juice on kill/catch,
+Esc → PauseOverlay → Back to Arcade, and parity of a scripted session against a twin Direct world.
