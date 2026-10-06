@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Capture Direct-edition preview PNGs under Xvfb (needs a real GL context).
+# Env: CAPTURE_FORCE=1 re-shot existing; CAPTURE_ONLY=<id> limits to one title.
 set -euo pipefail
 GODOT="${GODOT:-$(command -v godot4 || command -v godot || echo /workspace/tools/godot4)}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
