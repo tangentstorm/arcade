@@ -70,7 +70,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `killem-all` | `tangentstorm/gamemaker-stuff` `killem-all.gmx` (GameMaker: Studio 1.x, archived) | Direct + Enhanced playable (Enhanced = neon arena, tracers, thrust flame, radar + flight HUD over the same rules; still no enemies, as in the source); see `games/killem_all/PORT.md` |
 | `toroidal-zombie-herder` | `tangentstorm/gamemaker-stuff` `toroidal-zombie-herder.gmx` (GameMaker: Studio 1.x, archived) | `toroidal_zombie_herder`: Direct + Enhanced playable (Enhanced = crypt-stone maze, wrap doors + ghosts, trap/caught juice, torus minimap HUD over the same rules; still no win state, as in the source); see `games/toroidal_zombie_herder/PORT.md` |
 | `fnarbmlyx` | `tangentstorm/fnarbmlyx` (GDScript, archived) | GSL/Godot lineage |
-| `GameSketchLib` | `tangentstorm/GameSketchLib` (Processing) | Engine/lessons — port **demos**, not whole lib, unless decision says otherwise |
+| `GameSketchLib` | `tangentstorm/GameSketchLib` (Processing) | Engine/lessons — port **demos**, not whole lib. `invader_sketch`: Direct + Enhanced playable (Enhanced = starfield/glow/juice over Direct `invader_logic.gd`); see `games/invader_sketch/PORT.md` |
 | `godotlab` | `tangentstorm/godotlab` | Experiments — cherry-pick playable scenes |
 | `cupid` | `tangentstorm/cupid` (ActionScript 3 / Flixel v1, archived) | Direct + Enhanced playable (Enhanced = storm-to-sunset city, clearer bubbles/HUD + match juice over the same rules); see `games/cupid/PORT.md` |
 | `mineswpr` | Live: `https://tangentstorm.github.io/mineswpr.html` via **b4-gd + j-talks terminal** | Direct + Enhanced playable (Enhanced = modern tiles, flags + win/lose juice over the same rules); see `games/mineswpr/PORT.md` |

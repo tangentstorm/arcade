@@ -64,4 +64,36 @@
 
 Tests: `tools/test_invader_sketch.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition — planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same Space Invaders clone. **No rules are duplicated:**
+`enhanced/game.gd` preloads Direct `invader_logic.gd` and the Direct `invaders.png`
+sheet. Menu / Play / GameOver / Win, fleet cadence, shields, the 3-bullet ammo rack
+and enemy fire stay Direct. Enhanced only wraps the sim in a 1280×720 letterbox
+shell and derives juice from state deltas (fleet size, shield HP, new hero bullets,
+MENU↔PLAY↔GAMEOVER↔WIN).
+
+### Visuals / UI
+- 1280×720 letterbox stage; Direct 640×480 sketch @1.5× (960×720) in a clipped field
+  between left/right gutter HUD panels
+- Deep-space gradient + twinkling starfield; neon frame around the playfield
+- Direct sheet sprites with per-kind glow (hero cyan, ships orange, spin blue, jell
+  green, shields soft green); spinning invaders still rotate around cell centre
+- Hero muzzle flash; glowing tracers on hero / enemy bullets; ammo rack still draws
+  the dead bullets at the bottom
+- Kill juice: burst + floating "+1" when the fleet shrinks; shield-hit sparks and a
+  "SHIELD DOWN" floater; game-over shake/flash; win confetti burst
+- Danger wash near the bottom when the fleet descends past y≈250
+- Left HUD: title, state, clock, controls, Back to Arcade (`FOCUS_NONE`). Right HUD:
+  invaders left, shields left, ammo, kills (view-only counter)
+- Title card on boot (Space/Enter/Start); Game Over and Win cards; Space returns to
+  the Direct menu (Enhanced title again). Esc → PauseOverlay
+
+### Behaviour notes
+- Input map matches Direct (←/→ A/D/E, Space shoot; `r` still spins a random ship).
+  Enter aliases Space on the title / over / win cards.
+- Title card holds Direct on MENU until Start; then `world.step` runs as usual.
+- Esc → PauseOverlay. Title `scale_mode` stays `letterbox`.
+- No Alchementrix IP. No `_enhanced` preview yet (gallery can use the Direct shot).
+
+Tests: `tools/test_invader_sketch_enhanced.gd` (run by `tools/smoke_headless.sh`).
