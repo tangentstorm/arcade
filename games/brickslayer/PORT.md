@@ -38,4 +38,70 @@
 
 Tests: `tools/test_brickslayer.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition — planned
+## Enhanced edition (`enhanced/`) — playable
+
+A makeover of the same game. The rules are the Direct rules, so the feel of
+serving, rebounds, paddle english, scoring and lives is unchanged. Everything new is
+presentation and input. It is all drawn procedurally, with no new assets.
+
+- **`enhanced/brickslayer_enhanced_logic.gd`** `extends` `direct/brickslayer_logic.gd`
+  at the full-game step (10). It overrides only a few methods:
+  - `swap("gameover")` waits for the player instead of hopping on timers to name entry,
+    the score list and the title. It records `best` / `new_best`.
+  - `get_scores()` is a no-op. Enhanced keeps a single best score in
+    `user://brickslayer_enhanced.cfg`, and the Direct high-score file is never touched.
+  - `start()` begins a run from the title, or restarts after game over once a 0.6 s lockout has passed.
+  - `set_held(left, right)` steers from held-key state. Releasing one arrow while the
+    other is held keeps moving, where Direct stops.
+  - `pointer_x` lets mouse or touch steer: the paddle chases the pointer through
+    `paddle.velocity`, capped at Direct's 5 px/tick, so the `parseInt(velocity * 0.5)`
+    english still applies.
+  - `_brick_hit`, `_check_paddle`, `_check_walls`, `serve` and `lose_life` emit events
+    (`take_events()`) for the view. They don't change the outcome.
+- **`enhanced/game.gd`** and `game.tscn` draw a fixed 1280×720 stage. The 400×300 field is
+  at 2× (800×600), centered under a top bar, with side HUD panels.
+  - Bricks are rounded neon tiles colored by hits left (5 red → 1 cyan) instead of
+    gray shades. Pips show the hits left, and each brick has a top highlight and a bottom shadow.
+  - The ball glows and leaves a 10-tick trail. The paddle is a capsule that squashes on each hit.
+  - The lake is animated water that flashes red when a ball is lost. The ball still sinks under it.
+  - Ball and paddle are interpolated between the 10 ms ticks, so motion is smooth at any frame rate.
+- **Juice.**
+  - Hits: a white flash on the brick, white sparks and a floating "+1".
+  - Breaks: falling shards and a small shake.
+  - Paddle, wall and serve: sparks.
+  - Lost ball: a splash, a bigger shake and the lake flash.
+  - The score pops gold.
+- **HUD.**
+  - Left panel: lives as ball icons, the level, and the controls.
+  - Right panel: best score and bricks left (`n / 50`).
+  - Top: a big score.
+  - A pulsing "serve" hint shows while the ball is on the paddle.
+- **Cards.** Title (Play, or Enter/Space), Pause (P), "Level N clear!" for Direct's 2 s
+  clear, and Game Over (score, best, level, "New best!", Play again).
+- **Keys.** ←/→ or A/D, or the mouse/touch, to move. ↑, W, Space or a click to serve.
+  P pauses, Esc opens the arcade PauseOverlay, and "Back to Arcade" is top-left. Scale mode
+  is `letterbox`, shared with Direct.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rules / physics | lesson code | same code (subclass), checked tick-for-tick in the test |
+| Art | gray boxes, `#ccc` lake, recovered PNG overlays | procedural neon bricks by hits left, glowing ball + trail, capsule paddle, animated lake |
+| Motion | integer positions, drawn per tick | same integer positions, interpolated for drawing |
+| Feedback | none (sounds not vendored) | hit flash, sparks, shards, +1, shake, score pop, lake flash |
+| HUD | `level:` / `score:` and spares inside the lake | side panels (lives, level, best, bricks left) + big score |
+| Input | arrows, ↑ serve, Enter, P | + A/D, W/Space, mouse/touch steer and click to serve; held-key steering |
+| Game over | timed: game over → name entry / scores → title | waits on a Game Over card; restart after 0.6 s |
+| High scores | top-10 list + name entry (`user://brickslayer_scores.cfg`) | single best score (`user://brickslayer_enhanced.cfg`) |
+| Code trail | T opens it; R restarts early lessons | not in Enhanced (it belongs to Direct) |
+
+Kept from Direct: the 10×5 wall and shades 5…1, serve dy −4 with the +0.25 spin, paddle speed
+5 and friction 0.5, the lesson-05 collision, +1 per hit, 3 spares (4 balls), the 2 s level
+clear, and the same wall on every level.
+
+Tests: `tools/test_brickslayer_enhanced.gd`. It covers:
+- the registry entry, launch and letterbox;
+- title → game → serve, arrow speed, P pause, Esc pause and return;
+- a 60 s side-by-side run against Direct that must match tick for tick;
+- events, lives and game over, the restart lockout, the best score, level clear, and held-key and pointer steering.

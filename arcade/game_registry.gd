@@ -159,7 +159,7 @@ const TITLES := [
 		"Matchmaking Cupid (2010), AS3/Flixel v1 → GDScript."],
 	["mineswpr", "Mineswpr", {"direct": "playable", "enhanced": "planned"},
 		"Retro Forth 11 terminal Minesweeper (2013) → GDScript."],
-	["brickslayer", "Brickslayer", {"direct": "playable", "enhanced": "planned"},
+	["brickslayer", "Brickslayer", {"direct": "playable", "enhanced": "playable"},
 		"javascriptgamer.com Breakout + lesson trail (2007), JS → GDScript."],
 	["giraffe", "Giraffe", {"direct": "playable", "enhanced": "planned"},
 		"pico-games/giraffe.p8 (Pico-8) tiny platformer → GDScript."],
