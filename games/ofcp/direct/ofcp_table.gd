@@ -14,6 +14,13 @@ const PHASE_INITIAL := "INITIAL_PLACE"
 const PHASE_PINEAPPLE := "PINEAPPLE_PLACE"
 const PHASE_GAME_OVER := "GAME_OVER"
 const SUIT_GLYPH := {"h": "♥", "d": "♦", "c": "♣", "s": "♠"}
+## 4-color deck: red hearts, blue diamonds, green clubs, black spades.
+const SUIT_COLOR := {
+	"h": Color(0.78, 0.08, 0.1),
+	"d": Color(0.12, 0.35, 0.85),
+	"c": Color(0.08, 0.55, 0.28),
+	"s": Color(0.08, 0.08, 0.1),
+}
 
 var state: Dictionary = {}
 ## Tentative placements for the current turn: [{card, row}], in click order.
@@ -33,6 +40,10 @@ static func card_label(c: Dictionary) -> String:
 
 static func is_red(c: Dictionary) -> bool:
 	return c.get("suit", "") in ["h", "d"]
+
+
+static func suit_color(c: Dictionary) -> Color:
+	return SUIT_COLOR.get(c.get("suit", ""), SUIT_COLOR["s"])
 
 
 static func card_eq(a: Dictionary, b: Dictionary) -> bool:

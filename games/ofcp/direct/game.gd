@@ -18,8 +18,6 @@ const ROW_LABEL := {"top": "Top", "middle": "Middle", "bottom": "Bottom"}
 
 const FELT := Color(0.06, 0.28, 0.16)
 const CARD_BG := Color(0.97, 0.97, 0.94)
-const RED := Color(0.78, 0.08, 0.1)
-const BLACK := Color(0.08, 0.08, 0.1)
 
 var ws: Node
 var table := OfcpTable.new()
@@ -452,7 +450,7 @@ func _card_widget(c: Dictionary, sz: Vector2, style: String) -> Button:
 	b.custom_minimum_size = sz
 	b.focus_mode = Control.FOCUS_NONE
 	b.tooltip_text = OfcpTable.card_str(c)
-	var fg := RED if OfcpTable.is_red(c) else BLACK
+	var fg := OfcpTable.suit_color(c)
 	# rank label + drawn suit pip (fonts on Web lack the suit glyphs)
 	var center := CenterContainer.new()
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
