@@ -62,4 +62,53 @@ of the export.
 
 Tests: `tools/test_flappy_clone.gd` (picked up by `tools/smoke_headless.sh`).
 
-## Enhanced edition — planned (not started)
+## Enhanced edition (`enhanced/`) — playable
+
+A modern makeover of the same game. It keeps the Direct world units, gravity,
+scroll speed, bird size, floor and ceiling, so a flap still has the same arc
+and weight. Everything is drawn procedurally. There are no new assets.
+
+- `enhanced/flappy_enhanced_logic.gd` is the simulation. It has 5 states:
+  Title, Ready, Play, Dying and Over. Gates are a list of `{x, gap_y, scored}`
+  instead of Direct's infinite fixed-gap repeat. It emits events (flap, score,
+  hit, land, over, ready) that the view uses for effects.
+- `enhanced/game.gd` + `game.tscn` draw a fixed 1280×720 stage (107 px/unit).
+  The stage has a gradient sky with a sun, parallax clouds (×0.08), a city
+  silhouette with lit windows (×0.25, a nod to Direct's buildings), hills (×0.5),
+  and a striped grass ground (×1). Pipes have caps and shading. The bird tilts with
+  vy, squashes on each flap, flaps its wings and leaves feather puffs. It gets X eyes
+  when it crashes.
+- UX: Title (Play) → Ready (the bird bobs, "space / click / tap to flap") → Play. A
+  crash shakes the screen and flashes white. The world freezes while the bird drops,
+  bounces once and settles on the ground. The Game Over card then slides in with the
+  score, the best score and a "New best!" badge. Taps are ignored for 0.45 s, then
+  space / click / tap or "Play again" restarts straight into Ready. The best score is
+  saved to `user://flappy_clone_enhanced.cfg`.
+- The score is a big outlined number at the top. It pops (×1.45, gold) on each gate.
+- Esc opens the arcade PauseOverlay. Scale mode is `letterbox`, shared with Direct.
+  "Back to Arcade" sits top-left, as in Direct.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Flap | adds 7.5 to vy (two BirdControllers); first flap adds 2.5 | sets vy = 4.4 (apex ≈ 1 u), every flap the same |
+| Fall | unbounded | capped at −8 u/s |
+| Physics step | 50 Hz | 120 Hz |
+| Bird x | 0.16 (center) | −1.6 (more look-ahead) |
+| Gates | every 8 u, gap always at y = 0, half-gap 0.795 | every 5 u; the first gap is at y = 0, then random in [−1.15, 1.6], ±1.5 max per gate; half-gap 0.92 |
+| Hitbox | r 0.29 | r 0.24 (drawn r 0.29) |
+| Score | +10 on endZone exit | +1 once the bird clears the pipe; pop animation; best score saved |
+| Crash | bird hidden, Game Over at once | world freezes, bird falls and lands, Game Over card after 0.35 s on the ground |
+| Pipes on title | shown, scrolling | none until the run starts |
+| Restart | Play button → Intro | tap / space / Enter / ↑ / W or "Play again" after a 0.45 s lockout |
+| Art | `clonybird.png` atlas | procedural `_draw` and StyleBoxFlat |
+
+Kept from Direct: gravity 9.81, scroll 3 u/s, view 6.72 u tall, floor −2.55
+(deadly), ceiling 3.31 (solid but harmless), bird radius 0.29, and the world
+scrolling on the title screen.
+
+Tests: `tools/test_flappy_enhanced.gd`. It covers the registry entry, launch, letterbox
+aspect, space → Ready → Play, Esc pause and return, flap/gravity values, the ceiling,
+pipe spawn spacing and fairness, scoring, the pipe-hit → land → Game Over path,
+the restart lockout and the best score.
