@@ -123,7 +123,7 @@ const TITLES := [
 		"GameSketchLib course w02 tech demo (Processing, ~2011): drag squares, overlaps turn gray. Not a full game."],
 	["overlap_demo_live", "Overlap Demo (Live)", {"direct": "playable", "enhanced": "planned"},
 		"GameSketchLib course w02 live-coded OverlapDemo (Processing, ~2011). Tech demo, not a full game."],
-	["bullet_demo", "Bullet Demo", {"direct": "playable", "enhanced": "planned"},
+	["bullet_demo", "Bullet Demo", {"direct": "playable", "enhanced": "playable"},
 		"GameSketchLib course w02 tech demo (Processing, ~2011): click to shoot 3 bullets at 9 squares. Not a full game."],
 	["bullet_demo_live", "Bullet Demo (Live)", {"direct": "playable", "enhanced": "planned"},
 		"GameSketchLib course w02 live-coded BulletDemo on the mini game lib (Processing, ~2011). Tech demo."],
