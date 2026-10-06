@@ -1,7 +1,9 @@
 # ok_defender
 
-Status: **planned** (placeholder; no port yet).
+From [tangentstorm/ok-defender](https://github.com/tangentstorm/ok-defender), a Ludum Dare 49 (2021)
+Defender clone written in [oK/iKe](https://github.com/JohnEarnest/ok/tree/gh-pages/ike) (K) by Michal J Wallace.
 
-When porting, follow games/_template/: put the faithful port in `direct/game.tscn`
-and the modernized version in `enhanced/game.tscn`, then set status in
-`arcade/game_registry.gd`.
+- **Direct:** playable. A GDScript port of `game.k` with the original sprites; see [PORT.md](PORT.md).
+- **Enhanced:** planned.
+
+License: MIT © Michal J. Wallace. See `source/LICENSE`.
