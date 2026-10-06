@@ -59,6 +59,35 @@ If an existing checkout already has untracked versions of those 25 `.import` fil
 refuses to overwrite them: delete them first (`rm games/shep/direct/assets/{bg,fg}*.png.import
 games/shep/direct/assets/blank_overlay.png.import games/shep/direct/assets/screens/*.png.import`).
 
+## Preview lossy WebP (main @ 8dd2d8d)
+
+PR #97 left KEY gz at 11,991,514 (≈8.5 KB under the gate). The gallery previews are already
+pngquant'd palette PNGs, but Godot re-encodes them as lossless RGB in the `.ctex`, so painted or
+photographic shots grow (shep 142 KB, cupid 53 KB, spiders 45 KB). 13 previews now import with the
+same lossy WebP settings as the shep art (`compress/mode=1`, `lossy_quality=0.8`; the `[params]` block
+is byte-identical to shep's). Their `.png.import` files are committed and listed one by one in
+`.gitignore`.
+
+The other 36 previews stay lossless. They are flat UI or pixel art where lossy WebP comes out
+**bigger** (doth_direct 3.0 → 21.9 KB, mineswpr_b4 12.3 → 35.7 KB) and would blur text. Rule for a
+new preview: import it lossy only if its lossy `.ctex` is clearly smaller than the lossless one
+(compare the files in `.godot/imported/`).
+
+| | pck raw | pck gz | KEY gz |
+|---|---:|---:|---:|
+| Before (main @ 8dd2d8d, re-measured) | 6,440,432 | 5,879,370 | 11,992,598 |
+| + 13 previews lossy WebP | 6,187,280 | 5,624,628 | **11,737,857** |
+
+That frees about 255 KB of KEY gz (≈262 KB of headroom under the 12 MB gate). Re-imported thumbnails
+are 33–42 dB PSNR against their sources and look the same as the sources at card size.
+
+As with shep: if a checkout already has untracked versions of these 13 `.import` files, `git pull`
+refuses to overwrite them. Delete them first:
+
+```sh
+cd arcade/previews && rm -f cupid_direct.png.import flappy_clone_direct.png.import fnarb_ast_direct.png.import fnarb_binary_adder_direct.png.import fnarb_binary_space_direct.png.import invader_sketch_direct.png.import ld48_direct.png.import shep_direct.png.import sketchbots_direct.png.import spiders_v_aliens_direct.png.import spiders_v_aliens_enhanced.png.import tentraminos_direct.png.import tentraminos_enhanced.png.import
+```
+
 Variants measured on the way (engine `.wasm` only):
 
 | Variant | raw | gz | Notes |
