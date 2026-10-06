@@ -26,6 +26,7 @@ Fixed-stage notes:
 | id | stage | mode | notes |
 |----|-------|------|-------|
 | `canyon_run` | 240×320 portrait @2× (480×640) centred in 1280×720 | `letterbox` | Procedural Direct MVP (#36); Enhanced will follow the Claude Design mock |
+| `tetraminex` | 480×480 grid in 720² frame + side HUD | `letterbox` | Direct = NES chat; Enhanced = readable card + procedural tiles (same rooms) |
 
 ## Back button (`ArcadeHistory` autoload)
 Every edition gets Back support from the shell. No per-game code is needed: it hooks
