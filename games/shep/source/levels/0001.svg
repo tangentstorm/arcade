@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 13.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 14948)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="800px" height="575px" viewBox="0 0 800 575" enable-background="new 0 0 800 575" xml:space="preserve">
+<circle fill="#00FF00" stroke="#000000" stroke-width="2" cx="99.931" cy="113.679" r="25"/>
+<circle fill="#FF0000" stroke="#000000" cx="276.35" cy="499.85" r="16.8"/>
+<circle fill="#FF0000" stroke="#000000" cx="555.85" cy="373.35" r="16.8"/>
+<circle fill="#FF0000" stroke="#000000" cx="270.5" cy="209.699" r="16.8"/>
+<rect x="622.5" y="26" fill="#00FF00" stroke="#000000" width="70" height="70"/>
+<rect x="64" y="440.5" fill="#00FF00" stroke="#000000" width="70" height="70"/>
+<g>
+	<line fill="none" stroke="#D9AB00" x1="24.5" y1="26" x2="24.5" y2="551"/>
+	<line fill="none" stroke="#D9AB00" x1="774.5" y1="26" x2="774.5" y2="551"/>
+	<line fill="none" stroke="#D9AB00" x1="24.5" y1="551" x2="774.5" y2="551"/>
+	<line fill="none" stroke="#D9AB00" x1="24.5" y1="26" x2="774.5" y2="26"/>
+</g>
+<rect x="25.5" y="228" fill="#FFFFFF" stroke="#000000" width="143" height="123"/>
+<rect x="168.5" y="250" fill="#FFFFFF" stroke="#000000" width="18" height="83"/>
+<rect x="46.5" y="209" fill="#FFFFFF" stroke="#000000" width="100" height="19"/>
+<polygon fill="#FFFFFF" stroke="#000000" points="256.784,333.398 273.898,316.284 298.102,316.284 315.216,333.398 
+	315.216,374.602 298.102,391.716 273.898,391.716 256.784,374.602 "/>
+<polygon fill="#FFFFFF" stroke="#000000" points="435.954,191.729 486.657,179.357 531.259,206.462 543.633,257.168 
+	497.488,333.098 446.782,345.472 402.18,318.365 389.81,267.659 "/>
+<polygon fill="#FFFFFF" stroke="#000000" points="493.64,434.062 510.754,451.176 510.754,475.379 493.64,492.493 452.437,492.493 
+	435.322,475.379 435.322,451.176 452.437,434.062 "/>
+<polygon fill="#FFFFFF" stroke="#000000" points="686.51,258.509 669.613,275.838 645.411,276.143 628.082,259.245 627.563,218.045 
+	644.461,200.716 668.663,200.412 685.991,217.309 "/>
+<polygon fill="#FFFFFF" stroke="#000000" points="661.45,444.182 637.247,444.182 620.133,427.067 620.132,402.863 649.267,373.729 
+	673.472,373.729 690.586,390.843 690.585,415.047 "/>
+<polygon fill="#FFFFFF" stroke="#000000" points="172.654,67.935 319.795,67.935 342.865,27.975 149.584,27.975 "/>
+<polygon fill="#FFFFFF" stroke="#000000" points="265.795,107.975 288.865,68.016 196.584,68.016 219.654,107.975 "/>
+<rect x="47.5" y="351" fill="#FFFFFF" stroke="#000000" width="100" height="19"/>
+</svg>

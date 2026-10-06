@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 13.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 14948)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="800px" height="575px" viewBox="0 0 800 575" enable-background="new 0 0 800 575" xml:space="preserve">
+<g>
+	<line fill="none" stroke="#D9AB00" x1="24.5" y1="26" x2="24.5" y2="551"/>
+	<line fill="none" stroke="#D9AB00" x1="774.5" y1="26" x2="774.5" y2="551"/>
+	<line fill="none" stroke="#D9AB00" x1="24.5" y1="551" x2="774.5" y2="551"/>
+	<line fill="none" stroke="#D9AB00" x1="24.5" y1="26" x2="774.5" y2="26"/>
+</g>
+<rect x="545.34" y="136.5" fill="#00FF00" stroke="#000000" width="70" height="70"/>
+<circle fill="#00FF00" stroke="#000000" stroke-width="2" cx="293.66" cy="336.5" r="25"/>
+<circle fill="#FF0000" stroke="#000000" cx="451.5" cy="241.5" r="16.8"/>
+<polygon fill="#FF00FF" stroke="#000000" points="274.092,237.764 260.259,213.808 274.087,189.855 301.753,189.855 
+	315.581,213.812 301.753,237.764 "/>
+<polygon fill="#FFFFFF" stroke="#000000" points="369.206,121.72 324.911,180.439 251.911,171.439 223.206,103.72 267.5,45 
+	340.5,54 "/>
+<rect x="411.5" y="307.5" fill="#00FFFF" stroke="#000000" width="61" height="61"/>
+<rect x="658.5" y="264" fill="#009999" stroke="#000000" width="20" height="145"/>
+<circle fill="#00FFFF" stroke="#000000" cx="369.9" cy="332.6" r="16.8"/>
+<polyline fill="#00FFFF" stroke="#000000" points="625,410.5 741,410.5 758,489.5 687,543.5 628,527.5 600,467.5 "/>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="350" fontWeight="bold">
+	<mx:TitleWindow x="0" y="0" width="500" height="350" layout="absolute" title="Help" cornerRadius="20" showCloseButton="false">
+		<mx:Text x="10" y="10" text="You are SHEP, short for ShepherdBot model 76126 (another fine Intari-Robotics product!),  responsible for repairing and restoring power to the Asteroid Mining vessel, OM-NOM-NOM. &#xa;&#xa;This mining vessel and asteroid are currently heading towards planet Earth - if you do not restore control it will impact at tremendous speed, likely destroying all life. No pressure. &#xa;&#xa;Why are you still reading? GO!&#xa;&#xa;How to Play:&#xa;&#xa;   * Move the mouse to steer. &#xa;   * Click to jet forward. &#xa;   * Push color coded fuses into the matching socket.&#xa;&#xa;Note: Fuses can open doors and airlocks, activate lights, and may have other uses. Take your time, no hurry, just an entire planet waiting." width="460" height="260" fontWeight="normal"/>
+		<mx:Button x="212" y="278" label="Close" click="visible=false"/>
+	</mx:TitleWindow>
+	
+</mx:Canvas>

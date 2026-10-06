@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"  xmlns:base="*"
+	layout="absolute" width="800" height="575" 
+	currentState="Title" currentStateChange="onStateChange(event)"
+	applicationComplete="init_shep()" 
+	backgroundGradientAlphas="[1.0, 1.0]" backgroundGradientColors="[#000000, #000000]">
+    <mx:Style source="flex.css" />
+	<mx:states>
+		<mx:State name="Game">
+			<mx:SetProperty target="{gameCanvas}" name="visible" value="true"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button click="pauseGame()" id="button1" width="71" bottom="1" right="1" height="24" fillAlphas="[0.0, 0.0, 0.0, 0.0]" themeColor="#FF0018" buttonMode="true"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="Title">
+			<mx:AddChild position="lastChild">
+				<mx:Image x="0" y="0" source="@Embed(&quot;../assets/screens/screen-bgs.png&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Image x="0" y="0" source="@Embed(&quot;../assets/screens/title.png&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button y="335" label="Start Game"  click="currentState=&quot;LevelSelect&quot;" enabled="true" width="224" fillAlphas="[0.9, 0.9, 0.9, 0.9]" horizontalCenter="-11"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<base:Help x="150" y="108" id="helpBox" visible="false">
+				</base:Help>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{helpBox}" position="before">
+				<mx:Button x="277" y="365" label="How to Play" id="button2" width="224" fillAlphas="[0.9, 0.9, 0.9, 0.9]" click="helpFrom(&quot;Title&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{helpBox}" position="before">
+				<mx:Button x="277" y="395" label="Credits" id="button8" width="224" fillAlphas="[0.9, 0.9, 0.9, 0.9]" click="currentState=&quot;Credits&quot;"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="Pause" basedOn="Game">
+			<mx:AddChild position="lastChild">
+				<mx:Image x="0" y="0" source="@Embed(&quot;../assets/screens/paused.png&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="288" y="360" label="Resume Game" click="resumeGame()" id="button7" fillAlphas="[0.9, 0.9, 0.9, 0.9]" width="224"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{button1}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button label="Restart Level" right="288" top="405" click="restartLevel()" id="button4" width="224" fillAlphas="[0.9, 0.9, 0.9, 0.9]"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button label="Exit Level" right="288" top="451" click="gameCanvas.game.done = true; currentState=&quot;LevelSelect&quot;" id="button3" width="224" fillAlphas="[0.9, 0.9, 0.9, 0.9]"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{button7}" position="before">
+				<mx:Button x="288" y="498" label="How to Play" id="button0" width="224" fillAlphas="[0.9, 0.9, 0.9, 0.9]" click="helpFrom(&quot;Pause&quot;)"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="LevelSelect">
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:Image x="0" y="0" source="@Embed(&quot;../assets/screens/level-select.png&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:Button x="542" y="532" click="currentState=&quot;Title&quot;" buttonMode="true" width="248" styleName="levelButton" label="Return to Title" height="33"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:VBox height="364" top="75" left="15">
+				  <mx:Button id="level1" label="Level 1" click="startLevel(1)" mouseOver="showLevelInfo(1)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				  <mx:Button id="level2" label="Level 2" click="startLevel(2)" mouseOver="showLevelInfo(2)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				  <mx:Button id="level3" label="Level 3" click="startLevel(3)" mouseOver="showLevelInfo(3)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				  <mx:Button id="level4" label="Level 4" click="startLevel(4)" mouseOver="showLevelInfo(4)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				  <mx:Button id="level5" label="Level 5" click="startLevel(5)" mouseOver="showLevelInfo(5)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				  <mx:Button id="level6" label="Level 6" click="startLevel(6)" mouseOver="showLevelInfo(6)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				  <mx:Button id="level7" label="Level 7" click="startLevel(7)" mouseOver="showLevelInfo(7)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				  <mx:Button id="level8" label="Level 8" click="startLevel(8)" mouseOver="showLevelInfo(8)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				  <mx:Button id="level9" label="Level 9" click="startLevel(9)" mouseOver="showLevelInfo(9)" buttonMode="true" labelPlacement="left" styleName="levelButton" width="165" height="35" />
+				</mx:VBox>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:Canvas id="previewCanvas" x="354" y="113" width="275" height="191">
+				</mx:Canvas>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:Label x="207" y="10" text="Intari Asteroid Mining Ship" styleName="levelButton"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:Label x="313" y="36" text="&quot;Om-Nom-Nom&quot;" styleName="levelButton"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:VBox x="353" y="339" height="174" width="416">
+					<mx:Label styleName="darkText" id="levelName"/>
+					<mx:Label styleName="darkText" fontSize="12" width="100%" height="53" id="levelText"/>
+					<mx:Spacer width="0" height="10"/>
+					<mx:Label text="" id="bestTime" styleName="darkText"/>
+				</mx:VBox>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:Image x="10" y="489" source="@Embed(&quot;../assets/trophy.png&quot;)" id="trophyImage" visible="false"/>
+			</mx:AddChild>
+
+		</mx:State>
+		<mx:State name="GameOver">
+			<mx:AddChild position="lastChild">
+				<mx:Button x="331.5" y="411" label="Replay Level" click="restartLevel()" width="137" id="button5" fillAlphas="[0.9, 0.9, 0.9, 0.9]"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="331.5" y="450" label="Back to Map" click="currentState=&quot;LevelSelect&quot;" id="button6" width="137" fillAlphas="[0.9, 0.9, 0.9, 0.9]"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="Victory" basedOn="GameOver">
+			<mx:AddChild relativeTo="{button5}" position="before">
+				<mx:Image x="0" y="0" source="@Embed(&quot;../assets/screens/screen-bgs.png&quot;)"/>
+			</mx:AddChild>
+		    <mx:AddChild relativeTo="{button5}" position="before">
+				<mx:Image x="0" y="0" source="@Embed(&quot;../assets/screens/victory.png&quot;)"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="Defeat" basedOn="GameOver">
+			<mx:AddChild relativeTo="{button5}" position="before">
+				<mx:Image x="0" y="0" source="@Embed(&quot;../assets/screens/gameover.png&quot;)"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{button5}" name="label" value="Try Again"/>
+			<mx:SetProperty target="{button6}" name="label" value="Back to Map"/>
+		</mx:State>
+		<mx:State name="Help">
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:Image x="0" y="0" width="800" height="575" source="@Embed(&quot;../assets/screens/help.png&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{starCanvas}" position="lastChild">
+				<mx:Button x="708" y="538" width="82" height="27" alpha="0.0" fillAlphas="[0.0, 0.0, 0.0, 0.0]" buttonMode="true" click="back()"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="Credits">
+			<mx:AddChild position="lastChild">
+				<mx:Image x="0" y="0" width="800" height="575" source="@Embed(&quot;../assets/screens/shep-credits.png&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="736" y="539" label="Back" fillAlphas="[0.9, 0.9, 0.9, 0.9]" click="currentState=&quot;Title&quot;"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="233" y="539" width="333" click="goToURL(&quot;http://www.robocognito.com/&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="23" y="182" width="178" height="37" click="goToURL(&quot;http://sculptedpixel.org&quot;)"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="401" y="182" width="178" height="37" click="goToURL(&quot;http://withoutane.com/&quot;)"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="SiteLock">
+			<mx:AddChild position="lastChild">
+				<mx:Button x="213.5" y="222" width="373" click="goToURL(&quot;http://www.robocognito.com/&quot;)" fillAlphas="[1.0, 1.0, 1.0, 1.0]" fillColors="[#FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF]" color="#1998B3">
+					<mx:label>http://www.robocognito.com/</mx:label>
+				</mx:Button>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="333" y="126" text="Please Enjoy SHEP at..." fontWeight="bold" color="#FFFFFF"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="392.5" y="289" text=":)" fontSize="20" fontWeight="bold" color="#FFFFFF"/>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+	<mx:Canvas id="starCanvas" visible="true"/>
+	<base:GameCanvas id="gameCanvas" visible="false"/>			
+	
+	
+<mx:Script>
+<![CDATA[
+
+  import mx.events.StateChangeEvent;
+  import flash.net.navigateToURL;	
+	
+  [Bindable]
+  public var backToWhere:String;
+    
+  private function back():void {
+  	currentState = backToWhere;
+  }
+  
+  private function helpFrom(where:String):void {
+  	backToWhere = where;
+  	currentState = "Help";
+  }
+  
+  private function pauseGame():void {
+    currentState="Pause";
+    gameCanvas.game.pause();
+  }
+  
+  private function resumeGame():void {
+    currentState="Game";
+    gameCanvas.game.resume();
+  }
+  
+  private function restartLevel():void {
+    currentState="Game";
+    gameCanvas.game.restart();
+  }
+
+  private function startLevel(ord:int):void {
+    currentState="Game";
+    gameCanvas.game.startLevel(ordLevel(ord));
+  }
+  
+  private function checkSite():Boolean {
+	return true;  // flash is dead. let's just get this running! -mjw 2020
+  	if (this.loaderInfo == null) { return true; } 
+	var checkDomain:String = this.loaderInfo.url.toString();
+	if (  (checkDomain.indexOf("http://www.robocognito.com") == 0)
+                ||(checkDomain.indexOf("http://robocognito.com") == 0)
+		||((checkDomain.indexOf("file://") == 0) && (checkDomain.indexOf("trunk") >=0))
+		||(checkDomain.indexOf("http://www.kongregate.com") == 0) 
+		||(checkDomain.indexOf("http://chat.kongregate.com") == 0) 
+		||(checkDomain.indexOf("http://kongregate.com") == 0) 
+		||(checkDomain.indexOf("http://flashgamelicense.com") == 0) 
+		||(checkDomain.indexOf("http://www.flashgamelicense.com") == 0))
+	{
+		return true;
+	} else {
+		currentState = "SiteLock";
+		return false;
+	}
+  }
+  
+  private function unlockLevels():void {
+    for (var i:int=0; i++<9;) {
+      var b:Button = this["level" + i];
+      var s:Object = gameCanvas.game.raw_score(ordLevel(i-1));
+      if (i == 1) {
+  	    b.enabled = true;
+  	  } else if (s == null) {
+  	  	b.enabled = false;
+  	  } else {
+  	    b.enabled = true;
+  	  }
+  	}
+  	var s9:Object = gameCanvas.game.raw_score(9);
+  	if (s9 == null) {
+  		trophyImage.visible = false;
+  	} else {
+  		trophyImage.visible = true;
+  	}
+  }
+  
+  
+  private function showLevelInfo(ord:int):void {
+  	var level:int = ordLevel(ord);
+  	var raw:Object = gameCanvas.game.raw_score(level);
+  	var c:mx.core.IChildList = previewCanvas.rawChildren;
+    while (c.numChildren > 0) {
+      c.removeChildAt(0);
+    }
+
+	if (this["level" + ord].enabled) { 
+    	var pre:MovieClip = gameCanvas.game.drawPreview(level);
+    	pre.alpha = 0.75;
+  		c.addChild(pre);
+		levelName.text = getLevelName(ord);
+		levelText.text = getLevelText(ord);
+	  	if (raw == null) {
+	  		bestTime.text = "No Best Time Yet!";
+	  	} else {
+	  		var best:Number = 120 - (raw as Number);
+	  		bestTime.text = "Best Time: " + best + " seconds"
+	  	}
+	
+	} else {
+		levelText.text = "";
+		levelName.text = "";
+		bestTime.text = "";
+	}
+  }
+  
+  private function goToURL(url:String):void {
+  	navigateToURL(new URLRequest(url));				
+  }
+  
+  private function init_shep():void {
+	var onWin:Function = function(timeCount:Number):void {
+  		currentState="Victory";
+	};
+	var onLose:Function = function():void {
+  		currentState="Defeat";
+	}
+	if (checkSite()) {
+		gameCanvas.init(onWin, onLose, starCanvas);
+	}
+	CONFIG::kong {
+	   initKong();
+	}
+  }
+    
+  private function onStateChange(event:StateChangeEvent):void {
+  	if (event.newState == "LevelSelect") {
+  		unlockLevels();
+  		CONFIG::kong {
+  			kongSubmitStats();
+  		}
+  	}
+  }
+  
+  private function ordLevel(ord:int): int {
+	switch(ord) {
+	case 1: return 0; // 0000.svg
+	case 2: return 1; // 0001.svg, etc 
+	case 3: return 3;
+	case 4: return 9;
+	case 5: return 4;
+	case 6: return 6;
+	case 7: return 7;
+	case 8: return 5;
+	case 9: return 2;
+	default: return 0;
+	}
+  }
+  
+  
+  private function getLevelName(ord:int):String {
+	switch(ord) {
+	case 1: return "AIRLOCK CONTROL";
+	case 2: return "HVAC SYSTEMS";
+	case 3: return "CARGO HOLD";
+	case 4: return "BREAK ROOM";
+	case 5: return "MAIN TORQUE CONTROL";
+	case 6: return "DRILL IDLE TORQUE CONTROL";
+	case 7: return "AUTOMATED CONTROL SYSTEM";
+	case 8: return "CHECKPOINT";
+	case 9: return "WASTE BYPRODUCT STORAGE";
+	default:return "";
+	}
+  }
+
+  private function getLevelText(ord:int):String {
+	switch(ord) {
+	case 1: return "In order to avoid explosive decompression throughout the\n"
+	             + "ship, please restore power & control here first.";
+	case 2: return "This facility handles life support and stores liquid O2\n"
+	             + "DO NOT TAUNT LIQUID OXYGEN STORAGE FACILITY.";
+	case 3: return "These valuable mineral containers are ready for delivery.\n"
+	             + "Please handle with care, as they are roughly fourteen \n"
+	             + "thousand times more valuable than you.";
+	case 4: return "As an unmanned vessel, the OM-NOM-NOM stores fuses here.";
+	case 5: return "This controls the torque to the asteroid drill units.";
+	case 6: return "Each rotating system connects to a drill sub-assembly to\n"
+	             + "manage torque-draw-latency, AKA the drillsplosion effect.";
+	case 7: return "The brains of the mining process, these systems are quite\n"
+	             + "valuable - try not to destroy anything.";
+	case 8: return "Pass through this chamber to reach the forward bulkheads.";
+	case 9: return "The mining process produces many materials of limited\n"
+	             + "value. Some of these containers store radioactive waste.\n"
+	             + "Others may be mobile for shielding.";
+	default: return "";
+	}
+  }
+  
+				
+  //== kongregate API stuff  ==================================================  
+  CONFIG::kong {
+
+    import flash.display.LoaderInfo;
+    import flash.display.Loader;
+    import flash.net.URLRequest;
+    import flash.events.Event;
+    import flash.system.Security;
+  	
+  	// Kongregate API reference
+	public var kongregate:*;
+				
+	public function initKong():void {
+				
+		// Pull the API path from the FlashVars
+		var paramObj:Object = LoaderInfo(root.loaderInfo).parameters;
+
+		// The API path. The "shadow" API will load if testing locally. 
+		var apiPath:String = paramObj.kongregate_api_path || 
+	  		"http://www.kongregate.com/flash/API_AS3_Local.swf";
+
+		// Allow the API access to this SWF
+		Security.allowDomain(apiPath);
+
+		// Load the API
+		var request:URLRequest = new URLRequest(apiPath);
+		var loader:Loader = new Loader();
+		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, kongComplete);
+		loader.load(request);
+		this.rawChildren.addChild(loader);
+	}
+
+	// This function is called when loading is complete
+	public function kongComplete(event:Event):void
+	{
+    	// Save Kongregate API reference
+    	kongregate = event.target.content;
+	
+	    // Connect to the back-end
+	    kongregate.services.connect();
+	}
+
+	public function kongSubmitStats():void
+	{
+		var raw:Object = null;
+		for (var i:int=1; i<=9; i++) {
+			raw = gameCanvas.game.raw_score(ordLevel(i));
+			if (raw != null) {
+				var best:Number = 120 - (raw as Number);
+				trace("submitting: Level "+ i + " = " + best); 
+				kongregate.stats.submit("Level " + i, best);
+			}
+		}
+		if (raw != null)
+		{
+			trace("submitting: game complete = 1");
+			kongregate.stats.submit("game complete", 1);
+		}
+	}
+	
+  }
+  //== end kongregate API  ==================================================  
+  
+  
+]]>
+</mx:Script>
+</mx:Application>
