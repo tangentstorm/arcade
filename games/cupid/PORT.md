@@ -90,4 +90,68 @@ reference. It has a `.gdignore`, so Godot doesn't import it.
 
 Tests: `tools/test_cupid.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same game. **No rules are duplicated:** `enhanced/game.gd`
+preloads `direct/cupid_logic.gd` and the Direct sprites / rain loop, and steps the Direct
+world at the same fixed 90 Hz with the same inputs (stage mouse, click, Space, N). Cupid's
+flight, the camera, arrows, walkers, symbols, matching, the storm and the win are all Direct;
+Enhanced only reads that state and draws it, so a rules fix in Direct lands in both editions.
+Juice uses its own RNG and never touches `world.rng`. No Alchementrix IP (the original
+`title.png`, which carries the old "GAME 2" codename, is not used).
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: shaded city, overlays, HUD, cards, juice, SFX |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). The 656×350 Direct stage draws at 1.75×
+  (1148×612) in a framed, clipped field, with a title bar above and a stats strip below.
+- **Storm → sunset:** the five gray parallax layers are drawn through a duotone shader. With
+  the storm at full strength the city is a cold blue-gray; every cloud the Direct storm loses
+  (one per couple) eases the palette toward a violet/peach sunset, thins the clouds, raises a
+  sun with additive glow over the far skyline and softens the rain. Occasional lightning
+  flickers while the sky is still mostly stormy. The title screen pans slowly across the city.
+- **Walkers:** each of the ten people gets its own soft tint so they read apart at a glance;
+  a hit walker brightens and gets a pulsing ring at its feet (pink = first pick, gold = match,
+  slate = no match).
+- **Thought bubbles:** a crisp white card with a coloured border and tail replaces the
+  translucent bubble, with an elastic pop-in. The symbol glyph is Direct's `symbols.png`.
+- **Drop guide:** a dashed line and landing mark under the bow show where the arrow will
+  fall (Direct drops it straight down and ignores where you click). It dims while Direct
+  won't fire (arrow in flight or match icon playing). The heart crosshair is centred on the
+  mouse and only replaces the OS cursor over the field.
+- **Juice:** arrow trail, bow sparkle, street splash on a miss, "1 of 2" / "MATCH!" /
+  "no match" floaters, heart bursts, a dissolving ghost when a couple leaves, a light shake,
+  heart confetti on the win. Direct's heart / breaking-heart icons play at 2× and fade out
+  (Direct leaves the last frame up; see quirks above).
+- **HUD:** couples as five hearts (top right, pop when filled), a "Find the other ⟨symbol⟩"
+  pill while a first pick is waiting, and a bottom strip with time, arrows fired, a street
+  radar (walkers, picks, cupid, camera window over the 1800 px street), sky % clear and best
+  clear time (`user://cupid_enhanced.cfg`).
+- **Screens:** restyled title card (animated cupid, how to play) and win card (time, arrows,
+  misses, best). Click or Space starts, Space plays again (both via Direct). Esc opens the
+  arcade PauseOverlay; "Back to Arcade" is top-left and never takes keyboard focus.
+- **Audio:** Direct's rain loop at Direct's per-level gain, plus small synthesized blips
+  (shoot, pop, miss, match chime, no-match, couple, win).
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rules / sim | `cupid_logic.gd` | same script (preload), no copy |
+| Stage | 656×350 scaled to fit | 1280×720 chrome around a 1.75× field |
+| Look | gray city, translucent bubbles, 8 px text | duotone storm→sunset city, tinted walkers, crisp bubbles, HUD |
+| Aim | heart cursor top-left at the mouse | centred heart cursor + drop guide under the bow |
+| Match icons | stay on screen forever | 2×, fade after playing |
+| Esc / Back | PauseOverlay | same + explicit Back to Arcade (FOCUS_NONE) |
+
+### Deferred
+- The `CupidSong00..04` loops in `soundloops.swf` are still not extracted (rain loop only).
+- No new sprites; no dedicated Enhanced gallery preview in this PR (card uses the Direct shot).
+
+Tests: `tools/test_cupid_enhanced.gd` (run by `tools/smoke_headless.sh`): registry entry,
+scene launch + letterbox, Direct logic ownership, a 1500-tick scripted session (sweeps, clicks,
+a match, a mismatch, N) compared tick-by-tick against a bare Direct twin including `rng.state`,
+Space start, arrow / miss counting, first-hit / match / mismatch / dissolve juice, sky warming,
+Esc → PauseOverlay, full win → win card + best, Space again, and Esc → arcade.
