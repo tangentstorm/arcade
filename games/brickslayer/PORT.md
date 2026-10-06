@@ -22,7 +22,7 @@
 
 ### Deliberate deviations
 - **Tick rate:** 10 ms fixed. The original `setInterval(…, 1)` was clamped to about 10 ms by 2007 browsers.
-- **Missing media:** see ASSETS.md. Paddle and ball are gray boxes, `dimgray.png` is a 50% gray fill, and the game-over and high-score titles show their alt text. Sounds are silent unless the mp3s are vendored later.
+- **Missing media:** see ASSETS.md. Paddle is a gray box; ball and spare-life icons are gray circles; `dimgray.png` is a 50% gray fill, and the game-over and high-score titles show their alt text. Sounds are silent unless the mp3s are vendored later.
 - **Name entry:** Enter in the name field also submits (the original had only the "go" button).
 - **Sound mapping:** the `soundManager.play('hit'/'break'/'serve')` call sites weren't in the listings. `serve` plays on serve, `hit` on a shade change, and `break` when a brick is destroyed. Only `bounce` and `fall` are shown in the code.
 - **Keys:** Esc opens the arcade PauseOverlay. T opens the code trail. R restarts when playing lessons 00–07, which have no restart path of their own.
