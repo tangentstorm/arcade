@@ -55,7 +55,7 @@ const SCALE_MODE := {
 	"godotlab_tilemap": "letterbox",
 	"silly_game": "expand",           # camera-followed open map
 	"cupid": "letterbox",            # 656×350 Flash stage
-	"mineswpr": "letterbox",         # 80×25 terminal grid
+	"mineswpr": "letterbox",         # 80×25 terminal grid; Enhanced 1280×720 stage
 	"brickslayer": "letterbox",      # 400×300 console @2x
 	"giraffe": "letterbox",          # 128×128 Pico-8 stage
 	"ofcp": "expand",                # live client UI reflows
@@ -157,8 +157,8 @@ const TITLES := [
 		"fnarbmlyx demos/binary_space (Godot 4.1, 2023): 5-input truth-table space. Visual sketch."],
 	["cupid", "Cupid", {"direct": "playable", "enhanced": "planned"},
 		"Matchmaking Cupid (2010), AS3/Flixel v1 → GDScript."],
-	["mineswpr", "Mineswpr", {"direct": "playable", "enhanced": "planned"},
-		"Retro Forth 11 terminal Minesweeper (2013) → GDScript."],
+	["mineswpr", "Mineswpr", {"direct": "playable", "enhanced": "playable"},
+		"Retro Forth 11 terminal Minesweeper (2013) → GDScript; Enhanced = modern tiles, flags + win/lose juice over the same rules."],
 	["brickslayer", "Brickslayer", {"direct": "playable", "enhanced": "playable"},
 		"javascriptgamer.com Breakout + lesson trail (2007), JS → GDScript."],
 	["giraffe", "Giraffe", {"direct": "playable", "enhanced": "planned"},

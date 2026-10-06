@@ -80,4 +80,66 @@ has no terminal device yet. See inventory §2.2.
 
 Tests: `tools/test_mineswpr.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A modern Minesweeper presentation of the same game. **No rules are duplicated:**
+`enhanced/game.gd` preloads `direct/mineswpr_logic.gd` and `direct/mswp_shell.gd`
+(plus the Direct Noto Sans Mono asset). Every move, whether it's a mouse click, the
+keyboard cursor, or a typed line at the `ok` prompt, runs through the Direct `mswp'`
+shell as the same `x y ?` / `x y +` / `x y -` command that Direct's own click handler
+runs. That way the board changes exactly as it does in Direct. Enhanced compares the
+grid before and after each command and uses the difference to drive the animations.
+A rules fix in Direct therefore lands in both editions.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox stage: board view, HUD, `ok` console, result card, juice |
+
+### What changed (presentation only)
+- **Stage:** a fixed 1280×720 stage (`letterbox`, like Direct). It holds a 16×16 board of 38 px
+  tiles with hex rulers (the numbers you'd type), a left panel (mines left, timer, best
+  time, progress bar, New Game), and a right panel (controls, classic command cheat sheet,
+  and a live `ok` prompt with the last command, `word ?` errors, and the `.s` stack).
+- **Clearer cells:** beveled covered tiles, a dark checkered open floor, classic hint
+  colors (1 blue, 2 green, 3 red, …), hover and press states, and a gold keyboard cursor.
+  Direct's one-draw magenta active-cell highlight becomes a fading ping ring.
+- **Flags:** pole-and-pennant flags that pop in with a back-out ease and a small spark burst.
+  An unflag gives a puff. A flag that a flood uncovers stays visible, dimmed, the way Direct
+  keeps drawing `!` there.
+- **Reveal:** opened cells shrink away in a ripple ordered by distance from the prodded
+  cell. Big floods show a `+N` floater.
+- **Lose:** an explosion burst, screen shake, and a red flash. The hit mine sits on red, and the
+  other mines cascade in by distance. Wrong flags get an X. A **BOOM!** card offers Play Again.
+- **Win:** Enhanced checks for a win; the original has no win check, and Direct only shows
+  "ALL CLEAR" in its side panel. Once every safe cell is uncovered, the timer stops, mines
+  turn into green flags, confetti falls, the best time is saved to
+  `user://mineswpr_enhanced.cfg`, and an **ALL CLEAR!** card appears.
+- **Controls:** left click reveals and right click flags or unflags (the same as Direct). Touch
+  reveals. Arrows move the cursor, Enter on an empty prompt reveals at the cursor
+  (Shift+Enter or Tab flags), and F2 starts a new game. Typed commands work as in Direct, with
+  hex numbers, the persistent stack, `r`, and `q`. Esc opens the arcade PauseOverlay, which
+  also freezes the timer. Back to Arcade is top-left and never takes focus.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rules | `mineswpr_logic.gd` + `mswp_shell.gd` | same scripts (preload), no copy. `tools/test_mineswpr_enhanced.gd` checks the grid against Direct after every move |
+| Flood | cardinal-only, ignores flags | same (the Enhanced view just animates it) |
+| First click / chording | none | none (unchanged on purpose) |
+| Win | no check ("ALL CLEAR" note in the side panel) | ALL CLEAR card, timer stop, best time (presentation only, so logic is untouched) |
+| After GAME OVER | commands still run | typed commands still run (shell untouched). Board clicks and cursor keys pause behind the BOOM card until a new game |
+| Look | 80×25 `vt'` terminal | tiles, flags, mines, HUD, juice on a 1280×720 stage |
+| Timer / mine counter | not shown (flag count in the side panel) | mines left = 24 − flags, timer from the first reveal |
+
+### Deferred
+- No sound effects or music (Direct has none either).
+- No dedicated `_enhanced` gallery preview in this PR, so the card uses the Direct shot.
+- No difficulty sizes: the board stays 16×16 with 24 mines, as in the original.
+
+Tests: `tools/test_mineswpr_enhanced.gd` (run by `tools/smoke_headless.sh`). It covers the
+Direct script ownership, grid/flag parity with Direct over a scripted click session, typed
+commands with the persistent stack, and loss parity with the BOOM card, juice, and frozen board.
+It also covers the registry entry, launch and letterbox, Back to Arcade with FOCUS_NONE, keyboard
+cursor/Tab/Enter, the typed flood with ripple, win with the ALL CLEAR card, best time, and
+confetti, New Game resetting the view, and Esc → PauseOverlay (timer frozen) → Back to Arcade.
