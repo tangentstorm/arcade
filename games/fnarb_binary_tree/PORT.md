@@ -27,4 +27,35 @@ Files: `BinaryTree.gd`/`.tscn` → `binary_tree.gd`/`.tscn`. Apart from `res://`
 
 Tests: `tools/test_fnarb_demos.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same sketch. **Nothing is redrawn or copied:** `enhanced/game.gd`
+preloads Direct `binary_tree.tscn` and instances it (shared `binary_tree.gd`, verbatim `_draw()`)
+in its native 1920×1080 `SubViewport`, so `size`, anchors and the slight off-centre quirk are
+the Direct ones. Enhanced only frames that viewport and draws overlays on top of it.
+
+### Visuals / UI
+- 1280×720 letterbox stage; the Direct viewport is framed around the tree (≈1.0×) inside a
+  1200×420 clipped field, between a title bar and a bottom HUD row
+- Deep-blue gradient + drifting motes. The SubViewport is transparent, so this chrome replaces
+  Direct's default 0.3-gray clear colour behind the tree; faint per-level guides tagged `d0`…`d5`
+  in each level's Direct colour
+- **Grow-in:** on Start / **R** the field clip grows from the root downward, with a small pop
+  at every node as its row appears
+- **Traversal wave:** once grown, a gold cursor walks the tree (breadth-first, pre-, in- or
+  post-order; **Tab** / **T** cycles), leaving fading halos; a trail of the last visited heap
+  indices and a "done" flash when the walk completes, then it loops
+- **Hover inspector:** mouse over a disk to draw its gold path back to the root and show its
+  heap index, depth, L/R path, subtree size and colour swatch
+- Title card (Start / Enter / Space, depth colour legend from Direct's palette, Back to
+  Arcade). HUD Back to Arcade. All buttons `FOCUS_NONE`. **Esc** → PauseOverlay
+
+### Behaviour notes
+- Overlay positions come from `node_points()`, which reads the Direct node's own
+  `node_radius`, `gap`, `DEPTH` and `size` (heap-indexed: `2i` = screen-left child). The test
+  compares them with the Direct layout of a bare Direct twin.
+- Traversals, hover and the grow-in are presentation only; Direct still has no input.
+- Title `scale_mode` stays `letterbox`. No Alchementrix IP. No `_enhanced` preview yet
+  (gallery can use the Direct shot).
+
+Tests: `tools/test_fnarb_binary_tree_enhanced.gd` (run by `tools/smoke_headless.sh`).
