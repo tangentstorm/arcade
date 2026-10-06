@@ -203,6 +203,22 @@ func _warmup(id: String, inst: Node) -> void:
 			await _tap_key(KEY_ENTER)
 			await _hold_key(KEY_RIGHT, 25)
 			await _tap_key(KEY_SPACE)
+		"killem_all":
+			# Thrust a little, aim up-right and spray bullets.
+			Input.warp_mouse(Vector2(1000, 150))  # the Xvfb pointer wins over synthetic motion
+			await _move_mouse(Vector2(1000, 150))
+			await _hold_key(KEY_D, 8)
+			var fire := InputEventMouseButton.new()
+			fire.button_index = MOUSE_BUTTON_LEFT
+			fire.position = Vector2(1000, 150)
+			fire.global_position = fire.position
+			fire.pressed = true
+			Input.parse_input_event(fire)
+			# Keep firing through the shot; release a few seconds later.
+			create_timer(3.0).timeout.connect(func() -> void:
+				var up := fire.duplicate() as InputEventMouseButton
+				up.pressed = false
+				Input.parse_input_event(up))
 		"tetraminex":
 			await _hold_key(KEY_RIGHT, 15)
 			await _hold_key(KEY_DOWN, 10)
