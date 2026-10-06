@@ -524,7 +524,7 @@ func _build_ui() -> void:
 	title.position = Vector2(16, 14)
 	title.size = Vector2(248, 36)
 	left.add_child(title)
-	var sub := _label("Enhanced · GameSketchLib w02", 13, MUTED)
+	var sub := _label("Enhanced | GameSketchLib w02", 13, MUTED)
 	sub.position = Vector2(16, 48)
 	sub.size = Vector2(248, 22)
 	left.add_child(sub)
@@ -547,7 +547,7 @@ func _build_ui() -> void:
 	_state_label.position = Vector2(16, 16)
 	_state_label.size = Vector2(248, 30)
 	right.add_child(_state_label)
-	_rack_label = _label("RACK  ■ ■ ■", 18, GOLD)
+	_rack_label = _label("RACK  # # #", 18, GOLD)
 	_rack_label.position = Vector2(16, 56)
 	_rack_label.size = Vector2(248, 26)
 	right.add_child(_rack_label)
@@ -673,16 +673,16 @@ func _show_card(key: String) -> void:
 
 func _refresh_hud() -> void:
 	var in_play: bool = world.state == Logic.State.PLAY
-	_state_label.text = "PLAY" if in_play else "MENU · click to start"
+	_state_label.text = "PLAY" if in_play else "MENU | click to start"
 	var rack := ""
 	if in_play:
 		var n := _ready_bullets()
 		for i in world.bullets.size():
-			rack += ("■ " if i < n else "□ ")
+			rack += ("# " if i < n else ". ")
 	else:
-		rack = "—"
+		rack = "-"
 	_rack_label.text = "RACK  %s" % rack.strip_edges()
-	_squares_label.text = ("SQUARES  %d / 9 live" % _live_squares()) if in_play else "SQUARES  —"
+	_squares_label.text = ("SQUARES  %d / 9 live" % _live_squares()) if in_play else "SQUARES  -"
 	_shots_label.text = "shots  %d" % _shots
 	_hits_label.text = "hits  %d" % _hits
 	_soak_label.text = "soaked  %d" % _soaks

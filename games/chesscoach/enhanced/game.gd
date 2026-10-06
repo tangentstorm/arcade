@@ -307,7 +307,7 @@ func _track_captures() -> void:
 			captures_seen += 1
 			var gp := _piece_stage_pos(ci)
 			_burst(gp, CAPTURE, 14, 240.0)
-			_floater("×", gp + Vector2(0, -18), CAPTURE)
+			_floater("x", gp + Vector2(0, -18), CAPTURE)
 			_shake = maxf(_shake, 0.25)
 		_prev_modulate[name] = ci.modulate
 
@@ -330,12 +330,12 @@ func _refresh_hud() -> void:
 	if replaying and move_index >= 0 and move_index < moves.size():
 		var m = moves[move_index]
 		var san := str(m[3]) if m is Array and m.size() > 3 else "?"
-		_fen_label.text = "Replay  ·  ply %d / %d  ·  %s" % [move_index + 1, moves.size(), san]
+		_fen_label.text = "Replay  |  ply %d / %d  |  %s" % [move_index + 1, moves.size(), san]
 	elif board and board.has_method("pieces_on_board") and board.pieces_on_board() == 32 \
 			and not (player and player.is_playing()):
 		_fen_label.text = fen
 	else:
-		_fen_label.text = "Position live on Direct board  ·  %d pieces" % pieces_on
+		_fen_label.text = "Position live on Direct board  |  %d pieces" % pieces_on
 	_pieces_label.text = "Pieces  %d\nCaptures  %d" % [pieces_on, captures_seen]
 	if replaying:
 		_status_label.text = "Replaying recorded game"
@@ -535,7 +535,7 @@ func _build_ui() -> void:
 	var title := _panel(Rect2(24, 18, 330, 56))
 	_hud.add_child(title)
 	title.add_child(_label("CHESS COACH", 22, GOLD, Vector2(16, 10)))
-	title.add_child(_label("Enhanced  ·  FEN board + replay", 12, MUTED, Vector2(16, 34)))
+	title.add_child(_label("Enhanced  |  FEN board + replay", 12, MUTED, Vector2(16, 34)))
 
 	# Left: FEN / status
 	var left := _panel(Rect2(24, 88, 330, 200))
@@ -602,7 +602,7 @@ func _build_ui() -> void:
 	card.add_child(_label("CHESS COACH", 36, GOLD, Vector2(40, 40)))
 	card.add_child(_label("Enhanced edition", 16, ACCENT, Vector2(40, 90)))
 	card.add_child(_label(
-		"Walnut board chrome over the Direct FEN trays.\nSame pieces, same recorded replay.\nNo Stockfish — just the board.",
+		"Walnut board chrome over the Direct FEN trays.\nSame pieces, same recorded replay.\nNo Stockfish - just the board.",
 		14, INK, Vector2(40, 130)))
 	card.add_child(_label("Enter / Space  to begin", 15, MUTED, Vector2(40, 230)))
 

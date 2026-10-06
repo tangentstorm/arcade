@@ -37,7 +37,7 @@ func _draw() -> void:
 		big = "10"
 		small = "ready"
 	elif game.next == Logic.THEEND:
-		big = "–"
+		big = "-"
 		small = "game over"
 	elif game.paused:
 		big = "II"
@@ -45,7 +45,7 @@ func _draw() -> void:
 	elif playing:
 		big = "%.1f" % (ms / 1000.0)
 	else:
-		big = "▼"
+		big = "v"
 		small = "dropping"
 	var fs := 52
 	var scale_pulse := 1.0

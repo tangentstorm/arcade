@@ -7,6 +7,9 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 LOG="$(mktemp)"
 trap 'rm -f "$LOG"' EXIT
 
+echo "== ascii UI lint"
+"$ROOT/tools/lint_ascii_ui.sh"
+
 echo "== import ($GODOT)"
 "$GODOT" --headless --path "$ROOT" --import 2>&1 | tee "$LOG"
 

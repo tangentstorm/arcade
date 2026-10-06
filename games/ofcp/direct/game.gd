@@ -77,7 +77,7 @@ func _connect() -> void:
 	session_id = ""
 	table = OfcpTable.new()
 	selected = {}
-	_set_overlay("Connecting to %s …" % OfcpWs.DEFAULT_URL, false)
+	_set_overlay("Connecting to %s ..." % OfcpWs.DEFAULT_URL, false)
 	var err: Error = ws.connect_to_server(OfcpWs.DEFAULT_URL)
 	if err != OK:
 		_set_overlay("Could not start connection (error %d)." % err, false, true)
@@ -86,7 +86,7 @@ func _connect() -> void:
 
 func _send(msg: Dictionary) -> void:
 	if not ws.send_msg(msg):
-		_log_line("[color=salmon]not connected — message not sent[/color]")
+		_log_line("[color=salmon]not connected - message not sent[/color]")
 		return
 	waiting_for_server = msg.type in ["place_initial", "place_pineapple", "start_game", "new_hand"]
 
@@ -119,7 +119,7 @@ func _on_message(msg: Dictionary) -> void:
 			session_id = String(msg.get("sessionId", ""))
 			_log_line("connected as %s (session %s)" % [msg.get("playerId", "?"), session_id])
 		"waiting":
-			_set_overlay("Connected. Heads-up vs 1 AI — choose a mode:", true)
+			_set_overlay("Connected. Heads-up vs 1 AI - choose a mode:", true)
 		"ready":
 			profile = String(msg.get("profile", msg.get("mode", "")))
 			if msg.has("sessionId"):
@@ -136,7 +136,7 @@ func _on_message(msg: Dictionary) -> void:
 				selected = {}
 			_auto_select()
 			if table.is_game_over() and not was_over:
-				_log_line("hand over — total %+d" % table.my_score())
+				_log_line("hand over - total %+d" % table.my_score())
 		"hint":
 			hint_pending = false
 			if table.apply_hint(msg):
@@ -165,7 +165,7 @@ func _on_play_pressed() -> void:
 		_connect()
 		return
 	var mode: String = MODES[_mode_opt.selected]
-	_set_overlay("Starting vs AI (%s) …" % mode, false)
+	_set_overlay("Starting vs AI (%s) ..." % mode, false)
 	_send({"type": "start_vs_ai", "aiCount": 1, "mode": mode})
 
 
@@ -293,20 +293,20 @@ func _refresh() -> void:
 			prompt += ", discard %d (the unplaced card%s)" % [discard, "" if discard == 1 else "s"]
 		prompt += ".  %d/%d placed." % [table.pending.size(), need]
 	elif ph != "":
-		prompt = "AI is thinking…"
+		prompt = "AI is thinking..."
 	if waiting_for_server and not table.is_game_over():
-		prompt = "Waiting for server…"
+		prompt = "Waiting for server..."
 	_phase.text = prompt
 	var round_txt := ""
 	if ph != "" and not table.is_game_over():
-		round_txt = "  ·  %s, street %d" % [ph.capitalize(), int(table.state.get("round", 0)) + 1]
+		round_txt = "  |  %s, street %d" % [ph.capitalize(), int(table.state.get("round", 0)) + 1]
 	var opp_score := 0
 	var s := table.scores()
 	for i in s.size():
 		if i != table.my_index():
 			opp_score += int(s[i])
-	_scores.text = "Score  You %+d  ·  AI %+d%s%s" % [table.my_score(), opp_score,
-		("  ·  " + profile) if profile != "" else "", round_txt]
+	_scores.text = "Score  You %+d  |  AI %+d%s%s" % [table.my_score(), opp_score,
+		("  |  " + profile) if profile != "" else "", round_txt]
 
 	_render_opponents()
 	_render_my_board()
@@ -427,7 +427,7 @@ func _render_breakdown() -> void:
 				ROW_LABEL.get(ra.get("row", ""), ra.get("row", "")),
 				ra.get("rank", ""), _roy(ra), rb.get("rank", ""), _roy(rb), mark])
 		var rw: Dictionary = bd.get("rowWins", {})
-		lines.append("Rows %d–%d" % [int(rw.get("A", 0)), int(rw.get("B", 0))])
+		lines.append("Rows %d-%d" % [int(rw.get("A", 0)), int(rw.get("B", 0))])
 		var scoop = bd.get("scoop", null)
 		if scoop != null and String(scoop) != "" and String(scoop) != "<null>":
 			lines.append("Scoop: %s (+%d)" % ["you" if String(scoop) == "A" else "AI", int(bd.get("scoopBonus", 0))])
@@ -557,7 +557,7 @@ func _build_ui() -> void:
 	top.add_theme_constant_override("separation", 16)
 	root.add_child(top)
 	var title := Label.new()
-	title.text = "OFCP · Pineapple  (Direct · live server)"
+	title.text = "OFCP | Pineapple  (Direct | live server)"
 	title.add_theme_font_size_override("font_size", 24)
 	top.add_child(title)
 	var spacer := Control.new()
@@ -673,7 +673,7 @@ func _build_ui() -> void:
 	ov.add_theme_constant_override("separation", 12)
 	om.add_child(ov)
 	var ot := Label.new()
-	ot.text = "Open Face Chinese Poker — Pineapple"
+	ot.text = "Open Face Chinese Poker - Pineapple"
 	ot.add_theme_font_size_override("font_size", 22)
 	ot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ov.add_child(ot)

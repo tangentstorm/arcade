@@ -35,7 +35,7 @@ var magic := MAGIC_START
 var health := HP_START
 var health_max := HP_MAX
 var ammo := AMMO_START
-var message := "DOTH — Quest for the Empire"
+var message := "DOTH - Quest for the Empire"
 var level_id := "overworld"
 var picks_left := 0
 var moves := 0
@@ -48,7 +48,7 @@ func _init() -> void:
 
 func reset_title() -> void:
 	state = State.TITLE
-	message = "DOTH — Quest for the Empire"
+	message = "DOTH - Quest for the Empire"
 	cash = CASH_START
 	magic = MAGIC_START
 	health = HP_START
@@ -129,7 +129,7 @@ func start_play(which: String = "overworld") -> void:
 	health = HP_START
 	ammo = AMMO_START
 	moves = 0
-	message = "Arrows / WASD move · 1 starter room · Esc pause"
+	message = "Arrows / WASD move | 1 starter room | Esc pause"
 	load_level(which)
 	state = State.PLAY
 
@@ -182,7 +182,7 @@ func _step_onto(dest: Vector2i) -> void:
 		Kind.AMMO:
 			ammo = mini(100, ammo + 5)
 			picks_left = maxi(0, picks_left - 1)
-			message = "Ammunition — 5 shots!"
+			message = "Ammunition - 5 shots!"
 		_:
 			pass
 	set_cell(hero, Kind.FLOOR)

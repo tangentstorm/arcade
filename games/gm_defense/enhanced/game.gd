@@ -151,7 +151,7 @@ func _on_world_step() -> void:
 		_intro = minf(_intro, 0.6)
 		_rings.append({"pos": sp, "life": 0.45, "max": 0.45, "color": CYAN})
 		_burst(sp, CYAN, 14, 160.0)
-		_float(sp + Vector2(0, -38), "◀ TURN" if s.image_xscale < 0 else "TURN ▶", CYAN)
+		_float(sp + Vector2(0, -38), "< TURN" if s.image_xscale < 0 else "TURN >", CYAN)
 		_play("turn")
 	var on: bool = world.ship_on_screen()
 	if not on and bool(_prev.on):
@@ -386,7 +386,7 @@ func _draw_locator() -> void:
 	var tw := _font.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, 15).x
 	var tx := ep.x - dir * (28 + (tw if right else 0.0))
 	_cv.draw_string(_font, Vector2(tx, ep.y + 5), txt, HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color(INK, 0.9))
-	var hint := "press ◀ to come back" if right else "press ▶ to come back"
+	var hint := "press < to come back" if right else "press > to come back"
 	var heading_away: bool = (world.ship.image_xscale > 0) == right
 	if heading_away:
 		var hw := _font.get_string_size(hint, HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x
@@ -437,7 +437,7 @@ func _draw_floaters() -> void:
 
 func _refresh_hud() -> void:
 	var s = world.ship
-	_heading_label.text = "◀ LEFT" if s.image_xscale < 0 else "RIGHT ▶"
+	_heading_label.text = "< LEFT" if s.image_xscale < 0 else "RIGHT >"
 	_pos_label.text = "x %d   y %d" % [int(s.x), int(s.y)]
 	var on: bool = world.ship_on_screen()
 	_status_label.text = "IN ROOM" if on else "OFF %d px" % int(off_distance())
@@ -507,7 +507,7 @@ func _build_ui() -> void:
 	var title := _label("GM DEFENSE", 30, CYAN)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, title, Rect2(0, 8, STAGE.x, 38))
-	var sub := _label("Enhanced  ·  GameMaker Studio 2 Defender-clone toy (2017)", 14, MUTED)
+	var sub := _label("Enhanced  |  GameMaker Studio 2 Defender-clone toy (2017)", 14, MUTED)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, sub, Rect2(0, 44, STAGE.x, 22))
 
@@ -519,7 +519,7 @@ func _build_ui() -> void:
 	var lw := FIELD_POS.x - 40
 	var lp := _panel(root, Rect2(16, FIELD_POS.y, lw, FIELD.y))
 	_add(lp, _label("HEADING", 14, MUTED), Rect2(18, 16, lw - 36, 20))
-	_heading_label = _add(lp, _label("RIGHT ▶", 30, CYAN), Rect2(18, 36, lw - 36, 40)) as Label
+	_heading_label = _add(lp, _label("RIGHT >", 30, CYAN), Rect2(18, 36, lw - 36, 40)) as Label
 	_add(lp, _label("POSITION", 14, MUTED), Rect2(18, 96, lw - 36, 20))
 	_pos_label = _add(lp, _label("", 20, INK), Rect2(18, 116, lw - 36, 30)) as Label
 	_add(lp, _label("STATUS", 14, MUTED), Rect2(18, 166, lw - 36, 20))
@@ -537,7 +537,7 @@ func _build_ui() -> void:
 	var rw := STAGE.x - rx - 16
 	var rp := _panel(root, Rect2(rx, FIELD_POS.y, rw, FIELD.y))
 	_add(rp, _label("TURN", 14, MUTED), Rect2(18, 16, rw - 36, 20))
-	_add(rp, _label("← / →", 26, INK), Rect2(18, 36, rw - 36, 36))
+	_add(rp, _label("<- / ->", 26, INK), Rect2(18, 36, rw - 36, 36))
 	_add(rp, _label("PAUSE", 14, MUTED), Rect2(18, 92, rw - 36, 20))
 	_add(rp, _label("Esc", 26, INK), Rect2(18, 112, rw - 36, 36))
 	var notes := _label("The ship never stops:\narrows only turn it.\n\nThere's no wrap, so\nit can fly out of the\nroom. Turn around to\nbring it back.\n\nThe squid just floats\nthere. It's a toy.\n\nSame rules as Direct.\nPresentation only.", 14, MUTED)
@@ -565,7 +565,7 @@ func _build_ui() -> void:
 	var b1 := _label("LAUNCH!", 30, GOLD)
 	b1.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bv.add_child(b1)
-	var b2 := _label("← / → turn the ship  ·  Esc pauses", 16, INK)
+	var b2 := _label("<- / -> turn the ship  |  Esc pauses", 16, INK)
 	b2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bv.add_child(b2)
 	_banner = bc

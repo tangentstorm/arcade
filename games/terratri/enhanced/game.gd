@@ -191,7 +191,7 @@ func _build_ui() -> void:
 
 	# header: logo, status, back
 	_label(_stage, "TERRATRI", 30, INK, Vector2(30, 14))
-	_label(_stage, "ENHANCED  ·  HOTSEAT", 12, MUTED, Vector2(33, 52))
+	_label(_stage, "ENHANCED  |  HOTSEAT", 12, MUTED, Vector2(33, 52))
 	_status = _label(_stage, "", 22, INK, Vector2(BOARD_POS.x, 14), Board.BOARD.x, HORIZONTAL_ALIGNMENT_CENTER)
 	var back := _button(_stage, "Back to Arcade", _to_arcade)
 	back.position = Vector2(1096, 18)
@@ -221,7 +221,7 @@ func _build_ui() -> void:
 	_buttons["restart"] = _button(bar, "Restart  R", restart, 14)
 	for b in _buttons.values():
 		b.custom_minimum_size = Vector2(102, 34)
-	_hint = _label(_stage, "Click a glowing square or use arrows / WASD  ·  M sound  ·  Esc pause", 13, MUTED,
+	_hint = _label(_stage, "Click a glowing square or use arrows / WASD  |  M sound  |  Esc pause", 13, MUTED,
 		Vector2(BOARD_POS.x, 700), Board.BOARD.x, HORIZONTAL_ALIGNMENT_CENTER)
 
 	_fx = Control.new()
@@ -330,11 +330,11 @@ func _build_cards() -> void:
 	t.add_theme_color_override("font_outline_color", Color(GOLD, 0.35))
 	t.add_theme_constant_override("outline_size", 10)
 	_card_label(vb, "a territory game by Adam \"Atomic\" Saltsman", 16, MUTED)
-	var body := _card_label(vb, "Two pawns · a 5×5 field · two actions a turn.\n" \
+	var body := _card_label(vb, "Two pawns | a 5x5 field | two actions a turn.\n" \
 		+ "Claim squares as you move, fortify on your own land,\nbank an action for a bonus later.\n" \
 		+ "First to raise 5 forts wins.", 19, INK)
 	body.custom_minimum_size = Vector2(560, 0)
-	_card_label(vb, "Hotseat for 2 players  ·  Red moves first", 15, Color(RED, 0.95))
+	_card_label(vb, "Hotseat for 2 players  |  Red moves first", 15, Color(RED, 0.95))
 	_card_label(vb, "Space / Enter to start", 24, GOLD)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -591,7 +591,7 @@ func _turn_banner(side: String) -> void:
 	if side == "":
 		return
 	banner_side = side
-	banner_text = "%s'S TURN  ·  TURN %d" % [side_name(side).to_upper(), turn_number()]
+	banner_text = "%s'S TURN  |  TURN %d" % [side_name(side).to_upper(), turn_number()]
 	banner_t = 0.0
 
 
@@ -609,7 +609,7 @@ func _win(side: String) -> void:
 			"size": randf_range(3.0, 7.0), "g": 420.0, "confetti": true, "spin": randf() * TAU})
 	_win_title.text = "%s WINS" % side_name(side).to_upper()
 	_win_title.add_theme_color_override("font_color", col)
-	_win_body.text = "%s raised 5 forts in %d turns.\nLand  Red %d · Blue %d      Captures  Red %d · Blue %d" % [
+	_win_body.text = "%s raised 5 forts in %d turns.\nLand  Red %d | Blue %d      Captures  Red %d | Blue %d" % [
 		side_name(side), turn_number(), land_count("r"), land_count("b"), captures.r, captures.b]
 	_show_card("win")
 
@@ -686,8 +686,8 @@ func _refresh() -> void:
 		var idx: int = game.step_index()
 		var what := "action %d of 2" % (idx + 1) if idx < 2 else "bonus action (spends 1 bank)"
 		if idx == 1 and In.step_for_action(v, "k") != "":
-			what += " · or bank it"
-		_status.text = "%s  ·  %s" % [side_name(turn), what]
+			what += " | or bank it"
+		_status.text = "%s  |  %s" % [side_name(turn), what]
 		_status.add_theme_color_override("font_color", side_color(turn).lightened(0.15))
 	var live := state == PLAY
 	_buttons["x"].disabled = not live or In.step_for_action(v, "x") == ""
@@ -698,7 +698,7 @@ func _refresh() -> void:
 	for side in ["r", "b"]:
 		var ui: Dictionary = _side_ui[side]
 		var mine: bool = side == turn
-		ui.chip.text = "▶ TO MOVE" if mine else ("WINNER" if game.winner == side else "")
+		ui.chip.text = "> TO MOVE" if mine else ("WINNER" if game.winner == side else "")
 		ui.chip.add_theme_color_override("font_color", GOLD)
 		ui.panel.add_theme_stylebox_override("panel", _style(PANEL, 18,
 			Color(side_color(side), 0.9 if mine or game.winner == side else 0.25), 3 if mine else 2))
@@ -707,7 +707,7 @@ func _refresh() -> void:
 			game.banked(side), game.supply(side)]
 		var empty := Rules.square_count(side, game.grid)
 		if mine and In.step_for_action(v, "f") != "":
-			ui.ready.text = "★ FORTIFY READY  [F]"
+			ui.ready.text = "* FORTIFY READY  [F]"
 			ui.ready.add_theme_color_override("font_color", GOLD)
 		elif game.supply(side) <= 0:
 			ui.ready.text = "Supply empty (forts placed or banked)"

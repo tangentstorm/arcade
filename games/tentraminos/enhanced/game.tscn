@@ -126,7 +126,7 @@ text = "TENTRAMINOS"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0862745, 0.823529, 0.741176, 1)
 theme_override_font_sizes/font_size = 15
-text = "ENHANCED  ·  Ludum Dare 27 (2013)  ·  10 seconds"
+text = "ENHANCED  |  Ludum Dare 27 (2013)  |  10 seconds"
 
 [node name="TopRow" type="HBoxContainer" parent="Center/HBox/Side/Margin/VBox"]
 layout_mode = 2
@@ -204,7 +204,7 @@ custom_minimum_size = Vector2(460, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.72, 0.82, 1)
 theme_override_font_sizes/font_size = 14
-text = "Line up 4+ same-coloured tiles: they light up. When the clock hits 0, lit groups clear for 10 × 2ⁿ⁻⁴ and the tray drops a new row. Tiles inside the cursor don't fall. A tile stuck in the top row ends the game (red ! = that column is full)."
+text = "Line up 4+ same-coloured tiles: they light up. When the clock hits 0, lit groups clear for 10 x 2n-^4 and the tray drops a new row. Tiles inside the cursor don't fall. A tile stuck in the top row ends the game (red ! = that column is full)."
 autowrap_mode = 3
 
 [node name="Spacer" type="Control" parent="Center/HBox/Side/Margin/VBox"]

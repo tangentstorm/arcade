@@ -560,14 +560,14 @@ func _build_ui() -> void:
 	_place(lives, Rect2(28, 180, 184, 26))
 	root.add_child(lives)
 	_level_label = _hud_block(root, 28, 290, "LEVEL")
-	var keys := _label("← → / A D / mouse\nmove\n\n↑ / space / click\nserve\n\nP pause\nEsc menu", 16, MUTED)
+	var keys := _label("<- -> / A D / mouse\nmove\n\n^ / space / click\nserve\n\nP pause\nEsc menu", 16, MUTED)
 	_place(keys, Rect2(28, 430, 184, 240))
 	root.add_child(keys)
 	_best_label = _hud_block(root, 1068, 180, "BEST")
 	_bricks_label = _hud_block(root, 1068, 290, "BRICKS")
 	_bricks_label.add_theme_font_size_override("font_size", 30)
 
-	_serve_hint = _label("↑ / space / click to serve", 26, INK, 6)
+	_serve_hint = _label("^ / space / click to serve", 26, INK, 6)
 	_place(_serve_hint, Rect2(FIELD_POS.x, FIELD_POS.y + 380, Logic.W * FS, 40))
 	root.add_child(_serve_hint)
 
@@ -590,7 +590,7 @@ func _build_ui() -> void:
 	var cv := _card(root, "clear")
 	_clear_label = _label("Level 1 clear!", 60, GOLD, 10)
 	cv.add_child(_clear_label)
-	cv.add_child(_label("get ready…", 22, MUTED))
+	cv.add_child(_label("get ready...", 22, MUTED))
 
 	var ov := _card(root, "gameover")
 	ov.add_child(_label("Game Over", 68, Color.WHITE, 12))

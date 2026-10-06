@@ -119,7 +119,7 @@ func _set_state(s: int) -> void:
 	if s == PLAY and demo == null:
 		_load_demo()
 	if s == PLAY:
-		_banner = "WASD / ARROWS MOVE  ·  MOUSE AIMS"
+		_banner = "WASD / ARROWS MOVE  |  MOUSE AIMS"
 		_banner_t = 2.2
 
 
@@ -281,7 +281,7 @@ func _observe(delta: float) -> void:
 	var off := not hero_in_field()
 	if off and not _was_off:
 		exits += 1
-		_banner = "HERO OFF-FIELD  ·  R TO RESET"
+		_banner = "HERO OFF-FIELD  |  R TO RESET"
 		_banner_t = 1.4
 		_flash = 0.35
 		_flash_c = HOT
@@ -318,11 +318,11 @@ func _refresh_hud() -> void:
 	var hp: Vector2 = hero.position
 	var deg := fposmod(rad_to_deg(nose_dir().angle()) + 90.0, 360.0)  ## 0 = up, clockwise
 	_pos_label.text = "pos  (%.0f, %.0f)" % [hp.x, hp.y]
-	_face_label.text = "facing  %03.0f°  %s" % [deg, _compass(deg)]
+	_face_label.text = "facing  %03.0f deg  %s" % [deg, _compass(deg)]
 	_aim_label.text = "aim range  %.0f px" % hp.distance_to(crosshair.position)
 	_dist_label.text = "walked  %.0f px  (%d steps)" % [distance, steps]
 	_turn_label.text = "snap turns  %d" % turns
-	_exit_label.text = "off-field  %d%s" % [exits, "  ← R" if _was_off else ""]
+	_exit_label.text = "off-field  %d%s" % [exits, "  <- R" if _was_off else ""]
 
 
 func _compass(deg: float) -> String:
@@ -522,7 +522,7 @@ func _build_ui() -> void:
 	_hud.add_child(top)
 	top.add_child(_label("GODOTLAB GAME 01", 22, GOLD, Vector2(16, 10)))
 	top.add_child(_label("Enhanced", 13, ACCENT, Vector2(280, 16)))
-	top.add_child(_label("top-down hero · faces the mouse crosshair · Direct hero.gd + crosshair.gd", 13, MUTED, Vector2(380, 16)))
+	top.add_child(_label("top-down hero | faces the mouse crosshair | Direct hero.gd + crosshair.gd", 13, MUTED, Vector2(380, 16)))
 	var back := _btn("Back to Arcade", Vector2(1056, 8), Vector2(128, 32))
 	back.pressed.connect(GameRegistry.return_to_arcade)
 	top.add_child(back)
@@ -530,11 +530,11 @@ func _build_ui() -> void:
 	var stats := _panel(Rect2(40, 624, 760, 80))
 	_hud.add_child(stats)
 	stats.add_child(_label("TELEMETRY", 11, MUTED, Vector2(14, 8)))
-	_pos_label = _label("pos  —", 14, INK, Vector2(14, 28))
+	_pos_label = _label("pos  -", 14, INK, Vector2(14, 28))
 	stats.add_child(_pos_label)
-	_face_label = _label("facing  —", 15, GOLD, Vector2(14, 52))
+	_face_label = _label("facing  -", 15, GOLD, Vector2(14, 52))
 	stats.add_child(_face_label)
-	_aim_label = _label("aim range  —", 14, Color(1.0, 0.55, 0.55), Vector2(250, 28))
+	_aim_label = _label("aim range  -", 14, Color(1.0, 0.55, 0.55), Vector2(250, 28))
 	stats.add_child(_aim_label)
 	_dist_label = _label("walked  0", 14, INK, Vector2(250, 52))
 	stats.add_child(_dist_label)
@@ -556,7 +556,7 @@ func _build_ui() -> void:
 	card.add_child(_label("GODOTLAB GAME 01", 32, GOLD, Vector2(36, 30)))
 	card.add_child(_label("Enhanced edition", 16, ACCENT, Vector2(36, 78)))
 	card.add_child(_label(
-		"The Direct top-down hero sketch, framed with chrome:\nWASD / arrows still walk 10 px a frame via Direct hero.gd,\nthe mouse crosshair still drifts with the hero, and the\nhero still turns to face it — Enhanced only adds the aim\nlaser, dust trail, fireball glow, locator and telemetry.",
+		"The Direct top-down hero sketch, framed with chrome:\nWASD / arrows still walk 10 px a frame via Direct hero.gd,\nthe mouse crosshair still drifts with the hero, and the\nhero still turns to face it - Enhanced only adds the aim\nlaser, dust trail, fireball glow, locator and telemetry.",
 		14, INK, Vector2(36, 114)))
 	var start := _btn("Start", Vector2(36, 236), Vector2(120, 40))
 	start.pressed.connect(func(): _set_state(PLAY))

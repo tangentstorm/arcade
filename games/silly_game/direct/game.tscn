@@ -87,4 +87,4 @@ offset_top = 8.0
 offset_right = 900.0
 offset_bottom = 34.0
 modulate = Color(1, 1, 1, 0.6)
-text = "Silly Game · WASD: walk · mouse: aim/shoot · R: reset · Esc: pause"
+text = "Silly Game | WASD: walk | mouse: aim/shoot | R: reset | Esc: pause"

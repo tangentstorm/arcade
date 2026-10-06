@@ -110,14 +110,14 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 focus_mode = 0
-text = "◀  Prev"
+text = "<  Prev"
 
 [node name="Next" type="Button" parent="Margin/HBox/Main/Nav"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 focus_mode = 0
-text = "Next  ▶"
+text = "Next  >"
 
 [node name="Spacer" type="Control" parent="Margin/HBox/Main/Nav"]
 layout_mode = 2
@@ -128,7 +128,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 focus_mode = 0
-text = "▶  Play lesson 00"
+text = ">  Play lesson 00"
 
 [node name="Back" type="Button" parent="Margin/HBox/Main/Nav"]
 unique_name_in_owner = true

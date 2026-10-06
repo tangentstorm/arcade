@@ -342,7 +342,7 @@ func _tick_wave(delta: float) -> void:
 		_burst(to_stage(node_center_vp(i)), node_color(i).lightened(0.3), 5, 130.0)
 		if cursor == order.size() - 1:
 			_flash = 0.55
-			_banner = "%s  ·  %d NODES" % [MODES[mode].to_upper(), order.size()]
+			_banner = "%s  |  %d NODES" % [MODES[mode].to_upper(), order.size()]
 			_banner_t = 1.2
 			_floater("done", to_stage(node_center_vp(0)) + Vector2(-18, -28), GOLD)
 
@@ -357,9 +357,9 @@ func _refresh_hud() -> void:
 	var t := PackedStringArray()
 	for i in _trail:
 		t.append(node_text(i))
-	_trail_label.text = " → ".join(t) if t.size() else "…"
+	_trail_label.text = " -> ".join(t) if t.size() else "..."
 	if ast != null:
-		_stats_label.text = "Seed  %d\nNodes  %d\nHeight  %d\nDepths  0…%d" % [
+		_stats_label.text = "Seed  %d\nNodes  %d\nHeight  %d\nDepths  0...%d" % [
 				ast.rng_seed, node_count(),
 				ast.tree.height if ast.tree else 0, _max_depth]
 	if hover >= 0:
@@ -371,7 +371,7 @@ func _refresh_hud() -> void:
 		_swatch.color = node_color(hover)
 		_swatch.visible = true
 	else:
-		_inspect_label.text = "Hover a node to inspect it.\n∧ ∨ ≠ over x₀–x₄, ⊥, ⊤."
+		_inspect_label.text = "Hover a node to inspect it.\n& | != over x0-x4, F, T."
 		_swatch.visible = false
 
 
@@ -525,7 +525,7 @@ func _build_ui() -> void:
 	_hud.add_child(top)
 	top.add_child(_label("FNARB BOOLEAN AST", 22, GOLD, Vector2(16, 14)))
 	top.add_child(_label("Enhanced", 13, ACCENT, Vector2(280, 20)))
-	top.add_child(_label("seeded ∧ ∨ ≠ tree  ·  Direct ast_node_demo", 13, MUTED, Vector2(380, 20)))
+	top.add_child(_label("seeded & | != tree  |  Direct ast_node_demo", 13, MUTED, Vector2(380, 20)))
 	var back := _btn("Back to Arcade", Vector2(820, 12), Vector2(124, 34))
 	back.pressed.connect(GameRegistry.return_to_arcade)
 	top.add_child(back)
@@ -533,11 +533,11 @@ func _build_ui() -> void:
 	var left := _panel(Rect2(16, 90, 130, 300))
 	_hud.add_child(left)
 	left.add_child(_label("TREE", 11, MUTED, Vector2(10, 10)))
-	_stats_label = _label("Seed  —\nNodes  —\nHeight  —", 12, INK, Vector2(10, 34))
+	_stats_label = _label("Seed  -\nNodes  -\nHeight  -", 12, INK, Vector2(10, 34))
 	left.add_child(_stats_label)
 	left.add_child(_label("Same Direct\nast_node.gd +\nshaded_grid.gd.", 11, MUTED, Vector2(10, 150)))
 	left.add_child(_label("OPS", 11, MUTED, Vector2(10, 220)))
-	left.add_child(_label("∧ ∧  ∨ ∨  ≠ ≠\nx₀…x₄  ⊥ ⊤", 12, ACCENT, Vector2(10, 242)))
+	left.add_child(_label("& &  | |  != !=\nx0...x4  F T", 12, ACCENT, Vector2(10, 242)))
 
 	var wave := _panel(Rect2(16, 404, 130, 196))
 	_hud.add_child(wave)
@@ -550,7 +550,7 @@ func _build_ui() -> void:
 	_visit_label.size = Vector2(110, 40)
 	_visit_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	wave.add_child(_visit_label)
-	_trail_label = _label("…", 11, ACCENT, Vector2(10, 130))
+	_trail_label = _label("...", 11, ACCENT, Vector2(10, 130))
 	_trail_label.size = Vector2(110, 56)
 	_trail_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	wave.add_child(_trail_label)
@@ -563,7 +563,7 @@ func _build_ui() -> void:
 	_swatch.size = Vector2(24, 24)
 	_swatch.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	right.add_child(_swatch)
-	_inspect_label = _label("Hover a node…", 12, INK, Vector2(10, 44))
+	_inspect_label = _label("Hover a node...", 12, INK, Vector2(10, 44))
 	_inspect_label.size = Vector2(110, 160)
 	_inspect_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	right.add_child(_inspect_label)

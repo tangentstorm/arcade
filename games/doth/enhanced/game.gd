@@ -468,7 +468,7 @@ func _refresh_hud() -> void:
 	_ammo_label.text = "%03d" % world.ammo
 	_moves_label.text = str(world.moves)
 	_picks_label.text = str(world.picks_left)
-	_score_label.text = str(world.score()) if world.state != World.State.TITLE else "—"
+	_score_label.text = str(world.score()) if world.state != World.State.TITLE else "-"
 	_map_label.text = world.level_id
 	_msg_label.text = world.message
 	if _health_bar:
@@ -544,7 +544,7 @@ func _build_ui() -> void:
 	var title := _label("DOTH", 28, FRAME.lightened(0.15))
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, title, Rect2(0, 8, STAGE.x, 32))
-	var sub := _label("Enhanced  ·  Quest for the Empire", 13, MUTED)
+	var sub := _label("Enhanced  |  Quest for the Empire", 13, MUTED)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, sub, Rect2(0, 40, STAGE.x, 20))
 
@@ -588,7 +588,7 @@ func _build_ui() -> void:
 	_add(bp, _health_bar, Rect2(400, 68, 200, 14))
 
 	_add(bp, _label("SCORE", 12, MUTED), Rect2(16, 90, 120, 18))
-	_score_label = _add(bp, _label("—", 24, GOLD), Rect2(16, 106, 160, 32)) as Label
+	_score_label = _add(bp, _label("-", 24, GOLD), Rect2(16, 106, 160, 32)) as Label
 	_add(bp, _label("MAP", 12, MUTED), Rect2(200, 90, 120, 18))
 	_map_label = _add(bp, _label("overworld", 20, FRAME.lightened(0.2)), Rect2(200, 106, 220, 32)) as Label
 
@@ -597,8 +597,8 @@ func _build_ui() -> void:
 
 	_add(bp, _label("MOVE", 12, MUTED), Rect2(780, 90, 300, 18))
 	_add(bp, _label("Arrows / WASD / numpad (diagonals OK)", 14, INK), Rect2(780, 108, 320, 22))
-	_add(bp, _label("1 starter chamber   ·   2 overworld", 14, INK), Rect2(780, 132, 320, 22))
-	_add(bp, _label("Esc — pause / Back to Arcade", 13, MUTED), Rect2(780, 160, 320, 22))
+	_add(bp, _label("1 starter chamber   |   2 overworld", 14, INK), Rect2(780, 132, 320, 22))
+	_add(bp, _label("Esc - pause / Back to Arcade", 13, MUTED), Rect2(780, 160, 320, 22))
 	_add(bp, _label("Same Direct doth_world rules.\nSvA-like tiles shared from Direct.", 13, MUTED),
 			Rect2(780, 200, 320, 48))
 
@@ -610,15 +610,15 @@ func _build_ui() -> void:
 	_cards["title"] = _make_card(root, [
 		["DOTH", 46, GOLD],
 		["Enhanced edition", 18, FRAME],
-		["Quest for the Empire — torchlit makeover of the Direct MVP.", 14, MUTED],
+		["Quest for the Empire - torchlit makeover of the Direct MVP.", 14, MUTED],
 		["Same walls, pickups, boulder push. Direct SvA-like pixels.", 14, MUTED],
-		["Enter / Space / 2  —  overworld (dmap1)", 16, INK],
-		["1  —  starter chamber", 16, INK],
+		["Enter / Space / 2  -  overworld (dmap1)", 16, INK],
+		["1  -  starter chamber", 16, INK],
 	])
 	_cards["win"] = _make_card(root, [
 		["ROOM CLEARED!", 40, GOLD],
 		["Every pickup claimed.", 16, MUTED],
-		["Enter / Space — title", 18, LEAF],
+		["Enter / Space - title", 18, LEAF],
 	])
 
 

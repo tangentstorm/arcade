@@ -772,7 +772,7 @@ func _refresh_hud() -> void:
 	_time_label.text = "%d:%02d" % [secs / 60, secs % 60]
 	_arrows_label.text = str(_arrows)
 	_sky_label.text = "%d%% clear" % int(round(_clear * 100.0))
-	_best_label.text = _fmt_time(_best) if _best > 0.0 else "—"
+	_best_label.text = _fmt_time(_best) if _best > 0.0 else "-"
 	if _title_cupid != null and _cards.get("title") and _cards.title.visible:
 		var at := _title_cupid.texture as AtlasTexture
 		at.region = Rect2((int(_time * 12.0) % 10) * Logic.CUPID_W, 0, Logic.CUPID_W, Logic.CUPID_H)
@@ -827,7 +827,7 @@ func _show_card(key: String) -> void:
 
 
 func _show_win() -> void:
-	_win_detail.text = "time %s  ·  arrows %d  ·  misses %d" % [_fmt_time(_won_time), _arrows, _misses]
+	_win_detail.text = "time %s  |  arrows %d  |  misses %d" % [_fmt_time(_won_time), _arrows, _misses]
 	_win_best.text = "NEW BEST TIME!" if _new_best else "best %s" % _fmt_time(_best)
 	_win_best.add_theme_color_override("font_color", GOLD if _new_best else MUTED)
 	_show_card("win")
@@ -933,7 +933,7 @@ func _build_ui() -> void:
 	back.pressed.connect(GameRegistry.return_to_arcade)
 	root.add_child(back)
 	_add(root, _centered("CUPID", 30, PINK), Rect2(0, 4, STAGE.x, 36))
-	_add(root, _centered("Enhanced  ·  rainy-day matchmaker (AS3/Flixel, 2010)", 13, MUTED), Rect2(0, 38, STAGE.x, 20))
+	_add(root, _centered("Enhanced  |  rainy-day matchmaker (AS3/Flixel, 2010)", 13, MUTED), Rect2(0, 38, STAGE.x, 20))
 	_add(root, _label("COUPLES", 12, MUTED), Rect2(STAGE.x - 14 - 38 * 5 - 70, 22, 66, 18))
 	_hearts = Control.new()
 	_hearts.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -957,7 +957,7 @@ func _build_ui() -> void:
 	_add(strip, _label("SKY", 12, MUTED), Rect2(850, 9, 30, 16))
 	_sky_label = _add(strip, _label("0% clear", 16, GOLD), Rect2(882, 5, 100, 22)) as Label
 	_add(strip, _label("BEST", 12, MUTED), Rect2(1010, 9, 40, 16))
-	_best_label = _add(strip, _label("—", 18, INK), Rect2(1050, 4, 80, 24)) as Label
+	_best_label = _add(strip, _label("-", 18, INK), Rect2(1050, 4, 80, 24)) as Label
 
 	# Title card.
 	var tv := _card(root, "title", FRAME)
@@ -975,7 +975,7 @@ func _build_ui() -> void:
 	_title_cupid = tc
 	tv.add_child(_centered("CUPID", 54, PINK))
 	tv.add_child(_centered("Enhanced edition", 18, ROSE))
-	tv.add_child(_centered("Steer with the mouse · click to drop an arrow straight down", 16, INK))
+	tv.add_child(_centered("Steer with the mouse | click to drop an arrow straight down", 16, INK))
 	tv.add_child(_centered("Hit two walkers who think the same symbol to make a couple.", 16, INK))
 	tv.add_child(_centered("Every couple clears the storm a little. Five couples wins.", 16, MUTED))
 	tv.add_child(_centered("Click or press Space to start", 22, GOLD))

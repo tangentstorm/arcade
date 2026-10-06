@@ -377,7 +377,7 @@ func _heading_bits(h: int) -> String:
 		parts.append("S")
 	if h & Logic.WEST:
 		parts.append("W")
-	return "-".join(parts) if parts.size() > 0 else "—"
+	return "-".join(parts) if parts.size() > 0 else "-"
 
 
 func _draw_bot(tex: Texture2D, pos: Vector2, squash: Vector2, glow: Color) -> void:
@@ -457,12 +457,12 @@ func _build_ui() -> void:
 	title.position = Vector2(16, 14)
 	title.size = Vector2(248, 36)
 	left.add_child(title)
-	var sub := _label("Enhanced · GameSketchLib w01", 13, MUTED)
+	var sub := _label("Enhanced | GameSketchLib w01", 13, MUTED)
 	sub.position = Vector2(16, 48)
 	sub.size = Vector2(248, 22)
 	left.add_child(sub)
 	var hint := _label(
-		"Orange: WASD or ,AOE\nBlue:   arrow keys\nEsc:    pause\n\nHello-world mover.\nBottom edge clamps;\ntop/left/right are open.\nDiagonals are full speed.\nNo goal — just roam.",
+		"Orange: WASD or ,AOE\nBlue:   arrow keys\nEsc:    pause\n\nHello-world mover.\nBottom edge clamps;\ntop/left/right are open.\nDiagonals are full speed.\nNo goal - just roam.",
 		15, INK)
 	hint.position = Vector2(16, 88)
 	hint.size = Vector2(248, 300)
@@ -492,7 +492,7 @@ func _build_ui() -> void:
 	_pos_o_label.position = Vector2(16, 122)
 	_pos_o_label.size = Vector2(248, 24)
 	right.add_child(_pos_o_label)
-	_face_o_label = _label("face L · —", 15, MUTED)
+	_face_o_label = _label("face L | -", 15, MUTED)
 	_face_o_label.position = Vector2(16, 148)
 	_face_o_label.size = Vector2(248, 22)
 	right.add_child(_face_o_label)
@@ -504,7 +504,7 @@ func _build_ui() -> void:
 	_pos_b_label.position = Vector2(16, 212)
 	_pos_b_label.size = Vector2(248, 24)
 	right.add_child(_pos_b_label)
-	_face_b_label = _label("face D · —", 15, MUTED)
+	_face_b_label = _label("face D | -", 15, MUTED)
 	_face_b_label.position = Vector2(16, 238)
 	_face_b_label.size = Vector2(248, 22)
 	right.add_child(_face_b_label)
@@ -609,8 +609,8 @@ func _refresh_hud() -> void:
 	_meet_label.text = "MEETS  %d" % _meets
 	_pos_o_label.text = "pos  %d, %d" % [world.orange_x, world.orange_y]
 	_pos_b_label.text = "pos  %d, %d" % [world.blue_x, world.blue_y]
-	_face_o_label.text = "face %s · %s" % [_face_name(world.orange_face), _heading_bits(world.heading)]
-	_face_b_label.text = "face %s · %s" % [_face_name(world.blue_face), _heading_bits(world.blue_heading)]
+	_face_o_label.text = "face %s | %s" % [_face_name(world.orange_face), _heading_bits(world.heading)]
+	_face_b_label.text = "face %s | %s" % [_face_name(world.blue_face), _heading_bits(world.blue_heading)]
 	var bits: PackedStringArray = []
 	if _prev_orange_off:
 		bits.append("orange off-canvas")
@@ -622,4 +622,4 @@ func _refresh_hud() -> void:
 		bits.append("on canvas")
 	if _off_canvas_events > 0:
 		bits.append("exits %d" % _off_canvas_events)
-	_status_label.text = " · ".join(bits)
+	_status_label.text = " | ".join(bits)
