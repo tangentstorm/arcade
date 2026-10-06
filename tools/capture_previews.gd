@@ -130,6 +130,31 @@ func _click_at(pos: Vector2) -> void:
 	await process_frame
 
 
+func _drag(from: Vector2, to: Vector2, release: bool = true) -> void:
+	var press := InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.pressed = true
+	press.position = from
+	press.global_position = from
+	Input.parse_input_event(press)
+	await process_frame
+	for i in range(1, 11):
+		var mv := InputEventMouseMotion.new()
+		mv.position = from.lerp(to, i / 10.0)
+		mv.global_position = mv.position
+		mv.button_mask = MOUSE_BUTTON_MASK_LEFT
+		Input.parse_input_event(mv)
+		await process_frame
+	if release:
+		var rel := InputEventMouseButton.new()
+		rel.button_index = MOUSE_BUTTON_LEFT
+		rel.pressed = false
+		rel.position = to
+		rel.global_position = to
+		Input.parse_input_event(rel)
+		await process_frame
+
+
 func _move_mouse(pos: Vector2) -> void:
 	var mv := InputEventMouseMotion.new()
 	mv.position = pos
@@ -194,6 +219,28 @@ func _warmup(id: String, inst: Node) -> void:
 			await _frames(30)
 			await _tap_key(KEY_SPACE)
 			await _frames(30)
+		"overlap_demo", "overlap_demo_live":
+			# 300×300 sketch at 2.4× from x=280: drag the centre square onto its right neighbour.
+			await _drag(Vector2(280 + 2.4 * 137, 2.4 * 137), Vector2(280 + 2.4 * 197, 2.4 * 145))
+		"bullet_demo":
+			await _click_at(Vector2(280 + 2.4 * 55, 2.4 * 200))
+			await _frames(20)
+			await _click_at(Vector2(280 + 2.4 * 130, 2.4 * 200))
+		"gamesketchlib_demo", "bullet_demo_live":
+			await _click_at(Vector2(640, 360))
+			await _frames(10)
+			await _click_at(Vector2(280 + 2.4 * 55, 2.4 * 200))
+			await _frames(20)
+			await _click_at(Vector2(280 + 2.4 * 205, 2.4 * 200))
+		"keyboard_test_workaround", "keyboard_test_buggy", "keyboard_test_hashmap":
+			# Leave D + Up held so the pads show lit keys in the shot.
+			_press_key(KEY_D, true)
+			_press_key(KEY_UP, true)
+			await _frames(5)
+		"fnarb_overlap":
+			# 1920×1080 stage at 2/3: drag box (125,50) onto box (200,50).
+			await _move_mouse(Vector2(141, 66) * (2.0 / 3.0))
+			await _drag(Vector2(141, 66) * (2.0 / 3.0), Vector2(200, 80) * (2.0 / 3.0), false)
 		"mineswpr":
 			await _click_at(Vector2(640, 300))
 			await _frames(5)
