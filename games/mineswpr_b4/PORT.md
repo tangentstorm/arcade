@@ -31,6 +31,11 @@ TermGrid is the existing Mineswpr Direct script
 2. Type hex commands at `ok` (`5 C ?`, `a b +`, `r`, `q`) or click
 3. Esc opens PauseOverlay (Back to Arcade); `q` returns immediately; F2 new cart
 
+Hover: the board cell under the mouse gets Y (11) brackets, like Mineswpr
+Direct. `game.gd` paints this as a host overlay (same as b4-gd
+`scenes/Mineswpr.gd`), because a full cart redraw costs ~90 ms. It saves the
+bracket colors, lifts the overlay before each cart call, and puts it back after.
+
 ### Size
 
 Vendored source ≈ 37 KB (scripts + two carts). No extra font (reuses Mineswpr
@@ -41,6 +46,7 @@ PLAYBOOK 12 MB KEY gzip gate.
 ### Tests
 
 `tools/test_mineswpr_b4.gd` (picked up by `tools/smoke_headless.sh`): registry
-entry, scene boot with fixed seed, typed prod, Esc does not quit the tree.
+entry, scene boot with fixed seed, typed prod, Esc does not quit the tree,
+hover brackets 11 / survive a full draw / restore on leave.
 
 Upstream screen/logic golden vectors live in b4-gd (`tools/test_mineswpr_*.gd`).
