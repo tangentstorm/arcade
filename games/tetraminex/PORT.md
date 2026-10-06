@@ -48,3 +48,20 @@
 
 ### MVP claim for this PR
 Full Episode 00 set: rooms **0–9** from salvaged `Level_RoomN` + CSVs. Tutorial flow is 0→3; paint is room 4; later rooms via unlock or **0–9** debug jump. Gravity rooms (6, 8) and end rooms may still need script polish.
+
+## Enhanced edition (`enhanced/`): playable
+
+Modern makeover of Episode 00 that **reuses** `direct/room.gd` + `direct/level_data.gd` (same puzzles, rooms 0–9, grab/paint/cage/exit rules). Presentation only:
+
+| Surface | Direct | Enhanced |
+|---|---|---|
+| Dialog | `talkWindow.png` NES chrome + pastel speaker text | Light card + shadow, near-black body text, accent speaker name, `Space / Enter` hint |
+| Floor / paint / cage / blocks | Salvaged `tiles.png` / `blocks.png` atlases | Procedural ImageTextures (slate floor, white-rim paints, hollow cages, solid blocks) |
+| Characters / hands / door | Salvaged PNGs | Same Direct assets (light modulate) |
+| HUD | Flat black side panel | Rounded navy panel, larger title |
+| Esc / scale | PauseOverlay; `letterbox` | Same (shell handles Esc + Back to Arcade) |
+
+### Gaps / deferred (Enhanced)
+- No new puzzles or teleporter end-scene polish beyond Direct.
+- Procedural art is geometric (not hand-painted); Direct assets remain the character source.
+- No dedicated Enhanced preview capture in this PR (gallery can use Direct shot until capture runs).
