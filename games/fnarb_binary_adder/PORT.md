@@ -9,7 +9,7 @@
 
 ## Direct edition (`direct/`): playable
 
-An animated, ripple-carry 4-bit addition of `a = 3` and `b = 7`, shown as truth-table bit rows. An orange cursor (an `AnimationTree` state machine) sweeps column by column, filling in each result bit and carry, one step per second. The background breathes through a vertex shader, under a glow/colour-grade `WorldEnvironment`. It plays once and ends showing `1010` (carries `0111`).
+An animated, ripple-carry 4-bit addition of `a = 3` and `b = 7`, shown as truth-table bit rows. A gold/yellow cursor (an `AnimationTree` state machine) sweeps column by column, filling in each result bit and carry, one step per second. The background breathes through a vertex shader, under a glow/colour-grade `WorldEnvironment`. It plays once and ends showing `1010` (carries `0111`).
 
 Files: `Adder.gd`, `Rect.gd`, `BinaryAddition.tscn`, `widgets/TruthTable.*`, `widgets/ShadedGrid.gd` → `adder.gd`, `rect.gd`, `binary_addition.tscn`, `truth_table.*`, `shaded_grid.gd`. Apart from `res://` paths and the changes listed below, they're verbatim.
 
@@ -26,6 +26,7 @@ Files: `Adder.gd`, `Rect.gd`, `BinaryAddition.tscn`, `widgets/TruthTable.*`, `wi
 - **The empty `Tween` node is dropped.** It was unused, and Godot 4 can't instantiate `Tween` as a node.
 - The debug `print`s are removed. The unused Godot 3 `.tres` animations stay in `source/` only.
 - In the Compatibility renderer, 2D glow/adjustments from the `WorldEnvironment` may render more weakly than in the 4.1 Forward+ original.
+- **Gold highlight tracks the active column.** The `init` animation no longer keys `carriage:position`. In Godot 4's AnimationMixer, leaving that track reset the carriage to `(0,0)`, so the teaching box floated in the corner instead of over the addend bits. Carriage origin is `(768, 280)` on the node (and re-applied in `adder.gd`); `move_carriage_left` still advances one 32px column. Cursor `border_color` is gold/yellow `Color(1, 0.85, 0)` (was orange).
 
 `source/` holds the original files (plus the shared widgets they use) for reference. It has a `.gdignore`.
 
