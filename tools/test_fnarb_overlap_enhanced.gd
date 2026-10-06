@@ -111,6 +111,25 @@ func _test_scene() -> void:
 			and inst.FIELD_POS.y + inst.FIELD.y <= inst.STAGE.y,
 		"field fits inside stage")
 
+	# Direct demo stays native 1920×1080 @½ — stretch must stay false so VP size holds.
+	_check(inst._viewport.size == Vector2i(1920, 1080),
+		"SubViewport stays 1920×1080 (not stretched down to field)")
+	_check(inst._vp_box.stretch == false, "DemoView.stretch is false")
+	_check(inst._vp_box.size == inst.VP_SIZE, "DemoView size is VP_SIZE (1920×1080)")
+	var sc: Vector2 = inst._vp_box.scale
+	_check(is_equal_approx(sc.x, 0.5) and is_equal_approx(sc.y, 0.5),
+		"DemoView scaled to FIELD/VP_SIZE (½)")
+	_check(inst._fx != null and is_instance_valid(inst._fx), "Fx juice layer exists")
+	_check(inst._fx.get_parent() == inst, "Fx is a child of the enhanced root")
+	var fx_i: int = inst._fx.get_index()
+	var host_i: int = inst.get_node("StageHost").get_index()
+	_check(fx_i > host_i, "Fx draws above StageHost/Direct SubViewport (index %d > %d)" % [fx_i, host_i])
+	# Juice anchors match the real half-scale draw position.
+	var b0: ColorRect = d.boxes[0] as ColorRect
+	var real: Vector2 = inst.FIELD_POS + b0.position * (inst.FIELD / Vector2(inst._viewport.size))
+	_check(real.distance_to(inst._box_stage_pos(b0)) < 0.5,
+		"juice _box_stage_pos matches half-scale field mapping")
+
 	# Parity vs bare Direct twin: same script, same 9 boxes / positions / colours.
 	var twin_root: Node = (load(DIRECT) as PackedScene).instantiate()
 	root.add_child(twin_root)
@@ -158,6 +177,10 @@ func _test_scene() -> void:
 	_check(inst._overlap_count >= 2, "HUD overlap count reflects Direct greys (%d)" % inst._overlap_count)
 	_check(inst._first_overlap or inst._banner_t > 0.0 or inst._particles.size() > 0,
 		"juice fired on first overlap")
+	# Subject HUD stays readable when held+overlap paints the box black.
+	var sub_col: Color = inst._subject_label.get_theme_color("font_color")
+	_check(sub_col.r + sub_col.g + sub_col.b > 1.2,
+		"HUD subject colour stays readable when held (sum=%.2f)" % (sub_col.r + sub_col.g + sub_col.b))
 
 	# Twin still matches script identity after Enhanced watched the drive.
 	_check(d.get_script() == twin_demo.get_script() and d.get_script() == DemoScript,

@@ -47,6 +47,7 @@ var _drag_bursts := 0
 
 var _vp_box: SubViewportContainer
 var _viewport: SubViewport
+var _fx: Node2D  ## juice above Direct SubViewport
 var _ui: CanvasLayer
 var _hud: Control
 var _cards := {}
@@ -157,6 +158,8 @@ func _process(delta: float) -> void:
 		_watch_boxes()
 		_refresh_hud()
 	queue_redraw()
+	if _fx:
+		_fx.queue_redraw()
 
 
 ## Presentation only: read Direct box colours / subject and fire juice.
@@ -213,9 +216,18 @@ func _juice_for(c: Color) -> Color:
 	return FRAME
 
 
+## HUD text colour: same mapping as juice, but black/near-black stay readable on the panel.
+func _hud_subject_color(c: Color) -> Color:
+	if c == Color.BLACK:
+		return Color(0.78, 0.80, 0.88)  ## held+overlap — not near-black on dark HUD
+	if c == Color.DIM_GRAY:
+		return OVERLAP_C.lightened(0.25)
+	return _juice_for(c)
+
+
 func _box_stage_pos(box: ColorRect) -> Vector2:
-	var u := box.position / VP_SIZE
-	return FIELD_POS + Vector2(u.x * FIELD.x, u.y * FIELD.y)
+	## Map Direct 1920×1080 box coords into the ½-scale field.
+	return FIELD_POS + box.position * (FIELD / VP_SIZE)
 
 
 func _color_name(c: Color) -> String:
@@ -245,7 +257,8 @@ func _refresh_hud() -> void:
 			_color_name(sub.color),
 			str(sub.position.round()),
 		]
-		_subject_label.add_theme_color_override("font_color", _juice_for(sub.color))
+		# Keep Direct juice hues, but lift near-black held colour for HUD contrast.
+		_subject_label.add_theme_color_override("font_color", _hud_subject_color(sub.color))
 	else:
 		_subject_label.text = "subject\n(none)"
 		_subject_label.add_theme_color_override("font_color", MUTED)
@@ -287,32 +300,35 @@ func _draw() -> void:
 		draw_rect(Rect2(fr.position, Vector2(3, 28)), corner)
 		draw_rect(Rect2(fr.end - Vector2(28, 3), Vector2(28, 3)), corner)
 		draw_rect(Rect2(fr.end - Vector2(3, 28), Vector2(3, 28)), corner)
-		# Soft halo rings over Direct boxes (presentation only).
-		if demo != null:
-			for box in demo.boxes:
-				var b: ColorRect = box as ColorRect
-				var gp := _box_stage_pos(b) + Vector2(8, 8)
-				var jc := _juice_for(b.color)
-				jc.a = 0.22 if b.color != Color.WHITE else 0.08
-				draw_circle(gp, 14.0, jc)
+
+
+## Overlay above the Direct SubViewport (child drawn after DemoView).
+func _draw_fx() -> void:
+	if state == PLAY and demo != null:
+		for box in demo.boxes:
+			var b: ColorRect = box as ColorRect
+			var gp := _box_stage_pos(b) + Vector2(8, 8)
+			var jc := _juice_for(b.color)
+			jc.a = 0.22 if b.color != Color.WHITE else 0.08
+			_fx.draw_circle(gp, 14.0, jc)
 	if _flash > 0.0:
 		var fc := _flash_color
 		fc.a = _flash * 0.28
-		draw_rect(Rect2(Vector2.ZERO, STAGE), fc)
+		_fx.draw_rect(Rect2(Vector2.ZERO, STAGE), fc)
 	for p in _particles:
 		var col: Color = p.color
 		col.a *= clampf(p.life / p.max, 0.0, 1.0)
-		draw_circle(p.pos, p.size, col)
+		_fx.draw_circle(p.pos, p.size, col)
 	for f in _floaters:
 		var col2: Color = f.color
 		col2.a *= clampf(f.life / f.max, 0.0, 1.0)
-		_draw_label(f.text, f.pos, int(f.size), col2)
+		_fx.draw_string(_font, f.pos, f.text, HORIZONTAL_ALIGNMENT_LEFT, -1, int(f.size), col2)
 	if _banner_t > 0.0 and _banner != "":
 		var a := clampf(_banner_t, 0.0, 1.0)
 		var r := Rect2(STAGE.x * 0.5 - 200, 28, 400, 34)
-		draw_rect(r, Color(0.05, 0.06, 0.10, 0.78 * a))
-		_draw_label(_banner, r.position + Vector2(r.size.x * 0.5 - _banner.length() * 5.0, 8),
-				17, Color(GOLD.r, GOLD.g, GOLD.b, a))
+		_fx.draw_rect(r, Color(0.05, 0.06, 0.10, 0.78 * a))
+		_fx.draw_string(_font, r.position + Vector2(r.size.x * 0.5 - _banner.length() * 5.0, 8),
+				_banner, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, Color(GOLD.r, GOLD.g, GOLD.b, a))
 
 
 func _draw_label(text: String, pos: Vector2, size: int, color: Color) -> void:
@@ -384,11 +400,14 @@ func _build_stage() -> void:
 	_viewport.own_world_3d = true
 	_viewport.gui_disable_input = false
 
+	# Native 1920×1080 Direct demo, shown at ½ via Control.scale (not stretch).
+	# stretch=true would resize the SubViewport to the field and break VP_SIZE / juice math.
 	_vp_box = SubViewportContainer.new()
 	_vp_box.name = "DemoView"
 	_vp_box.position = FIELD_POS
-	_vp_box.size = FIELD
-	_vp_box.stretch = true
+	_vp_box.size = VP_SIZE
+	_vp_box.stretch = false
+	_vp_box.scale = FIELD / VP_SIZE
 	_vp_box.visible = false
 	_vp_box.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	_vp_box.add_child(_viewport)
@@ -399,6 +418,12 @@ func _build_stage() -> void:
 	stage_host.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(stage_host)
 	stage_host.add_child(_vp_box)
+
+	# Juice (particles / halos / floaters / banner) above Direct's solid background.
+	_fx = Node2D.new()
+	_fx.name = "Fx"
+	_fx.draw.connect(_draw_fx)
+	add_child(_fx)
 
 
 func _build_ui() -> void:
