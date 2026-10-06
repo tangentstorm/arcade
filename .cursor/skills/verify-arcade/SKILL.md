@@ -20,6 +20,14 @@ $H/cleanup.sh           # stop what launch started; evidence stays
 
 Godot binary: `/workspace/tools/godot4` (4.7.2, matches CI `GODOT_VERSION`). Override with `GODOT=`.
 
+## Merge gate
+
+Invoked as `/verify-arcade` or `@verify-arcade` (the Grok Bot / Cursor skill wraps this project skill).
+
+Minimum merge-gate run: `launch` → `doctor` → `layout.sh --shots` → `flow.sh` → `cleanup`.
+
+Before claiming PASS or merging: send at least one evidence PNG (or short video) to the user in chat. **PASS + media** is standing OK to squash-merge related open arcade PRs covering the verified tip; **no media = no merge**.
+
 ## Launch
 
 - **Headless (default, enough for every mapped feature):** `$H/launch.sh`. Creates
