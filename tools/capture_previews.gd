@@ -171,6 +171,11 @@ func _warmup(id: String, inst: Node) -> void:
 			await _move_mouse(Vector2(900, 280))
 			await _frames(40)
 			await _click_at(Vector2(900, 280))
+		"gm_defense":
+			# speed=5 from Create carries the ship off-screen in ~2s; turn it around.
+			await _tap_key(KEY_LEFT)
+			await _frames(30)
+			await _tap_key(KEY_RIGHT)
 		"ok_defender":
 			await _tap_key(KEY_SPACE)
 			await _hold_key(KEY_RIGHT, 30)
