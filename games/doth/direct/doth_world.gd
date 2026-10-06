@@ -129,7 +129,7 @@ func start_play(which: String = "overworld") -> void:
 	health = HP_START
 	ammo = AMMO_START
 	moves = 0
-	message = "Arrows / WASD move | 1 starter room | Esc pause"
+	message = "Arrows/WASD move  1=starter  Esc=pause"
 	load_level(which)
 	state = State.PLAY
 

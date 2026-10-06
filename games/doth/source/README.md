@@ -1,14 +1,5 @@
-# Source pointers
+# Doth sources / references
 
-Canonical Turbo Pascal tree: https://github.com/tangentstorm/silverware
-
-Local box checkout used for this port: `/workspace/src-inventory/silverware/`
-
-| File | Why |
-|---|---|
-| `work/doth_a.pas` | Chosen engine root (see ../PORT.md Step 0) |
-| `other/dmap1.pic` | Overworld TheDraw screen → `direct/doth_levels.gd` |
-| `other/dplay1.pic` / `dplay1.cel` | HUD layout reference |
-| `other/dtitle.cel` | Title brick / chrome colour reference |
-
-Nothing under `source/` is loaded at runtime.
+- `doth-reference-dosbox.png` — DOSBox 0.74 screenshot of original DOTH-A (80×25 CP437).
+  Visual source of truth for Direct TermGrid chrome and glyphs.
+- Engine / chrome PAS live in the silverware inventory (`work/doth_a.pas`, `other/dplay1.pic`).

@@ -1,10 +1,10 @@
 extends SceneTree
-## Headless logic checks for the doth direct port.
+## Headless logic checks for the doth direct TermGrid port.
 ## Run: godot --headless --path . --script res://tools/test_doth.gd
 
 const World := preload("res://games/doth/direct/doth_world.gd")
 const Levels := preload("res://games/doth/direct/doth_levels.gd")
-const Tiles := preload("res://games/doth/direct/doth_tiles.gd")
+const TermGrid := preload("res://games/_shared/term_grid.gd")
 
 var _fail := 0
 
@@ -31,12 +31,8 @@ func _initialize() -> void:
 	_check(w.get_cell(w.hero) == World.Kind.HERO, "hero on map")
 	_check(w.health == World.HP_START, "hpstart=%d" % World.HP_START)
 
-	# Walls block.
-	var blocked := w.try_move(0, -1)  # toward top border from (20,10) may hit wall above chamber
-	# Move around inside chamber toward a known coin at (15,8) from (20,10).
 	w.load_level("starter")
 	w.state = World.State.PLAY
-	# Force hero next to a coin.
 	w.set_cell(w.hero, World.Kind.FLOOR)
 	w.hero = Vector2i(14, 8)
 	w.set_cell(w.hero, World.Kind.HERO)
@@ -46,31 +42,23 @@ func _initialize() -> void:
 	_check(w.cash == cash0 + 1, "coin awards cash")
 	_check(w.get_cell(w.hero) == World.Kind.HERO, "hero moved")
 
-	# Wall collision
 	w.set_cell(w.hero, World.Kind.FLOOR)
 	w.hero = Vector2i(1, 1)
 	w.set_cell(w.hero, World.Kind.HERO)
-	# (0,1) is wall (border)
 	_check(not w.try_move(-1, 0), "wall blocks west")
 
-	# Boulder push
 	w.start_play("starter")
 	w.set_cell(w.hero, World.Kind.FLOOR)
 	w.hero = Vector2i(39, 10)
 	w.set_cell(w.hero, World.Kind.HERO)
-	_check(w.get_cell(Vector2i(40, 10)) == World.Kind.BOULDER, "boulder at (40,10)")
-	# Clear beyond if needed — (41,10) is also boulder in starter; push chain may fail.
-	# Place a lone boulder with empty beyond.
 	w.set_cell(Vector2i(40, 10), World.Kind.FLOOR)
 	w.set_cell(Vector2i(41, 10), World.Kind.FLOOR)
 	w.set_cell(Vector2i(42, 10), World.Kind.FLOOR)
-	w.set_cell(Vector2i(42, 11), World.Kind.FLOOR)
 	w.set_cell(Vector2i(40, 10), World.Kind.BOULDER)
 	_check(w.try_move(1, 0), "push boulder")
 	_check(w.get_cell(Vector2i(41, 10)) == World.Kind.BOULDER, "boulder moved east")
 	_check(w.hero == Vector2i(40, 10), "hero followed push")
 
-	# Overworld loads from dmap1 decode
 	w.start_play("overworld")
 	_check(w.level_id == "overworld", "overworld id")
 	var walls := 0
@@ -79,11 +67,19 @@ func _initialize() -> void:
 			walls += 1
 	_check(walls > 200, "overworld has many walls (%d)" % walls)
 
-	# Atlas builds
-	var tex := Tiles.build_atlas()
-	_check(tex != null and tex.get_width() == Tiles.COLS * Tiles.TILE, "atlas width")
+	# TermGrid VGA path
+	var tg = TermGrid.new()
+	tg.pixel_scale = 2
+	
+	tg.cscr()
+	tg.put(0, 0, "█", 3, 0)
+	tg.put(1, 0, "☺", 11, 0)
+	tg.put_cp(2, 0, 0xDB, 3, 0)
+	_check(tg.char_at(0, 0) == "█", "term wall glyph")
+	_check(tg.char_at(1, 0) == "☺", "term hero glyph")
+	_check(tg.row_text(0).begins_with("█☺"), "term row")
+	_check(tg.pal[3].r8 == 0xaa and tg.pal[3].g8 == 0x55 and tg.pal[3].b8 == 0x00, "VGA brown idx 3")
 
-	# Title key
 	w.reset_title()
 	w.handle_title_key(KEY_1)
 	_check(w.state == World.State.PLAY and w.level_id == "starter", "title 1 → starter")

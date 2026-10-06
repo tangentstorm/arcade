@@ -5,7 +5,7 @@ extends SceneTree
 const Logic := preload("res://games/mineswpr/direct/mineswpr_logic.gd")
 const Shell := preload("res://games/mineswpr/direct/mswp_shell.gd")
 const Screen := preload("res://games/mineswpr/direct/mineswpr_screen.gd")
-const TermGrid := preload("res://games/mineswpr/direct/term_grid.gd")
+const TermGrid := preload("res://games/_shared/term_grid.gd")
 
 var _fail := 0
 

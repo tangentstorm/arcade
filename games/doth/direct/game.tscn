@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://games/doth/direct/game.gd" id="1_game"]
+[ext_resource type="Script" path="res://games/_shared/term_grid.gd" id="2_term"]
 
 [node name="DothDirect" type="Control"]
 layout_mode = 3
@@ -20,13 +21,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.04, 0.05, 0.09, 1)
+color = Color(0, 0, 0, 1)
 
-[node name="Room" type="Control" parent="."]
-unique_name_in_owner = true
-clip_contents = true
-texture_filter = 1
-layout_mode = 0
-offset_right = 1120.0
-offset_bottom = 368.0
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+
+[node name="Term" type="Control" parent="Center"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1280, 800)
+layout_mode = 2
+script = ExtResource("2_term")
+pixel_scale = 2
