@@ -82,7 +82,7 @@ share sheets can use a short URL. Stubs live at `build/web/<slug>/index.html`
 If the hash is already `#play/<id>/<edition>`, the stub leaves it alone (SPA
 deep links from `ArcadeHistory` keep working).
 
-**Aliases** (slug → registry id; see `ALIASES` in `tools/gen_game_pages.py`):
+**Aliases** (slug → registry id; single source `ALIASES` in `arcade/game_slugs.gd`, loaded by `tools/gen_game_pages.py`):
 
 | slug | registry id |
 |------|-------------|
@@ -102,17 +102,25 @@ Every edition gets Back support from the shell. No per-game code is needed: it h
 
 | Platform | Back from a game | Notes |
 |----------|------------------|-------|
-| Web (browser Back) | returns to the gallery in one step, even from the pause panel | `launch()` pushes `#play/<id>/<edition>`; `return_to_arcade()` uses `replaceState` back to the bare URL (never `history.back()`) |
-| Web (browser Forward / typed hash) | `#play/<id>/<edition>` relaunches that entry if it is playable | invalid or unplayable hashes are rewritten to the gallery |
-| Web cold load with `#play/...` | deep link opens the game; Back then lands on the gallery | the landing entry is rewritten to the gallery and the play entry pushed on top |
+| Web (browser Back) | returns to the gallery in one step, even from the pause panel | `launch()` `pushState`s a pretty `/<slug>/` (or `/<slug>/?e=enhanced`) plus `#play/<id>/<edition>` without reloading wasm; `return_to_arcade()` `replaceState`s the **gallery root** path (e.g. `/arcade/`), never `history.back()` |
+| Web (browser Forward / typed URL) | `#play/<id>/<edition>` **or** pathname `/<slug>/` (+ `?e=enhanced`) relaunches that entry if playable | invalid / unplayable targets are rewritten to the gallery |
+| Web cold load with play URL | deep link opens the game; Back then lands on the gallery | landing entry rewritten to gallery root, then play entry pushed on top |
 | Android (system Back) | returns to the gallery; Back on the gallery quits | arrives as `NOTIFICATION_WM_GO_BACK_REQUEST`, **not** `ui_cancel`; needs `application/config/quit_on_go_back=false` (set in `project.godot`) |
 | Desktop / editor | unchanged | Esc: pause panel, Esc again (or "Back to Arcade"): gallery |
+
+**Pretty history URLs (v1):** Launching from the gallery on web updates the address bar to the
+same short path the Pages stubs use (`/arcade/giraffe/`, `/arcade/mineswpr/?e=enhanced`, …)
+via `history.pushState` — no full navigation, so the engine stays loaded. Sharing that URL
+matches the OG stub. Back / Esc return always restore the gallery root pathname (not the stub
+path), so a subsequent Back can leave the site instead of re-opening the game. Slug ↔ id
+helpers live in `arcade/game_slugs.gd` (`ArcadeHistory.slug_for_id` / `play_url` /
+`parse_play_location`).
 
 Leaving a game with Esc / an in-game Back button leaves a gallery entry where the play entry
 was, so the next browser Back from the gallery is a no-op (stays on the gallery) and the one
 after that leaves the site.
 
-Checks: `tools/test_arcade_history.gd` (headless, non-web path) and
+Checks: `tools/test_arcade_history.gd` (headless: hash + slug ↔ id + URL parse) and
 `./tools/web_smoke/web_smoke.sh back` (real export in headless Chrome: launch, Back, Forward,
 Back while paused, Esc return, deep link, invalid deep link).
 

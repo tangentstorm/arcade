@@ -5,8 +5,8 @@ Each stub reuses the gallery Web export (../index.js, ../index.wasm, ../index.pc
 and bootstraps ArcadeHistory with #play/<registry_id>/<edition> before the engine
 starts. Edition comes from ?e=enhanced or #enhanced (else direct).
 
-URL aliases (slug -> registry id) are documented in ALIASES below and in
-docs/GALLERY.md.
+URL aliases (slug -> registry id) live in arcade/game_slugs.gd (ALIASES) and are
+documented in docs/GALLERY.md.
 
 Usage:
   python3 tools/gen_game_pages.py --web-dir build/web
@@ -28,12 +28,22 @@ REGISTRY = ROOT / "arcade" / "game_registry.gd"
 PREVIEWS = ROOT / "arcade" / "previews"
 SITE = "https://tangentstorm.github.io/arcade"
 
-# Short URL slug -> GameRegistry id. Most games use slug == id; these override.
-# Documented in docs/GALLERY.md.
-ALIASES: dict[str, str] = {
-    "mineswpr": "mineswpr_b4",  # b4 TermGrid host
-    "mineswpr.old": "mineswpr",  # original GDScript port
-}
+# Short URL slug -> GameRegistry id. Single source: arcade/game_slugs.gd (ALIASES).
+# Documented in docs/GALLERY.md. Do not edit the table here — edit game_slugs.gd.
+def _load_aliases() -> dict[str, str]:
+    text = (ROOT / "arcade" / "game_slugs.gd").read_text(encoding="utf-8")
+    m = re.search(r"const ALIASES := \{([^}]+)\}", text, re.S)
+    if not m:
+        raise SystemExit("gen_game_pages: could not find ALIASES in arcade/game_slugs.gd")
+    out: dict[str, str] = {}
+    for am in re.finditer(r'"([^"]+)":\s*"([^"]+)"', m.group(1)):
+        out[am.group(1)] = am.group(2)
+    if not out:
+        raise SystemExit("gen_game_pages: parsed zero ALIASES from game_slugs.gd")
+    return out
+
+
+ALIASES: dict[str, str] = _load_aliases()
 
 # Minimal exported shell for --self-check (no Godot export required).
 FIXTURE_HTML = """<!DOCTYPE html>
