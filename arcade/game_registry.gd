@@ -58,6 +58,7 @@ const SCALE_MODE := {
 	"mineswpr": "letterbox",         # 80×25 terminal grid
 	"brickslayer": "letterbox",      # 400×300 console @2x
 	"ofcp": "expand",                # live client UI reflows
+	"chesscoach": "letterbox",       # 400×400 board
 }
 
 
@@ -157,6 +158,8 @@ const TITLES := [
 		"javascriptgamer.com Breakout + lesson trail (2007), JS → GDScript."],
 	["ofcp", "OFCP", {"direct": "playable", "enhanced": "planned"},
 		"Pineapple OFC vs AI; thin client over wss://ofcp.tangentcode.com/ws."],
+	["chesscoach", "Chess Coach", {"direct": "playable", "enhanced": "planned"},
+		"tangentstorm/gd-chesscoach (Godot 4.3): tiny FEN board + trays. No Stockfish."],
 ]
 
 var entries: Array[GameEntry] = []
