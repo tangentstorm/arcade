@@ -31,7 +31,21 @@ Preconditions:
   query avoids it for curl.
 - **Local equivalent of the artifact.** `mkdir -p build/web && /workspace/tools/godot4 --headless --path . --export-release "Web" build/web/index.html` (needs 4.7.2 export templates).
 - **Rendered (optional, browser agent).** Open `https://tangentstorm.github.io/arcade/?nocache=<epoch>` in a fresh profile, wait for the gallery, screenshot to the run dir.
-- **Proof.** `pages-headers.txt`, `pages-deploy.txt`, `pages-index.html`.
+- **Proof sidecar (required for "fixed").** `$H/pages_doctor.sh [--viewport WxH]` writes
+  `pages-proof.txt` next to shots: viewport, cache-bust URL (`?nocache=`), pack etag,
+  pack last-modified, and build stamp (`Deploy <sha>` from `origin/gh-pages`, or
+  last-modified fallback). Then `$H/pages_doctor.sh --require` must print `proof_gate: OK`.
+- **Proof.** `pages-proof.txt` (gate), plus `pages-headers.txt`, `pages-deploy.txt`,
+  `pages-index.html`, and any browser PNGs taken at the cache-bust URL.
+
+## Gate (fails closed)
+
+Before marking a Pages / surge / auto-merge item **fixed** with screenshots:
+
+1. Run `$H/pages_doctor.sh --viewport <WxH>` in the same evidence run as the shots.
+2. Run `$H/pages_doctor.sh --require` — exit non-zero (`proof_gate: REFUSE fixed`) if
+   `pages-proof.txt` is missing or lacks cache-bust URL / pack etag / build stamp.
+3. No `proof_gate: OK` → do not claim fixed, do not merge on Pages proof alone.
 
 ## Gotchas
 
