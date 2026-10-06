@@ -53,6 +53,7 @@ const SCALE_MODE := {
 	"godotlab_game00": "letterbox",  # small sprite stage
 	"godotlab_game01": "letterbox",
 	"godotlab_tilemap": "letterbox",
+	"silly_game": "expand",           # camera-followed open map
 	"cupid": "letterbox",            # 656×350 Flash stage
 	"mineswpr": "letterbox",         # 80×25 terminal grid
 	"brickslayer": "letterbox",      # 400×300 console @2x
@@ -136,6 +137,8 @@ const TITLES := [
 		"godotlab/game01 (Godot 3) top-down hero + crosshair → Godot 4."],
 	["godotlab_tilemap", "GodotLab Tilemap", {"direct": "playable", "enhanced": "planned"},
 		"godotlab/tilemap (Godot 3) Kenney tilemap test → Godot 4 TileMapLayer."],
+	["silly_game", "Silly Game", {"direct": "playable", "enhanced": "planned"},
+		"tangentstorm/silly-game (Godot 3, archived): WASD aardvark walker + mouse shoot."],
 	["fnarb_overlap", "Fnarbmlyx Overlap Demo", {"direct": "playable", "enhanced": "planned"},
 		"fnarbmlyx demos/overlap_demo (Godot 4.1, 2023): OverlapDemo redone in Godot. Sketch, not a game."],
 	["fnarb_ast", "Fnarbmlyx Boolean Syntax Tree", {"direct": "playable", "enhanced": "planned"},

@@ -235,6 +235,10 @@ func _warmup(id: String, inst: Node) -> void:
 		"sketchbots":
 			await _hold_key(KEY_D, 25)
 			await _hold_key(KEY_W, 15)
+		"silly_game":
+			await _hold_key(KEY_D, 30)
+			await _hold_key(KEY_W, 15)
+			await _click_at(Vector2(900, 300))
 		"toroidal_zombie_herder":
 			await _hold_key(KEY_RIGHT, 30)
 			await _hold_key(KEY_UP, 20)

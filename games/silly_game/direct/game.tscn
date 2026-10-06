@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://games/silly_game/direct/world.gd" id="1_world"]
+[ext_resource type="Texture2D" path="res://games/silly_game/direct/assets/sprites.svg" id="2_sprites"]
+[ext_resource type="Script" path="res://games/silly_game/direct/badguy.gd" id="3_badguy"]
+[ext_resource type="Script" path="res://games/silly_game/direct/bullets.gd" id="4_bullets"]
+[ext_resource type="Script" path="res://games/silly_game/direct/bullet.gd" id="5_bullet"]
+[ext_resource type="Texture2D" path="res://games/silly_game/direct/assets/aardvark.png" id="6_aardvark"]
+[ext_resource type="Script" path="res://games/silly_game/direct/hero.gd" id="7_hero"]
+[ext_resource type="Script" path="res://games/silly_game/direct/aim.gd" id="8_aim"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bad"]
+radius = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bullet"]
+radius = 10.0
+
+[node name="SillyGame" type="Node2D"]
+script = ExtResource("1_world")
+
+[node name="TileMap" type="TileMapLayer" parent="."]
+
+[node name="badguy" type="Sprite2D" parent="."]
+position = Vector2(336, 90)
+texture = ExtResource("2_sprites")
+hframes = 10
+vframes = 10
+frame = 2
+script = ExtResource("3_badguy")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="badguy"]
+collision_layer = 32
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="badguy/CharacterBody2D"]
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_bad")
+
+[node name="heart" type="Sprite2D" parent="."]
+position = Vector2(583, 316)
+texture = ExtResource("2_sprites")
+hframes = 10
+vframes = 10
+frame = 5
+
+[node name="bullets" type="Node2D" parent="."]
+script = ExtResource("4_bullets")
+
+[node name="bullet" type="Sprite2D" parent="bullets"]
+position = Vector2(94.6219, 1082.73)
+texture = ExtResource("2_sprites")
+hframes = 10
+vframes = 10
+frame = 10
+script = ExtResource("5_bullet")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="bullets/bullet"]
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bullets/bullet/StaticBody2D"]
+shape = SubResource("CircleShape2D_bullet")
+
+[node name="hero" type="Sprite2D" parent="."]
+position = Vector2(702.744, 316.955)
+texture = ExtResource("6_aardvark")
+hframes = 4
+script = ExtResource("7_hero")
+
+[node name="Camera2D" type="Camera2D" parent="hero"]
+position = Vector2(30, 28)
+enabled = true
+zoom = Vector2(0.5, 0.5)
+
+[node name="aim" type="Sprite2D" parent="."]
+position = Vector2(38.889, 1079.05)
+texture = ExtResource("2_sprites")
+hframes = 10
+vframes = 10
+frame = 20
+script = ExtResource("8_aim")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Hint" type="Label" parent="Hud"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 900.0
+offset_bottom = 34.0
+modulate = Color(1, 1, 1, 0.6)
+text = "Silly Game · WASD: walk · mouse: aim/shoot · R: reset · Esc: pause"
