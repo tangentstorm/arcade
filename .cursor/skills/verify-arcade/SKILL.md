@@ -28,6 +28,12 @@ Minimum merge-gate run: `launch` → `doctor` → `layout.sh --shots` → `flow.
 
 Before claiming PASS or merging: send at least one evidence PNG (or short video) to the user in chat. **PASS + media** is standing OK to squash-merge related open arcade PRs covering the verified tip; **no media = no merge**.
 
+**Pages / "fixed" proof (fails closed):** for any claim that the live site or a cached
+Pages symptom is fixed, also run `$H/pages_doctor.sh [--viewport WxH]` then
+`$H/pages_doctor.sh --require`. The gate prints `proof_gate: REFUSE fixed` and exits
+non-zero without cache-bust URL (`?nocache=`) + pack etag + build stamp in
+`pages-proof.txt`. No `proof_gate: OK` → do not mark fixed.
+
 ## Launch
 
 - **Headless (default, enough for every mapped feature):** `$H/launch.sh`. Creates
@@ -65,6 +71,7 @@ Every helper prints `PASS`/`FAIL` and exits non-zero on failure; logs are also s
 | gallery-browse-layout | `$H/layout.sh [--shots]` | `tools/test_gallery_layout.gd` at 6 sizes (needs 6 `ok: gallery fits` lines); `--shots` adds a real-window PNG per size (one Xvfb Godot per `--resolution`, `helpers/gallery_shots.gd`) |
 | edition-toggle, launch-game-and-return | `$H/flow.sh [--headless] ["Card Title"]` | `helpers/drive_flow.gd`: real injected mouse/keys — click `%ModeEnhanced`, `%ModeDirect`, click the card (default `Tetraminex`), Esc → `%ResumeButton`, Esc Esc → gallery, click card again, Esc → `%ArcadeButton`; asserts scene/pause state each step, PNG per step unless `--headless`. Restores `user://arcade_prefs.cfg` |
 | pages-deploy-smoke | `$H/pages.sh [sha]` | curl `?nocache=` index + HEAD of index.{html,pck,wasm,js} (etag/last-modified/age), compares gh-pages commit `Deploy <sha>` to `origin/main` |
+| pages proof / fixed gate | `$H/pages_doctor.sh [--viewport WxH]` then `--require` | writes `pages-proof.txt` (viewport, cache-bust URL, pack etag, build stamp); `--require` refuses "fixed" without those fields |
 | ofcp-live-connect | see `features/ofcp-live-connect.md` | existing `tools/ofcp_live_probe.gd`, plays one hand vs the live server |
 | whole-repo regression | `$H/smoke.sh` | `tools/smoke_headless.sh` (import, boot, visit every playable scene, every `tools/test_*.gd`) → `smoke.log` |
 
@@ -95,7 +102,7 @@ Location: `.cursor/skills/verify-arcade/evidence/<run>/` in the checkout being v
 - `import.log`, `layout.log` (`ok: gallery fits (W, H) (N cols, grid G / scroll S)` per size),
   `shots.log` + `gallery-<W>x<H>.png` (window vs logical size + columns per shot)
 - `flow-<Title>.log` (`step ok:` lines) + `flow-<Title>/01-gallery.png … 05-back.png`
-- `pages-index.html`, `pages-index.headers`, `pages-headers.txt`, `pages-deploy.txt`
+- `pages-index.html`, `pages-index.headers`, `pages-headers.txt`, `pages-deploy.txt`, `pages-proof.txt` (viewport + cache-bust URL + pack etag + build stamp; required by `--require` gate)
 - `smoke.log`, `gui.log`, any `shot.sh` PNGs
 
 Proof standards: drive the real user path (rendered gallery, injected clicks/keys), not
@@ -122,6 +129,7 @@ All in `.cursor/skills/verify-arcade/helpers/`, executable, run from anywhere:
 - `layout.sh [--shots]` — gallery-browse-layout driver.
 - `flow.sh [--headless] ["Card Title"]` — edition toggle + launch/pause/return driver.
 - `pages.sh [expected-sha]` — live Pages + deploy-sha check.
+- `pages_doctor.sh [--viewport WxH] [--out name]` — write `pages-proof.txt` (viewport, cache-bust URL, pack etag, build stamp). `--require [run|file]` refuses "fixed" without that evidence.
 - `smoke.sh` — wraps `tools/smoke_headless.sh`.
 - `shot.sh <name>` — PNG of the `--gui` window.
 - `cleanup.sh` — teardown.
