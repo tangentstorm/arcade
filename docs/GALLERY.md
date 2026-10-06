@@ -1,7 +1,7 @@
 # Gallery notes
 
 ## Shell UI
-- Full-bleed card grid (modest side padding only; no max-width column).
+- Full-width card grid that wraps to new rows (vertical scroll only; no horizontal overflow). Modest side padding; no max-width column.
 - One global **Original / Enhanced** segmented control; one card per title.
 - Card = clickable screenshot + game name only (no per-card Play/edition buttons).
 - Mode preference stored in `user://arcade_prefs.cfg`.

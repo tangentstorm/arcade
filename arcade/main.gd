@@ -161,18 +161,25 @@ func _build_gallery() -> void:
 
 
 func _reflow_columns() -> void:
+	## Fit columns to the visible scroll width so cards wrap to new rows and
+	## only the ScrollContainer scrolls vertically (no horizontal overflow).
 	var avail := _scroll.size.x
 	if avail < 64.0:
-		avail = size.x - 40.0
-	var cols := maxi(1, int(floor((avail + CARD_GAP) / (CARD_MIN_W + CARD_GAP))))
+		avail = maxf(size.x - 40.0, 64.0)
+	var cols := maxi(1, int(floor((avail + float(CARD_GAP)) / (CARD_MIN_W + float(CARD_GAP)))))
+	## Exact cell width that fills `avail` for `cols` (may be > CARD_MIN_W).
+	## Never bump above a fitting width — that caused side-scrolling.
+	var cell_w := (avail - float(CARD_GAP) * float(cols - 1)) / float(cols)
+	cell_w = maxf(cell_w, 1.0)
 	if _list.columns != cols:
 		_list.columns = cols
-	var cell_w := (avail - CARD_GAP * float(cols - 1)) / float(cols)
-	cell_w = maxf(cell_w, CARD_MIN_W)
+	## Keep the grid's own min width from exceeding the viewport.
+	_list.custom_minimum_size = Vector2(0, 0)
 	var preview_h := cell_w / PREVIEW_ASPECT
 	for id in _cards:
 		var card: PanelContainer = _cards[id]
 		card.custom_minimum_size = Vector2(cell_w, preview_h + 44.0)
+		card.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		if card.has_meta("preview_host"):
 			var host: Control = card.get_meta("preview_host")
 			host.custom_minimum_size = Vector2(0, preview_h)
