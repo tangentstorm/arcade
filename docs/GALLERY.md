@@ -7,6 +7,8 @@
 - Mode preference stored in `user://arcade_prefs.cfg`.
 - Direct preview shots live in `arcade/previews/<id>_direct.png`. An edition-specific shot
   (`<id>_enhanced.png`) is used for that edition when present; otherwise the Direct shot is shown.
+- Layout pitfalls (ScrollContainer modes, scrollbar width, `CARD_MIN_W`, `grow_horizontal` clipping)
+  and the card-count fixtures in `tools/test_gallery_layout.gd`: see [`GALLERY_LAYOUT.md`](GALLERY_LAYOUT.md).
 
 ## In-game scale (`GameRegistry.SCALE_MODE`)
 On launch we set the window content-scale policy per title:

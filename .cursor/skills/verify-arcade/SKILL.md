@@ -68,7 +68,7 @@ Every helper prints `PASS`/`FAIL` and exits non-zero on failure; logs are also s
 
 | Feature | Command | What it does |
 |---|---|---|
-| gallery-browse-layout | `$H/layout.sh [--shots]` | `tools/test_gallery_layout.gd` at 6 sizes (needs 6 `ok: gallery fits` lines); `--shots` adds a real-window PNG per size (one Xvfb Godot per `--resolution`, `helpers/gallery_shots.gd`) |
+| gallery-browse-layout | `$H/layout.sh [--shots]` | `tools/test_gallery_layout.gd`: 6 sizes × 6 card-count fixtures (registry/empty/one/few/many/overflow; needs 36 `ok: gallery fits` lines; gotchas in `docs/GALLERY_LAYOUT.md`); `--shots` adds a real-window PNG per size (one Xvfb Godot per `--resolution`, `helpers/gallery_shots.gd`) |
 | edition-toggle, launch-game-and-return | `$H/flow.sh [--headless] ["Card Title"]` | `helpers/drive_flow.gd`: real injected mouse/keys — click `%ModeEnhanced`, `%ModeDirect`, click the card (default `Tetraminex`), Esc → `%ResumeButton`, Esc Esc → gallery, click card again, Esc → `%ArcadeButton`; asserts scene/pause state each step, PNG per step unless `--headless`. Restores `user://arcade_prefs.cfg` |
 | pages-deploy-smoke | `$H/pages.sh [sha]` | curl `?nocache=` index + HEAD of index.{html,pck,wasm,js} (etag/last-modified/age), compares gh-pages commit `Deploy <sha>` to `origin/main` |
 | pages proof / fixed gate | `$H/pages_doctor.sh [--viewport WxH]` then `--require` | writes `pages-proof.txt` (viewport, cache-bust URL, pack etag, build stamp); `--require` refuses "fixed" without those fields |
@@ -99,7 +99,7 @@ Location: `.cursor/skills/verify-arcade/evidence/<run>/` in the checkout being v
 (gitignored; override the base with `VERIFY_ARCADE_EVIDENCE=`). Per run:
 
 - `build.txt` — git HEAD + dirty files the run tested
-- `import.log`, `layout.log` (`ok: gallery fits (W, H) (N cols, grid G / scroll S)` per size),
+- `import.log`, `layout.log` (`ok: gallery fits (W, H) [fixture: N cards] (C cols, grid G / scroll S[, vbar])` per size × fixture),
   `shots.log` + `gallery-<W>x<H>.png` (window vs logical size + columns per shot)
 - `flow-<Title>.log` (`step ok:` lines) + `flow-<Title>/01-gallery.png … 05-back.png`
 - `pages-index.html`, `pages-index.headers`, `pages-headers.txt`, `pages-deploy.txt`, `pages-proof.txt` (viewport + cache-bust URL + pack etag + build stamp; required by `--require` gate)

@@ -10,12 +10,13 @@ set +e
 "$GODOT" --headless --path "$ROOT" --script res://tools/test_gallery_layout.gd >"$RUN/layout.log" 2>&1
 rc=$?
 set -e
-grep -E "^ok:|SMOKE FAIL" "$RUN/layout.log" || true
+grep -E "^ok:|SMOKE FAIL|^layout:" "$RUN/layout.log" || true
 oks=$(grep -c "^ok: gallery fits" "$RUN/layout.log" || true)
 status=0
 [ "$rc" -eq 0 ] || { echo "layout: godot exit $rc"; status=1; }
 log_clean "$RUN/layout.log" || { echo "layout: errors in log (did launch.sh import?)"; status=1; }
-[ "$oks" -ge 6 ] || { echo "layout: only $oks/6 sizes checked"; status=1; }
+# 6 sizes x 6 card-count fixtures (registry/empty/one/few/many/overflow) = 36.
+[ "$oks" -ge 36 ] || { echo "layout: only $oks/36 size x fixture checks ok"; status=1; }
 if [ "${1:-}" = "--shots" ]; then
 	echo "== gallery screenshots (Xvfb, one window per size) -> $RUN/shots.log"
 	: >"$RUN/shots.log"
