@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://games/mineswpr_b4/direct/game.gd" id="1_game"]
-[ext_resource type="Script" path="res://games/mineswpr/direct/term_grid.gd" id="2_term"]
+[ext_resource type="Script" path="res://games/_shared/term_grid.gd" id="2_term"]
 
 [node name="MineswprB4" type="Control"]
 layout_mode = 3
@@ -34,6 +34,7 @@ mouse_filter = 2
 
 [node name="TermGrid" type="Control" parent="Center"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1200, 650)
+custom_minimum_size = Vector2(1280, 800)
 layout_mode = 2
 script = ExtResource("2_term")
+pixel_scale = 2

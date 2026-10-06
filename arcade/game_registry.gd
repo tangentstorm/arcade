@@ -63,7 +63,7 @@ const SCALE_MODE := {
 	"chesscoach": "letterbox",       # Direct 400x400; Enhanced 1280x720 around walnut board
 	"canyon_run": "letterbox",       # 240x320 portrait stage @2x (480x640)
 	"terratri": "expand",            # Control UI; board picks an integer cell size
-	"doth": "letterbox",             # Direct 1120x368; Enhanced 1280x720 around 1120x320 field
+	"doth": "letterbox",             # Direct 80x25 TermGrid @2x (1280x800); Enhanced 1280x720 tiles
 	"marigold": "letterbox",         # 1280x720 homestead OS chrome
 }
 
@@ -176,7 +176,7 @@ const TITLES := [
 	["terratri", "Terratri", {"direct": "playable", "enhanced": "playable"},
 		"Adam Atomic's 5x5 territory game (Terratri Online, 2011/2026 TS) -> GDScript rules, hotseat 2P; Enhanced = lit tabletop, hopping pawns, rising forts + player cards over the same Direct rules."],
 	["doth", "Doth", {"direct": "playable", "enhanced": "playable"},
-		"silverware Doth-A (Turbo Pascal, 1993-1996) Kroz-like adventure -> SvA-like pixel Direct; Enhanced = torchlit chrome + pickup juice over the same rules."],
+		"silverware Doth-A (Turbo Pascal, 1993-1996) Kroz-like adventure -> 80x25 CP437 TermGrid Direct (DOSBox look); Enhanced still torchlit tiles pending TermGrid restyle."],
 	["marigold", "Marigold Homestead", {"direct": "playable", "enhanced": "planned"},
 		"Claude artifact BjKJn834 (Starflight II x Farming Sim pixel OS) -> Direct: tractor-driven fractal homestead + 6 chrome screens; Enhanced stub later. Issue #105."],
 ]

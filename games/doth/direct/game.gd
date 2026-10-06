@@ -1,48 +1,60 @@
 extends Control
-## Doth Direct — SvA-like pixel tile presentation of silverware Doth-A.
-## Esc → PauseOverlay (arcade shell). Letterbox scale via GameRegistry.
+## Doth Direct — 80×25 CP437 TermGrid presentation of silverware Doth-A.
+## Visual SoT: games/doth/source/doth-reference-dosbox.png (DOSBox DOTH-A).
+## Chrome from other/dplay1.pic; room glyphs/attrs from work/doth_a.pas.
+## Esc → PauseOverlay. Letterbox via GameRegistry.
 
 const World := preload("res://games/doth/direct/doth_world.gd")
-const Tiles := preload("res://games/doth/direct/doth_tiles.gd")
 
-const TILE := Tiles.TILE
 const MAP_W := World.MAP_W
 const MAP_H := World.MAP_H
-const HUD_H := 48
-const STAGE_W := MAP_W * TILE          # 1120
-const STAGE_H := MAP_H * TILE + HUD_H  # 368
+const MAP_OX := 1  ## room[1,1] → screen (1,1) 0-based (dplay1 interior)
+const MAP_OY := 1
 
-const COL_BG := Color(0.06, 0.07, 0.12)
-const COL_FRAME := Color(0.35, 0.45, 0.70)
-const COL_HUD := Color(0.10, 0.12, 0.20)
-const COL_TEXT := Color(0.85, 0.88, 0.95)
-const COL_DIM := Color(0.55, 0.60, 0.72)
-const COL_GOLD := Color(0.95, 0.80, 0.25)
-const COL_TITLE := Color(0.55, 0.75, 1.0)
+## ANSI/xterm indices (TermGrid palette). PAS wallatr=$06 DOS-brown → ANSI 3.
+const FG_WALL := 3
+const FG_HERO := 11   ## DOS $0E yellow
+const FG_COIN := 10   ## green $ as in DOS shot (PAS used yellow •)
+const FG_GEM := 11    ## yellow *
+const FG_HEART := 9   ## DOS $0C light red
+const FG_AMMO := 7    ## DOS $07 gray ¶
+const FG_BOULDER := 7
+const FG_FLOOR := 0
+const FG_WHITE := 15
+const FG_GRAY := 7
+const FG_DIM := 8
+const FG_YELLOW := 14
+const FG_GREEN := 10
+const FG_LABEL_HI := 15
+const FG_LABEL_LO := 10
+const FG_COLON := 14
+
+const CH_WALL := "█"
+const CH_HERO := "☺"
+const CH_COIN := "$"
+const CH_GEM := "*"
+const CH_HEART := "♥"
+const CH_AMMO := "¶"
+const CH_BOULDER := "O"
+const CH_FLOOR := " "
 
 var world = World.new()
-var _atlas: ImageTexture
-var _s := 1.0
-var _font: Font
+var _elapsed := 0.0
 
-@onready var _room: Control = %Room
+@onready var term: Control = %Term
 
 
 func _ready() -> void:
-	_atlas = Tiles.build_atlas()
-	_font = ThemeDB.fallback_font
-	_room.size = Vector2(STAGE_W, STAGE_H)
-	_room.draw.connect(_draw_room)
-	resized.connect(_fit_room)
-	_fit_room()
+	_redraw()
 
 
-func _fit_room() -> void:
-	_s = minf(size.x / float(STAGE_W), size.y / float(STAGE_H))
-	if _s <= 0.0:
-		return
-	_room.scale = Vector2(_s, _s)
-	_room.position = ((size - Vector2(STAGE_W, STAGE_H) * _s) * 0.5).floor()
+func _process(delta: float) -> void:
+	if world.state == World.State.PLAY:
+		_elapsed += delta
+		# Refresh timer ~1 Hz without redrawing every frame.
+		if int(_elapsed) != int(_elapsed - delta):
+			_draw_timer()
+			term.queue_redraw()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -51,25 +63,28 @@ func _unhandled_input(event: InputEvent) -> void:
 	var e := event as InputEventKey
 	if world.state == World.State.TITLE or world.state == World.State.WIN:
 		world.handle_title_key(e.keycode)
-		_room.queue_redraw()
+		if world.state == World.State.PLAY:
+			_elapsed = 0.0
+		_redraw()
 		return
 	var d := _dir_from_key(e)
 	if d != Vector2i.ZERO:
 		world.try_move(d.x, d.y)
-		_room.queue_redraw()
+		_redraw()
 		get_viewport().set_input_as_handled()
 	elif e.keycode == KEY_1:
 		world.start_play("starter")
-		_room.queue_redraw()
+		_elapsed = 0.0
+		_redraw()
 		get_viewport().set_input_as_handled()
 	elif e.keycode == KEY_2:
 		world.start_play("overworld")
-		_room.queue_redraw()
+		_elapsed = 0.0
+		_redraw()
 		get_viewport().set_input_as_handled()
 
 
 func _dir_from_key(e: InputEventKey) -> Vector2i:
-	# Physical WASD + arrows + numpad (doth_2 used keypad 1–9).
 	match e.keycode:
 		KEY_UP, KEY_W, KEY_KP_8:
 			return Vector2i(0, -1)
@@ -89,7 +104,6 @@ func _dir_from_key(e: InputEventKey) -> Vector2i:
 			return Vector2i(1, 1)
 		_:
 			pass
-	# Physical letter keys for Dvorak-friendly WASD positions (same as killem_all).
 	match e.physical_keycode:
 		KEY_W:
 			return Vector2i(0, -1)
@@ -103,87 +117,190 @@ func _dir_from_key(e: InputEventKey) -> Vector2i:
 			return Vector2i.ZERO
 
 
-func _tile_id(kind: int) -> int:
-	match kind:
-		World.Kind.WALL:
-			return Tiles.Id.WALL
-		World.Kind.HERO:
-			return Tiles.Id.HERO
-		World.Kind.COIN:
-			return Tiles.Id.COIN
-		World.Kind.GEM:
-			return Tiles.Id.GEM
-		World.Kind.HEART:
-			return Tiles.Id.HEART
-		World.Kind.AMMO:
-			return Tiles.Id.AMMO
-		World.Kind.BOULDER:
-			return Tiles.Id.BOULDER
-		_:
-			return Tiles.Id.FLOOR
-
-
-func _draw_room() -> void:
-	_room.draw_rect(Rect2(0, 0, STAGE_W, STAGE_H), COL_BG)
+func _redraw() -> void:
+	term.cscr(FG_GRAY, 0)
+	_draw_chrome()
 	match world.state:
 		World.State.TITLE:
 			_draw_title()
 		_:
-			_draw_play()
+			_draw_map()
+			_draw_status_values()
+			_draw_timer()
+			_draw_message()
 
 
-func _draw_title() -> void:
-	# Brick field backdrop (inspired by dtitle.cel layout, procedural pixels).
-	var brick_src := Tiles.src(Tiles.Id.WALL)
-	for y in range(0, STAGE_H, TILE):
-		for x in range(0, STAGE_W, TILE):
-			_room.draw_texture_rect_region(_atlas, Rect2(x, y, TILE, TILE), brick_src)
-	_room.draw_rect(Rect2(80, 60, STAGE_W - 160, STAGE_H - 120), Color(0.05, 0.06, 0.12, 0.82))
-	_room.draw_rect(Rect2(80, 60, STAGE_W - 160, STAGE_H - 120), COL_FRAME, false, 3.0)
-	_text(STAGE_W * 0.5, 100, 48, "DOTH", COL_TITLE, true)
-	_text(STAGE_W * 0.5, 155, 22, "Quest for the Empire", COL_GOLD, true)
-	_text(STAGE_W * 0.5, 200, 14, "(c) 1993-1996 Sterling Silverware / Michal Wallace", COL_DIM, true)
-	_text(STAGE_W * 0.5, 240, 16, "Direct port of doth_a.pas - silverware", COL_TEXT, true)
-	_text(STAGE_W * 0.5, 280, 16, "Enter / Space / 2  -  overworld (dmap1)", COL_TEXT, true)
-	_text(STAGE_W * 0.5, 305, 16, "1  -  starter chamber", COL_TEXT, true)
-	_text(STAGE_W * 0.5, 335, 14, "Esc - pause / Back to Arcade", COL_DIM, true)
+func _draw_chrome() -> void:
+	## Frame + controls column from dplay1.pic (single-line box, atr $08/$09/$0F).
+	var box := FG_DIM
+	# Top / bottom borders
+	term.put(0, 0, "┌", box, 0)
+	term.put(71, 0, "┐", box, 0)
+	for x in range(1, 71):
+		term.put(x, 0, "─", box, 0)
+	for x in range(72, 80):
+		term.put(x, 0, "─", 9, 0)  ## light blue rules over controls title
+	term.put(0, 21, "├", box, 0)
+	term.put(71, 21, "┤", box, 0)  ## overwritten by timer tee below
+	term.put(0, 24, "└", box, 0)
+	term.put(79, 24, "┘", box, 0)
+	for x in range(1, 79):
+		term.put(x, 24, "─", box, 0)
+	# Verticals map / sidebar
+	for y in range(1, 21):
+		term.put(0, y, "│", box, 0)
+		term.put(71, y, "│", box, 0)
+	for y in range(22, 24):
+		term.put(0, y, "│", box, 0)
+		term.put(79, y, "│", box, 0)
+	# Status split at col 27
+	term.put(27, 21, "┬", box, 0)
+	term.put(27, 22, "│", box, 0)
+	term.put(27, 23, "│", box, 0)
+	term.put(27, 24, "┴", box, 0)
+	for x in range(1, 27):
+		term.put(x, 21, "─", box, 0)
+	for x in range(28, 71):
+		term.put(x, 21, "─", box, 0)
+	# Controls header + rules
+	term.puts(72, 1, "controls", FG_WHITE, 0)
+	for x in range(72, 80):
+		term.put(x, 2, "─", 9, 0)
+		term.put(x, 7, "─", 9, 0)
+		term.put(x, 13, "─", 9, 0)
+		term.put(x, 16, "─", 9, 0)
+	_ctrl_line(3, 24, " NoRTH")   ## ↑ CP437 0x18
+	_ctrl_line(4, 25, " SouTH")
+	_ctrl_line(5, 16, " eaST ")   ## ► 0x10
+	_ctrl_line(6, 17, " WeST ")
+	_ctrl_line(8, 45, " SHooT")   ## '-'
+	_ctrl_line(9, 47, " TaLK ")
+	_ctrl_line(10, 42, " MaGiC")
+	_ctrl_line(11, 43, " iTeMS")
+	_ctrl_line(12, 48, " MaP  ")
+	# f1 / esc (multi-char keys)
+	term.put_cp(72, 14, 102, FG_GRAY, 0)  ## f
+	term.put_cp(73, 14, 49, FG_GRAY, 0)   ## 1
+	term.put(74, 14, ":", FG_COLON, 0)
+	_mixed(75, 14, " HeLP")
+	term.puts(72, 15, "esc", FG_GRAY, 0)
+	term.put(75, 15, ":", FG_COLON, 0)
+	_mixed(76, 15, "MeNu")
+	# Timer box (rows 17-20, cols 71-79)
+	term.put(71, 17, "├", box, 0)
+	term.put(79, 17, "┐", box, 0)
+	term.put(71, 19, "├", box, 0)
+	term.put(79, 19, "┤", box, 0)
+	term.put(71, 21, "┴", box, 0)
+	for x in range(72, 79):
+		term.put(x, 17, "─", box, 0)
+		term.put(x, 19, "─", box, 0)
+		term.put(x, 21, "─", box, 0)
+	term.put(71, 18, "│", box, 0)
+	term.put(79, 18, "│", box, 0)
+	term.put(71, 20, "│", box, 0)
+	term.put(79, 20, "│", box, 0)
+	# Static status labels (dplay1 mixed case)
+	_mixed(1, 22, "NaMe")
+	term.put(5, 22, ":", FG_COLON, 0)
+	_mixed(1, 23, "RaNK")
+	term.put(5, 23, ":", FG_COLON, 0)
+	_mixed(30, 23, "CaSH")
+	term.put(34, 23, ":", FG_COLON, 0)
+	_mixed(43, 23, "MaGiC")
+	term.put(48, 23, ":", FG_COLON, 0)
+	_mixed(55, 23, "aMMo")
+	term.put(59, 23, ":", FG_COLON, 0)
+	_mixed(66, 23, "HeaLTH")
+	term.put(72, 23, ":", FG_COLON, 0)
 
 
-func _draw_play() -> void:
-	# Map
+func _ctrl_line(row: int, cp_icon: int, label: String) -> void:
+	term.put_cp(72, row, cp_icon, FG_GRAY, 0)
+	term.put(73, row, ":", FG_COLON, 0)
+	_mixed(74, row, label)
+
+
+func _mixed(x: int, y: int, s: String) -> void:
+	## Uppercase → white, lowercase → green (dplay1 label style).
+	for i in s.length():
+		var ch := s[i]
+		var fg := FG_LABEL_LO if ch.to_lower() == ch and ch.to_upper() != ch else FG_LABEL_HI
+		if ch == " ":
+			fg = FG_LABEL_HI
+		term.put(x + i, y, ch, fg, 0)
+
+
+func _draw_timer() -> void:
+	var sec := int(_elapsed) if world.state == World.State.PLAY else 0
+	var mm := mini(99, sec / 60)
+	var ss := sec % 60
+	var t := "%02d:%02d" % [mm, ss]
+	term.puts(73, 18, t, FG_DIM, 0)
+
+
+func _draw_status_values() -> void:
+	var name_s: String = world.name_str.left(18)
+	term.puts(7, 22, name_s, FG_WHITE, 0)
+	term.puts(7, 23, world.rank_str.left(18), 12, 0)  ## blue-ish rank like PAS |B
+	term.puts(36, 23, "%06d" % world.cash, FG_GRAY, 0)
+	term.puts(50, 23, "%04d" % world.magic, FG_GRAY, 0)
+	term.puts(61, 23, "%04d" % world.ammo, FG_GRAY, 0)
+	term.puts(74, 23, "%04d" % world.health, FG_GRAY, 0)
+
+
+func _draw_message() -> void:
+	var msg: String = world.message.left(40)
+	term.puts(29, 22, msg, FG_DIM, 0)
+
+
+func _draw_map() -> void:
 	for y in MAP_H:
 		for x in MAP_W:
 			var k: int = world.cells[world.idx(x, y)]
-			var tid := _tile_id(k)
-			# Always draw floor under entities.
-			if tid != Tiles.Id.FLOOR and tid != Tiles.Id.WALL:
-				_room.draw_texture_rect_region(
-					_atlas, Rect2(x * TILE, y * TILE, TILE, TILE), Tiles.src(Tiles.Id.FLOOR))
-			_room.draw_texture_rect_region(
-				_atlas, Rect2(x * TILE, y * TILE, TILE, TILE), Tiles.src(tid))
-	# HUD bar (dplay-like: Name / Rank / Gold / Magic / Health)
-	var hy := MAP_H * TILE
-	_room.draw_rect(Rect2(0, hy, STAGE_W, HUD_H), COL_HUD)
-	_room.draw_line(Vector2(0, hy), Vector2(STAGE_W, hy), COL_FRAME, 2.0)
-	var line1 := "NaMe: %s    RaNK: %s    map: %s" % [world.name_str, world.rank_str, world.level_id]
-	var line2 := "GoLd: %04d   MaGiC: %03d   HeaLTH: %03d/%03d   AmMo: %03d   moves: %d" % [
-		world.cash, world.magic, world.health, world.health_max, world.ammo, world.moves]
-	_text(12, hy + 8, 13, line1, COL_TEXT, false)
-	_text(12, hy + 26, 13, line2, COL_GOLD, false)
-	# Message strip
-	_room.draw_rect(Rect2(STAGE_W - 420, hy + 4, 410, HUD_H - 8), Color(0.08, 0.09, 0.16, 0.9))
-	_text(STAGE_W - 410, hy + 14, 12, world.message, COL_DIM, false)
+			var ch := CH_FLOOR
+			var fg := FG_FLOOR
+			match k:
+				World.Kind.WALL:
+					ch = CH_WALL
+					fg = FG_WALL
+				World.Kind.HERO:
+					ch = CH_HERO
+					fg = FG_HERO
+				World.Kind.COIN:
+					ch = CH_COIN
+					fg = FG_COIN
+				World.Kind.GEM:
+					ch = CH_GEM
+					fg = FG_GEM
+				World.Kind.HEART:
+					ch = CH_HEART
+					fg = FG_HEART
+				World.Kind.AMMO:
+					ch = CH_AMMO
+					fg = FG_AMMO
+				World.Kind.BOULDER:
+					ch = CH_BOULDER
+					fg = FG_BOULDER
+				_:
+					ch = CH_FLOOR
+					fg = FG_FLOOR
+			if ch != CH_FLOOR:
+				term.put(MAP_OX + x, MAP_OY + y, ch, fg, 0)
 	if world.state == World.State.WIN:
-		_room.draw_rect(Rect2(STAGE_W * 0.25, STAGE_H * 0.35, STAGE_W * 0.5, 80), Color(0, 0, 0, 0.75))
-		_text(STAGE_W * 0.5, STAGE_H * 0.35 + 20, 22, "Room cleared!", COL_GOLD, true)
-		_text(STAGE_W * 0.5, STAGE_H * 0.35 + 48, 14, "Enter - title", COL_TEXT, true)
+		term.puts(22, 10, " Room cleared! Enter=title ", FG_YELLOW, 4)
 
 
-func _text(x: float, y: float, size: int, label: String, col: Color, center: bool) -> void:
-	if label.is_empty():
-		return
-	var pos := Vector2(x, y + _font.get_ascent(size))
-	if center:
-		var w := _font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
-		pos.x -= w * 0.5
-	_room.draw_string(_font, pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, size, col)
+func _draw_title() -> void:
+	## Text title card inside the map frame (no SvA brick field).
+	for y in range(1, 21):
+		for x in range(1, 71):
+			term.put(x, y, " ", FG_GRAY, 0)
+	term.puts(32, 4, "DOTH", FG_YELLOW, 0)
+	term.puts(24, 6, "Quest for the Empire", FG_WHITE, 0)
+	term.puts(14, 8, "(c) 1993-1996 Sterling Silverware / Michal Wallace", FG_DIM, 0)
+	term.puts(18, 11, "Enter / Space / 2  —  overworld (dmap1)", FG_GREEN, 0)
+	term.puts(26, 13, "1  —  starter chamber", FG_GREEN, 0)
+	term.puts(24, 16, "Esc — pause / Back to Arcade", FG_DIM, 0)
+	_draw_status_values()
+	term.puts(29, 22, "CP437 TermGrid Direct", FG_DIM, 0)
