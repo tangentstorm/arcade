@@ -59,6 +59,7 @@ const SCALE_MODE := {
 	"brickslayer": "letterbox",      # 400×300 console @2x
 	"giraffe": "letterbox",          # 128×128 Pico-8 stage
 	"ofcp": "expand",                # live client UI reflows
+	"chesscoach": "letterbox",       # 400×400 board
 	"canyon_run": "letterbox",       # 240×320 portrait stage @2× (480×640)
 }
 
@@ -161,6 +162,8 @@ const TITLES := [
 		"pico-games/giraffe.p8 (Pico-8) tiny platformer → GDScript."],
 	["ofcp", "OFCP", {"direct": "playable", "enhanced": "planned"},
 		"Pineapple OFC vs AI; thin client over wss://ofcp.tangentcode.com/ws."],
+	["chesscoach", "Chess Coach", {"direct": "playable", "enhanced": "planned"},
+		"tangentstorm/gd-chesscoach (Godot 4.3): tiny FEN board + trays. No Stockfish."],
 	["canyon_run", "Canyon Run", {"direct": "playable", "enhanced": "planned"},
 		"Original River Raid-style canyon flyer (2026): procedural Godot 4 MVP; Claude Design mock pending for Enhanced."],
 ]
