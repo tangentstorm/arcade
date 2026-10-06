@@ -15,7 +15,7 @@ const TEXT_PX := 13                             ## body { font-size: 10pt }
 const GRAY_666 := Color("#666666")
 const GRAY_999 := Color("#999999")
 const LAKE := Color("#cccccc")
-const DIM := Color(0.41, 0.41, 0.41, 0.5)       ## stand-in for dimgray.png (not on the live site)
+const DIM := Color(0.41, 0.41, 0.41, 0.5)       ## fallback if dimgray.png missing
 const SHADES := {                               ## #bricks .shadeN
 	5: Color("#777777"), 4: Color("#999999"), 3: Color("#bbbbbb"),
 	2: Color("#dddddd"), 1: Color("#ffffff"),
@@ -35,6 +35,9 @@ var _bold: FontVariation
 var _overlays := {}                             ## screen name -> Control
 var _name_edit: LineEdit
 var _score_rows: Array = []                     ## [[name Label, score Label], …]
+var _paddle_tex: Texture2D
+var _ball_tex: Texture2D
+var _dim_tex: Texture2D
 
 @onready var _console: Control = %Console
 @onready var _footer: Label = %Footer
@@ -47,6 +50,7 @@ func _ready() -> void:
 	_bold = FontVariation.new()
 	_bold.base_font = get_theme_default_font()
 	_bold.variation_embolden = 0.9
+	_load_sprite_textures()
 	_load_sounds()
 	_build_overlays()
 	_console.draw.connect(_draw_console)
@@ -152,14 +156,19 @@ func _draw_console() -> void:
 		_draw_text(str(game.score), 350, Color.WHITE, 45)
 
 
-## paddle.png and ball.png are not on the live site; paddle stays a gray box,
-## ball and spare-life icons are gray circles (same 16×16 AABB for physics).
+## Prefer recovered paddle.png / ball.png; fall back to gray stand-ins.
 func _draw_gray_sprite(s: Logic.Sprite) -> void:
+	if _paddle_tex:
+		_console.draw_texture_rect(_paddle_tex, Rect2(s.x, s.y, s.w, s.h), false)
+		return
 	_console.draw_rect(Rect2(s.x, s.y, s.w, s.h), GRAY_999)
 	_console.draw_rect(Rect2(s.x + 0.5, s.y + 0.5, s.w - 1, s.h - 1), GRAY_666, false, 1.0)
 
 
 func _draw_ball_sprite(s: Logic.Sprite) -> void:
+	if _ball_tex:
+		_console.draw_texture_rect(_ball_tex, Rect2(s.x, s.y, s.w, s.h), false)
+		return
 	var center := Vector2(s.x + s.w * 0.5, s.y + s.h * 0.5)
 	var radius := minf(s.w, s.h) * 0.5
 	_console.draw_circle(center, radius, GRAY_999)
@@ -206,11 +215,20 @@ func _overlay(image: String, alt: String, lines: Array) -> Control:
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.visible = false
-	var dim := ColorRect.new()
-	dim.color = DIM
-	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
-	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	root.add_child(dim)
+	if _dim_tex:
+		var dim := TextureRect.new()
+		dim.texture = _dim_tex
+		dim.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		dim.stretch_mode = TextureRect.STRETCH_TILE
+		dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+		dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		root.add_child(dim)
+	else:
+		var dim := ColorRect.new()
+		dim.color = DIM
+		dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+		dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		root.add_child(dim)
 	var box := VBoxContainer.new()
 	box.set_anchors_preset(Control.PRESET_FULL_RECT)
 	box.offset_top = 50 * S
@@ -344,7 +362,19 @@ func _on_screen_changed(screen: String) -> void:
 		_name_edit.release_focus()
 
 
-# ---- sound (lesson 07) --------------------------------------------------
+# ---- sprites / sound ----------------------------------------------------
+
+func _load_sprite_textures() -> void:
+	var paddle_path := ASSETS + "sprites/paddle.png"
+	var ball_path := ASSETS + "sprites/ball.png"
+	var dim_path := ASSETS + "sprites/dimgray.png"
+	if ResourceLoader.exists(paddle_path):
+		_paddle_tex = load(paddle_path)
+	if ResourceLoader.exists(ball_path):
+		_ball_tex = load(ball_path)
+	if ResourceLoader.exists(dim_path):
+		_dim_tex = load(dim_path)
+
 
 func _load_sounds() -> void:
 	for key in SOUND_FILES:
