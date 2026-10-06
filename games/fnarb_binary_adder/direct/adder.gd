@@ -3,11 +3,17 @@ extends Control
 ## - `await _await[0].await[1]` (a broken Godot 3 → 4 conversion of `yield(obj, signal)`) is now
 ##   `await Signal(_await[0], _await[1])`. The 4.1 original died on the first step.
 ## - no `@tool`, and the debug `print`s are removed.
+## - Carriage column position is owned by the scene/script, not the `init` animation. In Godot 4
+##   AnimationMixer, leaving an anim that keyed `carriage:position` reset it to (0,0) and the
+##   gold highlight sat in the wrong place instead of over the bits being added.
 
 @onready var _script = make_script()
 
 const O : Color = Color('222')
 const I : Color = Color('eee')
+
+## Top-left of the LSB column (bit0): cursor local (32,40) then covers a/b at x=800.
+const CARRIAGE_ORIGIN := Vector2(768, 280)
 
 @export var a : int = 0: set = set_a
 @export var b : int = 1: set = set_b
@@ -23,6 +29,8 @@ func set_b(val):
 	if is_inside_tree(): $b.bits = b
 
 func _ready():
+	# Keep column origin stable across AnimationTree state changes (see file header).
+	$carriage.position = CARRIAGE_ORIGIN
 	$AnimationTree.active = true
 	play()
 
@@ -74,5 +82,3 @@ func set_node_prop(nodepath, prop, value):
 
 func move_carriage_left():
 	$carriage.position += 32 * Vector2.LEFT
-
-

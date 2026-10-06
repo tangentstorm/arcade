@@ -74,15 +74,39 @@ func _run() -> void:
 	g.queue_free()
 	await process_frame
 
-	# Binary adder: speed the 1 s step timer up and check the 3 + 7 = 10 (1010) result row.
+	# Binary adder: gold highlight over the active column, then 3 + 7 = 10 (1010).
 	g = _load("fnarb_binary_adder")
 	await _frames(2)
 	d = _demo(g)
 	var adder: Control = d.get_node("Adder")
+	var carriage: Node2D = adder.get_node("carriage")
+	var cursor: ReferenceRect = adder.get_node("carriage/cursor")
+	_check(cursor.border_color.r > 0.9 and cursor.border_color.g > 0.7 and cursor.border_color.b < 0.2,
+		"adder: highlight is gold/yellow (got %s)" % cursor.border_color)
+	_check(carriage.position == Vector2(768, 280),
+		"adder: carriage starts at LSB column origin %s" % carriage.position)
+	# Let add_2 become current (init → add_2) and assert the box covers a/b bit0.
+	await create_timer(0.6).timeout
+	var abs_hl := carriage.position + cursor.position
+	_check(abs_hl.x == 800.0 and abs_hl.y == 320.0 and cursor.size == Vector2(32, 72),
+		"adder: highlight over a/b bit0 at %s size %s" % [abs_hl, cursor.size])
+	_check(cursor.modulate.r > 0.9 and cursor.modulate.g > 0.9 and cursor.modulate.b > 0.9 and cursor.modulate.a > 0.9,
+		"adder: cursor.modulate visible gold early (got %s)" % cursor.modulate)
+	# Real-time through the first column advance (add_3 calls move_carriage_left).
+	await create_timer(5.5).timeout
+	_check(carriage.position.x == 736.0,
+		"adder: carriage advanced one column after add_3 (x=%s)" % carriage.position.x)
+	var abs_col1 := carriage.position + cursor.position
+	_check(abs_col1.x == 768.0 and cursor.size.y >= 72.0,
+		"adder: highlight over column 1 addends/carry at %s size %s" % [abs_col1, cursor.size])
+	# AnimationTree deterministic=true resets unkeyed modulate to black after add_2; keep it white.
+	_check(cursor.modulate.r > 0.9 and cursor.modulate.g > 0.9 and cursor.modulate.b > 0.9 and cursor.modulate.a > 0.9,
+		"adder: cursor.modulate still ~(1,1,1,1) after later clips (~6s, got %s)" % cursor.modulate)
+	# Speed the remaining steps; bit colours are script-driven so a short wait is enough.
 	var timer: Timer = adder.get_node("Timer")
 	timer.wait_time = 0.02
 	timer.start()
-	await create_timer(3.0).timeout
+	await create_timer(2.0).timeout
 	var bits := ""
 	for i in [3, 2, 1, 0]:
 		bits += "1" if adder.get_node("r/bit%d" % i).color == adder.I else "0"
