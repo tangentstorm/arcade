@@ -67,7 +67,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `GameSketchLib` | `tangentstorm/GameSketchLib` (Processing) | Engine/lessons — port **demos**, not whole lib, unless decision says otherwise |
 | `godotlab` | `tangentstorm/godotlab` | Experiments — cherry-pick playable scenes |
 | `cupid` | `tangentstorm/cupid` (ActionScript, private/archived) | Needs access; schedule after public titles |
-| `mineswpr` | Live: `https://tangentstorm.github.io/mineswpr.html` via **b4-gd + j-talks terminal** | Prefer reusing b4-gd patterns; may be shell+cart rather than full GD port |
+| `mineswpr` | Live: `https://tangentstorm.github.io/mineswpr.html` via **b4-gd + j-talks terminal** | Direct + Enhanced playable (Enhanced = modern tiles, flags + win/lose juice over the same rules); see `games/mineswpr/PORT.md` |
 
 ### 2.3 Explicitly out of v1
 
