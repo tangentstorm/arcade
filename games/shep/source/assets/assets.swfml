@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<movie width="100" height="100" framerate="30">
+  <background color="#000000"/>
+  <frame>
+    <library>
+
+      <font id="ClockFont" name="ClockFont" import="assets/led_regular.ttf"
+            glyphs="0123456789:" />
+
+      <clip id="ShepClip" class="ShepClip" import="assets/bot.png"/>
+      <clip id="GlowClip" class="GlowClip" import="assets/engine-glow.png"/>
+
+      <clip id="CrateClip" class="CrateClip" import="assets/hex-crate.png"/>
+      <clip id="CargoClip" class="CargoClip" import="assets/cargo-box.png"/>
+
+      <clip id="DoorClip" class="DoorClip" import="assets/door.png"/>
+      <clip id="SpinnerClip" class="SpinnerClip" import="assets/spinner.png"/>
+
+      <clip id="BallClip" class="BallClip" import="assets/fuse-blue.swf"/>
+      <clip id="RedBallClip" class="RedBallClip" import="assets/fuse-red.swf"/>
+
+      <clip id="PocketClip" class="PocketClip" import="assets/socket.swf"/>
+      <clip id="PocketGlow" class="PocketGlow" import="assets/socket-glow.png"/>
+
+      <clip id="BorderClip" class="BorderClip" import="assets/blank_overlay.png"/>
+      
+      <clip id="BG0000" class="BG0000" import="assets/bg0000.png"/>
+      <clip id="BG0001" class="BG0001" import="assets/bg0001.png"/>
+      <clip id="BG0002" class="BG0002" import="assets/bg0002.png"/>
+      <clip id="BG0003" class="BG0003" import="assets/bg0003.png"/>
+      <clip id="BG0004" class="BG0004" import="assets/bg0004.png"/>
+      <clip id="BG0005" class="BG0005" import="assets/bg0005.png"/>
+      <clip id="BG0006" class="BG0006" import="assets/bg0006.png"/>
+      <clip id="BG0007" class="BG0007" import="assets/bg0007.png"/>
+<!--      <clip id="BG0008" class="BG0008"
+      import="assets/gen-bg.png"/> -->
+      <clip id="BG0009" class="BG0009" import="assets/bg0009.png"/>
+
+      <clip id="FG0000" class="FG0000" import="assets/fg0000.png"/>
+      <clip id="FG0001" class="FG0001" import="assets/fg0001.png"/>
+      <clip id="FG0002" class="FG0002" import="assets/fg0002.png"/>
+      <clip id="FG0003" class="FG0003" import="assets/blank.png"/>
+      <clip id="FG0004" class="FG0004" import="assets/fg0004.png"/>
+      <clip id="FG0005" class="FG0005" import="assets/fg0005.png"/>
+      <clip id="FG0006" class="FG0006" import="assets/fg0006.png"/>
+      <clip id="FG0007" class="FG0007" import="assets/fg0007.png"/>
+<!--      <clip id="FG0008" class="FG0008" import="assets/blank.png"/> -->
+      <clip id="FG0009" class="FG0009" import="assets/blank.png"/>
+
+      <sound id="FuseSound" name="FuseSound"
+	     import="assets/sound/fuse.mp3"/>
+      <sound id="WallSound" name="WallSound"
+	     import="assets/sound/wall.mp3"/>
+      <sound id="FuseWallSound" name="FuseWallSound"
+	     import="assets/sound/glass-on-metal.mp3"/>
+      <sound id="DoorSound" name="DoorSound"
+	     import="assets/sound/door.mp3"/>
+      <sound id="PocketSound" name="PocketSound"
+	     import="assets/sound/pocket.mp3"/>
+      <sound id="ThrustSound" name="PocketSound"
+	     import="assets/sound/thrust.mp3"/>
+
+      <sound id="AlertSound1" name="AlertSound1"
+	     import="assets/sound/alert-1.mp3"/>
+      <sound id="AlertSound2" name="AlertSound2"
+	     import="assets/sound/alert-2.mp3"/>
+      <sound id="AlertSound3" name="AlertSound3"
+	     import="assets/sound/alert-3.mp3"/>
+
+      <sound id="VictorySound" name="VictorySound"
+	     import="assets/sound/victory.mp3"/>
+      <sound id="DefeatSound" name="DefeatSound"
+	     import="assets/sound/defeat.mp3"/>
+      <sound id="BlueDanube" name="BlueDanube"
+	    import="assets/sound/wah-danube.mp3"/>
+
+
+      <clip id="MuteIcon" class="MuteIcon"
+	    import="assets/muted.png"/>
+      <clip id="SoundIcon" class="SoundIcon"
+	    import="assets/spkr.png"/>
+
+
+
+<!--
+      <clip id="TitleScreen" class="TitleScreen" 
+	    import="assets/title-transparent.png"/>
+-->
+
+      <!--
+      <clip id="MoneyDigit" class="MoneyDigit" 
+	    import="assets/lores/Counters/money.swf"/>
+      
+
+      <bitmap id="ParticleBitmapData" name="ParticleBitmapData" 
+	      import="assets/lores/particles/raindrop.png"/>
+      <bitmap id="SomeOtherBitmapData" name="SomeOtherBitmapData"
+	      import="assets/lores/particles/rainy.png"/>
+
+      <sound id="BackgroundMusic" name="BackgroundMusic"
+	     import="assets/music/wah-danube.mp3"/>
+      -->
+    </library>
+  </frame>
+</movie>

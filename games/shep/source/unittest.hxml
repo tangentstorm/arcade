@@ -1,0 +1,4 @@
+-cp code
+-cp test
+-neko unittest.n
+-main Game1Test

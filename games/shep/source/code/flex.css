@@ -1,0 +1,28 @@
+/* Flex.CSS file for shep. */
+
+@font-face {
+    src: url("../assets/fake_receipt.ttf");
+    fontFamily: "fakeReceipt";
+    /* advancedAntiAliasing: true;*/
+}
+
+.levelButton
+{
+	cornerRadius: 0;
+	fillAlphas: 0.0, 0.0, 0.9, 0.9;
+	skin: Embed(source='../assets/button_bg_clear.png');
+	overSkin: Embed(source='../assets/button_bg_light.png');
+	textAlign:left;
+	disabledIcon: Embed(source='../assets/lil-padlock.png');
+	
+}
+
+
+.levelButton, .darkText
+{
+	fontFamily: fakeReceipt;
+	fontSize: 24;
+	fontWeight:normal;
+	color: black;
+	embedFonts:true;		
+}
