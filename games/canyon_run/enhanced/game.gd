@@ -1,15 +1,12 @@
 extends Node2D
-## Canyon Run (Enhanced). Visual/UI makeover of the Direct River Raid–style
-## canyon flyer. Simulation is Direct canyon_logic.gd (preloaded, not copied):
-## procedural canyon, steer / throttle / fire, drifters, distance score,
-## crash / reset. This file owns the 1280×720 letterbox shell: layered canyon
-## chrome, craft glow + exhaust, bullet tracers, kill / crash juice, clearer
-## HUD panels, title / crash cards, Back to Arcade. Claude Design exact parity
-## is out of scope without reference screenshots — visuals stand on their own.
-## Esc is handled by the PauseOverlay autoload. No Alchementrix IP. No new
-## core mechanics (no fuel, bridges, lives, or sound).
+## Canyon Run (Enhanced). Presentation shell over Direct canyon_logic.gd.
+## Field visuals use the same Claude Design paper-cut topo renderer as Direct
+## (canyon_topo.gd). This file owns the 1280×720 letterbox chrome: HUD panels,
+## title / crash cards, kill / crash juice, Back to Arcade. Esc → PauseOverlay.
+## No Alchementrix IP. No new core mechanics (no fuel, bridges, lives, sound).
 
 const Logic := preload("res://games/canyon_run/direct/canyon_logic.gd")
+const Topo := preload("res://games/canyon_run/direct/canyon_topo.gd")
 
 const STAGE := Vector2(1280, 720)
 const PX := 2.0  ## 240×320 → 480×640 field (same Direct resolution, richer chrome)
@@ -40,6 +37,8 @@ const ENEMY := Color(0.95, 0.28, 0.32)
 const BULLET := Color(1.0, 0.98, 0.75)
 
 var logic = Logic.new(1)  ## Direct canyon_logic.gd instance
+var topo = Topo.new()
+var _bank := 0.0
 var playing := false  ## false while the Enhanced title card is up
 var steer_override := 0.0  ## tests can drive without input events
 var throttle_override := NAN
@@ -83,6 +82,7 @@ func _ready() -> void:
 	_panel_style.set_corner_radius_all(14)
 	# Fresh seed per launch (tests replace logic afterward).
 	logic = Logic.new(Time.get_ticks_usec())
+	topo.reset(logic._seed)
 	_prev_kills = 0
 	_prev_bullets = 0
 	_prev_state = logic.state
@@ -156,6 +156,11 @@ func _process(delta: float) -> void:
 		var throttle := _read_throttle()
 		var fire := _read_fire()
 		tick(delta, steer, throttle, fire)
+		_bank = move_toward(_bank, steer, delta * 4.0)
+	else:
+		_bank = move_toward(_bank, 0.0, delta * 2.0)
+	topo.tick(delta)
+	topo.sync_seed(logic._seed)
 	_animate(delta)
 	_refresh_hud()
 	_field.queue_redraw()
@@ -301,90 +306,15 @@ func _s(p: Vector2) -> Vector2:
 
 
 func _draw_field() -> void:
-	# River depth gradient + shimmer bands.
-	for i in 20:
-		var t := float(i) / 19.0
-		var c := WATER_DEEP.lerp(WATER_MID, t)
-		_field.draw_rect(Rect2(0, FIELD.y * t, FIELD.x, FIELD.y / 20.0 + 1.0), c)
-	# Soft mid-channel highlight that drifts with distance.
-	var shimmer_y := fmod(_time * 40.0 + logic.dist * 0.15, FIELD.y)
-	_field.draw_rect(Rect2(FIELD.x * 0.28, shimmer_y - 18.0, FIELD.x * 0.44, 36.0), Color(WATER_LIT, 0.12))
-	# Canyon walls — layered rock strips per Direct row.
-	var y := 0.0
-	while y < Logic.STAGE_H:
-		var wy: float = logic.world_y(y + Logic.ROW_H * 0.5)
-		var w: Vector2 = logic.walls_at(wy)
-		var h := Logic.ROW_H * PX
-
-		# Deep rock fill.
-		_field.draw_rect(Rect2(_s(Vector2(0, y)), Vector2(w.x * PX, h)), ROCK)
-		_field.draw_rect(Rect2(_s(Vector2(w.y, y)), Vector2((Logic.STAGE_W - w.y) * PX, h)), ROCK)
-		# Mid band (cliff face).
-		var mid_w := minf(10.0, w.x) * PX
-		_field.draw_rect(Rect2(_s(Vector2(w.x, y)) - Vector2(mid_w, 0), Vector2(mid_w, h)), ROCK_MID)
-		_field.draw_rect(Rect2(_s(Vector2(w.y, y)), Vector2(mid_w, h)), ROCK_MID)
-		# Lit rim along the channel.
-		_field.draw_rect(Rect2(_s(Vector2(w.x - 1.5, y)), Vector2(3.0 * PX, h)), ROCK_RIM)
-		_field.draw_rect(Rect2(_s(Vector2(w.y - 1.5, y)), Vector2(3.0 * PX, h)), ROCK_LIT)
-		# Occasional ledge notches for texture (deterministic from world y).
-		var ledge := int(floor(wy / (Logic.ROW_H * 7.0)))
-		if (ledge * 17) % 5 == 0 and w.x > 18.0:
-			_field.draw_rect(Rect2(_s(Vector2(w.x - 8.0, y)), Vector2(8.0 * PX, h)), ROCK_LIT)
-		if (ledge * 13) % 5 == 2 and (Logic.STAGE_W - w.y) > 18.0:
-			_field.draw_rect(Rect2(_s(Vector2(w.y, y)), Vector2(8.0 * PX, h)), ROCK_LIT)
-		# Foam / water edge
-		_field.draw_rect(Rect2(_s(Vector2(w.x, y)), Vector2(2.0 * PX, h)), Color(WATER_LIT, 0.55))
-		_field.draw_rect(Rect2(_s(Vector2(w.y - 2.0, y)), Vector2(2.0 * PX, h)), Color(WATER_LIT, 0.55))
-		y += Logic.ROW_H
+	# Paper-cut topo (same renderer as Direct) + Enhanced juice overlays.
+	topo.paint(_field, logic, Vector2.ZERO, PX, _bank)
 	# Wake / trail behind the craft.
 	if _trail.size() >= 2 and logic.state == Logic.State.PLAY:
 		for i in range(1, _trail.size()):
 			var a := float(i) / float(_trail.size())
 			var p0: Vector2 = _s(_trail[i - 1])
 			var p1: Vector2 = _s(_trail[i])
-			_field.draw_line(p0, p1, Color(CYAN.r, CYAN.g, CYAN.b, 0.15 * a), 2.0)
-	# Enemies — oval craft with pulse glow.
-	for e in logic.enemies:
-		var c: Vector2 = Vector2(e.pos.x, logic.screen_y(e.pos.y))
-		if c.y < -20.0 or c.y > Logic.STAGE_H + 20.0:
-			continue
-		var pulse := 0.55 + 0.45 * sin(_time * 6.0 + e.pos.x * 0.05)
-		var half := Logic.ENEMY_HALF
-		_field.draw_circle(_s(c), half.x * PX * 1.35, Color(ENEMY.r, ENEMY.g, ENEMY.b, 0.22 * pulse))
-		_field.draw_rect(Rect2(_s(c - half), half * 2.0 * PX), ENEMY)
-		_field.draw_rect(Rect2(_s(c - Vector2(half.x * 0.5, half.y * 0.35)), Vector2(half.x, half.y * 0.7) * PX), Color(1, 0.7, 0.7, 0.55))
-	# Bullets — glowing tracers.
-	for b in logic.bullets:
-		var c := Vector2(b.x, logic.screen_y(b.y))
-		_field.draw_circle(_s(c), 5.0, Color(BULLET.r, BULLET.g, BULLET.b, 0.25))
-		_field.draw_rect(Rect2(_s(c - Vector2(1.2, 4.0)), Vector2(2.4, 8.0) * PX), BULLET)
-	# Craft.
-	var p := Vector2(logic.player_x, Logic.PLAYER_Y)
-	var hx: float = Logic.PLAYER_HALF.x
-	var hy: float = Logic.PLAYER_HALF.y
-	var crashed: bool = logic.state == Logic.State.CRASHED
-	var col := RED if crashed else CRAFT
-	_field.draw_circle(_s(p), 14.0, CRAFT_GLOW if not crashed else Color(HOT.r, HOT.g, HOT.b, 0.35))
-	# Exhaust plume length scales with speed.
-	if not crashed and logic.state == Logic.State.PLAY:
-		var flame_h := lerpf(6.0, 16.0, (logic.speed - Logic.SPEED_MIN) / (Logic.SPEED_MAX - Logic.SPEED_MIN))
-		var flame := PackedVector2Array([
-			_s(p + Vector2(0, hy * 0.55)),
-			_s(p + Vector2(-3.0, hy + flame_h * 0.35)),
-			_s(p + Vector2(0, hy + flame_h)),
-			_s(p + Vector2(3.0, hy + flame_h * 0.35)),
-		])
-		_field.draw_colored_polygon(flame, Color(CYAN.r, CYAN.g, CYAN.b, 0.75))
-	var poly := PackedVector2Array([
-		_s(p + Vector2(0, -hy)),
-		_s(p + Vector2(hx, hy)),
-		_s(p + Vector2(0, hy * 0.4)),
-		_s(p + Vector2(-hx, hy)),
-	])
-	_field.draw_colored_polygon(poly, col)
-	# Cockpit speck.
-	if not crashed:
-		_field.draw_circle(_s(p + Vector2(0, -hy * 0.15)), 2.5, Color(0.15, 0.25, 0.45))
+			_field.draw_line(p0, p1, Color(CYAN.r, CYAN.g, CYAN.b, 0.12 * a), 2.0)
 	# Particles + floaters in field space.
 	for part in _particles:
 		var a: float = clampf(part.life / maxf(part.max, 0.01), 0.0, 1.0)
@@ -396,6 +326,8 @@ func _draw_field() -> void:
 		var fc: Color = f.col
 		fc.a = a
 		_field.draw_string(_font, _s(f.pos), f.text, HORIZONTAL_ALIGNMENT_CENTER, -1, 16, fc)
+	if _font:
+		topo.paint_badge(_field, Vector2.ZERO, PX, _font)
 
 
 func _build_ui() -> void:
@@ -409,11 +341,11 @@ func _build_ui() -> void:
 	title.position = Vector2(16, 14)
 	title.size = Vector2(248, 36)
 	left.add_child(title)
-	var sub := _label("Enhanced | River Raid style", 14, MUTED)
+	var sub := _label("Enhanced | topo mock parity", 14, MUTED)
 	sub.position = Vector2(16, 48)
 	sub.size = Vector2(248, 22)
 	left.add_child(sub)
-	_hint_label = _label("<-/-> or A/D  steer\n^/v or W/S  throttle\nSpace / Z   fire\nEsc         pause\n\nFly the canyon.\nDon't kiss the walls\nor the red drifters.", 15, INK)
+	_hint_label = _label("<-/-> or A/D  steer\n^/v or W/S  throttle\nSpace / Z   fire\nEsc         pause\n\nFly the canyon.\nDon't kiss the walls\nor the gunboats.", 15, INK)
 	_hint_label.position = Vector2(16, 88)
 	_hint_label.size = Vector2(248, 280)
 	_hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -473,7 +405,7 @@ func _build_ui() -> void:
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	right.add_child(tip)
 	# Title card.
-	_cards["title"] = _make_card("CANYON RUN", "River Raid-style canyon flyer\n\nSteer clear of the walls.\nBlast the red drifters.\n\nSpace / Enter to fly", true)
+	_cards["title"] = _make_card("CANYON RUN", "Paper-cut canyon flyer\n\nSteer clear of the walls.\nBlast the gunboats.\n\nSpace / Enter to fly", true)
 	# Crash card.
 	_cards["crash"] = _make_card("CRASHED", "score 0\n\nSpace to fly again", false)
 
