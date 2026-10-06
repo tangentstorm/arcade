@@ -4,4 +4,4 @@ From [fnarbmlyx](https://github.com/tangentstorm/fnarbmlyx) `demos/boolean_synta
 graph and algorithm-animation experiments. A visual sketch, not a game.
 
 - **Direct:** playable. The original scene in a 1920×1080 stage; see [PORT.md](PORT.md).
-- **Enhanced:** planned.
+- **Enhanced:** playable. 1280×720 letterbox chrome, grow-in reveal, traversal-wave halos and a hover inspector over the same Direct `ast_node_demo.tscn` (shared `ast_node*.gd` / `shaded_grid.gd`).
