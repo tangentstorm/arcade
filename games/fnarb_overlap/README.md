@@ -4,4 +4,4 @@ From [fnarbmlyx](https://github.com/tangentstorm/fnarbmlyx) `demos/overlap_demo/
 graph and algorithm-animation experiments. A visual sketch, not a game.
 
 - **Direct:** playable. The original scene in a 1920×1080 stage; see [PORT.md](PORT.md).
-- **Enhanced:** planned.
+- **Enhanced:** playable. Letterbox chrome + HUD/overlap juice over the same Direct demo; see [PORT.md](PORT.md).

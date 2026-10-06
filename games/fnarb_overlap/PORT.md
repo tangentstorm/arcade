@@ -27,4 +27,41 @@ Files: `OverlapDemo.gd`/`.tscn` → `overlap_demo.gd`/`.tscn`. Apart from `res:/
 
 Tests: `tools/test_fnarb_demos.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same 9-box overlap sketch. **No rules are duplicated:**
+`enhanced/game.gd` instances Direct `overlap_demo.tscn` (shared `overlap_demo.gd`). The
+3×3 of 32×32 boxes, hover / press / drag, half-matrix O(n²) `colorize_overlaps`, and
+goldenrod / black / dim-gray press colours stay Direct. Enhanced only wraps the demo
+in 1280×720 letterbox chrome and derives juice from watching Direct box colours /
+subject / mouseXY. No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: field, HUD, title card, overlap juice |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). Direct's 1920×1080 demo runs in a
+  SubViewport scaled into a 960×540 field (½) between thin side HUD panels.
+- **Look / HUD:** slate gradient + twinkles, neon frame around the field, live mouse /
+  subject / overlap readouts, colour legend, controls strip.
+- **Juice:** bursts/floaters when Direct box colours change (hover / grab / overlap);
+  banner + soft flash on first overlap; soft flash on Start.
+- **Title card** on boot (Space/Enter/Start); **R** reloads the Direct demo. Back to
+  Arcade is `FOCUS_NONE`. Esc → PauseOverlay.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Overlap / drag rules | `direct/overlap_demo.gd` | same scene (instance), no copy |
+| Stage | 1920×1080 SubViewport scaled to window | 1280×720 chrome around ½-scale Direct demo |
+| Start | demo visible immediately | title card, then the same Direct demo |
+| Interaction | hover / drag (Direct) | same Direct interaction + presentation juice |
+| Esc / Back | PauseOverlay + help label | same + explicit Back (FOCUS_NONE) |
+
+### Deferred
+- Zoomed crop on the box cluster (boxes stay small at ½ of 1920×1080, as in siblings)
+- Dedicated `_enhanced` gallery preview (card can use the Direct shot)
+
+Tests: `tools/test_fnarb_overlap_enhanced.gd` (run by `tools/smoke_headless.sh`).
