@@ -79,6 +79,22 @@ func _run() -> void:
 	await process_frame
 	_check(is_instance_valid(inst) and not inst.halted, "Esc does not halt the cart")
 
+	# Hover (2,5): brackets inked Y (11), glyph untouched, survives a full
+	# cart draw, and leaving restores the cart's colors.
+	var tg = inst.term_grid
+	var hx: int = inst.BOARD_COL + 4 * 2
+	var hy: int = inst.BOARD_ROW + 5
+	var before := [tg.fg_at(hx, hy), tg.fg_at(hx + 1, hy), tg.fg_at(hx + 2, hy)]
+	tg.cell_hovered.emit(hx + 1, hy)
+	_check([tg.fg_at(hx, hy), tg.fg_at(hx + 1, hy), tg.fg_at(hx + 2, hy)] == [11, before[1], 11],
+		"hover inks brackets 11")
+	inst._unlight()
+	inst._after(inst.cart.call_word("draw"))
+	_check(tg.fg_at(hx, hy) == 11 and tg.fg_at(hx + 2, hy) == 11, "hover survives full draw")
+	tg.cell_hovered.emit(-1, -1)
+	_check([tg.fg_at(hx, hy), tg.fg_at(hx + 1, hy), tg.fg_at(hx + 2, hy)] == before,
+		"hover leave restores colors")
+
 	inst.queue_free()
 	await process_frame
 	if _fail:

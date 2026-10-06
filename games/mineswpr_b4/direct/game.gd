@@ -6,10 +6,15 @@ extends Control
 ##
 ## Play: hex mswp' commands at the ok prompt (`5 C ?`, `a b +`, `r`, `q`), or
 ## click (left = `?`, right = `+` / `-`). F2 boots a fresh cart.
+## Hover: the host inks the brackets of the board cell under the mouse Y (11),
+## like Direct's hover. It is an overlay, not a cart draw: a full redraw costs
+## ~90 ms, too slow for every mouse move. It is lifted before each cart call
+## and put back after, so the cart never sees it and its draws never wipe it.
 
 const Cart := preload("res://games/mineswpr_b4/direct/b4/MineswprCart.gd")
 const BOARD_ROW := 3
 const BOARD_COL := 4
+const HOVER_INK := 11 ## Y: Direct's mouse-hover bracket color
 
 @onready var term_grid: Control = %TermGrid
 
@@ -17,6 +22,8 @@ var cart = Cart.new()
 var seed_value := -1
 var halted := false
 var _blink := 0.0
+var hover := Vector2i(-1, -1) ## board cell under the mouse, or (-1, -1)
+var _lit := [] ## [col, row, fg] of each bracket inked Y, to restore
 
 
 func _ready() -> void:
@@ -25,6 +32,7 @@ func _ready() -> void:
 		if args[i] == "--seed":
 			seed_value = int(args[i + 1])
 	term_grid.cell_clicked.connect(_on_cell_clicked)
+	term_grid.cell_hovered.connect(_on_cell_hovered)
 	_boot()
 
 
@@ -34,9 +42,11 @@ func _exit_tree() -> void:
 
 func _boot() -> void:
 	halted = false
+	_unlight()
 	var err: String = cart.boot(term_grid, seed_value)
 	if err:
 		push_error("mineswpr_b4 boot: " + err)
+	_light()
 
 
 func _process(delta: float) -> void:
@@ -45,6 +55,7 @@ func _process(delta: float) -> void:
 	_blink += delta
 	if _blink >= 0.5:
 		_blink = 0.0
+		_unlight()
 		_after(cart.call_word("blink"))
 
 
@@ -72,23 +83,64 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				return
 			code = e.unicode
 	cart.push_key(code)
+	_unlight()
 	_after(cart.call_word("keys"))
 	_blink = 0.0
 	get_viewport().set_input_as_handled()
 
 
-func _on_cell_clicked(col: int, row: int, button: int) -> void:
-	if halted:
-		return
+## Terminal col/row -> board cell (each cell is 4 chars, `[g] `), or (-1, -1).
+func _board_cell(col: int, row: int) -> Vector2i:
 	var gx := (col - BOARD_COL) / 4
 	var gy := row - BOARD_ROW
 	if col < BOARD_COL or gx >= 16 or gy < 0 or gy >= 16:
+		return Vector2i(-1, -1)
+	return Vector2i(gx, gy)
+
+
+func _on_cell_hovered(col: int, row: int) -> void:
+	var c := _board_cell(col, row)
+	if c != hover:
+		_unlight()
+		hover = c
+		_light()
+
+
+## Ink the hovered cell's `[` and `]` Y, saving their colors first.
+func _light() -> void:
+	if hover.x < 0 or halted:
 		return
+	var y := BOARD_ROW + hover.y
+	for x in [BOARD_COL + 4 * hover.x, BOARD_COL + 4 * hover.x + 2]:
+		_lit.append([x, y, term_grid.fg_at(x, y)])
+		term_grid.put(x, y, term_grid.char_at(x, y), HOVER_INK, _bg_at(x, y))
+
+
+func _unlight() -> void:
+	for s: Array in _lit:
+		term_grid.put(s[0], s[1], term_grid.char_at(s[0], s[1]), s[2], _bg_at(s[0], s[1]))
+	_lit.clear()
+
+
+## Direct's TermGrid has no bg_at; read its BGB buffer.
+func _bg_at(x: int, y: int) -> int:
+	return term_grid.BGB[y * term_grid.grid_wh.x + x]
+
+
+func _on_cell_clicked(col: int, row: int, button: int) -> void:
+	if halted:
+		return
+	var c := _board_cell(col, row)
+	if c.x < 0:
+		return
+	var gx := c.x
+	var gy := c.y
 	var op := "?"
 	if button == MOUSE_BUTTON_RIGHT:
 		op = "-" if cart.is_flagged(gx, gy) else "+"
 	elif button != MOUSE_BUTTON_LEFT:
 		return
+	_unlight()
 	_after(cart.exec_line("%X %X %s" % [gx, gy, op]))
 
 
@@ -101,3 +153,4 @@ func _after(err: String) -> void:
 	if cart.quit_requested():
 		halted = true
 		GameRegistry.return_to_arcade.call_deferred()
+	_light()
