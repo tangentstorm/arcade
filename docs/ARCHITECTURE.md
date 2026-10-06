@@ -219,7 +219,7 @@ Align with proven `/workspace/b4-gd` + `/workspace/b4-godot-dig` practice unless
 | Renderer (project) | `gl_compatibility` | WebGL2-friendly, matches b4-gd |
 | Export path | `build/web/index.html` | Relative sibling wasm/js/pck |
 | Export filter | `all_resources` initially; tighten with exclude later | Simpler until pack bloats |
-| Custom HTML shell | optional later | Keep default until branding needs |
+| Custom HTML shell | none (stock shell) | Loading-screen branding = boot splash + `head_include` CSS; see `GALLERY.md` |
 | PWA | **off** | Avoid service-worker cache surprises on WIP |
 | `custom_template/release` | empty → official; later → slim zip | Phase E |
 
