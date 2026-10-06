@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://games/godotlab_collatz/direct/collatz.gd" id="1_collatz"]
+[ext_resource type="Script" path="res://games/godotlab_collatz/direct/register.gd" id="2_register"]
+
+[node name="collatz" type="Node2D"]
+script = ExtResource("1_collatz")
+
+[node name="World" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Register" type="Node2D" parent="World"]
+position = Vector2(64, 140)
+script = ExtResource("2_register")
+width = 16
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Hint" type="Label" parent="Hud"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 1268.0
+offset_bottom = 34.0
+modulate = Color(1, 1, 1, 0.6)
+text = "GodotLab collatz · click bits to set n · Space/Enter: step · R: run · C: clear · Esc: pause"
+
+[node name="Title" type="Label" parent="Hud"]
+offset_left = 128.0
+offset_top = 180.0
+offset_right = 1152.0
+offset_bottom = 230.0
+theme_override_font_sizes/font_size = 32
+text = "Collatz:  even n → n >> 1     odd n → 3n + 1"
+horizontal_alignment = 1
+
+[node name="Info" type="Label" parent="Hud"]
+unique_name_in_owner = true
+offset_left = 128.0
+offset_top = 370.0
+offset_right = 1152.0
+offset_bottom = 440.0
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+
+[node name="Trail" type="Label" parent="Hud"]
+unique_name_in_owner = true
+offset_left = 128.0
+offset_top = 450.0
+offset_right = 1152.0
+offset_bottom = 560.0
+modulate = Color(0.85, 0.85, 0.95, 1)
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Hud"]
+offset_left = 440.0
+offset_top = 590.0
+offset_right = 840.0
+offset_bottom = 636.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="StepButton" type="Button" parent="Hud/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Step"
+
+[node name="RunButton" type="Button" parent="Hud/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Run"
+
+[node name="ClearButton" type="Button" parent="Hud/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+focus_mode = 0
+text = "Clear"

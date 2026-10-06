@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://games/godotlab_game01/direct/assets/hero.png" id="1_hero"]
+[ext_resource type="Script" path="res://games/godotlab_game01/direct/hero.gd" id="2_hero"]
+[ext_resource type="Texture2D" path="res://games/godotlab_game01/direct/assets/crosshair.png" id="3_xhair"]
+[ext_resource type="Script" path="res://games/godotlab_game01/direct/crosshair.gd" id="4_xhair"]
+[ext_resource type="Texture2D" path="res://games/godotlab_game01/direct/assets/fireball.png" id="5_fire"]
+
+[node name="game01" type="Node2D"]
+
+[node name="Scene" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="hero" type="Sprite2D" parent="Scene"]
+position = Vector2(261.065, 176.083)
+rotation = 3.14159
+texture = ExtResource("1_hero")
+script = ExtResource("2_hero")
+
+[node name="crosshair" type="Sprite2D" parent="Scene"]
+position = Vector2(260.562, 122.484)
+texture = ExtResource("3_xhair")
+script = ExtResource("4_xhair")
+
+[node name="fireball" type="Sprite2D" parent="Scene"]
+position = Vector2(454.712, 227.701)
+texture = ExtResource("5_fire")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Hint" type="Label" parent="Hud"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 700.0
+offset_bottom = 34.0
+modulate = Color(1, 1, 1, 0.6)
+text = "GodotLab game01 · WASD (Dvorak ,AOE) / arrows: move · mouse: aim · Esc: pause"
