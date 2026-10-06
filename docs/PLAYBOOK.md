@@ -63,6 +63,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `ok-defender` | `tangentstorm/ok-defender` (oK/iKe, LD49) | Direct + Enhanced playable (Enhanced = ship/terrain/HUD juice over the same rules); see `games/ok_defender/PORT.md` |
 | `shep` | `tangentstorm/shep` (Haxe/Flash 9 + physaxe) | Direct + Enhanced playable (Enhanced = clearer fuse/ship UI + juice over the same physics); see `games/shep/PORT.md` |
 | `silly-game` | `tangentstorm/silly-game` (Godot 3, archived) | Direct + Enhanced playable (Enhanced = animated ocean, trails, hit juice + minimap HUD over the same Direct scene); see `games/silly_game/PORT.md` |
+| `killem-all` | `tangentstorm/gamemaker-stuff` `killem-all.gmx` (GameMaker: Studio 1.x, archived) | Direct + Enhanced playable (Enhanced = neon arena, tracers, thrust flame, radar + flight HUD over the same rules; still no enemies, as in the source); see `games/killem_all/PORT.md` |
 | `gamemaker-stuff` | `tangentstorm/gamemaker-stuff` (archived) | Multi-mini; treat as pack of slugs later |
 | `fnarbmlyx` | `tangentstorm/fnarbmlyx` (GDScript, archived) | GSL/Godot lineage |
 | `GameSketchLib` | `tangentstorm/GameSketchLib` (Processing) | Engine/lessons — port **demos**, not whole lib, unless decision says otherwise |

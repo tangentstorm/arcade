@@ -69,6 +69,60 @@ and the GML scripts, for reference. Nothing there is loaded at runtime.
 
 Tests: `tools/test_killem_all.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
 
-Natural next steps: enemies to actually kill, bullet/enemy collisions, a score, a bounded or wrapping arena, and gamepad twin-stick input.
+A visual/UI makeover of the same prototype. **No rules are duplicated:**
+`enhanced/game.gd` preloads Direct `ka_world.gd` (thrust, inertia, clamp, aim,
+fire, kickback, bullet motion and culling) and reads input through Direct
+`game.gd`'s `KEYS` / `LITERAL_KEYS` (physical WASD + the GML's Dvorak keycodes +
+arrows), stepping at the same 30 steps/s accumulator. Enhanced only observes that
+state and draws, so a fix in Direct lands in both editions. Still no enemies,
+score or walls, as in the source. No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | Shell: 1280×720 letterbox stage, clipped room field, FX, HUD panels, title card, Back to Arcade |
+
+### What changed (presentation only)
+- **Stage:** room0 (1024×768) is drawn at 0.8125 into a clipped 832×624 field
+  between two HUD panels. The field Control *is* the room, so the mouse maps to room
+  coordinates exactly as in Direct.
+- **Arena:** room0's navy (`colour 1835008`) stays the base, with a radial wash, a
+  64 px neon grid that brightens near the ship, and a two-depth parallax starfield
+  that drifts against the ship. The room edge glows and heats from blue to orange
+  as the ship nears it, since there are no walls.
+- **Ship:** the original `sprite1` disc, tinted, with a drop shadow, pulsing halo
+  and core. A thrust flame and cyan sparks point away from the held heading
+  (`hx`, `hy`), and a fading wake traces the last second of flight. The original
+  `sprite0` gun arc is drawn gold with a soft glow and rotates with `blast_angle`.
+- **Shooting:** a new shot is detected from Direct `fired`. Each one gets a muzzle
+  flash, gold sparks, a reticle bloom and a very small shake. Bullets are drawn as
+  glowing tracers along their `direction`. A bullet that crosses the room edge
+  gives a magenta ring + sparks there (a "ping"); it isn't stopped, since Direct
+  bullets fly on until culled.
+- **Aim:** a spinning reticle at the mouse and a dotted guide from the gun tip.
+- **Off-room:** when the ship drifts out, an arrow on the field edge points to it
+  with the distance in px, and an "OUT OF ROOM" banner shows.
+- **HUD:** the left panel shows time, speed (bar with a top-speed tick), a vector dial
+  (velocity, aim, thrust), position and distance travelled. The right panel has a
+  radar of a 3×3-room neighbourhood (room0, ship, velocity, bullets), fired / in
+  flight / rate per second, and the controls.
+  The original `x:…, y:…` mouse readout stays at (10,10) in fntConsolas
+  (Direct glyph table), on a dim chip.
+- **Title card:** Space/Enter or Start begins. The room doesn't step on the
+  title, so the ship waits at the `init.gml` centre.
+
+### Behaviour notes
+- Thrust, 0.99 coasting, ±10 per-axis clamp, 30 bullets/s, 30 px gun radius,
+  10 px/step bullets, 0.05 kickback and the 64 px cull all come from Direct
+  unchanged. The test checks this against a bare Direct twin, step by step.
+- **R** (Enhanced only) restarts room0 through Direct `room_start()` (`init.gml`)
+  and clears the shell's FX and stats.
+- **Esc** → PauseOverlay. Pausing the tree freezes the room.
+- Title `scale_mode` stays `letterbox`.
+
+Tests: `tools/test_killem_all_enhanced.gd` (run by `tools/smoke_headless.sh`).
+
+Possible later work, which would need a rules change and so isn't in this edition:
+enemies to kill, bullet/enemy collisions, a score, a bounded or wrapping arena,
+and gamepad twin-stick input.
