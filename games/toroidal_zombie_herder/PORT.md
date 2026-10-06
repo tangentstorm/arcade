@@ -54,4 +54,64 @@ definitions) and `MoveHero.gml` for reference. Nothing there is loaded at runtim
 
 Tests: `tools/test_toroidal_zombie_herder.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition — planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same room. **No rules are duplicated:**
+`enhanced/game.gd` preloads Direct `tzh_world.gd` (MoveHero.gml, the
+`mp_potential_step` chase, wrap, coins, traps, `room_restart`) and the generated
+`room0.gd`, stepping at the same 30 steps/s accumulator. Enhanced only observes
+that state and draws, so a fix in Direct lands in both editions. Still no win
+state, and the score still survives being caught, as in the source. No
+Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | Shell: 1280×720 letterbox stage, clipped room field, FX, HUD panels, title card, Back to Arcade |
+
+### What changed (presentation only)
+- **Stage:** room0 (1024×768) is drawn at 0.8125 into a clipped 832×624 field
+  between two HUD panels. The field Control *is* the room, so the mouse maps to room
+  coordinates exactly as in Direct.
+- **Maze:** the grey `spr_wall` squares become crypt-stone blocks. Neighbouring walls
+  merge into one mass, and only outer faces get a bevel, a moss rim and a drop shadow.
+  The floor is dark flagstone with drifting graveyard fog and a lantern pool that
+  follows the hero.
+- **Wrap doors:** open seams on the room edge (no wall on either side, 34 of them)
+  glow purple with particles drifting inward, so the torus reads at a glance. The
+  hero and zombies near a seam are drawn on **both** sides (wrap ghosts), and an edge
+  wrap fires portal rings at the exit and entry.
+- **Sprites:** the original `spr_hero`, `spr_zombie` and `spr_trap` are kept. The hero
+  gets a shadow, a lantern halo and a walk squash. Zombies shamble (wobble + bob) inside
+  an aura that goes from toxic green to red as they close in, with a small chase
+  arrow for their GM `direction`. Traps sit on a pulsing rune with rotating spikes.
+  Coins (`coin`) become spinning, bobbing gold discs. Positions are interpolated between
+  Direct steps, so movement and the grid snap look smooth.
+- **Juice:** coin pickup gives sparkles, a ring and a `+10` floater. A zombie on a trap
+  leaves a goo splat with a `TRAPPED!` floater and a banner. Being caught gives a red
+  flash, shake, burst and a "CAUGHT!" banner. A red vignette builds as the nearest
+  zombie gets within 192 px.
+- **HUD:** the left panel shows score (in obj_score's colour 16777088), coins taken this
+  room with a bar, zombie pips (trapped ones are crossed out), traps armed, times caught,
+  time, edge wraps, and a status line when the coins or zombies run out. The right
+  panel has a torus minimap (walls, coins, traps, zombies, hero, wrap doors), the
+  danger meter with the nearest-zombie distance, controls and how-to-play notes.
+  The original `score: N` still draws at (16,16) in the room, on a dim chip.
+- **Title card:** Space/Enter or Start begins. The room doesn't step on the
+  title, so the zombies wait.
+
+### Behaviour notes
+- 8 px hero steps, the shrink-while-blocked loop, the 32 px grid snap, zombie speed 2,
+  `mp_potential_step` settings, wrap, collisions and `room_restart` all come from
+  Direct unchanged. The test checks this against a bare Direct twin, step by step.
+- **Input:** the arrows (as Direct), plus WASD as an Enhanced-only alias. Holding the
+  mouse button still feeds Direct's `mouse_down` nudge.
+- **R** (Enhanced only) starts a fresh run: a new Direct world (score 0) and a
+  cleared shell.
+- **Esc** → PauseOverlay. Pausing the tree freezes the room.
+- Title `scale_mode` stays `letterbox`.
+
+Tests: `tools/test_toroidal_zombie_herder_enhanced.gd` (run by `tools/smoke_headless.sh`).
+
+Possible later work, which would need a rules change and so isn't in this edition:
+a win state when the room is cleared, toroidal collisions and chasing across the
+seams, and more rooms.
