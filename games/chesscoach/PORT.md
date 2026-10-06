@@ -33,4 +33,44 @@
 
 Tests: `tools/test_chesscoach.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition — planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same FEN board. **No rules are duplicated:**
+`enhanced/game.gd` instances `direct/game.tscn` (shared `chess_board.gd` / `tray.gd` /
+`square.gd` / `game_editor.gd` + sprites + the recorded `"fool's mate"` AnimationPlayer).
+FEN setup, clear, tray stow and replay stay Direct. Enhanced only wraps the scene in
+1280×720 letterbox chrome and derives juice from AnimationPlayer / modulate deltas.
+No Stockfish. No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: walnut board, FEN/move-list HUD, title card, juice |
+
+### What changed (presentation only)
+- **Stage:** fixed 1280×720 stage (`letterbox`). Direct's ~400×400 board runs in a
+  SubViewport scaled into a 520×520 field with file/rank labels and a wood frame.
+- **Look:** original blue squares restyled to walnut / cream (Direct `square.gd` kept;
+  only `color` is overwritten). Direct toolbar hidden; Enhanced owns Back / Reset / Replay.
+- **HUD:** FEN / status panel, piece + capture counters, recorded-game move list (from
+  Direct Editor `json_moves`), replay progress bar.
+- **Juice:** reset/replay bursts, capture fades detected from Direct modulate keyframes,
+  checkmate flash when the AnimationPlayer finishes.
+- **Title card:** Enhanced boots on a title; Enter/Space loads the Direct scene. Esc →
+  PauseOverlay. Back to Arcade is FOCUS_NONE.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Board / trays / replay | `direct/game.tscn` scripts | same scene (instance), no copy |
+| Stage | ~400×400 Control letterbox | 1280×720 chrome around scaled Direct board |
+| Look | blue squares + flat trays | walnut board, side HUD, move list |
+| Start | board at INIT_FEN immediately | title card, then the same Direct boot |
+| Esc / Back | PauseOverlay + toolbar Back | same + explicit Back (FOCUS_NONE) |
+
+### Deferred
+- Stockfish / engine coaching (still out of scope for both editions)
+- Live FEN serializer / free piece dragging
+- Dedicated `_enhanced` gallery preview (card can use the Direct shot)
+
+Tests: `tools/test_chesscoach_enhanced.gd` (run by `tools/smoke_headless.sh`).
