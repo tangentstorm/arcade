@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://games/godotlab_tilemap/direct/tilemap.gd" id="1_main"]
+[ext_resource type="Texture2D" path="res://games/godotlab_tilemap/direct/assets/tiles_spritesheet.png" id="2_tiles"]
+[ext_resource type="Script" path="res://games/godotlab_tilemap/direct/player.gd" id="3_player"]
+[ext_resource type="Texture2D" path="res://games/godotlab_tilemap/direct/assets/p1_spritesheet.png" id="4_p1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sheet"]
+resource_name = "tiles_spritesheet.png 2"
+texture = ExtResource("2_tiles")
+texture_region_size = Vector2i(72, 72)
+9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -36, 36, -36, 36, 36, -36, 36)
+7:8/0 = 0
+7:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -36, 36, -36, 36, 36, -36, 36)
+8:8/0 = 0
+8:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -36, 36, -36, 36, 36, -36, 36)
+8:12/0 = 0
+8:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -36, 36, -36, 36, 36, -36, 36)
+
+[sub_resource type="TileSet" id="TileSet_kenney"]
+tile_size = Vector2i(72, 72)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_sheet")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1"]
+size = Vector2(44, 86)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="TileMap" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_kenney")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(470, 280)
+script = ExtResource("3_player")
+
+[node name="Sprite" type="Sprite2D" parent="Player"]
+texture = ExtResource("4_p1")
+region_enabled = true
+region_rect = Rect2(67, 196, 66, 92)
+
+[node name="Shape" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, -43)
+shape = SubResource("RectangleShape2D_p1")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(684, 500)
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Hint" type="Label" parent="Hud"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 1268.0
+offset_bottom = 34.0
+modulate = Color(1, 1, 1, 0.6)
+text = "GodotLab tilemap · ←/→ or A/D: walk · Space/↑/W: jump · Esc: pause"
+
+[node name="Credit" type="Label" parent="Hud"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -30.0
+offset_right = -12.0
+offset_bottom = -6.0
+modulate = Color(1, 1, 1, 0.5)
+text = "Art: Platformer Deluxe by Kenney (CC0)"
+horizontal_alignment = 2

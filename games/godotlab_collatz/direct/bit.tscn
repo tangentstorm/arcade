@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://games/godotlab_collatz/direct/assets/bit.svg" id="1_tex"]
+[ext_resource type="Script" path="res://games/godotlab_collatz/direct/bit.gd" id="2_bit"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bit"]
+radius = 30.0
+
+[node name="bit" type="Sprite2D"]
+position = Vector2(52, 62)
+texture = ExtResource("1_tex")
+hframes = 3
+frame = 2
+script = ExtResource("2_bit")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_bit")

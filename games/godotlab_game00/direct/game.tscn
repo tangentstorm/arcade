@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://games/godotlab_game00/direct/assets/icon.png" id="1_icon"]
+[ext_resource type="Script" path="res://games/godotlab_game00/direct/icon.gd" id="2_icon"]
+
+[node name="game00" type="Node2D"]
+
+[node name="icon" type="Sprite2D" parent="."]
+position = Vector2(438, 246)
+texture = ExtResource("1_icon")
+script = ExtResource("2_icon")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Hint" type="Label" parent="Hud"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 600.0
+offset_bottom = 34.0
+modulate = Color(1, 1, 1, 0.6)
+text = "GodotLab game00 · arrow keys: push · Esc: pause"
