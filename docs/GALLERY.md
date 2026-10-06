@@ -63,6 +63,13 @@ progress bar, on the gallery background colour. No custom HTML shell is needed:
 Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-byte avatar
 (+27,955 B, about +0.2% of the gzipped KEY total). `index.pck` +192 B, `index.html` +465 B.
 
+## Titles (selected)
+
+| id | title | Direct | scale | notes |
+|----|-------|--------|-------|-------|
+| `chesscoach` | Chess Coach | playable | letterbox (400×400) | gd-chesscoach FEN board + trays; no Stockfish |
+| `terratri` | Terratri | playable | expand | hotseat 2P, pure GDScript rules (see below) |
+
 ## Local hotseat titles
 Some board games ship as **hotseat 2P** Direct editions: both players share one
 window and take turns, with no network. The first is `terratri`, which was a
