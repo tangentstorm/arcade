@@ -56,6 +56,7 @@ const SCALE_MODE := {
 	"silly_game": "expand",           # camera-followed open map
 	"cupid": "letterbox",            # 656×350 Flash stage
 	"mineswpr": "letterbox",         # 80×25 terminal grid; Enhanced 1280×720 stage
+	"mineswpr_b4": "letterbox",      # same 80×25 TermGrid as mineswpr Direct (b4 cart host)
 	"brickslayer": "letterbox",      # 400×300 console @2x
 	"giraffe": "letterbox",          # 128×128 Pico-8 stage
 	"ofcp": "expand",                # live client UI reflows
@@ -159,6 +160,8 @@ const TITLES := [
 		"Matchmaking Cupid (2010), AS3/Flixel v1 -> GDScript; Enhanced = storm-to-sunset city, clearer bubbles/HUD + match juice over the same rules."],
 	["mineswpr", "Mineswpr", {"direct": "playable", "enhanced": "playable"},
 		"Retro Forth 11 terminal Minesweeper (2013) -> GDScript; Enhanced = modern tiles, flags + win/lose juice over the same rules."],
+	["mineswpr_b4", "Mineswpr (b4)", {"direct": "playable", "enhanced": "planned"},
+		"b4-gd TermGrid cart host (issue #45 Phase 4); additive to GDScript Mineswpr Direct/Enhanced."],
 	["brickslayer", "Brickslayer", {"direct": "playable", "enhanced": "playable"},
 		"javascriptgamer.com Breakout + lesson trail (2007), JS -> GDScript."],
 	["giraffe", "Giraffe", {"direct": "playable", "enhanced": "playable"},

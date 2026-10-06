@@ -144,7 +144,7 @@ It also covers the registry entry, launch and letterbox, Back to Arcade with FOC
 cursor/Tab/Enter, the typed flood with ripple, win with the ALL CLEAR card, best time, and
 confetti, New Game resetting the view, and Esc → PauseOverlay (timer frozen) → Back to Arcade.
 
-## b4 path (issue #45) — planned, not shipping yet
+## b4 path (issue #45) — Phases 1–3 in b4-gd; Phase 4 arcade host shipping
 
 **Standing:** keep Direct and Enhanced. This path is a third edition (or a
 host experiment in `b4-gd`), not a replacement for the playable GDScript ports.
@@ -199,7 +199,7 @@ published `mineswpr.html` is the literate org page, not a b4-gd cart runner.
 | **1. TermGrid spike (smallest code increment)** | In `b4-gd` (or a throwaway host): expose put/puts/cscr (or bios tbuf) + key input; a `hello-term.b4` that prints a colored line | Headless or editor: buffer matches expected chars/colors |
 | **2. Logic in b4** | Port grid / flood / flag / prod / game-new (same bit layout as Direct) | Golden vectors vs `mineswpr_logic.gd` / `tools/test_mineswpr.gd` |
 | **3. Draw + `mswp'` in b4** | Port screen + shell; playable terminal cart | Typed `x y ?/+/-`, `r`, hex stack parity with Direct |
-| **4. Arcade edition (optional)** | Registry entry that hosts the cart; keep Direct/Enhanced | Smoke + gallery; no deletion of GDScript Direct |
+| **4. Arcade edition (optional)** | Gallery title `mineswpr_b4` hosts vendored cart; keep Direct/Enhanced | **Done** — see `games/mineswpr_b4/PORT.md`; smoke `tools/test_mineswpr_b4.gd` |
 
 **Smallest shippable increment right now:** Phase 0 (docs). Next code spike is
 Phase 1 in `/workspace/b4-gd`, not a half-finished rewrite under
