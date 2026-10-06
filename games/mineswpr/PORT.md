@@ -6,12 +6,12 @@
 | Source commit | `ac9d365656ff8a1a0f0d54a9a1d60208b12db57c` (gitweb `main`, 2024-05-28; file dated 2013-02-03) |
 | Engine | Retro Forth 11 on the Ngaro VM (`needs sets' vt' math'`) |
 | License | No license in the source. It's tangentstorm's own work. |
-| Tracking | GitHub issue #3 |
+| Tracking | GitHub issue #3 (Direct); issue #45 (b4 path) |
 
 ## Direct edition (`direct/`): playable
 
 This is a **native GDScript rewrite**, not b4-gd. b4-gd can't run Retro, and it
-has no terminal device yet. See inventory §2.2.
+has no terminal device yet. See PLAYBOOK §2.2 and [b4 path](#b4-path-issue-45--planned-not-shipping-yet) below.
 
 - `direct/mineswpr_logic.gd` ports the game words heading by heading:
   variables, grid-setup, point/cell/grid methods, `flood`, `«dead»`, `flag+`,
@@ -143,3 +143,64 @@ commands with the persistent stack, and loss parity with the BOOM card, juice, a
 It also covers the registry entry, launch and letterbox, Back to Arcade with FOCUS_NONE, keyboard
 cursor/Tab/Enter, the typed flood with ripple, win with the ALL CLEAR card, best time, and
 confetti, New Game resetting the view, and Esc → PauseOverlay (timer frozen) → Back to Arcade.
+
+## b4 path (issue #45) — planned, not shipping yet
+
+**Standing:** keep Direct and Enhanced. This path is a third edition (or a
+host experiment in `b4-gd`), not a replacement for the playable GDScript ports.
+
+### What "port to b4" means
+
+The original is Retro Forth 11 + `vt'` on Ngaro. Today's arcade Direct is a
+faithful **native GDScript** rewrite on TermGrid because:
+
+1. **b4-gd does not run Retro / Ngaro.** It runs a b4 VM (`B4VM.gd`) with a
+   PICO-8-style cart (`__code__` / `__gfx__` / `__map__` / `__palette__`) and a
+   **320×200 pixel canvas** (`B4Canvas` + `gm` ops: fill, box, circle, sprite,
+   map). Carts today: `giraffe.b4`, `hello.b4`.
+2. **b4-gd has no terminal device.** No CHB/FGB/BGB, no Pascal `tg`/`tw`/`ts`
+   host ops, and no wired bios `tbuf` / `cscr` / `emit` surface in the Godot
+   host. The arcade already has a J-free TermGrid (`direct/term_grid.gd`) used
+   only by the GDScript Direct edition.
+
+So "port to b4" is **not** "run `mineswpr.org` unchanged." Realistic readings:
+
+| Option | Meaning | Verdict |
+|---|---|---|
+| **A. Rewrite in b4 on canvas** | New `.b4` cart: board as sprites/map on 320×200 | Possible now, but a different game (pixel, not `vt'`). Skip as the primary goal. |
+| **B. Embed Retro/Ngaro** | Host Ngaro + Retro image + `sets'`/`vt'`/`math'` | Huge; out of scope for arcade v1. |
+| **C. TermGrid (or bios tbuf) device on b4-gd, then rewrite mineswpr in b4** | Teach the host character-cell I/O; write logic + `mswp'` + draw in b4 | **Recommended.** Matches the original aesthetic and b4's own bios terminal direction. |
+| **D. Keep GDScript logic, b4 only for presentation** | Hybrid | Does not satisfy "to b4, not native GDScript." Reject as the end state. |
+
+**Recommendation (C):** add a terminal host surface to b4-gd (reuse arcade
+TermGrid ideas and/or map to bios `tmb`/`tmw`/`tmh` + `cscr`/`emit`), then
+rewrite mineswpr as a b4 program that talks to that device. Direct/Enhanced
+stay the shipping arcade editions until a b4 edition is playable and tested.
+
+PLAYBOOK §2.2's "live via b4-gd + j-talks terminal" line is aspirational: the
+published `mineswpr.html` is the literate org page, not a b4-gd cart runner.
+
+### Blockers in today's b4-gd
+
+- No Retro / Ngaro image or vocabulary.
+- No terminal / TermGrid device (only pixel `gm`).
+- Cart assembler is a **minimal b4i subset** (registers, asm, `gm`) — enough
+  for hello/giraffe, thin for a full `mswp'` listener + flood + draw unless we
+  grow bios words or host helpers.
+- Keyboard today is mostly direction bits (`Q`); typed hex commands need a
+  character input path.
+- Arcade does not yet embed b4-gd as an edition host.
+
+### Phased plan
+
+| Phase | Ship | Done when |
+|---|---|---|
+| **0. Decision** | This section + issue #45 comment | Approach chosen; Direct/Enhanced kept |
+| **1. TermGrid spike (smallest code increment)** | In `b4-gd` (or a throwaway host): expose put/puts/cscr (or bios tbuf) + key input; a `hello-term.b4` that prints a colored line | Headless or editor: buffer matches expected chars/colors |
+| **2. Logic in b4** | Port grid / flood / flag / prod / game-new (same bit layout as Direct) | Golden vectors vs `mineswpr_logic.gd` / `tools/test_mineswpr.gd` |
+| **3. Draw + `mswp'` in b4** | Port screen + shell; playable terminal cart | Typed `x y ?/+/-`, `r`, hex stack parity with Direct |
+| **4. Arcade edition (optional)** | Registry entry that hosts the cart; keep Direct/Enhanced | Smoke + gallery; no deletion of GDScript Direct |
+
+**Smallest shippable increment right now:** Phase 0 (docs). Next code spike is
+Phase 1 in `/workspace/b4-gd`, not a half-finished rewrite under
+`games/mineswpr/`.
