@@ -31,10 +31,16 @@ TermGrid is the existing Mineswpr Direct script
 2. Type hex commands at `ok` (`5 C ?`, `a b +`, `r`, `q`) or click
 3. Esc opens PauseOverlay (Back to Arcade); `q` returns immediately; F2 new cart
 
+
 Hover: the board cell under the mouse gets Y (11) brackets, like Mineswpr
 Direct. `game.gd` paints this as a host overlay (same as b4-gd
 `scenes/Mineswpr.gd`), because a full cart redraw costs ~90 ms. It saves the
 bracket colors, lifts the overlay before each cart call, and puts it back after.
+
+Blink / i32 (b4-gd `17576f8`): cursor blink matches Direct's key/redraw order;
+shell stack cells are full Godot ints via host `ss` (so `FFFFFFFF` displays
+unsigned). Side panel still says `Esc menu` here (PauseOverlay); standalone
+b4-gd overlays `Esc quit`.
 
 ### Size
 
