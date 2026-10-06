@@ -61,7 +61,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `tentraminos` | `tangentstorm/tentraminos` (TypeScript/d3, LD27) | |
 | `ld48` | `tangentstorm/ld48` (GDScript) | Already Godot — high-leverage first port |
 | `ok-defender` | `tangentstorm/ok-defender` (LD49) | |
-| `shep` | `tangentstorm/shep` (Haxe) | |
+| `shep` | `tangentstorm/shep` (Haxe/Flash 9 + physaxe) | Direct + Enhanced playable (Enhanced = clearer fuse/ship UI + juice over the same physics); see `games/shep/PORT.md` |
 | `gamemaker-stuff` | `tangentstorm/gamemaker-stuff` (archived) | Multi-mini; treat as pack of slugs later |
 | `fnarbmlyx` | `tangentstorm/fnarbmlyx` (GDScript, archived) | GSL/Godot lineage |
 | `GameSketchLib` | `tangentstorm/GameSketchLib` (Processing) | Engine/lessons — port **demos**, not whole lib, unless decision says otherwise |
