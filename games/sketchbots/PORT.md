@@ -56,4 +56,35 @@
 
 Tests: `tools/test_sketchbots.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition — planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same two-player hello-world movers. **No rules are
+duplicated:** `enhanced/game.gd` preloads Direct `sketchbots_logic.gd` and the
+Direct `background.png` / `orangeguy-*` / `blueguy-*` assets. Heading bitflags,
+10 px/frame movement (including diagonals), bottom-only clamp, XOR key-release,
+and the orange/blue key split stay Direct. Enhanced only wraps the sim in a
+1280×720 letterbox shell and derives juice from state deltas (position moves,
+AABB meet-ups, off-canvas exits).
+
+### Visuals / UI
+- 1280×720 letterbox stage; Direct 300×300 sketch @2× (600×600) in a clipped
+  field between left/right gutter HUD panels
+- Soft stage gradient + neon frame; Direct background drawn nearest-neighbour
+  with a light grid wash; green cue along the bottom clamp edge
+- Direct sprites with per-bot glow (orange / blue), drop shadow, walk squash and
+  dust when a position changes; draw positions interpolate between 30 Hz steps
+- Meet juice: burst + floating "HI!" + shake/flash when the bots' AABBs first
+  overlap (visual only — still no collision rules)
+- Off-canvas locators + "OFF" floaters when a bot first leaves the 300×300
+  (top/left/right stay open, as in Direct)
+- Left HUD: title, controls, Back to Arcade (`FOCUS_NONE`). Right HUD: steps,
+  meets, per-bot pos/face/heading, on/off-canvas status (view-only)
+- Title card on boot (Space/Enter/Start); Esc → PauseOverlay
+
+### Behaviour notes
+- Input map matches Direct (orange WASD / Dvorak `,aoe` / `<`; blue arrows).
+- Title card freezes the sim until Start; then `world.step` runs at Direct's 30 Hz.
+- Esc → PauseOverlay. Title `scale_mode` stays `letterbox`.
+- No Alchementrix IP. No `_enhanced` preview yet (gallery can use the Direct shot).
+
+Tests: `tools/test_sketchbots_enhanced.gd` (run by `tools/smoke_headless.sh`).
