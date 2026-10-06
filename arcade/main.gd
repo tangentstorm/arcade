@@ -28,6 +28,8 @@ func _ready() -> void:
 	_load_pref()
 	_wire_mode_switch()
 	_apply_mode_buttons()
+	_list.add_theme_constant_override("h_separation", CARD_GAP)
+	_list.add_theme_constant_override("v_separation", CARD_GAP)
 	_build_gallery()
 	resized.connect(_reflow_columns)
 	_scroll.resized.connect(_reflow_columns)
@@ -166,10 +168,13 @@ func _reflow_columns() -> void:
 	var avail := _scroll.size.x
 	if avail < 64.0:
 		avail = maxf(size.x - 40.0, 64.0)
+	## Always reserve the vertical scrollbar's width; otherwise the grid is
+	## exactly as wide as the ScrollContainer and the bar pushes it past.
+	avail = maxf(avail - _scroll.get_v_scroll_bar().get_combined_minimum_size().x, 64.0)
 	var cols := maxi(1, int(floor((avail + float(CARD_GAP)) / (CARD_MIN_W + float(CARD_GAP)))))
 	## Exact cell width that fills `avail` for `cols` (may be > CARD_MIN_W).
 	## Never bump above a fitting width — that caused side-scrolling.
-	var cell_w := (avail - float(CARD_GAP) * float(cols - 1)) / float(cols)
+	var cell_w := floorf((avail - float(CARD_GAP) * float(cols - 1)) / float(cols))
 	cell_w = maxf(cell_w, 1.0)
 	if _list.columns != cols:
 		_list.columns = cols
