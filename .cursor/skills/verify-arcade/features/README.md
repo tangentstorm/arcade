@@ -45,7 +45,7 @@ behavior, then exactly four H2s in order: `Sub-features`, `How to get to it (use
 - [Gallery browse & layout](./gallery-browse-layout.md) — card grid fits the window at any size, wraps columns, vertical scroll only.
 - [Edition toggle](./edition-toggle.md) — Original / Enhanced segmented control switches every card.
 - [Launch a game and return](./launch-game-and-return.md) — click a card, Esc pause, Resume, Back to Arcade / Esc Esc.
-- [Pages deploy smoke](./pages-deploy-smoke.md) — the live site serves the latest `main` build; cache-bust proof.
+- [Pages deploy smoke](./pages-deploy-smoke.md) — the live site serves the latest `main` build; cache-bust proof; `pages_doctor.sh --require` refuses "fixed" without etag/stamp.
 - [OFCP live connect](./ofcp-live-connect.md) — the OFCP Direct thin client plays a hand against the live wss server.
 
 Whole-repo regression (not a single feature): `$H/smoke.sh` wraps `tools/smoke_headless.sh`.
