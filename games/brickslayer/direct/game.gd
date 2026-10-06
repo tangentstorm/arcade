@@ -135,7 +135,7 @@ func _draw_console() -> void:
 	if step >= Logic.STEP_PADDLE:
 		_draw_gray_sprite(game.paddle)
 	if step >= Logic.STEP_COLLISION:
-		_draw_gray_sprite(game.ball)
+		_draw_ball_sprite(game.ball)
 	if step >= Logic.STEP_WORLD:
 		# the lake is drawn over the ball, so a lost ball sinks into it
 		c.draw_rect(Rect2(0, 280, Logic.W, 20), LAKE)
@@ -143,7 +143,7 @@ func _draw_console() -> void:
 	if step >= Logic.STEP_SCORING:
 		for i in range(1, Logic.SPARES_START + 1):
 			if i <= game.balls_left:
-				_draw_gray_sprite(Logic.Sprite.new(4 + (i - 1) * 20, 282, 16, 16))
+				_draw_ball_sprite(Logic.Sprite.new(4 + (i - 1) * 20, 282, 16, 16))
 	c.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if step >= Logic.STEP_SCORING:
 		_draw_text("level:", 150, Color.WHITE)
@@ -152,10 +152,18 @@ func _draw_console() -> void:
 		_draw_text(str(game.score), 350, Color.WHITE, 45)
 
 
-## paddle.png and ball.png are not on the live site; draw their boxes in gray.
+## paddle.png and ball.png are not on the live site; paddle stays a gray box,
+## ball and spare-life icons are gray circles (same 16×16 AABB for physics).
 func _draw_gray_sprite(s: Logic.Sprite) -> void:
 	_console.draw_rect(Rect2(s.x, s.y, s.w, s.h), GRAY_999)
 	_console.draw_rect(Rect2(s.x + 0.5, s.y + 0.5, s.w - 1, s.h - 1), GRAY_666, false, 1.0)
+
+
+func _draw_ball_sprite(s: Logic.Sprite) -> void:
+	var center := Vector2(s.x + s.w * 0.5, s.y + s.h * 0.5)
+	var radius := minf(s.w, s.h) * 0.5
+	_console.draw_circle(center, radius, GRAY_999)
+	_console.draw_arc(center, radius - 0.5, 0.0, TAU, 32, GRAY_666, 1.0, true)
 
 
 func _draw_text(text: String, left: float, color: Color, right_align_width := 0.0) -> void:
