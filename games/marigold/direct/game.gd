@@ -1,6 +1,6 @@
 extends Control
-## Marigold Homestead — Direct edition (Godot 4).
-## Starflight II × Farming Simulator mashup. Pixel OS chrome from Claude artifact
+## Marigold Homestead - Direct edition (Godot 4).
+## Starflight II x Farming Simulator mashup. Pixel OS chrome from Claude artifact
 ## BjKJn834; Homestead is a tractor-driven fractal planet map (not click-grid).
 
 const Logic := preload("res://games/marigold/direct/marigold_logic.gd")
@@ -279,7 +279,7 @@ func _draw_cockpit(content: Rect2) -> void:
 	var left := Rect2(content.position, Vector2(content.size.x - 280, content.size.y))
 	var right := Rect2(content.position.x + content.size.x - 268, content.position.y, 260, content.size.y)
 	_panel(left)
-	_txt(left.position + Vector2(12, 10), "SECTOR CHART — MARIGOLD REACH", Gfx.C_CYAN, 14)
+	_txt(left.position + Vector2(12, 10), "SECTOR CHART - MARIGOLD REACH", Gfx.C_CYAN, 14)
 	var map_r := Rect2(left.position.x + 12, left.position.y + 36, left.size.x - 24, left.size.y - 60)
 	draw_rect(map_r, Color8(0x0a, 0x08, 0x14))
 	# stars
@@ -332,10 +332,10 @@ func _draw_cockpit(content: Rect2) -> void:
 			draw_texture_rect(ptex, Rect2(card1.position.x + 90, card1.position.y + 40, 64, 64), false)
 		_txt(card1.position + Vector2(12, 120), str(sel["name"]), Gfx.C_GREEN, 16)
 		var scan: Dictionary = sel["scan"]
-		_txt(card1.position + Vector2(12, 144), str(sel["kind"]).capitalize() + " · " + str(scan.get("biome", "")), Gfx.C_MUTED, 11)
+		_txt(card1.position + Vector2(12, 144), str(sel["kind"]).capitalize() + " . " + str(scan.get("biome", "")), Gfx.C_MUTED, 11)
 		var st := state.jump_status_text()
 		_txt(card1.position + Vector2(12, 170), st, Gfx.C_GREEN if "range" in st or "Current" in st else Gfx.C_RED, 12)
-		_txt(card1.position + Vector2(12, 194), "Jump cost: %d fuel · %d day" % [state.jump_cost_fuel(), state.jump_cost_days()], Gfx.C_TEXT, 12)
+		_txt(card1.position + Vector2(12, 194), "Jump cost: %d fuel . %d day" % [state.jump_cost_fuel(), state.jump_cost_days()], Gfx.C_TEXT, 12)
 		_btn(Rect2(card1.position.x + 12, card1.position.y + 230, card1.size.x - 24, 36), "PLOT COURSE", "plot_course", null, "green")
 
 	var card2 := Rect2(right.position.x, right.position.y + 292, right.size.x, right.size.y - 292)
@@ -366,9 +366,9 @@ func _draw_homestead(content: Rect2) -> void:
 	var map_r := Rect2(content.position.x, content.position.y, map_w, content.size.y)
 	var locker := Rect2(content.position.x + map_w + 8, content.position.y, 252, content.size.y)
 	_panel(map_r)
-	_txt(map_r.position + Vector2(12, 8), "VERDANCE III — HOMESTEAD SURFACE", Gfx.C_CYAN, 13)
+	_txt(map_r.position + Vector2(12, 8), "VERDANCE III - HOMESTEAD SURFACE", Gfx.C_CYAN, 13)
 	_txt(map_r.position + Vector2(map_r.size.x - 180, 8),
-		"%d planted · %d ready" % [state.planted_count(), state.ready_count()], Gfx.C_GOLD, 11)
+		"%d planted . %d ready" % [state.planted_count(), state.ready_count()], Gfx.C_GOLD, 11)
 
 	var view := Rect2(map_r.position.x + 8, map_r.position.y + 32, map_r.size.x - 16, map_r.size.y - 84)
 	draw_rect(view, Color8(0x0c, 0x18, 0x10))
@@ -422,7 +422,7 @@ func _draw_homestead(content: Rect2) -> void:
 		var tip := tr_px + Vector2(tile_px * 0.5, tile_px * 0.5) + state.tractor_facing * (tile_px * 0.45)
 		draw_circle(tip, 3.0, Gfx.C_GOLD)
 
-	_txt(map_r.position + Vector2(12, map_r.size.y - 44), "WASD/Arrows drive · Space applies tool under tractor", Gfx.C_MUTED, 10)
+	_txt(map_r.position + Vector2(12, map_r.size.y - 44), "WASD/Arrows drive . Space applies tool under tractor", Gfx.C_MUTED, 10)
 	_btn(Rect2(map_r.position.x + 12, map_r.position.y + map_r.size.y - 36, 140, 28), "WATER ALL", "water_all", null, "cyan")
 	_btn(Rect2(map_r.position.x + 160, map_r.position.y + map_r.size.y - 36, 140, 28), "HARVEST ALL", "harvest_all", null, "gold")
 
@@ -457,11 +457,11 @@ func _draw_homestead(content: Rect2) -> void:
 		if stex:
 			draw_texture_rect(stex, Rect2(rr2.position.x + 4, rr2.position.y + 8, 32, 32), false)
 		_txt(rr2.position + Vector2(42, 6), str(crop["name"]), Gfx.C_TEXT, 11)
-		_txt(rr2.position + Vector2(42, 22), "%dd water · sells %dcr" % [int(crop["grow"]), int(crop["sell"])], Gfx.C_MUTED, 9)
-		_txt(rr2.position + Vector2(42, 36), "x%d  ·  %s" % [int(state.seeds.get(cid, 0)), crop["season"]], Gfx.C_GREEN, 9)
+		_txt(rr2.position + Vector2(42, 22), "%dd water . sells %dcr" % [int(crop["grow"]), int(crop["sell"])], Gfx.C_MUTED, 9)
+		_txt(rr2.position + Vector2(42, 36), "x%d  .  %s" % [int(state.seeds.get(cid, 0)), crop["season"]], Gfx.C_GREEN, 9)
 		_click_rects.append({"rect": Rect2(rr2.position, Vector2(rr2.size.x - 70, rr2.size.y)), "id": "tool", "arg": cid})
 		_btn(Rect2(rr2.end.x - 66, rr2.position.y + 14, 58, 28), "BUY", "buy_seed", cid, "green")
-		# smaller buy label with price via log on hover — show cost under
+		# smaller buy label with price via log on hover - show cost under
 		_txt(rr2.end + Vector2(-64, 40), "%dcr" % int(crop["seed"]), Gfx.C_MUTED, 8)
 		ly += 60.0
 
@@ -567,14 +567,14 @@ func _wrap(pos: Vector2, text: String, col: Color, px: int, width: float) -> voi
 func _draw_market(content: Rect2) -> void:
 	_panel(content)
 	var at := state.system_by_id(state.current)
-	var title := "MARKET TERMINAL — %s" % at.get("name", "?")
+	var title := "MARKET TERMINAL - %s" % at.get("name", "?")
 	_txt(content.position + Vector2(12, 10), title, Gfx.C_GOLD, 14)
 	if not state.is_station():
 		_txt(content.position + Vector2(12, 40), "No exchange at this system. Dock at Havenport or Drift Market.", Gfx.C_RED, 13)
 		return
 	_txt(content.position + Vector2(12, 36), "Live exchange prices. Buy commodities low, sell your harvest high.", Gfx.C_MUTED, 11)
 	_txt(content.position + Vector2(content.size.x - 200, 12),
-		"Hold %d/%d · %s cr" % [state.cargo_qty(), state.cargo_cap, _fmt(state.credits)], Gfx.C_TEXT, 11)
+		"Hold %d/%d . %s cr" % [state.cargo_qty(), state.cargo_cap, _fmt(state.credits)], Gfx.C_TEXT, 11)
 
 	var headers := ["COMMODITY", "CLASS", "BUY", "SELL", "HELD"]
 	var cols := [280.0, 120.0, 140.0, 140.0, 80.0]
@@ -612,13 +612,13 @@ func _market_row(x0: float, y: float, cols: Array, name: String, cls: String, cl
 	if can_buy and buy > 0:
 		_btn(Rect2(x, y, 110, 28), "%d  BUY" % buy, "buy_good", id, "cyan")
 	else:
-		_txt(Vector2(x + 8, y + 8), "—", Gfx.C_DIM, 12)
+		_txt(Vector2(x + 8, y + 8), "-", Gfx.C_DIM, 12)
 	x += cols[2]
 	if sell > 0:
 		var style := "gold" if held > 0 else "muted"
 		_btn(Rect2(x, y, 110, 28), "%d  SELL" % sell, "sell_good", id, style)
 	else:
-		_txt(Vector2(x + 8, y + 8), "—", Gfx.C_DIM, 12)
+		_txt(Vector2(x + 8, y + 8), "-", Gfx.C_DIM, 12)
 	x += cols[3]
 	_txt(Vector2(x, y + 8), str(held), Gfx.C_TEXT, 12)
 
@@ -647,7 +647,7 @@ func _draw_ship(content: Rect2) -> void:
 					if g["id"] == id:
 						label = g["name"]
 						break
-			_txt(Vector2(left.position.x + 20, yy), "%s  ×%d  (cost %d)" % [label, int(e["qty"]), int(e["cost"])], Gfx.C_TEXT, 12)
+			_txt(Vector2(left.position.x + 20, yy), "%s  x%d  (cost %d)" % [label, int(e["qty"]), int(e["cost"])], Gfx.C_TEXT, 12)
 			yy += 24.0
 	_bar(Rect2(left.position.x + 16, left.end.y - 28, left.size.x - 32, 12),
 		float(state.cargo_qty()) / float(state.cargo_cap), Gfx.C_GOLD)
@@ -667,7 +667,7 @@ func _draw_ship(content: Rect2) -> void:
 		"Monthly overhead: %d cr (wages + life support)" % (state.crew_wages() + 300), Gfx.C_MUTED, 10)
 
 	_panel(bot)
-	_txt(bot.position + Vector2(12, 10), "SHIP SYSTEMS — S.S. MARIGOLD", Gfx.C_GOLD, 13)
+	_txt(bot.position + Vector2(12, 10), "SHIP SYSTEMS - S.S. MARIGOLD", Gfx.C_GOLD, 13)
 	_txt(bot.position + Vector2(20, 48), "Hull", Gfx.C_MUTED, 11)
 	_bar(Rect2(bot.position.x + 80, bot.position.y + 50, 280, 14), state.hull / 100.0, Gfx.C_GREEN)
 	_txt(bot.position + Vector2(370, 48), "%d%%" % int(state.hull), Gfx.C_GREEN, 11)
@@ -686,7 +686,7 @@ func _draw_ledger(content: Rect2) -> void:
 	_txt(content.position + Vector2(12, 10), "THE BOOKS", Gfx.C_GOLD, 16)
 	var m := state.ledger_month
 	_btn(Rect2(content.position.x + 200, content.position.y + 8, 36, 28), "<", "ledger_prev", null, "cyan")
-	_txt(content.position + Vector2(250, 12), "%s · Year %d" % [state.season_name(m), state.year_num(m)], Gfx.C_TEXT, 13)
+	_txt(content.position + Vector2(250, 12), "%s . Year %d" % [state.season_name(m), state.year_num(m)], Gfx.C_TEXT, 13)
 	_btn(Rect2(content.position.x + 420, content.position.y + 8, 36, 28), ">", "ledger_next", null, "cyan")
 
 	var inc := state.get_income(m)
@@ -695,7 +695,7 @@ func _draw_ledger(content: Rect2) -> void:
 	var right := Rect2(content.position.x + content.size.x * 0.52, content.position.y + 50, content.size.x * 0.48 - 16, content.size.y - 66)
 	_panel(left, Color8(0x14, 0x1c, 0x16))
 	_txt(left.position + Vector2(12, 10), "INCOME STATEMENT", Gfx.C_GREEN, 13)
-	_txt(left.position + Vector2(12, 32), "For %s · Year %d" % [state.season_name(m), state.year_num(m)], Gfx.C_MUTED, 10)
+	_txt(left.position + Vector2(12, 32), "For %s . Year %d" % [state.season_name(m), state.year_num(m)], Gfx.C_MUTED, 10)
 	var y := left.position.y + 60.0
 	y = _ledger_line(left.position.x + 12, y, left.size.x - 24, "Crop Sales", int(inc["rev_crop"]))
 	y = _ledger_line(left.position.x + 12, y, left.size.x - 24, "Trade Sales", int(inc["rev_trade"]))
@@ -713,7 +713,7 @@ func _draw_ledger(content: Rect2) -> void:
 	_panel(right, Color8(0x16, 0x14, 0x22))
 	var bal_ok: bool = bool(bal["balanced"])
 	_txt(right.position + Vector2(12, 10), "BALANCE SHEET", Gfx.C_CYAN, 13)
-	_txt(right.position + Vector2(12, 32), "Current position  " + ("BALANCED ✓" if bal_ok else "OFF"), Gfx.C_GREEN if bal_ok else Gfx.C_RED, 10)
+	_txt(right.position + Vector2(12, 32), "Current position  " + ("BALANCED OK" if bal_ok else "OFF"), Gfx.C_GREEN if bal_ok else Gfx.C_RED, 10)
 	y = right.position.y + 60.0
 	_txt(Vector2(right.position.x + 12, y), "ASSETS", Gfx.C_GOLD, 11)
 	y += 22

@@ -1,5 +1,5 @@
 extends RefCounted
-## Marigold Homestead — game state & rules.
+## Marigold Homestead - game state & rules.
 ## Data tables transcribed from Claude artifact BjKJn834 (notes.json / source.js).
 ## Homestead is a Starflight-II-style procedural planet surface with tractor driving
 ## (not the mock's click-to-plant grid).
@@ -96,7 +96,7 @@ const SYSTEMS := [
 ## Procedural planet surface (Starflight-II style). Tile world for tractor.
 const MAP_W := 64
 const MAP_H := 64
-const TILE := 16  ## world pixels per tile at 1× (drawn scaled in UI)
+const TILE := 16  ## world pixels per tile at 1x (drawn scaled in UI)
 
 ## Terrain kinds.
 const T_WATER := 0
@@ -303,7 +303,7 @@ func buy_seed(id: String) -> void:
 	credits -= cost
 	seeds[id] = int(seeds.get(id, 0)) + 1
 	_ledger_add("Seeds & Supplies", "exp", cost)
-	push_log("Bought 1 %s seed (−%d cr)." % [crop["name"], cost])
+	push_log("Bought 1 %s seed (-%d cr)." % [crop["name"], cost])
 
 
 func buy_fuel() -> void:
@@ -316,12 +316,12 @@ func buy_fuel() -> void:
 	credits -= 30
 	fuel += 1
 	_ledger_add("Fuel", "exp", 30)
-	push_log("Refueled +1 (−30 cr).")
+	push_log("Refueled +1 (-30 cr).")
 
 
 func buy_good(id: String) -> void:
 	if not is_station():
-		push_log("No market here — dock at a trade station.")
+		push_log("No market here - dock at a trade station.")
 		return
 	var good: Dictionary = {}
 	for c in COMMODITIES:
@@ -342,12 +342,12 @@ func buy_good(id: String) -> void:
 		cargo[id] = {"qty": 0, "cost": 0}
 	cargo[id]["qty"] = int(cargo[id]["qty"]) + 1
 	cargo[id]["cost"] = int(cargo[id]["cost"]) + price
-	push_log("Bought 1 %s (−%d cr)." % [good["name"], price])
+	push_log("Bought 1 %s (-%d cr)." % [good["name"], price])
 
 
 func sell_good(id: String) -> void:
 	if not is_station():
-		push_log("No market here — dock at a trade station.")
+		push_log("No market here - dock at a trade station.")
 		return
 	if not cargo.has(id) or int(cargo[id]["qty"]) <= 0:
 		push_log("None in hold to sell.")
@@ -418,7 +418,7 @@ func travel(to_id: String) -> void:
 		push_log("You are already here.")
 		return
 	if not can_jump_to(to_id):
-		push_log("No charted route — choose a linked system.")
+		push_log("No charted route - choose a linked system.")
 		return
 	if fuel < jump_cost_fuel():
 		push_log("Not enough fuel for the jump. Refuel first.")
@@ -473,7 +473,7 @@ func _advance_one_day() -> void:
 		_ledger_add("Crew Wages", "exp", wages, closed)
 		_ledger_add("Life Support", "exp", life, closed)
 		ledger_month = month_index
-		push_log("Month closed — paid crew wages and life support.")
+		push_log("Month closed - paid crew wages and life support.")
 
 
 ## Move tractor by delta tiles (float). Applies current tool under wheels.
@@ -531,7 +531,7 @@ func _plant_tile(tx: int, ty: int, crop_id: String) -> void:
 		return
 	var have: int = int(seeds.get(crop_id, 0))
 	if have <= 0:
-		push_log("Out of %s seeds — buy more from the locker." % crop["name"])
+		push_log("Out of %s seeds - buy more from the locker." % crop["name"])
 		return
 	seeds[crop_id] = have - 1
 	plots[plot_key(tx, ty)] = {
@@ -633,7 +633,7 @@ func year_num(m: int = -1) -> int:
 
 
 func date_label() -> String:
-	return "%s · Day %d/28" % [season_name(), day]
+	return "%s . Day %d/28" % [season_name(), day]
 
 
 func get_income(m: int) -> Dictionary:

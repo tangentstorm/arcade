@@ -7,8 +7,8 @@ extends Node
 ## A GameEntry describes one (title, edition) pair.
 ##
 ## scale_mode (per title, both editions):
-##   "letterbox" — keep aspect, prefer integer scale, large centered stage
-##   "expand"    — fill the window (Control/UI roots that already reflow)
+##   "letterbox" - keep aspect, prefer integer scale, large centered stage
+##   "expand"    - fill the window (Control/UI roots that already reflow)
 
 ## Emitted after a game scene change is requested (ArcadeHistory pushes browser history).
 signal launched(entry)
@@ -24,19 +24,19 @@ const EDITIONS := ["direct", "enhanced"]
 ## expand: window-filling Control/UI → EXPAND + fractional stretch.
 const SCALE_MODE := {
 	"_template": "expand",
-	"tetraminex": "letterbox",       # 640×480-ish grid playfield
+	"tetraminex": "letterbox",       # 640x480-ish grid playfield
 	"spiders_v_aliens": "letterbox",
-	"tentraminos": "letterbox",      # 9×9 SVG board
+	"tentraminos": "letterbox",      # 9x9 SVG board
 	"ld48": "expand",                # Godot scenes / rooms fill window
-	"ok_defender": "letterbox",      # 320×200 iKe stage
-	"shep": "letterbox",             # fixed 800×575 stage
+	"ok_defender": "letterbox",      # 320x200 iKe stage
+	"shep": "letterbox",             # fixed 800x575 stage
 	"gm_defense": "letterbox",
 	"killem_all": "letterbox",
 	"toroidal_zombie_herder": "letterbox",  # room-sized GM view
 	"flappy_clone": "letterbox",     # orthographic pixel stage
-	"sketchbots": "letterbox",       # 300×300 Processing sketch
+	"sketchbots": "letterbox",       # 300x300 Processing sketch
 	"invader_sketch": "letterbox",   # fixed sketch stage
-	"overlap_demo": "letterbox",     # 300×300 Processing sketches (GameSketchLib w02 demos)
+	"overlap_demo": "letterbox",     # 300x300 Processing sketches (GameSketchLib w02 demos)
 	"overlap_demo_live": "letterbox",
 	"bullet_demo": "letterbox",
 	"bullet_demo_live": "letterbox",
@@ -44,7 +44,7 @@ const SCALE_MODE := {
 	"keyboard_test_workaround": "letterbox",
 	"keyboard_test_buggy": "letterbox",
 	"keyboard_test_hashmap": "letterbox",
-	"fnarb_overlap": "letterbox",    # fnarbmlyx demos: 1920×1080 SubViewport stage
+	"fnarb_overlap": "letterbox",    # fnarbmlyx demos: 1920x1080 SubViewport stage
 	"fnarb_ast": "letterbox",
 	"fnarb_binary_tree": "letterbox",
 	"fnarb_binary_adder": "letterbox",
@@ -54,17 +54,17 @@ const SCALE_MODE := {
 	"godotlab_game01": "letterbox",
 	"godotlab_tilemap": "letterbox",
 	"silly_game": "expand",           # camera-followed open map
-	"cupid": "letterbox",            # 656×350 Flash stage
-	"mineswpr": "letterbox",         # 80×25 terminal grid; Enhanced 1280×720 stage
-	"mineswpr_b4": "letterbox",      # same 80×25 TermGrid as mineswpr Direct (b4 cart host)
-	"brickslayer": "letterbox",      # 400×300 console @2x
-	"giraffe": "letterbox",          # 128×128 Pico-8 stage
+	"cupid": "letterbox",            # 656x350 Flash stage
+	"mineswpr": "letterbox",         # 80x25 terminal grid; Enhanced 1280x720 stage
+	"mineswpr_b4": "letterbox",      # same 80x25 TermGrid as mineswpr Direct (b4 cart host)
+	"brickslayer": "letterbox",      # 400x300 console @2x
+	"giraffe": "letterbox",          # 128x128 Pico-8 stage
 	"ofcp": "expand",                # live client UI reflows
-	"chesscoach": "letterbox",       # Direct 400×400; Enhanced 1280×720 around walnut board
-	"canyon_run": "letterbox",       # 240×320 portrait stage @2× (480×640)
+	"chesscoach": "letterbox",       # Direct 400x400; Enhanced 1280x720 around walnut board
+	"canyon_run": "letterbox",       # 240x320 portrait stage @2x (480x640)
 	"terratri": "expand",            # Control UI; board picks an integer cell size
-	"doth": "letterbox",             # Direct 1120×368; Enhanced 1280×720 around 1120×320 field
-	"marigold": "letterbox",         # 1280×720 homestead OS chrome
+	"doth": "letterbox",             # Direct 1120x368; Enhanced 1280x720 around 1120x320 field
+	"marigold": "letterbox",         # 1280x720 homestead OS chrome
 }
 
 
@@ -178,7 +178,7 @@ const TITLES := [
 	["doth", "Doth", {"direct": "playable", "enhanced": "playable"},
 		"silverware Doth-A (Turbo Pascal, 1993-1996) Kroz-like adventure -> SvA-like pixel Direct; Enhanced = torchlit chrome + pickup juice over the same rules."],
 	["marigold", "Marigold Homestead", {"direct": "playable", "enhanced": "planned"},
-		"Claude artifact BjKJn834 (Starflight II × Farming Sim pixel OS) -> Direct: tractor-driven fractal homestead + 6 chrome screens; Enhanced stub later. Issue #105."],
+		"Claude artifact BjKJn834 (Starflight II x Farming Sim pixel OS) -> Direct: tractor-driven fractal homestead + 6 chrome screens; Enhanced stub later. Issue #105."],
 ]
 
 var entries: Array[GameEntry] = []
