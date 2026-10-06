@@ -1,6 +1,7 @@
 extends Control
 ## SketchBots — Direct edition.
-## Faithful port of GameSketchLib course w01 SketchBots (Processing, ~2011).
+## Port of GameSketchLib course w01 SketchBots (Processing, ~2011), with a deliberate
+## two-player enhancement: orange (WASD / Dvorak ,aoe) and blue (arrow keys).
 ## Simulation: sketchbots_logic.gd, stepped at a fixed 30 Hz (the sketch's frameRate).
 ## This script draws the 300×300 sketch scaled to fit and feeds it keyboard input.
 ## Esc is handled globally by the PauseOverlay autoload (pausing the tree stops our tick).
@@ -15,7 +16,12 @@ const TEX_ORANGE := {
 	Logic.Face.U: preload("res://games/sketchbots/direct/assets/orangeguy-U.png"),
 	Logic.Face.D: preload("res://games/sketchbots/direct/assets/orangeguy-D.png"),
 }
-const TEX_BLUE := preload("res://games/sketchbots/direct/assets/blueguy-D.png")
+const TEX_BLUE := {
+	Logic.Face.L: preload("res://games/sketchbots/direct/assets/blueguy-L.png"),
+	Logic.Face.R: preload("res://games/sketchbots/direct/assets/blueguy-R.png"),
+	Logic.Face.U: preload("res://games/sketchbots/direct/assets/blueguy-U.png"),
+	Logic.Face.D: preload("res://games/sketchbots/direct/assets/blueguy-D.png"),
+}
 
 var world = Logic.new()
 var _acc := 0.0
@@ -39,9 +45,9 @@ func _fit_room() -> void:
 	_room.position = ((size - Vector2(Logic.W, Logic.H) * s) * 0.5).floor()
 
 
-## Map Godot keys to the Processing key / keyCode pairs the sketch handled.
+## Map Godot keys to the tokens handle_key understands.
 func _key_token(k: InputEventKey) -> String:
-	# Processing `key` is layout-dependent; unicode matches that.
+	# Processing `key` is layout-dependent; unicode matches that for letter keys.
 	if k.unicode != 0:
 		var ch := String.chr(k.unicode).to_lower()
 		if ch in [",", "<", "w", "e", "d", "o", "s", "a"]:
@@ -63,6 +69,12 @@ func _key_token(k: InputEventKey) -> String:
 			return "a"
 		KEY_UP:
 			return "up"
+		KEY_DOWN:
+			return "down"
+		KEY_LEFT:
+			return "left"
+		KEY_RIGHT:
+			return "right"
 		_:
 			return ""
 
@@ -94,4 +106,4 @@ func _draw_room() -> void:
 	# image(mBackgroundImage, 0, 0) — 900×300 asset; only the left 300×300 shows.
 	_room.draw_texture(TEX_BG, Vector2.ZERO)
 	_room.draw_texture(TEX_ORANGE[world.orange_face], Vector2(world.orange_x, world.orange_y))
-	_room.draw_texture(TEX_BLUE, Vector2(world.blue_x(), world.blue_y()))
+	_room.draw_texture(TEX_BLUE[world.blue_face], Vector2(world.blue_x, world.blue_y))
