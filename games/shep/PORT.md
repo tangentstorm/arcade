@@ -56,4 +56,53 @@
 
 Tests: `tools/test_shep.gd` (run by `tools/smoke_headless.sh`). It covers SVG parsing for all 10 levels, menu order, unlocks, scores, the clock, steering math, and a headless physics run: a kicked fuse sinks into its socket and docking wins, a red fuse opens the door, the clock running out loses, and pause holds the clock.
 
-## Enhanced edition: planned
+## Enhanced edition (`enhanced/`): playable
+
+A presentation makeover of the same zero-g fuse puzzler. **No rules are duplicated:**
+`enhanced/game.gd` preloads `direct/shep_world.gd`, `direct/shep_levels.gd`,
+`direct/star_field.gd`, `direct/level_preview.gd`, and the Direct assets. Physics,
+SVG parsing, win/lose, the 120 s clock, unlocks, and scores are the Direct code.
+Enhanced adds only read-only presentation and juice, so a rules fix in Direct lands
+in both editions. No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 letterbox shell: menus, HUD, overlay, juice, Esc → PauseOverlay |
+
+### What changed (presentation only)
+- **View:** fixed 1280×720 stage (letterbox). The Direct 800×575 world runs in a centered
+  SubViewport so it keeps its own physics space. Side panels hold the objective, fuse
+  legend, and controls.
+- **Clearer fuse / ship UI:** cyan and red rings around fuses and sockets (code 0 / code 1),
+  velocity whiskers on live fuses, a pulsing ring on Shep, and a glowing aim line with
+  chevrons. A fuse counter (`set / total`) and an objective line track progress. When the
+  last fuse docks, a "Dock Shep" hint pulses over the field.
+- **Juice:** thrust sparks on kick, pocket bursts + "FUSED" floaters, door-open banner,
+  Shep thrust trail, screen shake on wall hits, win flash. Direct SFX and music still play.
+- **Screens:** restyled title, level select (same unlock rules + preview + trophy), pause,
+  victory, defeat, help, and credits. In-game Pause still freezes the Direct world the way
+  the Flex pause did. Esc opens the arcade PauseOverlay (tree pause). "Back to Arcade" is
+  top-left and never takes keyboard focus.
+- **Scores:** shared `user://shep_scores.cfg` with Direct so unlocks and best times carry over.
+- Direct's in-field LED clock is hidden; the Enhanced HUD shows the same `secs_left()` text.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rules / physics | `shep_world.gd` | same instance class (preload), no copy |
+| Levels / unlocks | `shep_levels.gd` + SharedObject scores | same |
+| Stage | 800×575 Flex shell | 1280×720 chrome around the same 800×575 field |
+| Fuse / ship readouts | Flash clips / PNGs only | color rings, aim assist, fuse counter, dock hint |
+| Menus | original screen PNGs + Halo buttons | procedural cards |
+| Juice | blur / glow / pocket squeeze | trails, sparks, floaters, shake (on top of Direct) |
+
+### Deferred
+- No re-drawn sprites or new audio assets.
+- No touch / gamepad controls beyond what Direct already accepts.
+- No dedicated Enhanced gallery preview in this PR (card can use the Direct shot).
+
+Tests: `tools/test_shep_enhanced.gd` (run by `tools/smoke_headless.sh`): registry entry,
+scene launch + letterbox, Direct world ownership, title → level select → play, Pause freezes
+the world, pocket/kick juice, Esc → PauseOverlay → Back to Arcade, and a shared-World physics
+win on the Direct test room SVG.
