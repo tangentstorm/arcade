@@ -38,10 +38,38 @@ build of the genre: a modern River Raid–style vertical canyon flyer.
 - Bridges, sections or checkpoints, lives, sound, touch controls.
 - Any visual polish or assets from the Design mock.
 
-## Enhanced edition — planned
-Visual polish and an asset or layout scrape from the Claude Design demo are
-**deferred to Enhanced**. That work starts once someone with a signed-in session
-extracts the Design page (HTML/CSS, palette, sprites, HUD layout) into the repo.
-Enhanced should then match the Design, and can add fuel, bridges and audio.
-
 Tests: `tools/test_canyon_run.gd` (picked up by `tools/smoke_headless.sh`).
+
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same River Raid–style flyer. **No rules are duplicated:**
+`enhanced/game.gd` preloads Direct `canyon_logic.gd`. Steer, throttle, fire, canyon
+generation, drifters, scoring and crash/reset stay Direct. Enhanced only wraps the
+sim in a 1280×720 letterbox shell and derives juice from state deltas (new bullets,
+kill count, READY→PLAY→CRASHED).
+
+### Visuals / UI
+- 1280×720 letterbox stage; Direct 240×320 portrait @2× (480×640) in a clipped field
+  between left/right HUD panels (same resolution as Direct, richer chrome)
+- Layered canyon: deep rock fill, mid cliff band, lit rim, occasional ledge notches,
+  foam at the water edge; river depth gradient + drifting shimmer
+- Craft: glow disc, speed-scaled exhaust plume + cyan/gold sparks, fading wake trail;
+  crashed craft tints red
+- Bullets as glowing tracers with muzzle burst; drifters with pulse halo + highlight
+- Kill juice: burst + floating "+50"; crash: shake, hot flash, debris, crash card
+- Left HUD: title, controls, Back to Arcade (`FOCUS_NONE`). Right HUD: score / best /
+  dist / speed / kills / channel width + throttle bar
+- Title card on boot (Space/Enter/Start); Esc → PauseOverlay
+
+### Scope honesty
+- Claude Design exact parity is **out of scope** without reference screenshots; this
+  edition is an original River Raid–style polish over Direct.
+- Still no fuel, bridges, lives, sound or touch controls (those need rules or assets).
+
+### Behaviour notes
+- Input map matches Direct (←/→ A/D, ↑/↓ W/S, Space/Z fire + restart after crash hold).
+- Title card holds READY until Start; then Direct `start()` / `update` run as usual.
+- Esc → PauseOverlay. Title `scale_mode` stays `letterbox`.
+- No Alchementrix IP. No `_enhanced` preview yet (gallery can use the Direct shot).
+
+Tests: `tools/test_canyon_run_enhanced.gd` (run by `tools/smoke_headless.sh`).
