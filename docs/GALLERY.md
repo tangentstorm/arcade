@@ -48,6 +48,7 @@ Fixed-stage notes:
 | `doth` (Enhanced) | 1280×720 stage; 70×20 @16px (1120×320) + bottom HUD | `letterbox` | Presentation over Direct world + SvA-like tiles (preload). Torchlit chrome, pickup juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `chesscoach` (Enhanced) | 1280×720 stage; Direct ~400×400 board in SubViewport → 520×520 field + side HUD | `letterbox` | Presentation over Direct scene (instance). Walnut board, move-list HUD, replay juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `fnarb_binary_adder` (Enhanced) | 1280×720 stage; Direct 1920×1080 @½ (960×540) clipped field + side HUD | `letterbox` | Presentation over Direct demo (instance `binary_addition.tscn`). Circuit chrome, equation HUD, bit-flip juice; gold highlight kept. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `fnarb_ast` (Enhanced) | 1280×720 stage; Direct 1920×1080 @½ (960×540) clipped field + side HUD | `letterbox` | Presentation over Direct demo (instance `ast_node_demo.tscn`). Indigo chrome, grow-in + traversal-wave juice, hover op inspector. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
 | `flappy_clone` (Enhanced) | 1280×720 stage, 107 px/unit | `letterbox` | First Enhanced edition. Procedural art, scaled to fit the viewport. No `_enhanced` preview yet (the gallery card uses the Direct shot) |
 | `tentraminos` (Enhanced) | 568×646 board + 520 px HUD panel (1124×646) in 1280×720 | `letterbox` | Same rules as Direct. `tentraminos_enhanced.png` preview |
@@ -95,6 +96,7 @@ Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-by
 |----|-------|--------|-------|-------|
 | `chesscoach` | Chess Coach | playable (Direct + Enhanced) | letterbox (Direct 400×400; Enhanced 1280×720) | gd-chesscoach FEN board + trays; Enhanced = walnut chrome over Direct scene; no Stockfish |
 | `fnarb_binary_adder` | Fnarbmlyx Binary Adder | playable (Direct + Enhanced) | letterbox (Direct 1920×1080; Enhanced 1280×720) | fnarbmlyx animated 4-bit addition; Enhanced = chrome/HUD/juice over Direct Adder scene |
+| `fnarb_ast` | Fnarbmlyx Boolean Syntax Tree | playable (Direct + Enhanced) | letterbox (Direct 1920×1080; Enhanced 1280×720) | fnarbmlyx seeded boolean AST; Enhanced = chrome, grow-in + traversal-wave juice, hover inspector over Direct demo |
 | `canyon_run` | Canyon Run | playable (Direct + Enhanced) | letterbox (Direct 240×320 @2×; Enhanced 1280×720) | Original River Raid–style flyer; Enhanced = layered canyon chrome + HUD/juice over Direct logic; Design parity deferred |
 | `invader_sketch` | Invader Sketch | playable (Direct + Enhanced) | letterbox (Direct 640×480; Enhanced 1280×720) | GameSketchLib w02 Space Invaders; Enhanced = starfield + glow/juice over Direct logic |
 | `gamesketchlib_demo` | GameSketchLib Demo | playable (Direct + Enhanced) | letterbox (Direct 300×300; Enhanced 1280×720) | GameSketchLib w02 BulletDemo on the mini engine; Enhanced = glow/trails + hit/soak juice + aim guide over Direct logic |

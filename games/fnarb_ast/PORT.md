@@ -29,4 +29,34 @@ Files: `ASTNode.gd`/`.tscn`, `ASTNodeDemo.gd`/`.tscn`, `widgets/ShadedGrid.gd` �
 
 Tests: `tools/test_fnarb_demos.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same sketch. **Nothing about the tree is rebuilt or copied:**
+`enhanced/game.gd` preloads Direct `ast_node_demo.tscn` and instances it (shared
+`ast_node_demo.gd` / `ast_node.gd` / `shaded_grid.gd`) in its native 1920×1080
+`SubViewport`, so seed 82076, layout and glyphs stay Direct. Enhanced only frames
+that viewport and draws overlays on top of it.
+
+### Visuals / UI
+- 1280×720 letterbox stage; Direct's 1920×1080 demo at ½ inside a 960×540 clipped
+  field between side HUD panels and a thin title bar
+- Deep indigo gradient + drifting motes around the Direct shaded purple grid
+- **Grow-in:** on Start / **R** the field clip grows from the root downward, with a
+  small pop at every node as its depth appears
+- **Traversal wave:** once grown, a gold cursor walks the AST (breadth-first, pre-,
+  in- or post-order; **Tab** / **T** cycles), leaving fading halos; a trail of the
+  last visited op glyphs and a "done" flash when the walk completes, then it loops
+- **Hover inspector:** mouse over a node to draw its gold path back to the root and
+  show its op, L/R path, depth, child count and colour swatch
+- Title card (Start / Enter / Space, op colour legend from Direct `ast_node` fills,
+  Back to Arcade). HUD Back to Arcade. All buttons `FOCUS_NONE`. **Esc** → PauseOverlay
+
+### Behaviour notes
+- Overlay centres come from each Direct ASTNode's `global_position` + `link_point()`.
+  The test compares the Enhanced tree (seed, count/height, every `op`) with a bare
+  Direct twin.
+- Traversals, hover and the grow-in are presentation only; Direct still has no input.
+- Title `scale_mode` stays `letterbox`. No Alchementrix IP. No `_enhanced` preview yet
+  (gallery can use the Direct shot).
+
+Tests: `tools/test_fnarb_ast_enhanced.gd` (run by `tools/smoke_headless.sh`).
