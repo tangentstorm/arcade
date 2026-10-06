@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://games/ld48/direct/ernie.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://games/ld48/direct/sprites/hero.png" id="2_hero"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 32.9356
+height = 105.871
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_reach"]
+radius = 80.0
+
+[node name="ernie" type="CharacterBody2D"]
+script = ExtResource("1_script")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2.33331, 0.666626)
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_hero")
+hframes = 4
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="reach" type="CollisionShape2D" parent="area"]
+shape = SubResource("CircleShape2D_reach")
+
+[node name="beam" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(178.672, -96.7657, 583.424, -226.824)
+
+[node name="ray" type="RayCast2D" parent="."]
+
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
+[connection signal="body_exited" from="area" to="." method="_on_area_body_exited"]
