@@ -43,6 +43,7 @@ offset_bottom = -8.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.6, 0.6, 0.65, 1)
 theme_override_font_sizes/font_size = 13
-text = "WASD / ,AOE / ↑: move
+text = "Orange: WASD or ,AOE
+Blue: arrow keys
 Esc: pause / arcade"
 vertical_alignment = 2
