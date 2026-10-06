@@ -540,6 +540,7 @@ autostart = true
 tree_root = SubResource("14")
 anim_player = NodePath("../AnimationPlayer")
 active = true
+deterministic = false
 root_motion_track = NodePath(".")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Adder"]

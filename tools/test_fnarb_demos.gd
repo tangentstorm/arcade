@@ -90,6 +90,8 @@ func _run() -> void:
 	var abs_hl := carriage.position + cursor.position
 	_check(abs_hl.x == 800.0 and abs_hl.y == 320.0 and cursor.size == Vector2(32, 72),
 		"adder: highlight over a/b bit0 at %s size %s" % [abs_hl, cursor.size])
+	_check(cursor.modulate.r > 0.9 and cursor.modulate.g > 0.9 and cursor.modulate.b > 0.9 and cursor.modulate.a > 0.9,
+		"adder: cursor.modulate visible gold early (got %s)" % cursor.modulate)
 	# Real-time through the first column advance (add_3 calls move_carriage_left).
 	await create_timer(5.5).timeout
 	_check(carriage.position.x == 736.0,
@@ -97,6 +99,9 @@ func _run() -> void:
 	var abs_col1 := carriage.position + cursor.position
 	_check(abs_col1.x == 768.0 and cursor.size.y >= 72.0,
 		"adder: highlight over column 1 addends/carry at %s size %s" % [abs_col1, cursor.size])
+	# AnimationTree deterministic=true resets unkeyed modulate to black after add_2; keep it white.
+	_check(cursor.modulate.r > 0.9 and cursor.modulate.g > 0.9 and cursor.modulate.b > 0.9 and cursor.modulate.a > 0.9,
+		"adder: cursor.modulate still ~(1,1,1,1) after later clips (~6s, got %s)" % cursor.modulate)
 	# Speed the remaining steps; bit colours are script-driven so a short wait is enough.
 	var timer: Timer = adder.get_node("Timer")
 	timer.wait_time = 0.02

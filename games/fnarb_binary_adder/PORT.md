@@ -27,6 +27,7 @@ Files: `Adder.gd`, `Rect.gd`, `BinaryAddition.tscn`, `widgets/TruthTable.*`, `wi
 - The debug `print`s are removed. The unused Godot 3 `.tres` animations stay in `source/` only.
 - In the Compatibility renderer, 2D glow/adjustments from the `WorldEnvironment` may render more weakly than in the 4.1 Forward+ original.
 - **Gold highlight tracks the active column.** The `init` animation no longer keys `carriage:position`. In Godot 4's AnimationMixer, leaving that track reset the carriage to `(0,0)`, so the teaching box floated in the corner instead of over the addend bits. Carriage origin is `(768, 280)` on the node (and re-applied in `adder.gd`); `move_carriage_left` still advances one 32px column. Cursor `border_color` is gold/yellow `Color(1, 0.85, 0)` (was orange).
+- **`AnimationTree.deterministic = false`.** AnimationTree defaults to deterministic blending, which re-applies a zero/RESET value for any property a later clip does not key. After `add_2` faded `cursor:modulate` in, clips that only key position/size wiped modulate to black `(0,0,0,1)` while `border_color` stayed gold — so tests that only checked border color passed wrongly. Non-deterministic mode leaves unkeyed properties alone, so the gold highlight stays visible through the whole column walk.
 
 `source/` holds the original files (plus the shared widgets they use) for reference. It has a `.gdignore`.
 
