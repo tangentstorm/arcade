@@ -78,7 +78,7 @@ func _logic_checks() -> void:
 	g.start()
 	g.enemies = [{"pos": Vector2(g.player_x, g.player_world_y() + 60.0), "vx": 0.0}]
 	g.fire()
-	_check(g.bullets.size() == 1, "fire spawns a bullet")
+	_check(g.bullets.size() == 2, "fire spawns twin bullets")
 	for i in 30:
 		g.update(1.0 / 60.0)
 	_check(g.kills == 1 and g.enemies.is_empty(), "bullet destroys the drifter")

@@ -2,10 +2,13 @@ extends RefCounted
 ## Canyon Run simulation (no nodes, no input): procedural canyon, player craft,
 ## bullets, drifting targets, crash / reset. Stage coordinates: 240×320 portrait,
 ## +y down on screen. World y grows "up the canyon"; `dist` is how far we have flown.
+##
+## Coastline (band-0) uses the Claude Design genRow walk so collision matches the
+## paper-cut waterline painted by canyon_topo.gd (w.rows = w.bands[0].rows).
 
 const STAGE_W := 240.0
 const STAGE_H := 320.0
-const ROW_H := 4.0                # canyon is sampled every 4 world px
+const ROW_H := 4.0                # hit-sample step along the craft (world px)
 const PLAYER_Y := 280.0           # craft's screen y (fixed; the canyon scrolls)
 const PLAYER_HALF := Vector2(6, 7)
 const STEER_SPEED := 110.0        # px/s sideways
@@ -15,13 +18,13 @@ const SPEED_MAX := 120.0
 const ACCEL := 90.0
 const BULLET_SPEED := 260.0       # relative to the craft
 const FIRE_COOLDOWN := 0.18
-const RUNWAY_ROWS := 60           # straight, wide opening stretch
-const WIDTH_START := 170.0
-const WIDTH_MIN := 70.0
-const MARGIN := 8.0               # min rock on each side of the channel
 const ENEMY_HALF := Vector2(8, 4)
 const ENEMY_EVERY := 140.0        # world px between target spawns
 const CRASH_HOLD := 1.0           # seconds before a restart is accepted
+## Design band-0 channel (normalized width fraction). Matches canyon-run.dc-script.js.
+const COAST_WMIN := 0.3
+const COAST_WMAX := 0.68
+const TWIN_SHOT_DX := 0.028 * STAGE_W  # Design fire(): ±0.028 of width
 
 enum State { READY, PLAY, CRASHED }
 
@@ -38,10 +41,8 @@ var enemies: Array = []            # [{pos: Vector2 world, vx: float}]
 
 var _rng := RandomNumberGenerator.new()
 var _seed := 0
-var _rows: Dictionary = {}         # row index -> Vector2(left, right)
-var _center := STAGE_W * 0.5
-var _target := STAGE_W * 0.5
-var _gen_row := -1
+## Design-style sparse coast rows: {y, c, wd, l, r} with l/r as width fractions.
+var _coast_rows: Array = []
 var _cooldown := 0.0
 var _next_enemy := 0.0
 
@@ -53,10 +54,13 @@ func _init(p_seed: int = 1) -> void:
 
 func reset() -> void:
 	_rng.seed = _seed
-	_rows.clear()
-	_center = STAGE_W * 0.5
-	_target = _center
-	_gen_row = -1
+	_coast_rows = [{
+		"y": -700.0,
+		"c": 0.5,
+		"wd": 0.54,
+		"l": 0.23,
+		"r": 0.77,
+	}]
 	dist = 0.0
 	speed = SPEED_CRUISE
 	player_x = STAGE_W * 0.5
@@ -84,45 +88,73 @@ func player_world_y() -> float:
 	return world_y(PLAYER_Y)
 
 
-## Canyon walls (left, right) at world y.
+## Canyon walls (left, right) in stage px at world y — Design band-0 edge.
 func walls_at(wy: float) -> Vector2:
-	var i := int(floor(wy / ROW_H))
-	_generate_to(i)
-	return _rows.get(max(i, 0), Vector2(MARGIN, STAGE_W - MARGIN))
+	_ensure_to_y(wy)
+	return Vector2(_coast_edge(-1, wy) * STAGE_W, _coast_edge(1, wy) * STAGE_W)
+
+
+## Normalized coast edge (−1 = left, +1 = right). Shared with canyon_topo paint.
+func coast_edge(side: int, wy: float) -> float:
+	_ensure_to_y(wy)
+	return _coast_edge(side, wy)
+
+
+func coast_rows() -> Array:
+	return _coast_rows
 
 
 func row_count() -> int:
-	return _rows.size()
+	return _coast_rows.size()
 
 
 func _ensure_rows() -> void:
-	_generate_to(int(ceil((dist + STAGE_H) / ROW_H)) + 2)
-	# Drop rows well below the screen.
-	var low := int(floor(dist / ROW_H)) - 8
-	for k in _rows.keys():
-		if k < low:
-			_rows.erase(k)
+	_ensure_to_y(dist + STAGE_H + 400.0)
+	var low := dist - 700.0
+	while _coast_rows.size() > 4:
+		var r1: Dictionary = _coast_rows[1]
+		if float(r1.y) >= low:
+			break
+		_coast_rows.remove_at(0)
 
 
-func _generate_to(i: int) -> void:
-	while _gen_row < i:
-		_gen_row += 1
-		var r := _gen_row
-		var width: float
-		if r < RUNWAY_ROWS:
-			width = WIDTH_START
-			_center = STAGE_W * 0.5
-		else:
-			# Narrow slowly with distance, with a gentle pulse for pinch points.
-			var base: float = max(WIDTH_MIN, WIDTH_START - (r - RUNWAY_ROWS) * ROW_H / 60.0)
-			width = base + sin((r - RUNWAY_ROWS) * 0.045) * 22.0
-			width = max(WIDTH_MIN, width)
-			if r % 45 == 0:
-				_target = _rng.randf_range(MARGIN + width * 0.5, STAGE_W - MARGIN - width * 0.5)
-			_center = move_toward(_center, _target, 1.2)
-		var half := width * 0.5
-		_center = clamp(_center, MARGIN + half, STAGE_W - MARGIN - half)
-		_rows[r] = Vector2(_center - half, _center + half)
+func _ensure_to_y(wy: float) -> void:
+	var last: Dictionary = _coast_rows[_coast_rows.size() - 1]
+	while float(last.y) < wy:
+		_gen_coast_row()
+		last = _coast_rows[_coast_rows.size() - 1]
+
+
+func _gen_coast_row() -> void:
+	var p: Dictionary = _coast_rows[_coast_rows.size() - 1]
+	var y: float = float(p.y) + _rng.randf_range(95.0, 180.0)
+	var c: float = float(p.c)
+	var wd: float = float(p.wd)
+	if _rng.randf() > 0.2:  # hold flat 20% — paper-cut plateaus
+		c = clampf(c + _rng.randf_range(-0.085, 0.085), 0.36, 0.64)
+		wd = clampf(wd + _rng.randf_range(-0.1, 0.1), COAST_WMIN, COAST_WMAX)
+	_coast_rows.append({
+		"y": y, "c": c, "wd": wd,
+		"l": c - wd * 0.5, "r": c + wd * 0.5,
+	})
+
+
+func _coast_edge(side: int, wy: float) -> float:
+	if _coast_rows.is_empty():
+		return 0.5
+	var r0: Dictionary = _coast_rows[0]
+	if wy <= float(r0.y):
+		return float(r0.l) if side < 0 else float(r0.r)
+	for i in range(1, _coast_rows.size()):
+		var a: Dictionary = _coast_rows[i - 1]
+		var b: Dictionary = _coast_rows[i]
+		if wy <= float(b.y):
+			var t: float = (wy - float(a.y)) / maxf(float(b.y) - float(a.y), 0.001)
+			if side < 0:
+				return float(a.l) + (float(b.l) - float(a.l)) * t
+			return float(a.r) + (float(b.r) - float(a.r)) * t
+	var L: Dictionary = _coast_rows[_coast_rows.size() - 1]
+	return float(L.l) if side < 0 else float(L.r)
 
 
 func start() -> void:
@@ -145,7 +177,10 @@ func fire() -> void:
 	if state != State.PLAY or _cooldown > 0.0:
 		return
 	_cooldown = FIRE_COOLDOWN
-	bullets.append(Vector2(player_x, player_world_y() + PLAYER_HALF.y))
+	var wy := player_world_y() + PLAYER_HALF.y
+	# Twin flame darts (Design fire(): px ± 0.028).
+	bullets.append(Vector2(player_x - TWIN_SHOT_DX, wy))
+	bullets.append(Vector2(player_x + TWIN_SHOT_DX, wy))
 
 
 ## steer: -1..1, throttle: -1 (slow) .. 1 (fast), 0 = return to cruise.

@@ -21,21 +21,21 @@ sprites, visual islands). Arcade rules stay in `canyon_logic.gd` (tests depend o
   crisp with bars around it. HUD (score / best / speed) sits right; help text and a
   "Back to Arcade" button sit left.
 - `direct/canyon_logic.gd`: node-free simulation (testable headless).
-  - Procedural canyon sampled every 4 world px: a 60-row straight runway at width 170,
-    then the channel narrows with distance (floor 70 px) with a slow sine pinch, and
-    its centre eases toward a new random target every 45 rows. Seeded RNG; rows below
-    the screen are pruned.
+  - Coastline (band-0) uses the Design genRow walk (`dy` 95..180, hold-flat 0.2,
+    centre ±0.085 clamp 0.36..0.64, width ±0.1 clamp 0.3..0.68, normalized l/r).
+    `walls_at` interpolates those sparse rows into stage px — collision = waterline.
   - Craft fixed at screen y 280; steer 110 px/s; throttle 40 / 70 / 120 px/s
     (slow / cruise / fast).
-  - Fire: bullets every 0.18 s, killed by walls or leaving the top.
+  - Fire: twin orange darts every 0.18 s (±0.028 width), killed by walls or leaving the top.
   - Red drifters spawn above the top edge in the channel and bounce wall to wall.
     Shot = +50; ramming one crashes. Drawn as red/white gunboats.
   - Score = distance / 10 + 50 per kill. Best is kept across runs.
   - Wall or drifter contact → CRASHED; after a 1 s hold, Space/Z resets to READY.
 - `direct/canyon_topo.gd`: paper-cut topo renderer ported from the Design script.
   - Palette (water→out): `#6b4f36` … `#f0dcae` (6 bands); water `#7ba7c2`→`#3d6b87`.
-  - Band 0 coastline = `walls_at` (collision matches the water edge). Bands 1–5 use
-    the mock's genRow walk + scroll rates `1.0 … 1.45×`, clamped inland of the coast.
+  - Band 0 coastline = `logic.coast_rows` (same Design rows as collision). Bands 1–5
+    use the mock's genRow walk + scroll rates `1.0 … 1.45×`, clamped inland of the coast
+    with `minGap = i*0.014`.
   - Scalloped wave lines (3 layers), nested mid-river islands (visual-only), grey jet
     with orange/yellow afterburners, striped boats, CANYON RUN + WIP badge.
 - `direct/game.gd` + `game.tscn`: input, topo `_draw()`, labels.

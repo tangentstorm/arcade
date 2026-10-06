@@ -1,8 +1,9 @@
 extends RefCounted
 ## Paper-cut topo renderer ported from Claude Design canyon-run.dc-script.js.
-## Band 0 (waterline) follows CanyonLogic.walls_at so collision matches the coast.
-## Bands 1..5, islands, water waves, jet and boat sprites mirror the mock algorithm.
-## No Alchementrix IP. Visual-only islands (no hit tests).
+## Band 0 (waterline) IS CanyonLogic's Design coast rows — collision and paint share
+## one source of truth (w.rows = w.bands[0].rows). Bands 1..5, islands, water waves,
+## jet and boat sprites mirror the mock algorithm. No Alchementrix IP.
+## Visual-only islands (no hit tests).
 
 const LogicScript = preload("res://games/canyon_run/direct/canyon_logic.gd")
 
@@ -19,7 +20,7 @@ const COAST_STROKE := Color(20.0 / 255.0, 50.0 / 255.0, 70.0 / 255.0, 0.22)
 const STEP_PX := 6.0
 
 var _rng := RandomNumberGenerator.new()
-var _bands: Array = []
+var _bands: Array = []  # bands 1..5 only; band 0 lives on CanyonLogic
 var _islands: Array = []
 var _next_island: float = 900.0
 var _seed: int = 1
@@ -33,7 +34,8 @@ func reset(p_seed: int = 1) -> void:
 	_islands.clear()
 	_next_island = 900.0
 	time = 0.0
-	for i in LAYERS:
+	# Visual ridge bands 1..5 (band 0 is logic.coast_rows).
+	for i in range(1, LAYERS):
 		var inset: float = float(i) * 0.05
 		var wd0: float = 0.54 - inset * 2.0
 		var b: Dictionary = {
@@ -67,8 +69,7 @@ func ensure(cam_y: float, logic) -> void:
 
 
 func _ensure(upto: float, logic) -> void:
-	for bi in range(1, LAYERS):
-		var b: Dictionary = _bands[bi]
+	for b in _bands:
 		var rate: float = float(b.rate)
 		var cam: float = (upto - 3200.0) * rate if upto > 3200.0 else 0.0
 		var need: float = upto * rate + 400.0
@@ -129,8 +130,7 @@ func _edge_of(rows: Array, side: int, wy: float) -> float:
 
 
 func _coast_norm(logic, wy: float, side: int) -> float:
-	var w: Vector2 = logic.walls_at(wy)
-	return (w.x if side < 0 else w.y) / LogicScript.STAGE_W
+	return logic.coast_edge(side, wy)
 
 
 func _make_island(wy: float, logic) -> Variant:
@@ -157,10 +157,12 @@ func paint(ci: CanvasItem, logic, origin: Vector2, px: float, bank: float = 0.0)
 	var cam_y: float = logic.dist
 	ensure(cam_y, logic)
 
-	for i in 24:
-		var t: float = float(i) / 23.0
+	# Per-row fill (Design linearGradient). Avoid 1px gaps from float rect snapping
+	# that otherwise expose COL_BG as black "rungs" across the river.
+	for sy in range(int(H)):
+		var t: float = float(sy) / maxf(H - 1.0, 1.0)
 		var c: Color = WATER_TOP.lerp(WATER_BOT, t)
-		ci.draw_rect(Rect2(origin + Vector2(0.0, H * t * px), Vector2(W * px, H / 24.0 * px + 1.0)), c)
+		ci.draw_rect(Rect2(origin + Vector2(0.0, float(sy) * px), Vector2(W * px, px + 0.5)), c)
 
 	_paint_waves(ci, origin, px, cam_y, W, H)
 	_paint_walls(ci, logic, origin, px, cam_y, W, H)
@@ -216,10 +218,12 @@ func _paint_waves(ci: CanvasItem, origin: Vector2, px: float, cam_y: float, W: f
 
 
 func _paint_walls(ci: CanvasItem, logic, origin: Vector2, px: float, cam_y: float, W: float, H: float) -> void:
+	# Layer 0 = Design coast from logic; layers 1..5 = ridge bands clamped to coast.
 	for i in LAYERS:
-		var b: Dictionary = _bands[i]
-		var cam: float = cam_y * float(b.rate)
+		var rate: float = RATES[i]
+		var cam: float = cam_y * rate
 		var min_gap: float = float(i) * 0.014
+		var band_rows: Array = logic.coast_rows() if i == 0 else _bands[i - 1].rows
 		for side in [-1, 1]:
 			var far_x: float = (-0.4 * W) if side < 0 else (1.4 * W)
 			var pts := PackedVector2Array()
@@ -227,11 +231,7 @@ func _paint_walls(ci: CanvasItem, logic, origin: Vector2, px: float, cam_y: floa
 			while y > -24.0:
 				var wy_band: float = cam + (H - y)
 				var wy_coast: float = cam_y + (H - y)
-				var own: float
-				if i == 0:
-					own = _coast_norm(logic, wy_coast, side)
-				else:
-					own = _edge_of(b.rows, side, wy_band)
+				var own: float = _edge_of(band_rows, side, wy_band)
 				var coast: float = _coast_norm(logic, wy_coast, side)
 				var xn: float
 				if side < 0:
@@ -342,6 +342,10 @@ func _draw_boat(ci: CanvasItem, pos: Vector2, px: float, facing: float) -> void:
 	]), Color("39454c"))
 
 
+func _rot(v: Vector2, s: float, rc: float, sn: float) -> Vector2:
+	return Vector2(v.x * s * rc - v.y * s * sn, v.x * s * sn + v.y * s * rc)
+
+
 func _draw_jet(ci: CanvasItem, pos: Vector2, s_ci: float, bank: float, crashed: bool) -> void:
 	var s: float = s_ci * 1.25
 	var bx: float = clampf(bank, -1.0, 1.0) * 0.12
@@ -351,17 +355,17 @@ func _draw_jet(ci: CanvasItem, pos: Vector2, s_ci: float, bank: float, crashed: 
 	if not crashed:
 		for dx in [-7.0, 7.0]:
 			ci.draw_colored_polygon(PackedVector2Array([
-				pos + Vector2(dx * s * rc - 30.0 * s * sn, dx * s * sn + 30.0 * s * rc),
-				pos + Vector2((dx - 3.4) * s * rc - 17.0 * s * sn, (dx - 3.4) * s * sn + 17.0 * s * rc),
-				pos + Vector2((dx + 3.4) * s * rc - 17.0 * s * sn, (dx + 3.4) * s * sn + 17.0 * s * rc),
+				pos + _rot(Vector2(dx, 30.0), s, rc, sn),
+				pos + _rot(Vector2(dx - 3.4, 17.0), s, rc, sn),
+				pos + _rot(Vector2(dx + 3.4, 17.0), s, rc, sn),
 			]), Color("d9541b"))
 			ci.draw_colored_polygon(PackedVector2Array([
-				pos + Vector2(dx * s * rc - 25.0 * s * sn, dx * s * sn + 25.0 * s * rc),
-				pos + Vector2((dx - 1.8) * s * rc - 17.0 * s * sn, (dx - 1.8) * s * sn + 17.0 * s * rc),
-				pos + Vector2((dx + 1.8) * s * rc - 17.0 * s * sn, (dx + 1.8) * s * sn + 17.0 * s * rc),
+				pos + _rot(Vector2(dx, 25.0), s, rc, sn),
+				pos + _rot(Vector2(dx - 1.8, 17.0), s, rc, sn),
+				pos + _rot(Vector2(dx + 1.8, 17.0), s, rc, sn),
 			]), Color("ffd21f"))
 
-	var shadow_p: Vector2 = pos + Vector2(4.0 * s * rc - 8.0 * s * sn, 4.0 * s * sn + 8.0 * s * rc)
+	var shadow_p: Vector2 = pos + _rot(Vector2(4.0, 8.0), s, rc, sn)
 	ci.draw_circle(shadow_p, maxf(4.0, 9.0 * s), Color(18.0 / 255.0, 48.0 / 255.0, 66.0 / 255.0, 0.22))
 
 	var wing_col := Color("d7dbdd") if not crashed else Color("d8202a")
@@ -371,12 +375,12 @@ func _draw_jet(ci: CanvasItem, pos: Vector2, s_ci: float, bank: float, crashed: 
 		Vector2(4.0, 14.0), Vector2(-4.0, 14.0), Vector2(-34.0, 19.0), Vector2(-34.0, 15.0),
 		Vector2(-5.0, 2.0),
 	]:
-		wing.append(pos + Vector2(v.x * s * rc - v.y * s * sn, v.x * s * sn + v.y * s * rc))
+		wing.append(pos + _rot(v, s, rc, sn))
 	ci.draw_colored_polygon(wing, wing_col)
 
 	var shade := PackedVector2Array()
 	for v in [Vector2(0.0, -12.0), Vector2(5.0, 2.0), Vector2(34.0, 15.0), Vector2(34.0, 19.0), Vector2(4.0, 14.0)]:
-		shade.append(pos + Vector2(v.x * s * rc - v.y * s * sn, v.x * s * sn + v.y * s * rc))
+		shade.append(pos + _rot(v, s, rc, sn))
 	ci.draw_colored_polygon(shade, Color(90.0 / 255.0, 110.0 / 255.0, 120.0 / 255.0, 0.22))
 
 	var tail_col := Color("c3c9cc") if not crashed else Color("a03030")
@@ -386,20 +390,24 @@ func _draw_jet(ci: CanvasItem, pos: Vector2, s_ci: float, bank: float, crashed: 
 	]:
 		var tp := PackedVector2Array()
 		for v in pair:
-			tp.append(pos + Vector2(v.x * s * rc - v.y * s * sn, v.x * s * sn + v.y * s * rc))
+			tp.append(pos + _rot(v, s, rc, sn))
 		ci.draw_colored_polygon(tp, tail_col)
 
 	var fuse_col := Color("f7f5f0") if not crashed else Color("e08080")
 	var fuse := PackedVector2Array()
 	for v in [Vector2(0.0, -27.0), Vector2(5.0, -6.0), Vector2(6.5, 18.0), Vector2(-6.5, 18.0), Vector2(-5.0, -6.0)]:
-		fuse.append(pos + Vector2(v.x * s * rc - v.y * s * sn, v.x * s * sn + v.y * s * rc))
+		fuse.append(pos + _rot(v, s, rc, sn))
 	ci.draw_colored_polygon(fuse, fuse_col)
 	var fuse_shade := PackedVector2Array()
 	for v in [Vector2(0.0, -27.0), Vector2(5.0, -6.0), Vector2(6.5, 18.0), Vector2(0.0, 18.0)]:
-		fuse_shade.append(pos + Vector2(v.x * s * rc - v.y * s * sn, v.x * s * sn + v.y * s * rc))
+		fuse_shade.append(pos + _rot(v, s, rc, sn))
 	ci.draw_colored_polygon(fuse_shade, Color(120.0 / 255.0, 140.0 / 255.0, 150.0 / 255.0, 0.28))
-	var canopy: Vector2 = pos + Vector2(0.0 * rc - (-13.0) * s * sn, 0.0 * sn + (-13.0) * s * rc)
-	ci.draw_circle(canopy, maxf(2.0, 3.8 * s), Color("2f4a5a"))
+	# Canopy ellipse rx=3.1 ry=5.4 (Design).
+	var canopy_pts := PackedVector2Array()
+	for i in 12:
+		var a: float = float(i) / 12.0 * TAU
+		canopy_pts.append(pos + _rot(Vector2(cos(a) * 3.1, -13.0 + sin(a) * 5.4), s, rc, sn))
+	ci.draw_colored_polygon(canopy_pts, Color("2f4a5a"))
 
 
 func paint_badge(ci: CanvasItem, origin: Vector2, px: float, font: Font) -> void:
