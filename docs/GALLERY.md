@@ -32,6 +32,7 @@ Fixed-stage notes:
 | `canyon_run` | 240×320 portrait @2× (480×640) centred in 1280×720 | `letterbox` | Procedural Direct MVP (#36); Enhanced will follow the Claude Design mock |
 | `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
 | `flappy_clone` (Enhanced) | 1280×720 stage, 107 px/unit | `letterbox` | First Enhanced edition. Procedural art, scaled to fit the viewport. No `_enhanced` preview yet (the gallery card uses the Direct shot) |
+| `tentraminos` (Enhanced) | 568×646 board + 520 px HUD panel (1124×646) in 1280×720 | `letterbox` | Same rules as Direct. `tentraminos_enhanced.png` preview |
 | `tetraminex` | 480×480 grid in 720² frame + side HUD | `letterbox` | Direct = NES chat; Enhanced = readable card + procedural tiles (same rooms) |
 
 ## Back button (`ArcadeHistory` autoload)
