@@ -50,6 +50,10 @@ jobs:
           # Social preview image referenced by og:image / twitter:image in head_include.
           cp arcade/branding/og-image.png build/web/og-image.png
           touch build/web/.nojekyll
+          # Per-game short URLs: thin HTML stubs + crawler-fetchable preview PNGs.
+          # See tools/gen_game_pages.py and docs/GALLERY.md (Deep-link game pages).
+          python3 tools/gen_game_pages.py --web-dir build/web
+          ls -d build/web/*/ | head
 
       # Pages is served from the gh-pages branch (build_type=legacy).
       - name: Publish build/web to gh-pages

@@ -63,6 +63,39 @@ Fixed-stage notes:
 | `tentraminos` (Enhanced) | 568×646 board + 520 px HUD panel (1124×646) in 1280×720 | `letterbox` | Same rules as Direct. `tentraminos_enhanced.png` preview |
 | `tetraminex` | 480×480 grid in 720² frame + side HUD | `letterbox` | Direct = NES chat; Enhanced = readable card + procedural tiles (same rooms) |
 
+## Deep-link game pages (short URLs)
+
+Each playable title gets a thin HTML stub under GitHub Pages so crawlers and
+share sheets can use a short URL. Stubs live at `build/web/<slug>/index.html`
+(served as `/arcade/<slug>/`) and load the **same** gallery wasm/pck via
+`../index.js`, `../index.wasm`, `../index.pck` — not separate builds.
+
+| URL | Opens |
+|-----|-------|
+| `https://tangentstorm.github.io/arcade/giraffe/` | Giraffe Direct (`#play/giraffe/direct`) |
+| `https://tangentstorm.github.io/arcade/giraffe/?e=enhanced` | Giraffe Enhanced |
+| `https://tangentstorm.github.io/arcade/giraffe/#enhanced` | same (hash form also accepted) |
+| `https://tangentstorm.github.io/arcade/mineswpr/` | Mineswpr **(b4)** host (`mineswpr_b4`) |
+| `https://tangentstorm.github.io/arcade/mineswpr.old/` | Mineswpr GDScript port (`mineswpr`) |
+
+**Edition:** prefer `?e=enhanced`; `#enhanced` also works. Default is Direct.
+If the hash is already `#play/<id>/<edition>`, the stub leaves it alone (SPA
+deep links from `ArcadeHistory` keep working).
+
+**Aliases** (slug → registry id; see `ALIASES` in `tools/gen_game_pages.py`):
+
+| slug | registry id |
+|------|-------------|
+| `mineswpr` | `mineswpr_b4` |
+| `mineswpr.old` | `mineswpr` |
+
+Other titles use `slug == id`. Generator: `python3 tools/gen_game_pages.py`
+(wired into `.github/workflows/pages.yml` after Web export). Self-check:
+`python3 tools/gen_game_pages.py --self-check`. Per-game `og:*` / Twitter tags
+point at copied `previews/<id>_direct.png` when present (else site
+`og-image.png`). Root gallery OG tags in `export_presets.cfg` `head_include`
+are unchanged.
+
 ## Back button (`ArcadeHistory` autoload)
 Every edition gets Back support from the shell. No per-game code is needed: it hooks
 `GameRegistry.launched` / `GameRegistry.returned_to_arcade`.
