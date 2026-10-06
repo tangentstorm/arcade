@@ -188,6 +188,10 @@ func _reflow_columns() -> void:
 		if card.has_meta("preview_host"):
 			var host: Control = card.get_meta("preview_host")
 			host.custom_minimum_size = Vector2(0, preview_h)
+	## We run inside the scroll's own resize, so the card min-size changes above
+	## don't refresh its cached child size: the bar range stays one resize stale
+	## and the bottom rows become unreachable. Re-read it now.
+	_scroll.update_minimum_size()
 
 
 func _make_card(id: String) -> Control:

@@ -10,6 +10,8 @@ Godot 4.7 monorepo: Direct + Enhanced ports of tangentstorm classics, plus OFCP 
 /workspace/tools/godot4 --path .
 ```
 
+Gallery notes: `docs/GALLERY.md`. Before you touch the card grid, read the layout gotchas in `docs/GALLERY_LAYOUT.md` (checked by `tools/test_gallery_layout.gd`).
+
 ## Web export
 
 ```bash
