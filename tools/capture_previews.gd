@@ -28,8 +28,11 @@ func _run() -> void:
 		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT_DIR))
 
+	var only := OS.get_environment("CAPTURE_ONLY").strip_edges()
 	for e in registry.entries:
 		if e.edition != "direct":
+			continue
+		if only != "" and e.id != only:
 			continue
 		if not e.is_playable():
 			print("skip planned: ", e.id)
@@ -280,7 +283,7 @@ func _warmup(id: String, inst: Node) -> void:
 			# 1920×1080 stage at 2/3: drag box (125,50) onto box (200,50).
 			await _move_mouse(Vector2(141, 66) * (2.0 / 3.0))
 			await _drag(Vector2(141, 66) * (2.0 / 3.0), Vector2(200, 80) * (2.0 / 3.0), false)
-		"mineswpr":
+		"mineswpr", "mineswpr_b4":
 			await _click_at(Vector2(640, 300))
 			await _frames(5)
 			await _click_at(Vector2(700, 340))
