@@ -30,12 +30,16 @@ Fixed-stage notes:
 | `mineswpr` (Enhanced) | 1280×720 stage; 16×16 board of 38 px tiles + side panels | `letterbox` | Presentation over the Direct logic + shell (preload). No `_enhanced` preview yet (the gallery card uses the Direct shot) |
 | `shep` (Enhanced) | 1280×720 stage; 800×575 Direct field centered + side HUD | `letterbox` | Presentation over Direct physics (preload). Color rings, aim assist, juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `cupid` (Enhanced) | 1280×720 stage; 656×350 Direct stage @1.75× (1148×612) + title bar / stats strip | `letterbox` | Presentation over Direct logic (preload). Storm→sunset duotone city, bubbles/HUD juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `gm_defense` (Enhanced) | 1280×720 stage; 1024×768 r_main @0.75× (768×576) clipped field + side HUD + radar strip | `letterbox` | Presentation over Direct logic (preload). Deep-space room, ship/squid glow, off-room locator. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `ok_defender` (Enhanced) | 1280×720 stage; 320×200 Direct world @3× (960×600) + side HUD | `letterbox` | Presentation over Direct logic (preload). Ship/terrain/HUD juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `ld48` (Enhanced) | 1280×720 stage; full-bleed Direct rooms in a SubViewport + overlay chrome | `expand` (title) | Presentation over Direct rooms/scripts (instance). Restyled chat/help, juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `silly_game` (Enhanced) | camera-followed open map (Direct zoom ½) + overlay HUD/minimap | `expand` (title) | Presentation over the Direct scene (instance). Ocean shader, trails, hit juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `giraffe` (Enhanced) | 1280×720 stage; 128×128 Pico room @5× (640×640) + side HUD | `letterbox` | Presentation over Direct logic (preload). Dusk backdrop, squash/stretch, dust, ledge tracker. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `killem_all` (Enhanced) | 1280×720 stage; 1024×768 room0 @0.8125 (832×624) + side HUD panels | `letterbox` | Presentation over Direct logic (preload `ka_world.gd`). Neon arena, tracers, thrust flame, radar. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `terratri` (Enhanced) | 1280×720 designed stage (560 px board + two 312 px player cards) self-fitted; backdrop fills the window | `expand` (title) | Presentation over Direct rules (preload). Tabletop board, hop/claim/fort juice, turn banners. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `canyon_run` | 240×320 portrait @2× (480×640) centred in 1280×720 | `letterbox` | Procedural Direct MVP (#36); Enhanced will follow the Claude Design mock |
+| `doth` (Enhanced) | 1280×720 stage; 70×20 @16px (1120×320) + bottom HUD | `letterbox` | Presentation over Direct world + SvA-like tiles (preload). Torchlit chrome, pickup juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `chesscoach` (Enhanced) | 1280×720 stage; Direct ~400×400 board in SubViewport → 520×520 field + side HUD | `letterbox` | Presentation over Direct scene (instance). Walnut board, move-list HUD, replay juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
 | `flappy_clone` (Enhanced) | 1280×720 stage, 107 px/unit | `letterbox` | First Enhanced edition. Procedural art, scaled to fit the viewport. No `_enhanced` preview yet (the gallery card uses the Direct shot) |
 | `tentraminos` (Enhanced) | 568×646 board + 520 px HUD panel (1124×646) in 1280×720 | `letterbox` | Same rules as Direct. `tentraminos_enhanced.png` preview |
@@ -81,7 +85,7 @@ Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-by
 
 | id | title | Direct | scale | notes |
 |----|-------|--------|-------|-------|
-| `chesscoach` | Chess Coach | playable | letterbox (400×400) | gd-chesscoach FEN board + trays; no Stockfish |
+| `chesscoach` | Chess Coach | playable (Direct + Enhanced) | letterbox (Direct 400×400; Enhanced 1280×720) | gd-chesscoach FEN board + trays; Enhanced = walnut chrome over Direct scene; no Stockfish |
 | `terratri` | Terratri | playable (+ Enhanced) | expand | hotseat 2P, pure GDScript rules (see below); Enhanced = tabletop makeover over the same rules |
 
 ## Local hotseat titles

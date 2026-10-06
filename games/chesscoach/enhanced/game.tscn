@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://k0ly81j0y8lp0"]
+
+[ext_resource type="Script" path="res://games/chesscoach/enhanced/game.gd" id="1_game"]
+
+[node name="ChessCoachEnhanced" type="Node2D"]
+script = ExtResource("1_game")
