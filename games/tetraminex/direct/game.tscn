@@ -1,0 +1,162 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://games/tetraminex/direct/game.gd" id="1_game"]
+
+[node name="TetraminexDirect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_game")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.08, 1)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Row" type="HBoxContainer" parent="Center"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PlayFrame" type="SubViewportContainer" parent="Center/Row"]
+custom_minimum_size = Vector2(720, 720)
+layout_mode = 2
+stretch = true
+
+[node name="GameViewport" type="SubViewport" parent="Center/Row/PlayFrame"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(480, 480)
+render_target_update_mode = 4
+
+[node name="World" type="Node2D" parent="Center/Row/PlayFrame/GameViewport"]
+unique_name_in_owner = true
+
+[node name="FloorLayer" type="Node2D" parent="Center/Row/PlayFrame/GameViewport/World"]
+unique_name_in_owner = true
+
+[node name="WallLayer" type="Node2D" parent="Center/Row/PlayFrame/GameViewport/World"]
+unique_name_in_owner = true
+
+[node name="DecorLayer" type="Node2D" parent="Center/Row/PlayFrame/GameViewport/World"]
+unique_name_in_owner = true
+
+[node name="SpriteLayer" type="Node2D" parent="Center/Row/PlayFrame/GameViewport/World"]
+unique_name_in_owner = true
+
+[node name="HandLayer" type="Node2D" parent="Center/Row/PlayFrame/GameViewport/World"]
+unique_name_in_owner = true
+
+[node name="HUD" type="PanelContainer" parent="Center/Row"]
+custom_minimum_size = Vector2(240, 720)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Center/Row/HUD"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Center/Row/HUD/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HudTitle" type="Label" parent="Center/Row/HUD/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "TETRAMINEX:
+Episode 00"
+
+[node name="Credits" type="Label" parent="Center/Row/HUD/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "BY:
+Michal J Wallace
+
+STARRING:
+Ernie Goldsmile
+Teddy Tetraminus
+
+AND INTRODUCING:
+Ivan Cyanovich Punchko
+AS HIMSELF"
+
+[node name="StatusLabel" type="Label" parent="Center/Row/HUD/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = ""
+
+[node name="HudHelp" type="Label" parent="Center/Row/HUD/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
+text = "Arrows move · WASD/,AOE grab · R restart"
+
+[node name="LevelButtons" type="VBoxContainer" parent="Center/Row/HUD/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TalkPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -200.0
+offset_right = 360.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TalkMargin" type="MarginContainer" parent="TalkPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="TalkVBox" type="VBoxContainer" parent="TalkPanel/TalkMargin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TalkName" type="Label" parent="TalkPanel/TalkMargin/TalkVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Teddy"
+
+[node name="TalkLabel" type="Label" parent="TalkPanel/TalkMargin/TalkVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+text = "Dialog"
+
+[node name="TalkHint" type="Label" parent="TalkPanel/TalkMargin/TalkVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "[Space / Enter] continue"
+horizontal_alignment = 2
