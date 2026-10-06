@@ -1,0 +1,311 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://games/tentraminos/enhanced/game.gd" id="1_game"]
+[ext_resource type="Script" path="res://games/tentraminos/enhanced/board.gd" id="2_board"]
+[ext_resource type="Script" path="res://games/tentraminos/enhanced/clock_ring.gd" id="3_ring"]
+
+[sub_resource type="StyleBoxFlat" id="Style_side"]
+bg_color = Color(0.0941176, 0.113725, 0.172549, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.172549, 0.207843, 0.313726, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="Style_card"]
+bg_color = Color(0.105882, 0.12549, 0.188235, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0862745, 0.823529, 0.741176, 0.8)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 24
+
+[sub_resource type="StyleBoxFlat" id="Style_btn"]
+bg_color = Color(0.164706, 0.196078, 0.294118, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.290196, 0.341176, 0.494118, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="Style_btn_hover"]
+bg_color = Color(0.231373, 0.27451, 0.411765, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0862745, 0.823529, 0.741176, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 6.0
+
+[node name="TentraminosEnhanced" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_game")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBox" type="HBoxContainer" parent="Center"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 36
+
+[node name="Board" type="Control" parent="Center/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(568, 646)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_board")
+
+[node name="Side" type="PanelContainer" parent="Center/HBox"]
+custom_minimum_size = Vector2(520, 646)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_side")
+
+[node name="Margin" type="MarginContainer" parent="Center/HBox/Side"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Center/HBox/Side/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Center/HBox/Side/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0862745, 0.823529, 0.741176, 0.35)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 40
+text = "TENTRAMINOS"
+
+[node name="Subtitle" type="Label" parent="Center/HBox/Side/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0862745, 0.823529, 0.741176, 1)
+theme_override_font_sizes/font_size = 15
+text = "ENHANCED  ·  Ludum Dare 27 (2013)  ·  10 seconds"
+
+[node name="TopRow" type="HBoxContainer" parent="Center/HBox/Side/Margin/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 26
+
+[node name="ClockRing" type="Control" parent="Center/HBox/Side/Margin/VBox/TopRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 190)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("3_ring")
+
+[node name="ScoreBox" type="VBoxContainer" parent="Center/HBox/Side/Margin/VBox/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="ScoreCaption" type="Label" parent="Center/HBox/Side/Margin/VBox/TopRow/ScoreBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.55)
+theme_override_font_sizes/font_size = 16
+text = "SCORE"
+
+[node name="ScoreValue" type="Label" parent="Center/HBox/Side/Margin/VBox/TopRow/ScoreBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.5)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="BestValue" type="Label" parent="Center/HBox/Side/Margin/VBox/TopRow/ScoreBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.929412, 0.831373, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "BEST  0"
+
+[node name="Stats" type="Label" parent="Center/HBox/Side/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.84, 0.92, 1)
+theme_override_font_sizes/font_size = 17
+text = "ROUND 0    TILES 0    BIGGEST 0"
+
+[node name="Status" type="Label" parent="Center/HBox/Side/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0862745, 0.823529, 0.741176, 1)
+theme_override_font_sizes/font_size = 18
+text = "Press Space to start"
+clip_text = true
+
+[node name="Sep" type="HSeparator" parent="Center/HBox/Side/Margin/VBox"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Help" type="Label" parent="Center/HBox/Side/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.88, 0.94, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 16
+text = "Move        arrows  ·  W A S D  ·  C H T N
+Rotate      Z / X  ·  K / L  ·  O / U (J)
+Pause  P      Menu  Esc      Sound  M      Glyphs  G"
+
+[node name="Rules" type="Label" parent="Center/HBox/Side/Margin/VBox"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.72, 0.82, 1)
+theme_override_font_sizes/font_size = 14
+text = "Line up 4+ same-coloured tiles: they light up. When the clock hits 0, lit groups clear for 10 × 2ⁿ⁻⁴ and the tray drops a new row. Tiles inside the cursor don't fall. A tile stuck in the top row ends the game (red ! = that column is full)."
+autowrap_mode = 3
+
+[node name="Spacer" type="Control" parent="Center/HBox/Side/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="BackButton" type="Button" parent="Center/HBox/Side/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("Style_btn")
+theme_override_styles/hover = SubResource("Style_btn_hover")
+theme_override_styles/pressed = SubResource("Style_btn_hover")
+text = "< Back to Arcade"
+
+[node name="Overlay" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Dim" type="ColorRect" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.03, 0.06, 0.62)
+
+[node name="CardCenter" type="CenterContainer" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Card" type="PanelContainer" parent="Overlay/CardCenter"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_card")
+
+[node name="Margin" type="MarginContainer" parent="Overlay/CardCenter/Card"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 28
+
+[node name="VBox" type="VBoxContainer" parent="Overlay/CardCenter/Card/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="CardTitle" type="Label" parent="Overlay/CardCenter/Card/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0862745, 0.823529, 0.741176, 0.4)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 52
+text = "TENTRAMINOS"
+horizontal_alignment = 1
+
+[node name="CardBody" type="Label" parent="Overlay/CardCenter/Card/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.88, 0.94, 1)
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 19
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="CardHint" type="Label" parent="Overlay/CardCenter/Card/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.929412, 0.831373, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Space / Enter to start"
+horizontal_alignment = 1
+
+[node name="CardBack" type="Button" parent="Overlay/CardCenter/Card/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("Style_btn")
+theme_override_styles/hover = SubResource("Style_btn_hover")
+theme_override_styles/pressed = SubResource("Style_btn_hover")
+text = "< Back to Arcade"
