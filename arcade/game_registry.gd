@@ -10,6 +10,11 @@ extends Node
 ##   "letterbox" — keep aspect, prefer integer scale, large centered stage
 ##   "expand"    — fill the window (Control/UI roots that already reflow)
 
+## Emitted after a game scene change is requested (ArcadeHistory pushes browser history).
+signal launched(entry)
+## Emitted when control returns to the gallery (PauseOverlay hides, ArcadeHistory rewinds URL).
+signal returned_to_arcade
+
 const ARCADE_SCENE := "res://arcade/main.tscn"
 
 const EDITIONS := ["direct", "enhanced"]
@@ -192,14 +197,17 @@ func launch(entry: GameEntry) -> void:
 	if entry == null or not entry.is_playable():
 		push_warning("GameRegistry: cannot launch %s" % [entry.id if entry else "<null>"])
 		return
+	get_tree().paused = false
 	_apply_game_scale(entry)
 	get_tree().change_scene_to_file(entry.scene_path)
+	launched.emit(entry)
 
 
 func return_to_arcade() -> void:
 	get_tree().paused = false
 	_apply_arcade_scale()
 	get_tree().change_scene_to_file(ARCADE_SCENE)
+	returned_to_arcade.emit()
 
 
 func in_arcade() -> bool:
