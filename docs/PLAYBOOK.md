@@ -57,7 +57,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | Slug | Source | Notes |
 |------|--------|-------|
 | `tetraminex` | `tangentstorm/tetraminex` (ActionScript) | Series; pick one playable slice for direct |
-| `spiders-v-aliens` | `tangentstorm/spiders-v-aliens` (AS3/Flixel 2.55, LD21); box archive `/workspace/src-inventory/spiders-v-aliens/` | Direct playable (full AlienShip level); see `games/spiders_v_aliens/PORT.md` |
+| `spiders-v-aliens` | `tangentstorm/spiders-v-aliens` (AS3/Flixel 2.55, LD21); box archive `/workspace/src-inventory/spiders-v-aliens/` | Direct + Enhanced playable (full AlienShip level; Enhanced is a lit widescreen makeover over the same rules); see `games/spiders_v_aliens/PORT.md` |
 | `tentraminos` | `tangentstorm/tentraminos` (TypeScript/d3, LD27) | |
 | `ld48` | `tangentstorm/ld48` (GDScript) | Already Godot — high-leverage first port |
 | `ok-defender` | `tangentstorm/ok-defender` (LD49) | |

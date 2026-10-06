@@ -88,4 +88,77 @@ Tests: `tools/test_spiders_v_aliens.gd` (run by `tools/smoke_headless.sh`): menu
 contents, movement + wall stop, geist mimicry, grab/drag/release, portal teleport, key → keybox
 power, switch toggle, cannon fire/reboot/kill, spider vs Dentist, heart pickup, death, exit win.
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same game. **No rules are duplicated:** `enhanced/` preloads
+`direct/sva_logic.gd` (simulation), `direct/level_alien_ship.gd` (generated level) and the Direct
+sprites, font and music, and steps the simulation exactly as Direct does (fixed 60 Hz, same input
+names). Everything Enhanced adds is read-only presentation, so puzzle logic, physics quirks, the
+level, narration and win/lose conditions are byte-for-byte the Direct edition's, and a rules fix in
+`sva_logic.gd` lands in both editions.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` | Root: input, fixed-step loop, camera, music, state changes, SFX event diffing, QoL keys |
+| `enhanced/stage.gd` | World view `SubViewport`: TileMapLayers built from the level data, sprite drawing, lights |
+| `enhanced/hud.gd` | Native-resolution HUD and screens (title, prologue, play, GAME OVER, win), minimap |
+| `enhanced/hints.gd` | Read-only "what would this grab key do?" queries used for prompts and outlines |
+| `enhanced/sfx.gd` | Synthesized SFX (16-bit PCM generated at startup; no new audio assets) |
+| `enhanced/lighting.gdshader` | Per-pixel lighting (32 world-space lights) + palette regrade + emissive neon |
+| `enhanced/stars.gdshader`, `backdrop.gdshader` | Starfield twinkle (black keyed out) and nebula backdrop |
+
+### What changed (presentation only)
+- **View:** 854×480 widescreen world view (Direct: 640×480 with a 64 px HUD strip over it), with
+  its own camera: smoothed follow with slight look-ahead, snapping on long jumps, clamped to the same
+  2560×2000 bounds; screen shake from the simulation is applied at 0.75×. The sim's own `scroll_x/y`
+  (Flixel's 640×480 lock-on camera) is ignored; it never affects gameplay.
+- **Crisp scaling:** the view is rendered at an integer multiple of the world texel size (chosen from
+  the physical window size) and downsampled with linear filtering, so pixels stay even at the
+  arcade's 1.5× letterbox instead of the nearest-neighbour 1px/2px pattern.
+- **Lighting & palette:** dark-blue ambient; light from the 17 fluorescent fixtures in the
+  Decorations layer, a warm lantern on Ernie, violet on the mimeogeist, green on powered portals /
+  switches / unlocked keyboxes, red on locked boxes and cannon bolts, gold on keys, pink on hearts,
+  green on the exit. Grey deck plating is regraded to cool steel, wall trim glows neon cyan, tubes
+  and conduits are emissive. Floor halos and additive bolt flares; soft drop shadows under mobiles;
+  held objects lift slightly; Ernie blinks while stunned; the geist is translucent.
+- **Backdrop:** procedural nebula + dust stars behind the original parallax starfield (its opaque
+  black is keyed out; stars twinkle). The title and prologue drift over the dimmed ship.
+- **HUD (native 1280×720, nokiafc22 at integer sizes):** large hearts (pulse at 1 HP, `+n` above 5),
+  locks opened / live Dentists / run time, narration in a framed panel with Ernie's portrait and a
+  teletype cursor, a "MIMEOGEIST CAMERA" banner while `G` is active (the hidden GeistWall is
+  faintly shown then), and a fog-of-war **minimap** (keys, locks, exit, geist, camera frame).
+- **Grab prompts (QoL):** for whichever avatar the camera follows, each grab key that would do
+  something shows a keycap + label beside the target ("Drag crate", "Teleport", "Portal offline",
+  "Fire east", "Cannon recharging", "Locked: bring a key", red "Dentist! Grabbing bites"...) and the
+  target gets a pulsing outline. `hints.gd` mirrors PlayState's press-frame order (first machine
+  touched wins, else the last draggable) and never mutates the world.
+- **Screens:** restyled title (cast lineup, controls card, `< Back to Arcade` button that never takes
+  keyboard focus), framed two-part prologue with the original art at 2×, GAME OVER card over the
+  frozen red-tinted scene with time and Dentists downed, win card with the *Consolas* flying off.
+- **Audio:** same music, plus synthesized SFX for grab/drop, teleport, switch, unlock, cannon,
+  hurt, heal, Dentist down, win and game over (detected by diffing the simulation each frame).
+- **QoL keys** (handled outside the simulation): **Enter** on the title or prologue starts a fresh
+  run in the ship; **R** on GAME OVER retries immediately (Space still goes to the title, as in
+  Direct); **M** toggles the minimap; **H** toggles grab prompts.
+- Esc → arcade PauseOverlay (pauses simulation and audio); letterbox scale mode; gallery uses
+  `arcade/previews/spiders_v_aliens_enhanced.png` for this edition.
+
+### Fidelity note
+Rules, level data, timing and every Direct quirk listed above are unchanged because they are the
+same code. Visible differences are view-only: a wider/taller field of view (you can see a little more
+of neighbouring rooms than the 640×416 Direct view), a smoothed camera instead of Flixel's hard
+lock-on, and on-screen information the original left to discovery (prompts, minimap, counters).
+Prompts are computed from current positions without the swept-hull test, so in rare frames
+mid-motion a prompt can differ from what the press actually hits.
+
+### Deferred polish
+- Openings are restyled screens around the original 270×260 art, not re-drawn or animated scenes.
+- No re-drawn sprites or new tiles; the makeover is lighting/palette/UI over the 2011 art.
+- No options menu (volume, shake, hint/colour settings); toggles are keys only and not persisted.
+- No touch / gamepad controls.
+- No checkpoints: R restarts the whole ship (the original has no checkpoints either).
+
+Tests: `tools/test_spiders_enhanced.gd` (run by `tools/smoke_headless.sh`): registry entry, scene
+load + stage build (tile layers, fixtures, lights), title → prologue → Enter skip, hero move via the
+scene's input path + camera follow, grab prompt + crate drag, portal prompt + teleport + SFX, locked
+portal prompt, hurt / GAME OVER / R retry, win → title, paused tree freezes the sim, M/H toggles.

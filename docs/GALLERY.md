@@ -5,7 +5,8 @@
 - One global **Original / Enhanced** segmented control; one card per title.
 - Card = clickable screenshot + game name only (no per-card Play/edition buttons).
 - Mode preference stored in `user://arcade_prefs.cfg`.
-- Direct preview shots live in `arcade/previews/<id>_direct.png`.
+- Direct preview shots live in `arcade/previews/<id>_direct.png`. An edition-specific shot
+  (`<id>_enhanced.png`) is used for that edition when present; otherwise the Direct shot is shown.
 
 ## In-game scale (`GameRegistry.SCALE_MODE`)
 On launch we set the window content-scale policy per title:

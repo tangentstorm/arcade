@@ -326,7 +326,10 @@ func _update_card(card: PanelContainer, id: String) -> void:
 	var overlay: Label = card.get_meta("overlay")
 	var title: Label = card.get_meta("title")
 
-	var preview_path := "%s/%s_direct.png" % [PREVIEW_DIR, id]
+	# Per-edition shot when one exists (e.g. <id>_enhanced.png), else the Direct one.
+	var preview_path := "%s/%s_%s.png" % [PREVIEW_DIR, id, _edition]
+	if not ResourceLoader.exists(preview_path):
+		preview_path = "%s/%s_direct.png" % [PREVIEW_DIR, id]
 	var has_shot := ResourceLoader.exists(preview_path)
 	if has_shot:
 		tex.texture = load(preview_path)
