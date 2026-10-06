@@ -40,10 +40,13 @@ jobs:
       - name: Smoke test
         run: GODOT=godot ./tools/smoke_headless.sh
 
+      # The "Web" preset uses the committed slim release template
+      # (tools/export_templates/web_nothreads_release_slim.zip; see docs/SLIM_WEB_ENGINE.md).
       - name: Export Web
         run: |
           mkdir -p build/web
           godot --headless --path . --export-release "Web" build/web/index.html
+          ls -l build/web
           # Social preview image referenced by og:image / twitter:image in head_include.
           cp arcade/branding/og-image.png build/web/og-image.png
           touch build/web/.nojekyll
