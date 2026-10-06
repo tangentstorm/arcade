@@ -22,6 +22,23 @@ the glyphs. Prefer ASCII replacements when the default font is in use.
 Wired into [`smoke_headless.sh`](./smoke_headless.sh) (runs before Godot import)
 and optionally from verify-arcade `doctor.sh`.
 
+
+## Per-game Pages stubs (`gen_game_pages`)
+
+After a Web export, emit thin HTML hosts at `build/web/<slug>/` with per-game
+OG/Twitter tags. Each stub loads `../index.js` / `../index.wasm` / `../index.pck`
+and bootstraps `#play/<id>/<edition>` (`?e=enhanced` or `#enhanced` → Enhanced;
+default Direct). Mineswpr aliases: `/mineswpr/` → `mineswpr_b4`,
+`/mineswpr.old/` → `mineswpr`.
+
+```bash
+python3 tools/gen_game_pages.py --web-dir build/web
+python3 tools/gen_game_pages.py --self-check
+python3 tools/gen_game_pages.py --list
+```
+
+See [`docs/GALLERY.md`](../docs/GALLERY.md) (Deep-link game pages).
+
 ## Smoke
 
 ```bash

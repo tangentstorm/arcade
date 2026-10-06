@@ -10,6 +10,9 @@ trap 'rm -f "$LOG"' EXIT
 echo "== ascii UI lint"
 "$ROOT/tools/lint_ascii_ui.sh"
 
+echo "== game page stubs self-check"
+python3 "$ROOT/tools/gen_game_pages.py" --self-check
+
 echo "== import ($GODOT)"
 "$GODOT" --headless --path "$ROOT" --import 2>&1 | tee "$LOG"
 
