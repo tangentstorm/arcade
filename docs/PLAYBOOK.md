@@ -64,6 +64,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `shep` | `tangentstorm/shep` (Haxe/Flash 9 + physaxe) | Direct + Enhanced playable (Enhanced = clearer fuse/ship UI + juice over the same physics); see `games/shep/PORT.md` |
 | `silly-game` | `tangentstorm/silly-game` (Godot 3, archived) | Direct + Enhanced playable (Enhanced = animated ocean, trails, hit juice + minimap HUD over the same Direct scene); see `games/silly_game/PORT.md` |
 | `pico-games` | `tangentstorm/pico-games` (Pico-8) | `giraffe`: Direct + Enhanced playable (Enhanced = savanna-dusk restyle + landing juice over the same rules); see `games/giraffe/PORT.md` |
+| `terratri` | `tangentstorm/terratri` (TypeScript 5, 2026 rewrite of the 2011 Python/GAE game) | Direct + Enhanced playable, hotseat 2P (Enhanced = lit tabletop, hop/claim/fort juice + player cards over the same rules); see `games/terratri/PORT.md` |
 | `gamemaker-stuff` | `tangentstorm/gamemaker-stuff` (archived) | Multi-mini; treat as pack of slugs later |
 | `fnarbmlyx` | `tangentstorm/fnarbmlyx` (GDScript, archived) | GSL/Godot lineage |
 | `GameSketchLib` | `tangentstorm/GameSketchLib` (Processing) | Engine/lessons — port **demos**, not whole lib, unless decision says otherwise |

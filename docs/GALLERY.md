@@ -34,6 +34,7 @@ Fixed-stage notes:
 | `ld48` (Enhanced) | 1280×720 stage; full-bleed Direct rooms in a SubViewport + overlay chrome | `expand` (title) | Presentation over Direct rooms/scripts (instance). Restyled chat/help, juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `silly_game` (Enhanced) | camera-followed open map (Direct zoom ½) + overlay HUD/minimap | `expand` (title) | Presentation over the Direct scene (instance). Ocean shader, trails, hit juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `giraffe` (Enhanced) | 1280×720 stage; 128×128 Pico room @5× (640×640) + side HUD | `letterbox` | Presentation over Direct logic (preload). Dusk backdrop, squash/stretch, dust, ledge tracker. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `terratri` (Enhanced) | 1280×720 designed stage (560 px board + two 312 px player cards) self-fitted; backdrop fills the window | `expand` (title) | Presentation over Direct rules (preload). Tabletop board, hop/claim/fort juice, turn banners. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `canyon_run` | 240×320 portrait @2× (480×640) centred in 1280×720 | `letterbox` | Procedural Direct MVP (#36); Enhanced will follow the Claude Design mock |
 | `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
 | `flappy_clone` (Enhanced) | 1280×720 stage, 107 px/unit | `letterbox` | First Enhanced edition. Procedural art, scaled to fit the viewport. No `_enhanced` preview yet (the gallery card uses the Direct shot) |
@@ -81,7 +82,7 @@ Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-by
 | id | title | Direct | scale | notes |
 |----|-------|--------|-------|-------|
 | `chesscoach` | Chess Coach | playable | letterbox (400×400) | gd-chesscoach FEN board + trays; no Stockfish |
-| `terratri` | Terratri | playable | expand | hotseat 2P, pure GDScript rules (see below) |
+| `terratri` | Terratri | playable (+ Enhanced) | expand | hotseat 2P, pure GDScript rules (see below); Enhanced = tabletop makeover over the same rules |
 
 ## Local hotseat titles
 Some board games ship as **hotseat 2P** Direct editions: both players share one

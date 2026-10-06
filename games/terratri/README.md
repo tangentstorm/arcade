@@ -11,6 +11,9 @@ forts wins.
 - **Direct:** playable. Hotseat 2-player on one screen, with the rules ported
   line by line to GDScript and checked against golden playouts from the TS code.
   See [PORT.md](PORT.md).
-- **Enhanced:** planned.
+- **Enhanced:** playable. Same hotseat rules with a lit tabletop makeover: hopping
+  pawns, claim/capture ripples, rising castles, turn banners, player cards with fort
+  trays and action pips, a territory bar and synthesized SFX. See [PORT.md](PORT.md).
+  Esc → PauseOverlay; Back to Arcade. No Alchementrix IP.
 
 Game design by Adam Saltsman. The implementation is MIT (see `source/LICENSE`).

@@ -77,4 +77,70 @@ whole-number cell size, so the pixels stay crisp at any window size.
 `rules.html`, `LICENSE`, and the golden generator. It has a `.gdignore`, so it
 isn't imported or exported.
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable, hotseat 2P
+
+A visual/UI makeover of the same hotseat game. **No rules are duplicated:**
+`enhanced/game.gd` preloads `direct/terratri_game.gd`, `direct/terratri_rules.gd` and
+`direct/terratri_input.gd`, and takes the keymap from Direct `game.gd` (`KEYS`, loaded at runtime
+because that script names the `GameRegistry` autoload). Every legal step goes through the same
+`Game.apply_step()` with the same `valid_steps` check, and Undo uses `Game.at_step`, so a rules fix
+in Direct lands in both editions. Enhanced only diffs the previous and next snapshots to decide
+what to animate. No Alchementrix IP.
+
+| File | Role |
+|---|---|
+| `enhanced/game.gd` + `game.tscn` | 1280×720 stage shell: backdrop, header + territory bar, player cards, action bar, title / win / boxed-in cards, snapshot-diff juice |
+| `enhanced/board.gd` | Tabletop board renderer + cell clicks (targets from `valid_steps` via `terratri_input.gd`) |
+| `enhanced/sfx.gd` | Synthesized PCM blips (move, claim, capture, fort, bank, turn, undo, win); `M` mutes |
+
+### What changed (presentation only)
+- **Stage:** the title keeps `expand` (scale mode is per title), so the shell designs on a 1280×720
+  stage and fits it to the window itself, while the night-gradient backdrop (diagonal weave,
+  drifting motes, a soft glow in the colour of the side to move) fills the whole window.
+- **Board:** a raised tabletop slab with a turn-coloured rim; rounded tiles with a top light;
+  claimed land in deep orange / blue with a slowly breathing diamond weave; file/rank labels kept
+  (a–e, 5–1, the original square names).
+- **Pieces:** round tokens with a rim, highlight and ground shadow; the side to move bobs and gets
+  a pulsing ring. Moves slide with a hop arc. A pawn on its fort sits on a plinth on top of the
+  keep. Forts are two-tower castles with crenels, door and a waving pennant.
+- **Hints:** legal squares get a pulsing outline, a chevron pointing away from the pawn and the
+  step letter (as Direct). Hovering a target shows a ghost pawn; the fortify target shows a ghost
+  castle over the pawn.
+- **Juice (derived from snapshot diffs):** claim ripple + particles when a square changes hands;
+  "CAPTURE" floater + shake when it was enemy land; forts rise with a squash, dust, gold sparks,
+  shake and a "FORT n/5" floater; bank → "+1 BANKED" floater and a coin trail to the player card;
+  a spent bank → "BONUS ACTION"; turn change → a sweeping "BLUE'S TURN · TURN n" banner; win →
+  confetti and the win card. Illegal clicks/keys give a soft buzz + nudge instead of nothing.
+- **HUD:** header status ("Red · action 2 of 2 · or bank it", bonus actions, boxed-in) and a
+  red-vs-blue territory balance bar. Player cards: pawn badge, TO MOVE / WINNER chip, action pips
+  (2 per turn, filled as used) plus banked bonus coins, a five-slot fort tray (castle = on board,
+  coin = banked, outline = supply, same semantics as the Direct tray), forts / land / bank / supply,
+  and a fortify readiness line ("★ FORTIFY READY [F]" or "Empty land n / 5"). The Red card keeps a
+  colour-coded move log (last 8 `niceHistory` rows); the Blue card has a short how-to-play.
+- **Cards:** title card (credits Adam Saltsman's design; Space / Enter / Start); win card with
+  land + capture summary, Play again / Undo / Back to Arcade; a "BOXED IN" card for the
+  original dead end with Undo / Restart.
+
+### Deltas vs Direct
+
+| | Direct | Enhanced |
+|---|---|---|
+| Rules / state | `terratri_rules.gd` + `terratri_game.gd` | same scripts (preload), no copy |
+| Input | Direct `KEYS`, click targets, Bksp/U/Z undo, R restart | same map + `M` mute; title card first |
+| Stage | reflowing Control, integer cell size | 1280×720 designed stage fitted to the window (`expand`) |
+| Look | flat squares + blocky keeps | lit tabletop, tokens, castles, ghosts, animated claims/forts |
+| Feedback | status label | banner, floaters, particles, shake, SFX |
+| Counters | forts / bank / supply | + land, captures (view-only, from diffs), territory bar |
+| Esc / Back | PauseOverlay | same + Back to Arcade (FOCUS_NONE) on the stage and cards |
+
+### Deferred
+- No AI opponent or online play (still hotseat); no replay viewer.
+- No dedicated Enhanced gallery preview in this PR (card can use the Direct shot).
+
+Tests: `tools/test_terratri_enhanced.gd` (run by `tools/smoke_headless.sh`): Direct script
+ownership (no rules functions under `enhanced/`, keymap from Direct `KEYS`), all 8 golden TS
+playouts (459 steps) replayed through Enhanced `play_step` with the snapshot (steps, board, turn,
+winner, banks, supplies, ordered `valid_steps`, history) identical to a bare Direct twin at every
+step, fort/capture juice counts, win card + confetti, Undo out of a win, claim/hop/bank/banner
+juice and settling, the BOXED IN card (and Undo out of it), registry entry (`expand`), stage fit, title gating, Direct keymap, board
+clicks, Backspace undo, K bank, Esc → PauseOverlay freezes the shell → Back to Arcade.
