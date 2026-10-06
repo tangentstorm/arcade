@@ -19,6 +19,12 @@ Returning to the arcade resets to EXPAND + FRACTIONAL so the gallery reflows.
 
 Picks (Direct/Enhanced share the title policy): see `SCALE_MODE` in `arcade/game_registry.gd`.
 
+Fixed-stage notes:
+
+| id | stage | mode | notes |
+|----|-------|------|-------|
+| `canyon_run` | 240×320 portrait @2× (480×640) centred in 1280×720 | `letterbox` | Procedural Direct MVP (#36); Enhanced will follow the Claude Design mock |
+
 ## Back button (`ArcadeHistory` autoload)
 Every edition gets Back support from the shell. No per-game code is needed: it hooks
 `GameRegistry.launched` / `GameRegistry.returned_to_arcade`.
