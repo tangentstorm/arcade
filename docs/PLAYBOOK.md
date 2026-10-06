@@ -74,6 +74,7 @@ The playbook is **done for a phase** only when every checkbox for that phase is 
 | `cupid` | `tangentstorm/cupid` (ActionScript 3 / Flixel v1, archived) | Direct + Enhanced playable (Enhanced = storm-to-sunset city, clearer bubbles/HUD + match juice over the same rules); see `games/cupid/PORT.md` |
 | `mineswpr` | Live: `https://tangentstorm.github.io/mineswpr.html` via **b4-gd + j-talks terminal** | Direct + Enhanced playable (Enhanced = modern tiles, flags + win/lose juice over the same rules); see `games/mineswpr/PORT.md` |
 | `gd-chesscoach` | `tangentstorm/gd-chesscoach` (Godot 4.3) | `chesscoach`: Direct + Enhanced playable (Enhanced = walnut board chrome + move-list HUD over the same Direct scene); see `games/chesscoach/PORT.md` |
+| `canyon-run` | original (2026 Godot 4; no upstream repo) | `canyon_run`: Direct + Enhanced playable (Enhanced = layered River Raid–style canyon chrome + clearer HUD + juice over the same Direct logic; Claude Design parity deferred); see `games/canyon_run/PORT.md` |
 
 ### 2.3 Explicitly out of v1
 
