@@ -19,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.07, 0.07, 0.12, 1)
+color = Color(0.06, 0.06, 0.10, 1)
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,42 +28,77 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 14
 
 [node name="Header" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
+theme_override_constants/separation = 16
 
 [node name="Logo" type="TextureRect" parent="Margin/VBox/Header"]
-custom_minimum_size = Vector2(72, 72)
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("2_avatar")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Title" type="Label" parent="Margin/VBox/Header"]
+[node name="HeaderText" type="VBoxContainer" parent="Margin/VBox/Header"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 56
-text = "tangentstorm arcade"
-horizontal_alignment = 1
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
 
-[node name="Subtitle" type="Label" parent="Margin/VBox"]
+[node name="Title" type="Label" parent="Margin/VBox/Header/HeaderText"]
 layout_mode = 2
-text = "Gallery — Direct and Enhanced editions. Unready titles show Coming soon."
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(0.95, 0.96, 1, 1)
+text = "tangentstorm arcade"
+
+[node name="Subtitle" type="Label" parent="Margin/VBox/Header/HeaderText"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.65, 0.68, 0.82, 1)
+text = "Full-bleed gallery — pick Original or Enhanced, then click a game."
+
+[node name="ModeSwitch" type="HBoxContainer" parent="Margin/VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="ModeDirect" type="Button" parent="Margin/VBox/Header/ModeSwitch"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "Original"
+
+[node name="ModeEnhanced" type="Button" parent="Margin/VBox/Header/ModeSwitch"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+toggle_mode = true
+text = "Enhanced"
+
+[node name="ModeHint" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.60, 0.64, 0.78, 1)
+text = "Showing Original editions — click a card to play."
 
 [node name="Scroll" type="ScrollContainer" parent="Margin/VBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 
 [node name="GameList" type="GridContainer" parent="Margin/VBox/Scroll"]
@@ -72,4 +107,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
-columns = 3
+columns = 4
