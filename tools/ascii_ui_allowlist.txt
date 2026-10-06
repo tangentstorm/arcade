@@ -1,0 +1,9 @@
+# Intentional non-ASCII UI strings. One entry per line:
+#   path/to/file.gd           # whole file
+#   path/to/file.gd:42        # single line
+# Document the font (or draw path) that covers the glyphs after '#'.
+# Default Godot font is Latin-focused; do not allowlist without a font note.
+#
+# fnarb_ast Direct draws op glyphs via NotoSansMono (has ∧∨≠⊤⊥ and subscripts).
+games/fnarb_ast/direct/ast_node.gd          # font: games/fnarb_ast/direct/assets/NotoSansMono-Regular.ttf (draw_string)
+games/fnarb_ast/direct/ast_node.tscn        # font: games/fnarb_ast/direct/assets/NotoSansMono-Regular.ttf (Label theme font)

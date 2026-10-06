@@ -111,7 +111,7 @@ func _set_state(s: int) -> void:
 	if s == PLAY and demo == null:
 		_load_demo()
 	if s == PLAY:
-		_banner = "4-COLOR DECK  ·  PLACE YOUR BOARD"
+		_banner = "4-COLOR DECK  |  PLACE YOUR BOARD"
 		_banner_t = 2.0
 		_flash = 0.4
 		_flash_color = FRAME
@@ -236,9 +236,9 @@ func _watch_table() -> void:
 func _phase_banner(ph: String) -> String:
 	match ph:
 		"INITIAL_PLACE":
-			return "DEAL 5  ·  SET YOUR BOARD"
+			return "DEAL 5  |  SET YOUR BOARD"
 		"PINEAPPLE_PLACE":
-			return "PINEAPPLE  ·  PLACE 2, DISCARD 1"
+			return "PINEAPPLE  |  PLACE 2, DISCARD 1"
 		"GAME_OVER":
 			return "HAND OVER"
 		_:
@@ -249,14 +249,14 @@ func _refresh_hud() -> void:
 	if _mode_label == null or demo == null:
 		return
 	var profile: String = demo.profile if demo.profile != "" else String(demo.table.state.get("profile", demo.table.state.get("mode", "")))
-	_mode_label.text = "Mode\n%s" % MODE_LABELS.get(profile, profile if profile != "" else "—")
+	_mode_label.text = "Mode\n%s" % MODE_LABELS.get(profile, profile if profile != "" else "-")
 	var ph: String = demo.table.phase()
 	_phase_label.text = "Phase\n%s" % (ph if ph != "" else "(lobby)")
 	_score_label.text = "Score\nYou %+d" % demo.table.my_score()
 	var need: int = demo.table.need_place() if demo.table.is_my_turn() else 0
 	_pending_label.text = "Pending\n%d / %d" % [demo.table.pending.size(), need if need > 0 else demo.table.pending.size()]
 	if demo.table.is_fantasyland():
-		_status_label.text = "Fantasyland\n14 → place 13"
+		_status_label.text = "Fantasyland\n14 -> place 13"
 		_status_label.add_theme_color_override("font_color", GOLD)
 	elif demo.table.is_game_over():
 		_status_label.text = "Hand over\nN = new hand"
@@ -430,9 +430,9 @@ func _build_ui() -> void:
 	var left := _panel(Rect2(8, 78, 112, 280))
 	_hud.add_child(left)
 	left.add_child(_label("LIVE", 11, MUTED, Vector2(10, 8)))
-	_mode_label = _label("Mode\n—", 12, INK, Vector2(10, 28))
+	_mode_label = _label("Mode\n-", 12, INK, Vector2(10, 28))
 	left.add_child(_mode_label)
-	_phase_label = _label("Phase\n—", 12, INK, Vector2(10, 78))
+	_phase_label = _label("Phase\n-", 12, INK, Vector2(10, 78))
 	left.add_child(_phase_label)
 	_score_label = _label("Score\nYou +0", 13, GOLD, Vector2(10, 128))
 	left.add_child(_score_label)
@@ -454,7 +454,7 @@ func _build_ui() -> void:
 	_hud.add_child(right)
 	right.add_child(_label("DECK", 11, MUTED, Vector2(10, 8)))
 	_legend_label = _label(
-		"♥ red\n♦ blue\n♣ green\n♠ black\n\nModes:\ncash/normal\nwindfall\nprogressive",
+		"H red\nD blue\nC green\nS black\n\nModes:\ncash/normal\nwindfall\nprogressive",
 		11, INK, Vector2(10, 28))
 	right.add_child(_legend_label)
 	right.add_child(_label(
@@ -471,9 +471,9 @@ func _build_ui() -> void:
 	_ui.add_child(card)
 	_cards["title"] = card
 	card.add_child(_label("OFCP", 34, GOLD, Vector2(36, 28)))
-	card.add_child(_label("Open Face Chinese Poker · Enhanced", 15, FRAME, Vector2(36, 76)))
+	card.add_child(_label("Open Face Chinese Poker | Enhanced", 15, FRAME, Vector2(36, 76)))
 	card.add_child(_label(
-		"A chrome shell over the Direct thin client.\nSame live server (cash/normal, windfall, progressive),\n4-color deck, and placement keys — plus felt juice.",
+		"A chrome shell over the Direct thin client.\nSame live server (cash/normal, windfall, progressive),\n4-color deck, and placement keys - plus felt juice.",
 		14, INK, Vector2(36, 118)))
 	var start := _btn("Start", Vector2(36, 220), Vector2(120, 40))
 	start.pressed.connect(func(): _set_state(PLAY))
@@ -482,7 +482,7 @@ func _build_ui() -> void:
 	var title_back := _btn("Back to Arcade", Vector2(36, 280), Vector2(160, 34))
 	title_back.pressed.connect(GameRegistry.return_to_arcade)
 	card.add_child(title_back)
-	card.add_child(_label("♥ ♦ ♣ ♠", 20, Color(GOLD, 0.7), Vector2(480, 286)))
+	card.add_child(_label("H D C S", 20, Color(GOLD, 0.7), Vector2(480, 286)))
 
 
 func _panel(r: Rect2) -> Panel:

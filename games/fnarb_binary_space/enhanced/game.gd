@@ -249,7 +249,7 @@ func _refresh_hud() -> void:
 	_row_label.text = "Scan row  %d / %d" % [idx, maxi(n - 1, 0)]
 	_bits_label.text = "bits  %d\n%s" % [bits, _bits_string(bits)]
 	_lit_label.text = "Bright  %d\nFaded   %d" % [_lit_count, _faded_count]
-	_pattern_label.text = "nvars = 5\n32 × 32 cells\nConjunctions of\nx₀…x₄"
+	_pattern_label.text = "nvars = 5\n32 x 32 cells\nConjunctions of\nx0...x4"
 	if faded:
 		_status_label.text = "Non-power-of-two\nrow (25% fade)"
 		_status_label.add_theme_color_override("font_color", FADE_C)
@@ -418,14 +418,14 @@ func _build_ui() -> void:
 	var left := _panel(Rect2(16, 96, 130, 280))
 	_hud.add_child(left)
 	left.add_child(_label("SCAN", 11, MUTED, Vector2(10, 10)))
-	_row_label = _label("Scan row  —", 13, INK, Vector2(10, 32))
+	_row_label = _label("Scan row  -", 13, INK, Vector2(10, 32))
 	left.add_child(_row_label)
-	_bits_label = _label("bits  —", 11, ROW_C, Vector2(10, 60))
+	_bits_label = _label("bits  -", 11, ROW_C, Vector2(10, 60))
 	_bits_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	left.add_child(_bits_label)
-	_lit_label = _label("Bright  —\nFaded   —", 12, INK, Vector2(10, 130))
+	_lit_label = _label("Bright  -\nFaded   -", 12, INK, Vector2(10, 130))
 	left.add_child(_lit_label)
-	_status_label = _label("Waiting…", 11, MUTED, Vector2(10, 190))
+	_status_label = _label("Waiting...", 11, MUTED, Vector2(10, 190))
 	_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status_label.size = Vector2(110, 60)
 	left.add_child(_status_label)
@@ -458,7 +458,7 @@ func _build_ui() -> void:
 	card.add_child(_label("FNARB BINARY SPACE", 28, GOLD, Vector2(36, 36)))
 	card.add_child(_label("Enhanced edition", 16, ACCENT, Vector2(36, 80)))
 	card.add_child(_label(
-		"A chrome shell over the Direct 5-input truth-table space.\nSame 32×32 conjunction grid, same 25% fade on non-\npower-of-two rows — just clearer HUD + scan juice.",
+		"A chrome shell over the Direct 5-input truth-table space.\nSame 32x32 conjunction grid, same 25% fade on non-\npower-of-two rows - just clearer HUD + scan juice.",
 		14, INK, Vector2(36, 120)))
 	var start := _btn("Start", Vector2(36, 230), Vector2(120, 40))
 	start.focus_mode = Control.FOCUS_NONE

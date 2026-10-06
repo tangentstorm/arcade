@@ -67,8 +67,8 @@ func _go(lesson: int, block: int) -> void:
 
 func _refresh() -> void:
 	var l := cursor.current()
-	_title.text = "%s — %s" % [l["slug"], l["title"]]
-	_where.text = "step %d / %d   ·   trail cursor %.3f" % [
+	_title.text = "%s - %s" % [l["slug"], l["title"]]
+	_where.text = "step %d / %d   |   trail cursor %.3f" % [
 		cursor.block + 1, cursor.block_count(), cursor.value()]
 	var note := cursor.note()
 	_notes.text = note if note != "" else "(no notes for this block)"
@@ -77,7 +77,7 @@ func _refresh() -> void:
 	_code.scroll_vertical = 0
 	_prev.disabled = cursor.at_start()
 	_next.disabled = cursor.at_end()
-	_play.text = "▶  Play lesson %02d" % cursor.lesson
+	_play.text = ">  Play lesson %02d" % cursor.lesson
 	if not _lessons.is_selected(cursor.lesson):
 		_lessons.select(cursor.lesson)
 		_lessons.ensure_current_is_visible()

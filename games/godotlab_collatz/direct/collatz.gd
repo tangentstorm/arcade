@@ -87,7 +87,7 @@ func step() -> bool:
 	var nxt := n >> 1 if n % 2 == 0 else 3 * n + 1
 	if nxt > max_value():
 		running = false
-		_refresh("overflow: 3·%d+1 = %d needs more than %d bits" % [n, nxt, bits.size()])
+		_refresh("overflow: 3|%d+1 = %d needs more than %d bits" % [n, nxt, bits.size()])
 		return false
 	set_value(nxt)
 	steps += 1
@@ -120,12 +120,12 @@ func _refresh(extra := "") -> void:
 	if n == 0:
 		msg = "Click the bits to enter a number."
 	elif n == 1 and steps > 0:
-		msg += "   — reached 1!"
+		msg += "   - reached 1!"
 	if extra != "":
 		msg += "\n" + extra
 	info.text = msg
 	var shown := history.slice(maxi(0, history.size() - 24))
-	trail.text = ("… " if history.size() > 24 else "") + " → ".join(shown.map(func(v): return str(v)))
+	trail.text = ("... " if history.size() > 24 else "") + " -> ".join(shown.map(func(v): return str(v)))
 	%RunButton.text = "Stop" if running else "Run"
 
 

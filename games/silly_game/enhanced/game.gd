@@ -414,7 +414,7 @@ func _draw() -> void:
 func _update_hud() -> void:
 	_stat_labels["shots"].text = str(shots)
 	_stat_labels["hits"].text = str(hits)
-	_stat_labels["acc"].text = ("%d%%" % roundi(100.0 * hits / shots)) if shots > 0 else "—"
+	_stat_labels["acc"].text = ("%d%%" % roundi(100.0 * hits / shots)) if shots > 0 else "-"
 	_stat_labels["time"].text = "%d:%02d" % [int(play_time) / 60, int(play_time) % 60]
 	_stat_labels["dist"].text = "%d m" % int(distance / CELL)
 	var kind := _ground_kind(hero.position + HERO_CENTER)
@@ -478,7 +478,7 @@ func _build_ui() -> void:
 	var t := _label("SILLY GAME", 24, SAND)
 	t.position = Vector2(180, 10)
 	_hud.add_child(t)
-	var st := _label("Enhanced  ·  aardvark island", 13, MUTED)
+	var st := _label("Enhanced  |  aardvark island", 13, MUTED)
 	st.position = Vector2(182, 40)
 	_hud.add_child(st)
 
@@ -491,7 +491,7 @@ func _build_ui() -> void:
 	sp.offset_top = 14
 	sp.offset_bottom = 304
 	_hud.add_child(sp)
-	_where_label = _label("—", 18, SAND)
+	_where_label = _label("-", 18, SAND)
 	_where_label.position = Vector2(14, 10)
 	sp.add_child(_where_label)
 	_minimap = Control.new()
@@ -522,7 +522,7 @@ func _build_ui() -> void:
 	cp.offset_top = -50
 	cp.offset_bottom = -14
 	_hud.add_child(cp)
-	var ctl := _label("WASD walk  ·  mouse aim  ·  click shoot  ·  R reset  ·  Esc pause", 15, INK)
+	var ctl := _label("WASD walk  |  mouse aim  |  click shoot  |  R reset  |  Esc pause", 15, INK)
 	ctl.set_anchors_preset(Control.PRESET_FULL_RECT)
 	ctl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ctl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -565,7 +565,7 @@ func _build_ui() -> void:
 	var play := _button("Press Space to begin", Color(0.10, 0.50, 0.62), 20)
 	play.pressed.connect(func(): _set_state(PLAY))
 	tv.add_child(play)
-	var t4 := _label("WASD walk · mouse aim · click shoot · Esc pause", 12, MUTED)
+	var t4 := _label("WASD walk | mouse aim | click shoot | Esc pause", 12, MUTED)
 	t4.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tv.add_child(t4)
 

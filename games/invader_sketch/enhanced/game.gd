@@ -455,7 +455,7 @@ func _build_ui() -> void:
 	_time_label.position = Vector2(12, 140)
 	_time_label.size = Vector2(120, 24)
 	left.add_child(_time_label)
-	var hint := _label("←/→ A/D  move\nSpace     shoot\nEsc       pause\n\nClear the fleet.\nShields take 3 hits.\n3 bullets at once.", 13, INK)
+	var hint := _label("<-/-> A/D  move\nSpace     shoot\nEsc       pause\n\nClear the fleet.\nShields take 3 hits.\n3 bullets at once.", 13, INK)
 	hint.position = Vector2(12, 190)
 	hint.size = Vector2(120, 280)
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -468,15 +468,15 @@ func _build_ui() -> void:
 	# Right gutter panel.
 	var right := _panel(Rect2(STAGE.x - 152, 40, 144, 640))
 	_ui.add_child(right)
-	_inv_label = _label("INV  —", 20, INK)
+	_inv_label = _label("INV  -", 20, INK)
 	_inv_label.position = Vector2(12, 16)
 	_inv_label.size = Vector2(120, 28)
 	right.add_child(_inv_label)
-	_shield_label = _label("SHD  —", 20, GREEN)
+	_shield_label = _label("SHD  -", 20, GREEN)
 	_shield_label.position = Vector2(12, 56)
 	_shield_label.size = Vector2(120, 28)
 	right.add_child(_shield_label)
-	_ammo_label = _label("AMMO —", 20, CYAN)
+	_ammo_label = _label("AMMO -", 20, CYAN)
 	_ammo_label.position = Vector2(12, 96)
 	_ammo_label.size = Vector2(120, 28)
 	right.add_child(_ammo_label)
@@ -491,7 +491,7 @@ func _build_ui() -> void:
 	right.add_child(tip)
 	# Cards.
 	_cards["title"] = _make_card("INVADER SKETCH",
-			"GameSketchLib course week 2\nSpace Invaders clone\n\nArrows / A,D move · Space shoot\n\nSpace / Enter to start",
+			"GameSketchLib course week 2\nSpace Invaders clone\n\nArrows / A,D move | Space shoot\n\nSpace / Enter to start",
 			true, GOLD, "title")
 	_cards["over"] = _make_card("GAME OVER", "the fleet got through\n\nSpace to return to menu", false, RED, "over")
 	_cards["win"] = _make_card("YOU WON!", "fleet cleared\n\nSpace to return to menu", false, GOLD, "win")
@@ -594,7 +594,7 @@ func _show_card(key: String) -> void:
 
 func _update_over_card() -> void:
 	if _over_body:
-		_over_body.text = "kills %d  ·  invaders left %d\n\nSpace to return to menu" % [
+		_over_body.text = "kills %d  |  invaders left %d\n\nSpace to return to menu" % [
 				_kills, world.invaders.size()]
 
 
@@ -616,10 +616,10 @@ func _refresh_hud() -> void:
 		_ammo_label.text = "AMMO %d" % world.bullets_left
 		_kill_label.text = "KILLS %d" % _kills
 	elif world.state == Logic.MENU:
-		_time_label.text = "—"
-		_inv_label.text = "INV  —"
-		_shield_label.text = "SHD  —"
-		_ammo_label.text = "AMMO —"
+		_time_label.text = "-"
+		_inv_label.text = "INV  -"
+		_shield_label.text = "SHD  -"
+		_ammo_label.text = "AMMO -"
 		_kill_label.text = "KILLS %d" % _kills
 	# Title start via Space / Enter also queues Direct space.
 	# (handled in _unhandled_key_input via _just)

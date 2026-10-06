@@ -515,7 +515,7 @@ func _refresh_hud() -> void:
 	_ledge_label.text = "%d / %d" % [visited.size(), ledges.size()]
 	_ledge_label.modulate = GOLD if visited.size() == ledges.size() else Color.WHITE
 	_air_label.text = _secs(best_air)
-	_best_label.text = _secs(best_all) if best_all >= 0 else "—"
+	_best_label.text = _secs(best_all) if best_all >= 0 else "-"
 
 
 func _show_card(key: String) -> void:
@@ -586,7 +586,7 @@ func _build_ui() -> void:
 	var title := _label("GIRAFFE", 30, FRAME.lightened(0.2))
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, title, Rect2(0, 6, STAGE.x, 36))
-	var sub := _label("Enhanced  ·  pico-games giraffe.p8", 14, MUTED)
+	var sub := _label("Enhanced  |  pico-games giraffe.p8", 14, MUTED)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, sub, Rect2(0, 40, STAGE.x, 22))
 

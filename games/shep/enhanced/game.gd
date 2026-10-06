@@ -631,7 +631,7 @@ func _build_ui() -> void:
 	_place(_fuses_label, Rect2(24, 122, 196, 48))
 	root.add_child(_fuses_label)
 
-	_legend = _label("CYAN fuse → cyan socket\nRED fuse → red socket\n(opens a door)\n\nMouse aims\nClick jets\nArrows = keyboard aim\n\nEsc arcade pause", 15, MUTED)
+	_legend = _label("CYAN fuse -> cyan socket\nRED fuse -> red socket\n(opens a door)\n\nMouse aims\nClick jets\nArrows = keyboard aim\n\nEsc arcade pause", 15, MUTED)
 	_legend.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	_place(_legend, Rect2(36, 200, 172, 280))
 	root.add_child(_legend)
@@ -803,9 +803,9 @@ func _build_ui() -> void:
 	cv.add_child(_label("Credits", 48, Color.WHITE, 10))
 	cv.add_child(_label(
 		"Original Shep (2010) by robocognito\n"
-		+ "Michal J Wallace — programming, levels\n"
-		+ "Sean D Siem — art, sound\n\n"
-		+ "Enhanced presentation — GodotBot arcade port\n"
+		+ "Michal J Wallace - programming, levels\n"
+		+ "Sean D Siem - art, sound\n\n"
+		+ "Enhanced presentation - GodotBot arcade port\n"
 		+ "Same physics and puzzles as Direct.",
 		18, MUTED))
 	var cb := _button("Back", Color(0.30, 0.35, 0.58), 20)

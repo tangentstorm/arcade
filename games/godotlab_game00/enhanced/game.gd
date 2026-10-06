@@ -105,7 +105,7 @@ func _set_state(s: int) -> void:
 	if s == PLAY and demo == null:
 		_load_demo()
 	if s == PLAY:
-		_banner = "ARROW KEYS  ·  PUSH THE ICON"
+		_banner = "ARROW KEYS  |  PUSH THE ICON"
 		_banner_t = 2.0
 
 
@@ -418,7 +418,7 @@ func _build_ui() -> void:
 	_hud.add_child(top)
 	top.add_child(_label("GODOTLAB GAME 00", 22, GOLD, Vector2(16, 10)))
 	top.add_child(_label("Enhanced", 13, ACCENT, Vector2(280, 16)))
-	top.add_child(_label("arrow keys push · friction coasts · wraps at the edge", 13, MUTED, Vector2(380, 16)))
+	top.add_child(_label("arrow keys push | friction coasts | wraps at the edge", 13, MUTED, Vector2(380, 16)))
 	var back := _btn("Back to Arcade", Vector2(1056, 8), Vector2(128, 32))
 	back.pressed.connect(GameRegistry.return_to_arcade)
 	top.add_child(back)
@@ -428,7 +428,7 @@ func _build_ui() -> void:
 	stats.add_child(_label("TELEMETRY", 11, MUTED, Vector2(14, 8)))
 	_speed_label = _label("speed  0", 15, GOLD, Vector2(14, 28))
 	stats.add_child(_speed_label)
-	_pos_label = _label("pos  —", 14, INK, Vector2(14, 52))
+	_pos_label = _label("pos  -", 14, INK, Vector2(14, 52))
 	stats.add_child(_pos_label)
 	_dist_label = _label("distance  0", 14, INK, Vector2(260, 28))
 	stats.add_child(_dist_label)
@@ -452,7 +452,7 @@ func _build_ui() -> void:
 	card.add_child(_label("GODOTLAB GAME 00", 32, GOLD, Vector2(36, 30)))
 	card.add_child(_label("Enhanced edition", 16, ACCENT, Vector2(36, 78)))
 	card.add_child(_label(
-		"The Direct drift-sprite sketch, framed with chrome:\narrow keys still push via Direct icon.gd, friction still\ncoasts it to a stop, and the edges still wrap — Enhanced\nonly adds the trail, glow, wrap pops and telemetry.",
+		"The Direct drift-sprite sketch, framed with chrome:\narrow keys still push via Direct icon.gd, friction still\ncoasts it to a stop, and the edges still wrap - Enhanced\nonly adds the trail, glow, wrap pops and telemetry.",
 		14, INK, Vector2(36, 114)))
 	var start := _btn("Start", Vector2(36, 224), Vector2(120, 40))
 	start.pressed.connect(func(): _set_state(PLAY))
@@ -461,7 +461,7 @@ func _build_ui() -> void:
 	var title_back := _btn("Back to Arcade", Vector2(36, 282), Vector2(160, 34))
 	title_back.pressed.connect(GameRegistry.return_to_arcade)
 	card.add_child(title_back)
-	card.add_child(_label("→  ·  friction 0.975", 16, Color(GOLD, 0.7), Vector2(380, 290)))
+	card.add_child(_label("->  |  friction 0.975", 16, Color(GOLD, 0.7), Vector2(380, 290)))
 
 
 func _panel(r: Rect2) -> Panel:

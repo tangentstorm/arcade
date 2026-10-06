@@ -73,7 +73,7 @@ func _ready() -> void:
 	# Never let HUD buttons steal arrows / Space / Enter from gameplay or chat.
 	get_viewport().gui_release_focus()
 	load_level(0)
-	_hud_help.text = "Arrows move · WASD/,AOE grab · R restart · 0-9 debug jump"
+	_hud_help.text = "Arrows move | WASD/,AOE grab | R restart | 0-9 debug jump"
 
 
 func _load_textures() -> void:
@@ -120,7 +120,7 @@ func _status_for_room() -> String:
 	if room.cages_left > 0:
 		return "Cages left: %d" % room.cages_left
 	if room.solved or room.cages_left == 0:
-		return "Exit open — walk in"
+		return "Exit open - walk in"
 	return ""
 
 
@@ -412,7 +412,7 @@ func _on_cage_filled(remaining: int) -> void:
 
 
 func _on_room_solved() -> void:
-	_status.text = "Exit open — walk in"
+	_status.text = "Exit open - walk in"
 	match level_num:
 		1:
 			_queue_talk("Teddy",
@@ -469,7 +469,7 @@ func _run_room_intro() -> void:
 				"Final exam time! Use everything you've learned.")
 		6:
 			_queue_talk("Teddy",
-				"Careful — this room has gravity.")
+				"Careful - this room has gravity.")
 
 
 func _queue_talk(who: String, text: String) -> void:

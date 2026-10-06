@@ -124,7 +124,7 @@ func _load_demo() -> void:
 	demo.position.y = REGISTER_TOP - (demo.get_node("World") as Node2D).scale.y * reg.position.y
 	reg.self_modulate = Color(0.78, 0.55, 0.62)  # mute Direct's Color.RED bar a little
 	_resync()
-	_banner = "CLICK BITS  ·  P = PRESET"
+	_banner = "CLICK BITS  |  P = PRESET"
 	_banner_t = 2.4
 
 
@@ -268,7 +268,7 @@ func _observe() -> void:
 		_anim = 0.0
 		_juice_flips()
 		var c := EVEN_C if last_kind == "shift" else ODD_C
-		_floater(("÷2" if last_kind == "shift" else "×3+1"),
+		_floater(("/2" if last_kind == "shift" else "x3+1"),
 				Vector2(FIELD_POS.x + FIELD.x - 70, FIELD_POS.y + 30 + 30 * (st % 2)), c)
 		if nxt == 1:
 			_celebrate()
@@ -304,7 +304,7 @@ func _celebrate() -> void:
 	_flash_c = GOOD
 	for i in bit_count():
 		_burst(bit_pos(i), Color.from_hsv(float(i) / bit_count(), 0.6, 1.0), 6, 220.0)
-	_banner = "REACHED 1 · %d STEPS · PEAK %d" % [demo.steps, demo.peak]
+	_banner = "REACHED 1 | %d STEPS | PEAK %d" % [demo.steps, demo.peak]
 	_banner_t = 2.6
 
 
@@ -313,19 +313,19 @@ func _overflow_juice() -> void:
 	_shake = 1.0
 	_flash = 0.7
 	_flash_c = Color(1.0, 0.25, 0.25)
-	_banner = "OVERFLOW  ·  NEEDS > %d BITS" % bit_count()
+	_banner = "OVERFLOW  |  NEEDS > %d BITS" % bit_count()
 	_banner_t = 2.2
 	_burst(bit_pos(bit_count() - 1) + Vector2(-cell() * 0.6, 0), Color(1, 0.3, 0.3), 14, 200.0)
 
 
 func _refresh_hud() -> void:
 	var n: int = demo.value()
-	_n_label.text = "n = %d" % n if n > 0 else "n = —"
+	_n_label.text = "n = %d" % n if n > 0 else "n = -"
 	_bin_label.text = "0x%04X   %s" % [n, "even" if n % 2 == 0 else "odd"] if n > 0 else "click the bits"
-	_stats_label.text = "steps  %d\npeak  %d\n÷2  %d    ×3+1  %d" % [demo.steps, demo.peak, shifts, triples]
+	_stats_label.text = "steps  %d\npeak  %d\n/2  %d    x3+1  %d" % [demo.steps, demo.peak, shifts, triples]
 	var h: Array = demo.history
 	var shown := h.slice(maxi(0, h.size() - 14))
-	_trail_label.text = ("… " if h.size() > 14 else "") + " → ".join(shown.map(func(v): return str(v)))
+	_trail_label.text = ("... " if h.size() > 14 else "") + " -> ".join(shown.map(func(v): return str(v)))
 	if h.is_empty():
 		_trail_label.text = "Trail appears here once you enter n."
 	_run_btn.text = "Stop" if demo.running else "Run"
@@ -372,12 +372,12 @@ func _draw_step_panel() -> void:
 	var y := r.position.y + 64
 	if last_kind == "":
 		_text("Step (Space) to see the operation on the bits.", r.position + Vector2(16, 70), 15, INK)
-		_text("even n  →  n >> 1        (shift right)", r.position + Vector2(16, 120), 15, EVEN_C)
-		_text("odd n   →  3n + 1 = (n << 1) + n + 1", r.position + Vector2(16, 150), 15, ODD_C)
+		_text("even n  ->  n >> 1        (shift right)", r.position + Vector2(16, 120), 15, EVEN_C)
+		_text("odd n   ->  3n + 1 = (n << 1) + n + 1", r.position + Vector2(16, 150), 15, ODD_C)
 		return
 	var a := _anim
 	if last_kind == "shift":
-		_text("even  →  n >> 1", r.position + Vector2(110, 24), 14, EVEN_C)
+		_text("even  ->  n >> 1", r.position + Vector2(110, 24), 14, EVEN_C)
 		_bits_row("n", last_prev, x0, y, cw, INK, 1.0)
 		# the old row slides one cell right while the new one fades in
 		_bits_row("", last_prev, x0 + cw * a, y + 44, cw, Color(EVEN_C, 0.5 * (1.0 - a)), 1.0, 99, true)
@@ -385,7 +385,7 @@ func _draw_step_panel() -> void:
 		draw_line(Vector2(x0, y + 70), Vector2(x0 + w * cw, y + 70), Color(EVEN_C, 0.4), 1.0)
 		_text("%d / 2 = %d" % [last_prev, last_next], Vector2(r.position.x + 16, y + 112), 18, INK)
 	else:
-		_text("odd  →  (n << 1) + n + 1", r.position + Vector2(110, 24), 14, ODD_C)
+		_text("odd  ->  (n << 1) + n + 1", r.position + Vector2(110, 24), 14, ODD_C)
 		var dbl := last_prev << 1
 		_bits_row("n<<1", dbl, x0, y, cw, Color(INK, 0.9), 1.0)
 		_bits_row("+ n", last_prev, x0, y + 30, cw, Color(INK, 0.9), 1.0)
@@ -400,7 +400,7 @@ func _draw_step_panel() -> void:
 			if carry and i < ripple and i + 1 < w:
 				draw_circle(Vector2(x0 + (w - 2 - i) * cw + cw * 0.5, y - 20), 3.0, ODD_C)
 		_bits_row("=", last_next, x0, y + 100, cw, ODD_C, a, ripple)
-		_text("3·%d + 1 = %d" % [last_prev, last_next], Vector2(r.position.x + 16, y + 150), 18, INK)
+		_text("3|%d + 1 = %d" % [last_prev, last_next], Vector2(r.position.x + 16, y + 150), 18, INK)
 		_text("dots = carries", Vector2(r.position.x + 16, y - 16), 11, Color(ODD_C, 0.8))
 
 
@@ -424,7 +424,7 @@ func _bits_row(tag: String, n: int, x0: float, y: float, cw: float, col: Color, 
 func _draw_chart() -> void:
 	var r := Rect2(CHART_POS, CHART_SIZE)
 	_frame(r)
-	_text("TRAJECTORY  (log₂ n)", r.position + Vector2(16, 24), 12, MUTED)
+	_text("TRAJECTORY  (log2 n)", r.position + Vector2(16, 24), 12, MUTED)
 	var h: Array = demo.history
 	var plot := Rect2(r.position + Vector2(44, 40), r.size - Vector2(64, 64))
 	var bits := float(bit_count())
@@ -493,7 +493,7 @@ func _draw_fx() -> void:
 		if hover_bit >= 0:
 			var p := bit_pos(hover_bit)
 			_fx.draw_arc(p, c * 0.44, 0, TAU, 32, Color.WHITE, 2.0)
-			var tip := "bit %d  ·  2^%d = %d" % [hover_bit, hover_bit, 1 << hover_bit]
+			var tip := "bit %d  |  2^%d = %d" % [hover_bit, hover_bit, 1 << hover_bit]
 			var tp := Vector2(clampf(p.x - 80, FIELD_POS.x + 8, FIELD_POS.x + FIELD.x - 170), FIELD_POS.y + 18)
 			_fx.draw_rect(Rect2(tp - Vector2(6, 15), Vector2(172, 22)), Color(0.05, 0.04, 0.10, 0.85))
 			_fx.draw_string(_font, tp, tip, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, INK)
@@ -593,8 +593,8 @@ func _build_ui() -> void:
 	var top := _panel(Rect2(40, 14, 1200, 64))
 	_hud.add_child(top)
 	top.add_child(_label("COLLATZ", 26, GOLD, Vector2(18, 14)))
-	top.add_child(_label("GodotLab · Enhanced", 14, FRAME, Vector2(150, 26)))
-	top.add_child(_label("even n → n >> 1     odd n → 3n + 1", 16, INK, Vector2(380, 22)))
+	top.add_child(_label("GodotLab | Enhanced", 14, FRAME, Vector2(150, 26)))
+	top.add_child(_label("even n -> n >> 1     odd n -> 3n + 1", 16, INK, Vector2(380, 22)))
 	var back := _btn("Back to Arcade", Vector2(1056, 14), Vector2(128, 36))
 	back.pressed.connect(GameRegistry.return_to_arcade)
 	top.add_child(back)
@@ -602,7 +602,7 @@ func _build_ui() -> void:
 	var num := _panel(Rect2(40, 518, 330, 186))
 	_hud.add_child(num)
 	num.add_child(_label("REGISTER", 11, MUTED, Vector2(14, 10)))
-	_n_label = _label("n = —", 30, GOLD, Vector2(14, 28))
+	_n_label = _label("n = -", 30, GOLD, Vector2(14, 28))
 	num.add_child(_n_label)
 	_bin_label = _label("", 14, INK, Vector2(14, 74))
 	num.add_child(_bin_label)
@@ -627,7 +627,7 @@ func _build_ui() -> void:
 	var keys := _panel(Rect2(914, 518, 326, 186))
 	_hud.add_child(keys)
 	keys.add_child(_label("CONTROLS", 11, MUTED, Vector2(14, 10)))
-	keys.add_child(_label("Click bits  set n\nSpace / Enter / →  step\nR  run to 1     C  clear\nP  preset (27, 7, 97, 255, 703)\nEsc  pause / arcade",
+	keys.add_child(_label("Click bits  set n\nSpace / Enter / ->  step\nR  run to 1     C  clear\nP  preset (27, 7, 97, 255, 703)\nEsc  pause / arcade",
 			13, INK, Vector2(14, 30)))
 	keys.add_child(_label("Same Direct collatz.gd steps the register.", 11, MUTED, Vector2(14, 160)))
 
@@ -637,7 +637,7 @@ func _build_ui() -> void:
 	_ui.add_child(card)
 	_cards["title"] = card
 	card.add_child(_label("COLLATZ", 36, GOLD, Vector2(36, 30)))
-	card.add_child(_label("GodotLab · Enhanced edition", 16, FRAME, Vector2(36, 80)))
+	card.add_child(_label("GodotLab | Enhanced edition", 16, FRAME, Vector2(36, 80)))
 	card.add_child(_label(
 		"Click bits on the 16-bit register to enter n, then step it:\neven n shifts right, odd n becomes 3n + 1.\nWatch the bits slide, the carries ripple and the path fall to 1.",
 		14, INK, Vector2(36, 118)))
@@ -648,7 +648,7 @@ func _build_ui() -> void:
 	var title_back := _btn("Back to Arcade", Vector2(36, 286), Vector2(160, 34))
 	title_back.pressed.connect(GameRegistry.return_to_arcade)
 	card.add_child(title_back)
-	card.add_child(_label("0 1 1 0 1 1   →   27", 18, Color(GOLD, 0.7), Vector2(380, 292)))
+	card.add_child(_label("0 1 1 0 1 1   ->   27", 18, Color(GOLD, 0.7), Vector2(380, 292)))
 
 
 func _panel(r: Rect2) -> Panel:

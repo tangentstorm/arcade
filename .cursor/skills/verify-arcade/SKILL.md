@@ -49,7 +49,7 @@ Before claiming PASS or merging: send at least one evidence PNG (or short video)
 
 `$H/doctor.sh` — read-only, exit 0 = worth driving. Checks: Godot is 4.7.2.x; `project.godot`
 is `tangentstorm arcade`; git HEAD/branch/dirty count; `.godot/imported` exists; harness files
-`tools/test_gallery_layout.gd`, `tools/smoke_headless.sh`, `tools/smoke_scenes.gd`; xvfb-run,
+`tools/test_gallery_layout.gd`, `tools/smoke_headless.sh`, `tools/smoke_scenes.gd`, `tools/lint_ascii_ui.sh` (runs the ASCII UI lint); xvfb-run,
 Xvfb, xdotool, ffmpeg, curl (warn only); current run dir; if a GUI pidfile exists, the pid is
 alive AND owns a `tangentstorm arcade` window (else FAIL: stale → cleanup); Pages URL → 200 (warn).
 Run it first, and again whenever anything looks off.

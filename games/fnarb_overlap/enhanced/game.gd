@@ -247,7 +247,7 @@ func _color_name(c: Color) -> String:
 func _refresh_hud() -> void:
 	if _mouse_label == null:
 		return
-	var mouse_txt := "—"
+	var mouse_txt := "-"
 	if demo != null and demo.has_node("mouseXY"):
 		mouse_txt = str(demo.get_node("mouseXY").text)
 	_mouse_label.text = "mouse\n%s" % mouse_txt
@@ -265,7 +265,7 @@ func _refresh_hud() -> void:
 	_overlap_label.text = "Overlaps\n%d / 9" % _overlap_count
 	if _overlap_count > 0:
 		_overlap_label.add_theme_color_override("font_color", OVERLAP_C)
-		_status_label.text = "Brute-force O(n²)\noverlap pass live"
+		_status_label.text = "Brute-force O(n^2)\noverlap pass live"
 		_status_label.add_theme_color_override("font_color", GOLD)
 	else:
 		_overlap_label.add_theme_color_override("font_color", INK)
@@ -445,7 +445,7 @@ func _build_ui() -> void:
 	var left := _panel(Rect2(16, 96, 130, 300))
 	_hud.add_child(left)
 	left.add_child(_label("LIVE", 11, MUTED, Vector2(10, 10)))
-	_mouse_label = _label("mouse\n—", 12, INK, Vector2(10, 32))
+	_mouse_label = _label("mouse\n-", 12, INK, Vector2(10, 32))
 	left.add_child(_mouse_label)
 	_subject_label = _label("subject\n(none)", 11, MUTED, Vector2(10, 90))
 	_subject_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -471,7 +471,7 @@ func _build_ui() -> void:
 		11, INK, Vector2(10, 34))
 	right.add_child(_legend_label)
 	right.add_child(_label(
-		"Same Direct\noverlap_demo.gd\n3×3 of 32×32\nboxes. O(n²)\ncolorize.",
+		"Same Direct\noverlap_demo.gd\n3x3 of 32x32\nboxes. O(n^2)\ncolorize.",
 		11, MUTED, Vector2(10, 200)))
 
 	var back := _btn("Back to Arcade", Vector2(16, 660), Vector2(160, 36))
@@ -487,7 +487,7 @@ func _build_ui() -> void:
 	card.add_child(_label("FNARB OVERLAP", 28, GOLD, Vector2(36, 36)))
 	card.add_child(_label("Enhanced edition", 16, ACCENT, Vector2(36, 80)))
 	card.add_child(_label(
-		"A chrome shell over the Direct 9-box overlap sketch.\nSame hover / drag / O(n²) colorize — just clearer\nHUD + juice when boxes collide.",
+		"A chrome shell over the Direct 9-box overlap sketch.\nSame hover / drag / O(n^2) colorize - just clearer\nHUD + juice when boxes collide.",
 		14, INK, Vector2(36, 120)))
 	var start := _btn("Start", Vector2(36, 230), Vector2(120, 40))
 	start.focus_mode = Control.FOCUS_NONE

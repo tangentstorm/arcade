@@ -142,11 +142,11 @@ func _draw_title() -> void:
 	_room.draw_rect(Rect2(80, 60, STAGE_W - 160, STAGE_H - 120), COL_FRAME, false, 3.0)
 	_text(STAGE_W * 0.5, 100, 48, "DOTH", COL_TITLE, true)
 	_text(STAGE_W * 0.5, 155, 22, "Quest for the Empire", COL_GOLD, true)
-	_text(STAGE_W * 0.5, 200, 14, "(c) 1993–1996 Sterling Silverware / Michal Wallace", COL_DIM, true)
-	_text(STAGE_W * 0.5, 240, 16, "Direct port of doth_a.pas — silverware", COL_TEXT, true)
-	_text(STAGE_W * 0.5, 280, 16, "Enter / Space / 2  —  overworld (dmap1)", COL_TEXT, true)
-	_text(STAGE_W * 0.5, 305, 16, "1  —  starter chamber", COL_TEXT, true)
-	_text(STAGE_W * 0.5, 335, 14, "Esc — pause / Back to Arcade", COL_DIM, true)
+	_text(STAGE_W * 0.5, 200, 14, "(c) 1993-1996 Sterling Silverware / Michal Wallace", COL_DIM, true)
+	_text(STAGE_W * 0.5, 240, 16, "Direct port of doth_a.pas - silverware", COL_TEXT, true)
+	_text(STAGE_W * 0.5, 280, 16, "Enter / Space / 2  -  overworld (dmap1)", COL_TEXT, true)
+	_text(STAGE_W * 0.5, 305, 16, "1  -  starter chamber", COL_TEXT, true)
+	_text(STAGE_W * 0.5, 335, 14, "Esc - pause / Back to Arcade", COL_DIM, true)
 
 
 func _draw_play() -> void:
@@ -176,7 +176,7 @@ func _draw_play() -> void:
 	if world.state == World.State.WIN:
 		_room.draw_rect(Rect2(STAGE_W * 0.25, STAGE_H * 0.35, STAGE_W * 0.5, 80), Color(0, 0, 0, 0.75))
 		_text(STAGE_W * 0.5, STAGE_H * 0.35 + 20, 22, "Room cleared!", COL_GOLD, true)
-		_text(STAGE_W * 0.5, STAGE_H * 0.35 + 48, 14, "Enter — title", COL_TEXT, true)
+		_text(STAGE_W * 0.5, STAGE_H * 0.35 + 48, 14, "Enter - title", COL_TEXT, true)
 
 
 func _text(x: float, y: float, size: int, label: String, col: Color, center: bool) -> void:

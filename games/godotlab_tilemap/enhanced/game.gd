@@ -325,9 +325,9 @@ func ground_below(world: Vector2) -> float:
 
 func _state_name() -> String:
 	if player == null:
-		return "—"
+		return "-"
 	if not player.is_on_floor():
-		return "AIRBORNE ↑" if player.velocity.y < 0.0 else "AIRBORNE ↓"
+		return "AIRBORNE ^" if player.velocity.y < 0.0 else "AIRBORNE v"
 	if absf(player.velocity.x) > 1.0:
 		return "WALKING"
 	return "STANDING"
@@ -347,7 +347,7 @@ func _refresh_hud() -> void:
 	_stats_label.text = "jumps     %d\nlandings  %d\nrespawns  %d\npeak      %.1f tiles\nairtime   %.2f s\nwalked    %.1f tiles" % [
 		jumps, landings, respawns_seen, peak_height / CELL, best_air, distance / CELL]
 	if demo != null:
-		_level_label.text = "placed %d  ·  blank %d" % [demo.placed, demo.skipped_blank]
+		_level_label.text = "placed %d  |  blank %d" % [demo.placed, demo.skipped_blank]
 
 
 # --- draw ---------------------------------------------------------------------
@@ -450,7 +450,7 @@ func _draw_field_fx() -> void:
 			var edge := Vector2(clampf(feet.x, clip.position.x + 14, clip.end.x - 14),
 					clampf(feet.y, clip.position.y + 14, clip.end.y - 14))
 			_field_fx.draw_circle(edge, 9.0, Color(DANGER, 0.8 + 0.2 * sin(_time * 12.0)))
-			var arrow := "↓" if feet.y > clip.end.y else "↑" if feet.y < clip.position.y else "!"
+			var arrow := "v" if feet.y > clip.end.y else "^" if feet.y < clip.position.y else "!"
 			var below := 1.0 if feet.y < clip.position.y else -1.0
 			_field_fx.draw_string(_font, edge + Vector2(-6, 6 + 22 * below), arrow,
 					HORIZONTAL_ALIGNMENT_LEFT, -1, 18, DANGER)
@@ -709,19 +709,19 @@ func _build_ui() -> void:
 	var head := _panel(Rect2(26, 16, 420, 62))
 	_hud.add_child(head)
 	head.add_child(_label("GODOTLAB TILEMAP", 22, GOLD, Vector2(16, 8)))
-	head.add_child(_label("Kenney test level · Enhanced", 13, MUTED, Vector2(18, 38)))
+	head.add_child(_label("Kenney test level | Enhanced", 13, MUTED, Vector2(18, 38)))
 
 	var live := _panel(Rect2(1036, 96, 216, 216))
 	_hud.add_child(live)
 	live.add_child(_label("PLAYER", 11, MUTED, Vector2(12, 10)))
-	_state_label = _label("—", 18, FRAME, Vector2(12, 30))
+	_state_label = _label("-", 18, FRAME, Vector2(12, 30))
 	live.add_child(_state_label)
 	_pos_label = _label("pos\nvel", 13, INK, Vector2(12, 64))
 	live.add_child(_pos_label)
 	_cell_label = _label("cell", 12, MUTED, Vector2(12, 112))
 	live.add_child(_cell_label)
 	live.add_child(_label("LEVEL", 11, MUTED, Vector2(12, 144)))
-	_level_label = _label("placed 0  ·  blank 0", 12, INK, Vector2(12, 162))
+	_level_label = _label("placed 0  |  blank 0", 12, INK, Vector2(12, 162))
 	live.add_child(_level_label)
 	live.add_child(_label("original tile_data, replayed", 10, MUTED, Vector2(12, 184)))
 
@@ -740,7 +740,7 @@ func _build_ui() -> void:
 	back.focus_mode = Control.FOCUS_NONE
 	back.pressed.connect(GameRegistry.return_to_arcade)
 	_hud.add_child(back)
-	_hud.add_child(_label("←/→ A/D walk · Space/↑/W jump · G grid · R reload · Esc pause",
+	_hud.add_child(_label("<-/-> A/D walk | Space/^/W jump | G grid | R reload | Esc pause",
 			13, MUTED, Vector2(204, 668)))
 	_hud.add_child(_label("Art: Platformer Deluxe by Kenney (CC0)", 12, MUTED, Vector2(1000, 670)))
 

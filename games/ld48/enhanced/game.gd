@@ -151,8 +151,8 @@ func _load_room0() -> void:
 	_chat_visible = false
 	_chat_panel.visible = false
 	_help_label.text = ""
-	_room_label.text = "Previously…"
-	_hint_label.text = "A/D or ←/→ walk · Space jump · E interact · 0 skip dialog · R restart · Esc pause"
+	_room_label.text = "Previously..."
+	_hint_label.text = "A/D or <-/-> walk | Space jump | E interact | 0 skip dialog | R restart | Esc pause"
 	_charge_label.text = ""
 
 
@@ -167,9 +167,9 @@ func _load_office() -> void:
 	_clear_chat()
 	_chat_visible = false
 	_chat_panel.visible = false
-	_help_label.text = "Hold right mouse to aim · left-click to teleport"
+	_help_label.text = "Hold right mouse to aim | left-click to teleport"
 	_room_label.text = "Ivan's office"
-	_hint_label.text = "RMB aim · LMB teleport · R restart · Esc pause"
+	_hint_label.text = "RMB aim | LMB teleport | R restart | Esc pause"
 	_charge_label.text = ""
 	_flash = 1.0
 	_flash_color = Color(0.7, 0.9, 1.0)
@@ -314,7 +314,7 @@ func _track_teleporter() -> void:
 		return
 	if tele.interacting:
 		_warp_progress = clampf(tele.time / tele.TRIGGER, 0.0, 1.0)
-		_charge_label.text = "Charging… %d%%" % int(_warp_progress * 100.0)
+		_charge_label.text = "Charging... %d%%" % int(_warp_progress * 100.0)
 		if randf() < 0.35:
 			_spawn_dust(FIELD_POS + FIELD * 0.55 + Vector2(randf_range(-30, 30), randf_range(-40, 10)),
 					Color(0.45, 0.85, 1.0))
@@ -472,7 +472,7 @@ func _build_ui() -> void:
 	var title := _label("DEEPER AND DEEPER", 26, FRAME.lightened(0.2))
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, title, Rect2(0, 8, STAGE.x, 34))
-	var sub := _label("Enhanced  ·  Ludum Dare 48  ·  Tetraminex prologue", 14, MUTED)
+	var sub := _label("Enhanced  |  Ludum Dare 48  |  Tetraminex prologue", 14, MUTED)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_add(root, sub, Rect2(0, 40, STAGE.x, 22))
 
@@ -484,7 +484,7 @@ func _build_ui() -> void:
 	# Top-right chrome: room + controls (floats over the full-bleed field)
 	var rp := _panel(root, Rect2(STAGE.x - 268, 64, 248, 280))
 	_add(rp, _label("ROOM", 13, MUTED), Rect2(14, 12, 220, 18))
-	_room_label = _add(rp, _label("—", 18, GOLD), Rect2(14, 32, 220, 24)) as Label
+	_room_label = _add(rp, _label("-", 18, GOLD), Rect2(14, 32, 220, 24)) as Label
 	_add(rp, _label("CONTROLS", 13, MUTED), Rect2(14, 70, 220, 18))
 	_hint_label = _add(rp, _label("", 12, INK), Rect2(14, 90, 220, 90)) as Label
 	_hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -547,6 +547,6 @@ func _build_ui() -> void:
 	var play := _button("Press Space to begin", Color(0.20, 0.55, 0.75), 20)
 	play.pressed.connect(func(): _set_state(PLAY))
 	tv.add_child(play)
-	var t4 := _label("Esc opens Pause · Back to Arcade never steals focus", 12, MUTED)
+	var t4 := _label("Esc opens Pause | Back to Arcade never steals focus", 12, MUTED)
 	t4.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tv.add_child(t4)

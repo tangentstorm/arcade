@@ -475,7 +475,7 @@ func _refresh_hud() -> void:
 		_held_label.text = "held  #%d @ (%d, %d)" % [i, int(w.in_hand.x), int(w.in_hand.y)]
 		_held_label.add_theme_color_override("font_color", GOLD)
 	else:
-		_held_label.text = "held  —"
+		_held_label.text = "held  -"
 		_held_label.add_theme_color_override("font_color", MUTED)
 	var m := mouse_sketch()
 	_mouse_label.text = "mouse  (%d, %d)" % [int(m.x), int(m.y)]
@@ -536,7 +536,7 @@ func _build_ui() -> void:
 	var left := _panel(Rect2(24, 60, 280, 600))
 	_hud.add_child(left)
 	left.add_child(_label("OVERLAP DEMO", 26, GOLD, Vector2(16, 14), Vector2(248, 36)))
-	left.add_child(_label("Enhanced · GameSketchLib w02", 13, MUTED, Vector2(16, 50), Vector2(248, 20)))
+	left.add_child(_label("Enhanced | GameSketchLib w02", 13, MUTED, Vector2(16, 50), Vector2(248, 20)))
 	var hint := _label(
 		"Drag the nine squares.\nAny square touching another\n(more than edge-to-edge)\nturns gray.\n\nGrabbing a stack takes the\nlowest-numbered square,\neven if one is drawn on top.\nSquares can be dragged off\nthe canvas and lost.",
 		15, INK, Vector2(16, 88), Vector2(248, 260))
@@ -558,7 +558,7 @@ func _build_ui() -> void:
 	right.add_child(_gray_label)
 	_pairs_label = _label("overlap zones  0", 16, INK, Vector2(16, 92), Vector2(248, 24))
 	right.add_child(_pairs_label)
-	_held_label = _label("held  —", 16, MUTED, Vector2(16, 124), Vector2(248, 24))
+	_held_label = _label("held  -", 16, MUTED, Vector2(16, 124), Vector2(248, 24))
 	right.add_child(_held_label)
 	_mouse_label = _label("mouse  (0, 0)", 15, MUTED, Vector2(16, 156), Vector2(248, 24))
 	right.add_child(_mouse_label)
@@ -571,7 +571,7 @@ func _build_ui() -> void:
 	right.add_child(_label("LEGEND", 12, MUTED, Vector2(16, 300), Vector2(248, 18)))
 	right.add_child(_label("white   free\ngray    overlapping\nred     overlap zone\ngold    held square\ngreen   grab target\narrow   lost off canvas",
 		14, INK, Vector2(16, 322), Vector2(248, 130)))
-	var tip := _label("View-only HUD over the same\nDirect overlap_logic.gd:\nn² overlap scan, strict <,\n60 Hz step.", 13, MUTED, Vector2(16, 500), Vector2(248, 80))
+	var tip := _label("View-only HUD over the same\nDirect overlap_logic.gd:\nn^2 overlap scan, strict <,\n60 Hz step.", 13, MUTED, Vector2(16, 500), Vector2(248, 80))
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	right.add_child(tip)
 
@@ -595,7 +595,7 @@ func _make_title_card() -> Control:
 	var h := _label("OVERLAP DEMO", 30, GOLD, Vector2(20, 22), Vector2(440, 40))
 	h.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(h)
-	var sub := _label("Enhanced edition · GameSketchLib w02 (2011)", 14, FRAME, Vector2(20, 64), Vector2(440, 22))
+	var sub := _label("Enhanced edition | GameSketchLib w02 (2011)", 14, FRAME, Vector2(20, 64), Vector2(440, 22))
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(sub)
 	var body := _label(

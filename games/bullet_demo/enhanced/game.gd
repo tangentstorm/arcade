@@ -111,7 +111,7 @@ func _set_state(s: int) -> void:
 		_load_demo()
 	if s == PLAY:
 		_starts += 1
-		_banner = "CLICK TO FIRE  ·  3 BULLETS"
+		_banner = "CLICK TO FIRE  |  3 BULLETS"
 		_banner_t = 2.0
 		_flash = 0.35
 		_flash_color = FRAME
@@ -542,7 +542,7 @@ func _build_ui() -> void:
 	card.add_child(_label("BULLET DEMO", 32, GOLD, Vector2(36, 28)))
 	card.add_child(_label("Enhanced edition", 16, FRAME, Vector2(36, 76)))
 	card.add_child(_label(
-		"The Direct GameSketchLib BulletDemo, framed with chrome:\nclick still fires from mouse x through Direct bullet_logic,\nthree bullets, dead squares turn gray — Enhanced only\nadds trails, hit bursts, an aim guide and the HUD.",
+		"The Direct GameSketchLib BulletDemo, framed with chrome:\nclick still fires from mouse x through Direct bullet_logic,\nthree bullets, dead squares turn gray - Enhanced only\nadds trails, hit bursts, an aim guide and the HUD.",
 		14, INK, Vector2(36, 110)))
 	var start := _btn("Start", Vector2(36, 224), Vector2(120, 40))
 	start.pressed.connect(func(): _set_state(PLAY))
@@ -551,7 +551,7 @@ func _build_ui() -> void:
 	var title_back := _btn("Back to Arcade", Vector2(36, 282), Vector2(160, 34))
 	title_back.pressed.connect(GameRegistry.return_to_arcade)
 	card.add_child(title_back)
-	card.add_child(_label("▮ ▮ ▮", 20, Color(GOLD, 0.7), Vector2(480, 288)))
+	card.add_child(_label("# # #", 20, Color(GOLD, 0.7), Vector2(480, 288)))
 
 
 func _panel(r: Rect2) -> Panel:

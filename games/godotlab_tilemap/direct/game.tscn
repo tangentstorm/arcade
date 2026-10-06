@@ -56,7 +56,7 @@ offset_top = 8.0
 offset_right = 1268.0
 offset_bottom = 34.0
 modulate = Color(1, 1, 1, 0.6)
-text = "GodotLab tilemap · ←/→ or A/D: walk · Space/↑/W: jump · Esc: pause"
+text = "GodotLab tilemap | <-/-> or A/D: walk | Space/^/W: jump | Esc: pause"
 
 [node name="Credit" type="Label" parent="Hud"]
 anchors_preset = 3
