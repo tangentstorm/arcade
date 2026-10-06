@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://games/fnarb_binary_adder/direct/truth_table.gd" id="1"]
+
+[node name="TruthTable" type="Control"]
+custom_minimum_size = Vector2(1024, 32)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1")
+bits = 1431655765
