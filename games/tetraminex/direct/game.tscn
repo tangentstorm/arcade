@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://games/tetraminex/direct/game.gd" id="1_game"]
+[ext_resource type="Texture2D" path="res://games/tetraminex/direct/assets/talkWindow.png" id="2_talk"]
 
 [node name="TetraminexDirect" type="Control"]
 layout_mode = 3
@@ -18,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.05, 0.08, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="Center" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -42,9 +43,15 @@ unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(480, 480)
 render_target_update_mode = 4
+transparent_bg = false
 
 [node name="World" type="Node2D" parent="Center/Row/PlayFrame/GameViewport"]
 unique_name_in_owner = true
+
+[node name="PlayBG" type="ColorRect" parent="Center/Row/PlayFrame/GameViewport/World"]
+offset_right = 480.0
+offset_bottom = 480.0
+color = Color(0, 0, 0, 1)
 
 [node name="FloorLayer" type="Node2D" parent="Center/Row/PlayFrame/GameViewport/World"]
 unique_name_in_owner = true
@@ -115,48 +122,89 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="TalkPanel" type="PanelContainer" parent="."]
+[node name="TalkOverlay" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -360.0
-offset_top = -200.0
-offset_right = 360.0
-offset_bottom = -24.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0, 0, 0, 0.8)
 
-[node name="TalkMargin" type="MarginContainer" parent="TalkPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 12
-
-[node name="TalkVBox" type="VBoxContainer" parent="TalkPanel/TalkMargin"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="TalkName" type="Label" parent="TalkPanel/TalkMargin/TalkVBox"]
+[node name="TalkPanel" type="Control" parent="TalkOverlay"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -150.0
+offset_right = 225.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WindowBg" type="TextureRect" parent="TalkOverlay/TalkPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_talk")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="TalkPortrait" type="TextureRect" parent="TalkOverlay/TalkPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 50.0
+offset_right = 100.0
+offset_bottom = 110.0
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="TalkName" type="Label" parent="TalkOverlay/TalkPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 25.0
+offset_top = 95.0
+offset_right = 85.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 14
 text = "Teddy"
+horizontal_alignment = 1
 
-[node name="TalkLabel" type="Label" parent="TalkPanel/TalkMargin/TalkVBox"]
+[node name="TalkLabel" type="Label" parent="TalkOverlay/TalkPanel"]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 0
+offset_left = 110.0
+offset_top = 45.0
+offset_right = 430.0
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(1, 0.4, 1, 1)
 theme_override_font_sizes/font_size = 16
 autowrap_mode = 3
 text = "Dialog"
 
-[node name="TalkHint" type="Label" parent="TalkPanel/TalkMargin/TalkVBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "[Space / Enter] continue"
+[node name="TalkHint" type="Label" parent="TalkOverlay/TalkPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 280.0
+offset_top = 195.0
+offset_right = 430.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 14
+text = "[press enter]"
 horizontal_alignment = 2

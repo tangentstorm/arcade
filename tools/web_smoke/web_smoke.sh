@@ -3,7 +3,8 @@
 # project with web_smoke.gd injected as an autoload, serve it gzipped like GitHub Pages,
 # open it in headless Chrome, visit every playable scene, and fail on any console error.
 #
-#   GODOT=/workspace/tools/godot4 ./tools/web_smoke/web_smoke.sh [boot|smoke]   (default: smoke)
+#   GODOT=/workspace/tools/godot4 ./tools/web_smoke/web_smoke.sh [boot|smoke|back]   (default: smoke)
+#   back: browser Back / Forward / deep-link history check (web_back.gd + back_button.mjs)
 #
 # Needs node + npm and Chrome (CHROME=/path/to/chrome, default /usr/bin/google-chrome).
 set -euo pipefail
@@ -24,8 +25,10 @@ echo "== copy project -> $TMP/proj"
 mkdir -p "$TMP/proj"
 tar -C "$ROOT" --exclude=./.git --exclude=./build --exclude=./.cache --exclude=./.godot -cf - . | tar -C "$TMP/proj" -xf -
 mkdir -p "$TMP/proj/websmoke"
-cp "$HERE/web_smoke.gd" "$TMP/proj/websmoke/web_smoke.gd"
-if [ "$MODE" = smoke ]; then
+cp "$HERE/web_smoke.gd" "$HERE/web_back.gd" "$TMP/proj/websmoke/"
+if [ "$MODE" = back ]; then
+  sed -i 's#^\[autoload\]$#[autoload]\nWebBack="*res://websmoke/web_back.gd"#' "$TMP/proj/project.godot"
+elif [ "$MODE" = smoke ]; then
   # Add the autoload as the first entry of [autoload].
   sed -i 's#^\[autoload\]$#[autoload]\nWebSmoke="*res://websmoke/web_smoke.gd"#' "$TMP/proj/project.godot"
 fi
@@ -38,5 +41,9 @@ mkdir -p "$TMP/web"
 ls -l "$TMP/web"
 
 echo "== headless Chrome ($MODE)"
-cp "$HERE/run.mjs" "$NODE_DIR/run.mjs"
+cp "$HERE/run.mjs" "$HERE/back_button.mjs" "$NODE_DIR/"
+if [ "$MODE" = back ]; then
+  if node "$NODE_DIR/back_button.mjs" "$TMP/web"; then echo "web_smoke: OK"; else echo "web_smoke: FAILED"; exit 1; fi
+  exit 0
+fi
 if node "$NODE_DIR/run.mjs" "$TMP/web" "$MODE" "${SHOT:-}"; then echo "web_smoke: OK"; else echo "web_smoke: FAILED"; exit 1; fi

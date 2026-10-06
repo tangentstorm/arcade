@@ -1,6 +1,7 @@
 extends Control
 ## Tetraminex Episode 0 — Direct edition (Godot 4).
 ## Grid move, grab/push-pull, cages, paint, exits. Esc → PauseOverlay.
+## Talk UI mirrors AS3 TalkWindow (talkWindow.png + portrait + Enter to advance).
 
 const LevelData := preload("res://games/tetraminex/direct/level_data.gd")
 const RoomLogic := preload("res://games/tetraminex/direct/room.gd")
@@ -14,9 +15,16 @@ const VIEW_H := 480
 
 const ASSETS := "res://games/tetraminex/direct/assets/"
 
+## Speaker text colors from AS3 TalkWindow.talk / teddy / ernie / ivan.
+const SPEAKER_COLOR := {
+	"Teddy": Color(1.0, 0.4, 1.0),
+	"Ernie": Color(1.0, 1.0, 0.4),
+	"Ivan": Color(0.4, 1.0, 1.0),
+}
+
 var room: TetraminexRoom
 var level_num: int = 0
-var unlocked: int = 4  ## rooms 0..3 open for the tutorial slice; more unlock on exit
+var unlocked: int = 1  ## AS3 starts with room 0 unlocked; exit unlocks the next
 
 var _tick_acc := 0.0
 var _grab_prev := [false, false, false, false]  # S E W N
@@ -46,9 +54,12 @@ var _tex_talk: Texture2D
 @onready var _hud_title: Label = %HudTitle
 @onready var _hud_help: Label = %HudHelp
 @onready var _level_box: VBoxContainer = %LevelButtons
+@onready var _talk_overlay: ColorRect = %TalkOverlay
 @onready var _talk_panel: Control = %TalkPanel
 @onready var _talk_label: Label = %TalkLabel
 @onready var _talk_name: Label = %TalkName
+@onready var _talk_portrait: TextureRect = %TalkPortrait
+@onready var _talk_hint: Label = %TalkHint
 @onready var _status: Label = %StatusLabel
 
 var _talk_queue: Array[Dictionary] = []
@@ -58,9 +69,11 @@ var _scripts_enabled := true
 func _ready() -> void:
 	_load_textures()
 	_build_level_buttons()
-	_talk_panel.visible = false
+	_hide_talk()
+	# Never let HUD buttons steal arrows / Space / Enter from gameplay or chat.
+	get_viewport().gui_release_focus()
 	load_level(0)
-	_hud_help.text = "Arrows move · WASD/,AOE grab · R restart · 0-9 jump"
+	_hud_help.text = "Arrows move · WASD/,AOE grab · R restart · 0-9 debug jump"
 
 
 func _load_textures() -> void:
@@ -80,11 +93,15 @@ func _load_textures() -> void:
 
 func load_level(num: int) -> void:
 	level_num = clampi(num, 0, LevelData.ROOMS.size() - 1)
+	# Visiting a room (exit or debug jump) unlocks it for the replay buttons.
+	unlocked = maxi(unlocked, level_num + 1)
 	_talk_queue.clear()
-	_talk_panel.visible = false
+	_hide_talk()
 	_tick_acc = 0.0
 	for i in 4:
 		_grab_prev[i] = false
+	for k in _move_held.keys():
+		_move_held[k] = false
 	room = RoomLogic.new()
 	room.cage_filled.connect(_on_cage_filled)
 	room.room_solved.connect(_on_room_solved)
@@ -95,6 +112,7 @@ func load_level(num: int) -> void:
 	_refresh_level_buttons()
 	_hud_title.text = "TETRAMINEX:\nEpisode 00\nRoom %d" % level_num
 	_status.text = _status_for_room()
+	get_viewport().gui_release_focus()
 	_run_room_intro()
 
 
@@ -121,6 +139,9 @@ func _build_level_buttons() -> void:
 		var b := Button.new()
 		b.custom_minimum_size = Vector2(28, 28)
 		b.name = "Lev%d" % i
+		# Mouse-only: Space/Enter must advance chat, arrows must move the hero.
+		# (Godot Buttons default to FOCUS_ALL and consume ui_accept / ui_* arrows.)
+		b.focus_mode = Control.FOCUS_NONE
 		b.pressed.connect(load_level.bind(i))
 		grid.add_child(b)
 	_refresh_level_buttons()
@@ -183,19 +204,13 @@ func _rebuild_world() -> void:
 
 
 func _atlas_tile(code: int) -> AtlasTexture:
+	## AS3 draws exit/paint/cage from tiles.png (8×3). cages.png has a blank
+	## leading frame so idx*30 shifted every cage color by +1 — that made paint
+	## look broken (block color no longer matched the cage graphic).
 	var at := AtlasTexture.new()
-	# Prefer cages.png / paints.png for those ranges; tiles.png otherwise
-	if code >= 16 and code < 32 and _tex_cages:
-		at.atlas = _tex_cages
-		var idx := code - 16
-		at.region = Rect2(idx * CELL, 0, CELL, CELL)
-	elif code >= 8 and code < 16 and _tex_paints:
-		at.atlas = _tex_paints
-		at.region = Rect2((code - 8) * CELL, 0, CELL, CELL)
-	else:
-		at.atlas = _tex_tiles
-		var cols := 8
-		at.region = Rect2((code % cols) * CELL, (code / cols) * CELL, CELL, CELL)
+	at.atlas = _tex_tiles
+	var cols := 8
+	at.region = Rect2((code % cols) * CELL, int(code / cols) * CELL, CELL, CELL)
 	return at
 
 
@@ -289,7 +304,7 @@ func _sync_sprites() -> void:
 
 
 func _process(delta: float) -> void:
-	if _talk_panel.visible:
+	if _talk_overlay.visible:
 		return
 	_tick_acc += delta
 	while _tick_acc >= TICK:
@@ -330,21 +345,31 @@ func _update_grabs() -> void:
 		_grab_prev[dir] = keys[dir]
 
 
-func _unhandled_input(event: InputEvent) -> void:
+## Modal talk: handle Space/Enter in _input (before GUI) so focused Controls
+## cannot steal them for ui_accept / button activation / level reload.
+func _input(event: InputEvent) -> void:
+	if not _talk_overlay.visible:
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		var k: InputEventKey = event
-		if _talk_panel.visible:
-			if k.keycode in [KEY_SPACE, KEY_ENTER, KEY_KP_ENTER, KEY_Z, KEY_X]:
-				_advance_talk()
-				get_viewport().set_input_as_handled()
-			return
+		if k.keycode in [KEY_SPACE, KEY_ENTER, KEY_KP_ENTER, KEY_Z, KEY_X]:
+			_advance_talk()
+			get_viewport().set_input_as_handled()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if _talk_overlay.visible:
+		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		var k: InputEventKey = event
 		match k.keycode:
 			KEY_R:
 				load_level(level_num)
 				get_viewport().set_input_as_handled()
 			KEY_0, KEY_1, KEY_2, KEY_3, KEY_4, KEY_5, KEY_6, KEY_7, KEY_8, KEY_9:
+				# Debug jump (AS3 CONFIG::debug): any room 0-9, does not gate on unlock.
 				var n := k.keycode - KEY_0
-				if n < unlocked or n == level_num:
+				if n < LevelData.ROOMS.size():
 					load_level(n)
 				get_viewport().set_input_as_handled()
 			KEY_LEFT:
@@ -396,6 +421,11 @@ func _on_room_solved() -> void:
 			_queue_talk("Teddy", "Ernie, you're a natural!\n\nRight this way for lesson three.")
 		3:
 			_queue_talk("Teddy", "Nice work! Onward.")
+		4:
+			_queue_talk("Teddy",
+				"Perfect!\n\nThat's pretty much all there is to it.\n\nLet's get the final exam out of the way so\nyou can start your new career!")
+		5:
+			_queue_talk("Teddy", "You passed! Onward.")
 
 
 func _on_hero_exited() -> void:
@@ -431,19 +461,53 @@ func _run_room_intro() -> void:
 		3:
 			_queue_talk("Teddy",
 				"Sometimes you need both hands.\nPush and pull the blocks into the cages.")
+		4:
+			_queue_talk("Teddy",
+				"Color plays a very important role in the\ntetramino industry.\n\nSometimes blocks are the wrong color, but it's\nnothing a little paint can't fix.\n\nDrag these blocks through the white-edged tiles\nto repaint them.")
+		5:
+			_queue_talk("Teddy",
+				"Final exam time! Use everything you've learned.")
+		6:
+			_queue_talk("Teddy",
+				"Careful — this room has gravity.")
 
 
 func _queue_talk(who: String, text: String) -> void:
 	_talk_queue.append({"who": who, "text": text})
-	if not _talk_panel.visible:
+	if not _talk_overlay.visible:
 		_advance_talk()
+
+
+func _hide_talk() -> void:
+	_talk_overlay.visible = false
+
+
+func _speaker_portrait(who: String) -> Texture2D:
+	match who:
+		"Teddy":
+			return _atlas_avatar(_tex_teddy, RoomLogic.S)
+		"Ivan":
+			return _atlas_avatar(_tex_ivan, RoomLogic.S)
+		"Ernie":
+			return _atlas_hero(RoomLogic.S)
+		_:
+			return _atlas_hero(RoomLogic.S)
 
 
 func _advance_talk() -> void:
 	if _talk_queue.is_empty():
-		_talk_panel.visible = false
+		_hide_talk()
+		# Clear any move holds so a held arrow during chat doesn't lurch on dismiss.
+		for k in _move_held.keys():
+			_move_held[k] = false
+		get_viewport().gui_release_focus()
 		return
 	var item: Dictionary = _talk_queue.pop_front()
-	_talk_name.text = str(item["who"])
+	var who := str(item["who"])
+	_talk_name.text = who
 	_talk_label.text = str(item["text"])
-	_talk_panel.visible = true
+	_talk_label.add_theme_color_override("font_color", SPEAKER_COLOR.get(who, Color(0.6, 0.6, 0.6)))
+	_talk_portrait.texture = _speaker_portrait(who)
+	_talk_hint.text = "[press enter]"
+	_talk_overlay.visible = true
+	get_viewport().gui_release_focus()

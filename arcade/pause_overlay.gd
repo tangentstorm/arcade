@@ -1,6 +1,7 @@
 extends CanvasLayer
 ## Autoload "PauseOverlay": Esc inside any game pauses and shows this overlay.
 ## Esc again (or "Back to Arcade") returns to the arcade hub.
+## Browser Back / Android Back skip the panel and return in one step (see ArcadeHistory).
 
 @onready var _panel: Control = $Panel
 
@@ -11,6 +12,9 @@ func _ready() -> void:
 	_panel.visible = false
 	%ResumeButton.pressed.connect(_resume)
 	%ArcadeButton.pressed.connect(_to_arcade)
+	# Browser Back / Android Back / in-game "Back" buttons return without going through us.
+	GameRegistry.returned_to_arcade.connect(_hide)
+	GameRegistry.launched.connect(_hide.unbind(1))
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -25,6 +29,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_panel.visible = true
 		get_tree().paused = true
 		%ResumeButton.grab_focus()
+
+
+func _hide() -> void:
+	_panel.visible = false
 
 
 func _resume() -> void:

@@ -171,6 +171,11 @@ func _warmup(id: String, inst: Node) -> void:
 			await _move_mouse(Vector2(900, 280))
 			await _frames(40)
 			await _click_at(Vector2(900, 280))
+		"gm_defense":
+			# speed=5 from Create carries the ship off-screen in ~2s; turn it around.
+			await _tap_key(KEY_LEFT)
+			await _frames(30)
+			await _tap_key(KEY_RIGHT)
 		"ok_defender":
 			await _tap_key(KEY_SPACE)
 			await _hold_key(KEY_RIGHT, 30)
@@ -204,6 +209,22 @@ func _warmup(id: String, inst: Node) -> void:
 				await _frames(10)
 			await _hold_key(KEY_LEFT, 40)
 			await _hold_key(KEY_UP, 25)
+		"killem_all":
+			# Thrust a little, aim up-right and spray bullets.
+			Input.warp_mouse(Vector2(1000, 150))  # the Xvfb pointer wins over synthetic motion
+			await _move_mouse(Vector2(1000, 150))
+			await _hold_key(KEY_D, 8)
+			var fire := InputEventMouseButton.new()
+			fire.button_index = MOUSE_BUTTON_LEFT
+			fire.position = Vector2(1000, 150)
+			fire.global_position = fire.position
+			fire.pressed = true
+			Input.parse_input_event(fire)
+			# Keep firing through the shot; release a few seconds later.
+			create_timer(3.0).timeout.connect(func() -> void:
+				var up := fire.duplicate() as InputEventMouseButton
+				up.pressed = false
+				Input.parse_input_event(up))
 		"tetraminex":
 			await _hold_key(KEY_RIGHT, 15)
 			await _hold_key(KEY_DOWN, 10)
