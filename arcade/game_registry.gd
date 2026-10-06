@@ -5,10 +5,42 @@ extends Node
 ##   "direct"   - a faithful port of the original game
 ##   "enhanced" - a modernized / reimagined version
 ## A GameEntry describes one (title, edition) pair.
+##
+## scale_mode (per title, both editions):
+##   "letterbox" — keep aspect, prefer integer scale, large centered stage
+##   "expand"    — fill the window (Control/UI roots that already reflow)
 
 const ARCADE_SCENE := "res://arcade/main.tscn"
 
 const EDITIONS := ["direct", "enhanced"]
+
+## Per-title presentation when launched from the gallery.
+## letterbox: fixed-res / pixel / designed aspect → KEEP + integer stretch.
+## expand: window-filling Control/UI → EXPAND + fractional stretch.
+const SCALE_MODE := {
+	"_template": "expand",
+	"tetraminex": "letterbox",       # 640×480-ish grid playfield
+	"spiders_v_aliens": "letterbox",
+	"tentraminos": "letterbox",      # 9×9 SVG board
+	"ld48": "expand",                # Godot scenes / rooms fill window
+	"ok_defender": "letterbox",      # 320×200 iKe stage
+	"shep": "letterbox",             # fixed 800×575 stage
+	"gm_defense": "letterbox",
+	"killem_all": "letterbox",
+	"toroidal_zombie_herder": "letterbox",  # room-sized GM view
+	"flappy_clone": "letterbox",     # orthographic pixel stage
+	"fnarbmlyx": "letterbox",
+	"sketchbots": "letterbox",       # 300×300 Processing sketch
+	"invader_sketch": "letterbox",   # fixed sketch stage
+	"godotlab_collatz": "expand",    # Control UI / bits layout
+	"godotlab_game00": "letterbox",  # small sprite stage
+	"godotlab_game01": "letterbox",
+	"godotlab_tilemap": "letterbox",
+	"cupid": "letterbox",            # 656×350 Flash stage
+	"mineswpr": "letterbox",         # 80×25 terminal grid
+	"brickslayer": "letterbox",      # 400×300 console @2x
+	"ofcp": "expand",                # live client UI reflows
+}
 
 
 class GameEntry:
@@ -18,15 +50,18 @@ class GameEntry:
 	var scene_path: String  ## res:// path to the edition's main scene
 	var status: String      ## "playable", "wip", or "planned"
 	var notes: String       ## short provenance / porting note
+	var scale_mode: String  ## "letterbox" or "expand"
 
 	func _init(p_id: String, p_title: String, p_edition: String,
-			p_scene_path: String, p_status: String, p_notes: String = "") -> void:
+			p_scene_path: String, p_status: String, p_notes: String = "",
+			p_scale_mode: String = "letterbox") -> void:
 		id = p_id
 		title = p_title
 		edition = p_edition
 		scene_path = p_scene_path
 		status = p_status
 		notes = p_notes
+		scale_mode = p_scale_mode
 
 	func is_playable() -> bool:
 		return status != "planned" and ResourceLoader.exists(scene_path)
@@ -81,15 +116,17 @@ var entries: Array[GameEntry] = []
 
 func _ready() -> void:
 	_register_all()
+	_apply_arcade_scale()
 
 
 func _register_all() -> void:
 	entries.clear()
 	for t in TITLES:
+		var scale_mode: String = SCALE_MODE.get(t[0], "letterbox")
 		for edition in EDITIONS:
 			var path := "res://games/%s/%s/game.tscn" % [t[0], edition]
 			var status: String = t[2] if t[2] is String else t[2].get(edition, "planned")
-			register(GameEntry.new(t[0], t[1], edition, path, status, t[3]))
+			register(GameEntry.new(t[0], t[1], edition, path, status, t[3], scale_mode))
 
 
 func register(entry: GameEntry) -> void:
@@ -116,14 +153,43 @@ func launch(entry: GameEntry) -> void:
 	if entry == null or not entry.is_playable():
 		push_warning("GameRegistry: cannot launch %s" % [entry.id if entry else "<null>"])
 		return
+	_apply_game_scale(entry)
 	get_tree().change_scene_to_file(entry.scene_path)
 
 
 func return_to_arcade() -> void:
 	get_tree().paused = false
+	_apply_arcade_scale()
 	get_tree().change_scene_to_file(ARCADE_SCENE)
 
 
 func in_arcade() -> bool:
 	var scene := get_tree().current_scene
 	return scene != null and scene.scene_file_path == ARCADE_SCENE
+
+
+## Gallery hub: fill the window; cards reflow themselves.
+func _apply_arcade_scale() -> void:
+	var win := get_window()
+	if win == null:
+		return
+	win.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
+	win.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL
+
+
+## In-game: letterbox → large centered stage, integer scale when crisp;
+## expand → UI roots that already fill / reflow with the window.
+func _apply_game_scale(entry: GameEntry) -> void:
+	var win := get_window()
+	if win == null:
+		return
+	win.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	if entry.scale_mode == "expand":
+		win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
+		win.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL
+	else:
+		# KEEP letterboxes; INTEGER prefers crisp pixels and still maximizes
+		# the largest integer fit (bars around a large centered stage).
+		win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
+		win.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_INTEGER
