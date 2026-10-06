@@ -11,7 +11,7 @@ blue both move. No goal or scoring.
 - **Esc:** pause / back to arcade
 
 - **Direct:** playable. See [PORT.md](PORT.md) for faithful quirks and the deliberate 2P change.
-- **Enhanced:** planned.
+- **Enhanced:** playable. Same Direct quirks with glow, walk juice, meet sparkles, off-canvas locators, and a side HUD. See [PORT.md](PORT.md).
 
 License: the course (including this demo and its sprites) is CC-BY 3.0 © Michal J. Wallace.
 See `source/LICENSE.txt`.
