@@ -37,7 +37,8 @@ class GameEntry:
 ## edition (missing editions default to "planned").
 const TITLES := [
 	["_template", "Template Demo", "playable", "Reference stub for new ports."],
-	["tetraminex", "Tetraminex", "planned", ""],
+	["tetraminex", "Tetraminex", {"direct": "playable", "enhanced": "planned"},
+		"Episode 0 Training Day (2011), AS3/Flixel → GDScript grid rewrite."],
 	["spiders_v_aliens", "Spiders vs Aliens", "planned", ""],
 	["tentraminos", "Tentraminos", {"direct": "playable", "enhanced": "planned"},
 		"Ludum Dare 27 (2013), TypeScript/d3 → GDScript."],
