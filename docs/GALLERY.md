@@ -38,6 +38,7 @@ Fixed-stage notes:
 | `killem_all` (Enhanced) | 1280×720 stage; 1024×768 room0 @0.8125 (832×624) + side HUD panels | `letterbox` | Presentation over Direct logic (preload `ka_world.gd`). Neon arena, tracers, thrust flame, radar. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `terratri` (Enhanced) | 1280×720 designed stage (560 px board + two 312 px player cards) self-fitted; backdrop fills the window | `expand` (title) | Presentation over Direct rules (preload). Tabletop board, hop/claim/fort juice, turn banners. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `canyon_run` (Enhanced) | 1280×720 stage; 240×320 Direct stage @2× (480×640) clipped field + side HUD | `letterbox` | Presentation over Direct logic (preload `canyon_logic.gd`). Layered canyon, craft/exhaust juice, clearer HUD. Design parity deferred. No `_enhanced` preview yet (gallery can use the Direct shot) |
+| `sketchbots` (Enhanced) | 1280×720 stage; 300×300 Direct sketch @2× (600×600) clipped field + side HUD | `letterbox` | Presentation over Direct logic (preload `sketchbots_logic.gd`). Bot glow/squash/dust, meet + off-canvas juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `doth` (Enhanced) | 1280×720 stage; 70×20 @16px (1120×320) + bottom HUD | `letterbox` | Presentation over Direct world + SvA-like tiles (preload). Torchlit chrome, pickup juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `chesscoach` (Enhanced) | 1280×720 stage; Direct ~400×400 board in SubViewport → 520×520 field + side HUD | `letterbox` | Presentation over Direct scene (instance). Walnut board, move-list HUD, replay juice. No `_enhanced` preview yet (gallery can use the Direct shot) |
 | `doth` | 1120×368 (70×20 @16px + HUD) | `letterbox` | Doth-A Direct MVP (#35); SvA-like procedural tiles |
@@ -87,6 +88,7 @@ Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-by
 |----|-------|--------|-------|-------|
 | `chesscoach` | Chess Coach | playable (Direct + Enhanced) | letterbox (Direct 400×400; Enhanced 1280×720) | gd-chesscoach FEN board + trays; Enhanced = walnut chrome over Direct scene; no Stockfish |
 | `canyon_run` | Canyon Run | playable (Direct + Enhanced) | letterbox (Direct 240×320 @2×; Enhanced 1280×720) | Original River Raid–style flyer; Enhanced = layered canyon chrome + HUD/juice over Direct logic; Design parity deferred |
+| `sketchbots` | SketchBots | playable (Direct + Enhanced) | letterbox (Direct 300×300; Enhanced 1280×720) | GameSketchLib w01 two-player movers; Enhanced = glow/juice + off-canvas locators over Direct logic |
 | `terratri` | Terratri | playable (+ Enhanced) | expand | hotseat 2P, pure GDScript rules (see below); Enhanced = tabletop makeover over the same rules |
 
 ## Local hotseat titles
