@@ -61,6 +61,7 @@ const SCALE_MODE := {
 	"ofcp": "expand",                # live client UI reflows
 	"chesscoach": "letterbox",       # 400×400 board
 	"canyon_run": "letterbox",       # 240×320 portrait stage @2× (480×640)
+	"terratri": "expand",            # Control UI; board picks an integer cell size
 }
 
 
@@ -166,6 +167,8 @@ const TITLES := [
 		"tangentstorm/gd-chesscoach (Godot 4.3): tiny FEN board + trays. No Stockfish."],
 	["canyon_run", "Canyon Run", {"direct": "playable", "enhanced": "planned"},
 		"Original River Raid-style canyon flyer (2026): procedural Godot 4 MVP; Claude Design mock pending for Enhanced."],
+	["terratri", "Terratri", {"direct": "playable", "enhanced": "planned"},
+		"Adam Atomic's 5×5 territory game (Terratri Online, 2011/2026 TS) → GDScript rules, hotseat 2P."],
 ]
 
 var entries: Array[GameEntry] = []

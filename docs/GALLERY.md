@@ -68,4 +68,13 @@ Download cost: `index.png` goes from the 21,443-byte Godot logo to the 49,398-by
 | id | title | Direct | scale | notes |
 |----|-------|--------|-------|-------|
 | `chesscoach` | Chess Coach | playable | letterbox (400×400) | gd-chesscoach FEN board + trays; no Stockfish |
+| `terratri` | Terratri | playable | expand | hotseat 2P, pure GDScript rules (see below) |
 
+## Local hotseat titles
+Some board games ship as **hotseat 2P** Direct editions: both players share one
+window and take turns, with no network. The first is `terratri`, which was a
+two-browser WebSocket game in the original. Its card launches straight into a
+game with Red to move. It uses the `expand` scale mode, and the board picks a
+whole-number cell size so it stays crisp at any window size. Rules are pure
+GDScript, checked against golden playouts recorded from the original TS
+(`tools/test_terratri.gd`).

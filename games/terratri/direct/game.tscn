@@ -1,0 +1,230 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://games/terratri/direct/game.gd" id="1_game"]
+[ext_resource type="Script" path="res://games/terratri/direct/board.gd" id="2_board"]
+[ext_resource type="Script" path="res://games/terratri/direct/fort_tray.gd" id="3_tray"]
+
+[sub_resource type="StyleBoxFlat" id="Banner_box"]
+content_margin_left = 32.0
+content_margin_top = 24.0
+content_margin_right = 32.0
+content_margin_bottom = 24.0
+bg_color = Color(0.078, 0.078, 0.11, 0.96)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.91, 0.894, 0.863, 1)
+
+[node name="Terratri" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_game")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.078, 0.078, 0.11, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="Layout" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RedPanel" type="VBoxContainer" parent="Margin/Layout"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RedName" type="Label" parent="Margin/Layout/RedPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878, 0.502, 0.251, 1)
+theme_override_font_sizes/font_size = 28
+text = "  RED"
+
+[node name="RedTray" type="Control" parent="Margin/Layout/RedPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(212, 36)
+layout_mode = 2
+script = ExtResource("3_tray")
+
+[node name="RedStats" type="Label" parent="Margin/Layout/RedPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91, 0.894, 0.863, 1)
+theme_override_font_sizes/font_size = 18
+
+[node name="HistoryTitle" type="Label" parent="Margin/Layout/RedPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.541, 0.525, 0.596, 1)
+theme_override_font_sizes/font_size = 16
+text = "
+HISTORY"
+
+[node name="History" type="Label" parent="Margin/Layout/RedPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.91, 0.894, 0.863, 1)
+theme_override_font_sizes/font_size = 16
+clip_text = true
+
+[node name="Center" type="VBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Status" type="Label" parent="Margin/Layout/Center"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Red to move"
+horizontal_alignment = 1
+
+[node name="Board" type="Control" parent="Margin/Layout/Center"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_board")
+
+[node name="Actions" type="HBoxContainer" parent="Margin/Layout/Center"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="EndButton" type="Button" parent="Margin/Layout/Center/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "End turn [Space]"
+
+[node name="BankButton" type="Button" parent="Margin/Layout/Center/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Bank [K]"
+
+[node name="FortButton" type="Button" parent="Margin/Layout/Center/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Fortify [F]"
+
+[node name="UndoButton" type="Button" parent="Margin/Layout/Center/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Undo [Bksp]"
+
+[node name="RestartButton" type="Button" parent="Margin/Layout/Center/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Restart [R]"
+
+[node name="Hint" type="Label" parent="Margin/Layout/Center"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.541, 0.525, 0.596, 1)
+theme_override_font_sizes/font_size = 14
+text = "Click a highlighted square or use arrows / WASD. 2 actions a turn; bank your 2nd for a later bonus. First to 5 forts wins. Esc: pause"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BluePanel" type="VBoxContainer" parent="Margin/Layout"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BlueName" type="Label" parent="Margin/Layout/BluePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.251, 0.439, 0.753, 1)
+theme_override_font_sizes/font_size = 28
+text = "  BLUE"
+
+[node name="BlueTray" type="Control" parent="Margin/Layout/BluePanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(212, 36)
+layout_mode = 2
+script = ExtResource("3_tray")
+
+[node name="BlueStats" type="Label" parent="Margin/Layout/BluePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91, 0.894, 0.863, 1)
+theme_override_font_sizes/font_size = 18
+
+[node name="Legend" type="Label" parent="Margin/Layout/BluePanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.541, 0.525, 0.596, 1)
+theme_override_font_sizes/font_size = 14
+text = "
+Tray: solid = fort on board,
+inset = banked move,
+outline = in supply.
+
+Fortify needs 5 empty
+claimed squares."
+
+[node name="BackButton" type="Button" parent="Margin/Layout/BluePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Back to Arcade"
+
+[node name="Banner" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -80.0
+offset_right = 200.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("Banner_box")
+
+[node name="VBox" type="VBoxContainer" parent="Banner"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="BannerLabel" type="Label" parent="Banner/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "RED WINS"
+horizontal_alignment = 1
+
+[node name="BannerRestart" type="Button" parent="Banner/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "Play again [R]"

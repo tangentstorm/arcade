@@ -285,6 +285,11 @@ func _warmup(id: String, inst: Node) -> void:
 			await _hold_key(KEY_UP, 10)
 		"ofcp":
 			await _frames(60)
+		"terratri":
+			# Golden seed 2 one step before Red's winning fort (4 forts each side of the race).
+			for ch in "wk|EES|ex|WK|enx|ESF|wk|NK|nenf|NK|ef|WWX|wk|WX|ek|WESX|wwfs|FWF|fw|SF|".replace("|", ""):
+				inst.play_step(ch)
+			await _move_mouse(Vector2(640, 330))
 		"_template":
 			pass
 		_:
