@@ -57,7 +57,9 @@ const SCALE_MODE := {
 	"cupid": "letterbox",            # 656×350 Flash stage
 	"mineswpr": "letterbox",         # 80×25 terminal grid
 	"brickslayer": "letterbox",      # 400×300 console @2x
+	"giraffe": "letterbox",          # 128×128 Pico-8 stage
 	"ofcp": "expand",                # live client UI reflows
+	"canyon_run": "letterbox",       # 240×320 portrait stage @2× (480×640)
 	"terratri": "expand",            # Control UI; board picks an integer cell size
 }
 
@@ -156,8 +158,12 @@ const TITLES := [
 		"Retro Forth 11 terminal Minesweeper (2013) → GDScript."],
 	["brickslayer", "Brickslayer", {"direct": "playable", "enhanced": "planned"},
 		"javascriptgamer.com Breakout + lesson trail (2007), JS → GDScript."],
+	["giraffe", "Giraffe", {"direct": "playable", "enhanced": "planned"},
+		"pico-games/giraffe.p8 (Pico-8) tiny platformer → GDScript."],
 	["ofcp", "OFCP", {"direct": "playable", "enhanced": "planned"},
 		"Pineapple OFC vs AI; thin client over wss://ofcp.tangentcode.com/ws."],
+	["canyon_run", "Canyon Run", {"direct": "playable", "enhanced": "planned"},
+		"Original River Raid-style canyon flyer (2026): procedural Godot 4 MVP; Claude Design mock pending for Enhanced."],
 	["terratri", "Terratri", {"direct": "playable", "enhanced": "planned"},
 		"Adam Atomic's 5×5 territory game (Terratri Online, 2011/2026 TS) → GDScript rules, hotseat 2P."],
 ]
