@@ -10,6 +10,11 @@ extends Node
 ##   "letterbox" — keep aspect, prefer integer scale, large centered stage
 ##   "expand"    — fill the window (Control/UI roots that already reflow)
 
+## Emitted after a game scene change is requested (ArcadeHistory pushes browser history).
+signal launched(entry)
+## Emitted when control returns to the gallery (PauseOverlay hides, ArcadeHistory rewinds URL).
+signal returned_to_arcade
+
 const ARCADE_SCENE := "res://arcade/main.tscn"
 
 const EDITIONS := ["direct", "enhanced"]
@@ -86,7 +91,8 @@ const TITLES := [
 	["_template", "Template Demo", "playable", "Reference stub for new ports."],
 	["tetraminex", "Tetraminex", {"direct": "playable", "enhanced": "planned"},
 		"Episode 0 Training Day (2011), AS3/Flixel → GDScript grid rewrite."],
-	["spiders_v_aliens", "Spiders vs Aliens", "planned", ""],
+	["spiders_v_aliens", "Spiders vs Aliens", {"direct": "playable", "enhanced": "planned"},
+		"Ludum Dare 21 \"Escape\" (2011), tangentstorm/spiders-v-aliens AS3/Flixel 2.55 → GDScript."],
 	["tentraminos", "Tentraminos", {"direct": "playable", "enhanced": "planned"},
 		"Ludum Dare 27 (2013), TypeScript/d3 → GDScript."],
 	["ld48", "LD48: Deeper and Deeper", {"direct": "playable", "enhanced": "planned"},
@@ -95,8 +101,10 @@ const TITLES := [
 		"Ludum Dare 49 (2021) Defender clone, oK/iKe (K) → GDScript."],
 	["shep", "Shep", {"direct": "playable", "enhanced": "planned"},
 		"robocognito zero-g fuse puzzler (2010), Haxe/Flash 9 + physaxe → GDScript."],
-	["gm_defense", "GM Defense", "planned", "From gamemaker-stuff/gm2-defense."],
-	["killem_all", "Kill 'Em All", "planned", "From gamemaker-stuff/killem-all."],
+	["gm_defense", "GM Defense", {"direct": "playable", "enhanced": "planned"},
+		"gamemaker-stuff/gm2-defense (GameMaker Studio 2, 2017) Defender-clone toy: fly left/right past a squid. Not a full game."],
+	["killem_all", "Kill 'Em All", {"direct": "playable", "enhanced": "planned"},
+		"gamemaker-stuff/killem-all.gmx (GameMaker: Studio 1.x) twin-stick prototype: thrust, aim, spray bullets. No enemies yet."],
 	["toroidal_zombie_herder", "Toroidal Zombie Herder", {"direct": "playable", "enhanced": "planned"},
 		"From gamemaker-stuff (GameMaker: Studio 1.x)."],
 	["flappy_clone", "Flappy Clone", {"direct": "playable", "enhanced": "planned"}, "Unity 5 (2015) unitylabs/flappyclone → GDScript."],
@@ -190,14 +198,17 @@ func launch(entry: GameEntry) -> void:
 	if entry == null or not entry.is_playable():
 		push_warning("GameRegistry: cannot launch %s" % [entry.id if entry else "<null>"])
 		return
+	get_tree().paused = false
 	_apply_game_scale(entry)
 	get_tree().change_scene_to_file(entry.scene_path)
+	launched.emit(entry)
 
 
 func return_to_arcade() -> void:
 	get_tree().paused = false
 	_apply_arcade_scale()
 	get_tree().change_scene_to_file(ARCADE_SCENE)
+	returned_to_arcade.emit()
 
 
 func in_arcade() -> bool:

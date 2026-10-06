@@ -352,18 +352,6 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(32, 72)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("carriage:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(768, 280)]
-}
 
 [sub_resource type="Animation" id="34"]
 resource_name = "stop"
@@ -533,6 +521,7 @@ color = Color(1, 1, 1, 0)
 script = ExtResource("4_1oi68")
 
 [node name="carriage" type="Node2D" parent="Adder"]
+position = Vector2(768, 280)
 
 [node name="cursor" type="ReferenceRect" parent="Adder/carriage"]
 custom_minimum_size = Vector2(32, 32)
@@ -540,7 +529,7 @@ offset_left = 32.0
 offset_top = 40.0
 offset_right = 64.0
 offset_bottom = 112.0
-border_color = Color(1, 0.631373, 0, 1)
+border_color = Color(1, 0.85, 0, 1)
 border_width = 4.0
 editor_only = false
 
@@ -551,6 +540,7 @@ autostart = true
 tree_root = SubResource("14")
 anim_player = NodePath("../AnimationPlayer")
 active = true
+deterministic = false
 root_motion_track = NodePath(".")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Adder"]

@@ -15,6 +15,7 @@ config/description="A collection of tangentstorm's games, ported to Godot 4."
 run/main_scene="res://arcade/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://arcade/branding/avatar.png"
+config/quit_on_go_back=false
 boot_splash/bg_color=Color(0.06, 0.06, 0.1, 1)
 boot_splash/image="res://arcade/branding/avatar.png"
 boot_splash/stretch_mode=0
@@ -23,6 +24,7 @@ boot_splash/stretch_mode=0
 
 GameRegistry="*res://arcade/game_registry.gd"
 PauseOverlay="*res://arcade/pause_overlay.tscn"
+ArcadeHistory="*res://arcade/arcade_history.gd"
 
 [display]
 

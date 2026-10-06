@@ -110,7 +110,42 @@ func _initialize() -> void:
 		r._on_put(paint_pos.x, paint_pos.y)
 		_check(pc.color == r.floors[paint_pos.y][paint_pos.x].color, "paint recolors block")
 
-	# Scene instantiates
+	# Full Episode 00 room list (0-9) must load
+	for i in 10:
+		var rr: TetraminexRoom = RoomLogic.new()
+		rr.load_level(i)
+		_check(rr.hero_pos.x >= 0 or i in [7, 8], "room %d loads" % i)
+		# Every paint floor recolors a gray block
+		for y in rr.room_h:
+			for x in rr.room_w:
+				if rr.floors[y][x].kind != RoomLogic.TILE_PAINT:
+					continue
+				var want: int = rr.floors[y][x].color
+				var pc2 := RoomLogic.Cell.new()
+				pc2.kind = RoomLogic.KIND_BLOCK
+				pc2.solid = true
+				pc2.color = 7
+				rr._clear(x, y)
+				rr._put_cell(pc2, x, y)
+				rr._on_put(x, y)
+				_check(pc2.color == want, "room %d paint at (%d,%d) -> color %d" % [i, x, y, want])
+
+	# Room 4: paint color matches cage color indices used by matching cages
+	var r4: TetraminexRoom = RoomLogic.new()
+	r4.load_level(4)
+	var paint_colors: Array = []
+	var cage_colors: Array = []
+	for y in r4.room_h:
+		for x in r4.room_w:
+			if r4.floors[y][x].kind == RoomLogic.TILE_PAINT:
+				paint_colors.append(r4.floors[y][x].color)
+			if r4.floors[y][x].kind == RoomLogic.TILE_CAGE:
+				cage_colors.append(r4.floors[y][x].color)
+	_check(paint_colors.size() == 2, "room 4 has 2 paints")
+	for pc in paint_colors:
+		_check(pc in cage_colors, "room 4 paint color %d has a matching cage" % pc)
+
+	# Scene instantiates + input/UI invariants for playability
 	var packed := load("res://games/tetraminex/direct/game.tscn") as PackedScene
 	_check(packed != null, "game.tscn loads")
 	if packed:
@@ -119,6 +154,33 @@ func _initialize() -> void:
 		await process_frame
 		await process_frame
 		_check(inst.room != null, "game ready with room")
+		_check(inst.get_node("%TalkOverlay") != null, "TalkOverlay present")
+		_check(inst.get_node("%TalkPortrait") != null, "TalkPortrait present")
+		_check(inst.get_node("%TalkOverlay").visible, "intro talk visible on room 0")
+		# Level buttons must not steal Space/Enter/arrows (FOCUS_NONE)
+		var focus_ok := true
+		var lb: VBoxContainer = inst.get_node("%LevelButtons")
+		for c in lb.get_children():
+			if c is GridContainer:
+				for b in c.get_children():
+					if b is BaseButton and b.focus_mode != Control.FOCUS_NONE:
+						focus_ok = false
+		_check(focus_ok, "level buttons FOCUS_NONE (no Space/Enter steal)")
+		# Advance talk via Space should dismiss without changing level
+		var before_level: int = inst.level_num
+		var ev := InputEventKey.new()
+		ev.keycode = KEY_SPACE
+		ev.pressed = true
+		inst._input(ev)
+		await process_frame
+		_check(inst.level_num == before_level, "Space advances talk, does not reload level")
+		_check(not inst.get_node("%TalkOverlay").visible, "talk dismissed after Space")
+		# Movement hold path still works when not modal
+		var start_pos: Vector2i = inst.room.hero_pos
+		inst._move_held[RoomLogic.E] = true
+		inst._on_tick()
+		_check(inst.room.hero_pos != start_pos or inst.room.hero_can_move(RoomLogic.E) == false,
+			"tick applies held move when chat closed")
 		inst.queue_free()
 		await process_frame
 

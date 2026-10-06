@@ -22,13 +22,13 @@
 | `Level_RoomN.as` + `mapCSV_RoomN_{Tiles,Walls}.csv` | `level_data.gd` (generated) |
 | Hero / Block / Grabber / Door / CageTile / PaintTile / ExitTile | `room.gd` cell + floor tile model |
 | `PlayState` HUD + level buttons | `game.gd` + `game.tscn` (640×480 play SubViewport scaled in a 720² frame + side HUD) |
-| Room scripts (talk) | Simplified talk queue for rooms 0–3 intros / solve lines |
+| Room scripts (talk) | NES-style `TalkWindow` (talkWindow.png + portrait + Enter/Space); rooms 0–6 intros / solve lines |
 | Esc | Arcade `PauseOverlay` autoload |
 
 ### How to play
 - **Arrows** — move on the 10 Hz tick (same as Flixel `ScriptManager.tickInterval = 0.10`).
 - **WASD** or **Dvorak ,AOE** — grab adjacent cells (two hands). Hold and move to push/pull.
-- **R** — restart room. **0–9** — jump to an unlocked room.
+- **R** — restart room. **0–9** — debug jump to any Episode 00 room (0–9). Replay buttons follow unlock progression (start at room 0; exiting unlocks the next).
 - Fill matching **cages** with colored blocks (paint tiles recolor). When all cages are filled the exit door opens; walk onto the exit to advance.
 
 ### Kept rules
@@ -36,15 +36,15 @@
 - Walls from Walls CSV with `collideIndex >= 4`.
 - Floor codes: exit `1–4`, paint `8–15`, cage `16–31` (same as `GridTile.fromMap`).
 - Grab hand limit 2; grabbers reposition before the hero occupies the entered cell (pull).
-- Cage lock on matching color; paint recolors unlocked blocks.
+- Cage lock on matching color; paint floor codes 8–15 recolor blocks (AS3 `PaintTile`). Floor art uses `tiles.png` like the SWF (not the mis-framed `cages.png`).
 - Gravity rooms (6, 8) run the south-nudge tick; hold-floor blocks movement.
 
 ### Gaps / deferred
-- Full `Script` / `TalkWindow` teletype, fade curtain, Teddy walk-in on room 0 step 3.
+- Full `Script` teletype (chars drip), fade curtain, Teddy walk-in on room 0 step 3. Talk chrome (border + portrait + colors) matches AS3 `TalkWindow`.
 - Teleporter end scene (room 8), machines/keys, billboard interaction beyond decor.
 - Gravity jump (`dgy`) polish; room 6+ not tuned as a surge focus.
 - Commercial Franklin Gothic font omitted (UI uses the default theme font).
 - No sounds (source had none).
 
 ### MVP claim for this PR
-Rooms **0–3** are the intended tutorial slice (walk → push into cages → grab/pull). All 10 rooms load from salvaged data; later rooms are reachable via unlock/debug keys but may need script polish.
+Full Episode 00 set: rooms **0–9** from salvaged `Level_RoomN` + CSVs. Tutorial flow is 0→3; paint is room 4; later rooms via unlock or **0–9** debug jump. Gravity rooms (6, 8) and end rooms may still need script polish.
