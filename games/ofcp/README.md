@@ -1,6 +1,6 @@
 # ofcp
 
-Status: **Direct = playable** thin WebSocket client (`direct/`) · Enhanced planned · offline rules engine in `shared/`.
+Status: **Direct = playable** thin WebSocket client (`direct/`) · **Enhanced = playable** presentation shell (`enhanced/`) · offline rules engine in `shared/`.
 
 Pineapple Open Face Chinese Poker rules engine under `shared/`, verified against
 golden vectors in `tests/golden/`.
@@ -88,6 +88,18 @@ The server only accepts WebSocket upgrades whose `Origin` is
 /workspace/tools/godot4 --headless --path . --script res://tools/test_ofcp_direct.gd
 # MANUAL: play one full hand vs the live server (not in CI — hits production)
 /workspace/tools/godot4 --headless --path . --script res://tools/ofcp_live_probe.gd
+```
+
+## Enhanced edition — presentation over Direct
+
+`enhanced/` instances Direct `game.tscn` in a 1280×720 SubViewport (`stretch=false` +
+scale to a 1024×576 field). Same live client / server — visual juice only (felt chrome,
+side HUD, place/score/Fantasyland bursts). Mode labels: cash/normal, windfall, progressive.
+Title card + Start + Back to Arcade (`FOCUS_NONE`); Esc → PauseOverlay.
+See `PORT.md`. Offline tests use `apply_mock` (no live socket).
+
+```bash
+/workspace/tools/godot4 --headless --path . --script res://tools/test_ofcp_enhanced.gd
 ```
 
 ### Public export
