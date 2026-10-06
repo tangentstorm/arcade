@@ -19,6 +19,8 @@ Returning to the arcade resets to EXPAND + FRACTIONAL so the gallery reflows.
 
 Picks (Direct/Enhanced share the title policy): see `SCALE_MODE` in `arcade/game_registry.gd`.
 
+Recent Direct ports: **Giraffe** (`giraffe`) is a 128×128 Pico-8 stage (`letterbox`).
+
 Fixed-stage notes:
 
 | id | stage | mode | notes |
