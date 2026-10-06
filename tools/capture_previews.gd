@@ -1,7 +1,11 @@
 extends SceneTree
-## Capture in-game preview PNGs for every playable Direct edition.
+## Capture in-game preview PNGs for playable editions.
 ## Run via tools/capture_previews.sh (Xvfb + non-headless so GL renders).
-## Output: res://arcade/previews/<id>_direct.png
+## Output: res://arcade/previews/<id>_<edition>.png (640x360)
+## Env:
+##   CAPTURE_EDITION=direct (default) | enhanced | both
+##   CAPTURE_ONLY=<id>   limit to one title
+##   CAPTURE_FORCE=1     re-shoot existing PNGs
 
 const OUT_DIR := "res://arcade/previews"
 const PREVIEW_W := 640
@@ -29,18 +33,26 @@ func _run() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT_DIR))
 
 	var only := OS.get_environment("CAPTURE_ONLY").strip_edges()
+	var want := OS.get_environment("CAPTURE_EDITION").strip_edges().to_lower()
+	if want == "":
+		want = "direct"
+	if not want in ["direct", "enhanced", "both"]:
+		print("CAPTURE FAIL: CAPTURE_EDITION must be direct, enhanced or both (got '%s')" % want)
+		quit(2)
+		return
+	print("capture edition: ", want)
 	for e in registry.entries:
-		if e.edition != "direct":
+		if want != "both" and e.edition != want:
 			continue
 		if only != "" and e.id != only:
 			continue
 		if not e.is_playable():
-			print("skip planned: ", e.id)
+			print("skip not playable: ", e.id, " (", e.edition, ")")
 			_skip += 1
 			continue
-		var existing := "%s/%s_direct.png" % [OUT_DIR, e.id]
+		var existing := "%s/%s_%s.png" % [OUT_DIR, e.id, e.edition]
 		if FileAccess.file_exists(existing) and not OS.get_environment("CAPTURE_FORCE") == "1":
-			print("skip existing: ", e.id)
+			print("skip existing: ", e.id, " (", e.edition, ")")
 			_skip += 1
 			_ok += 1
 			continue
@@ -55,7 +67,7 @@ func _run() -> void:
 
 
 func _capture_one(entry) -> bool:
-	print("capturing: ", entry.id, " <- ", entry.scene_path)
+	print("capturing: ", entry.id, " (", entry.edition, ") <- ", entry.scene_path)
 	var packed := load(entry.scene_path) as PackedScene
 	if packed == null:
 		print("CAPTURE FAIL: cannot load ", entry.scene_path)
@@ -67,7 +79,10 @@ func _capture_one(entry) -> bool:
 		c.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		c.set_deferred("size", Vector2(1280, 720))
 	await _frames(WARM_FRAMES)
-	await _warmup(entry.id, inst)
+	if entry.edition == "enhanced" and _has_enhanced_warmup(entry.id):
+		await _warmup_enhanced(entry.id, inst)
+	else:
+		await _warmup(entry.id, inst)
 	await _frames(AFTER_INPUT_FRAMES)
 	for i in SETTLE_FRAMES:
 		await process_frame
@@ -83,7 +98,7 @@ func _capture_one(entry) -> bool:
 		print("CAPTURE WARN: mostly black for ", entry.id, " (saving anyway)")
 	## Cards are ~260-400 px wide; 640x360 keeps index.pck small (see docs/SLIM_WEB_ENGINE.md).
 	img.resize(PREVIEW_W, PREVIEW_H, Image.INTERPOLATE_LANCZOS)
-	var path := "%s/%s_direct.png" % [OUT_DIR, entry.id]
+	var path := "%s/%s_%s.png" % [OUT_DIR, entry.id, entry.edition]
 	var err := img.save_png(path)
 	if err != OK:
 		print("CAPTURE FAIL: save ", path, " err=", err)
@@ -302,6 +317,66 @@ func _warmup(id: String, inst: Node) -> void:
 		_:
 			await _tap_key(KEY_SPACE)
 			await _hold_key(KEY_RIGHT, 15)
+
+
+## Enhanced scenes whose controls/flow differ from Direct. Anything not listed
+## here reuses the Direct warmup in _warmup().
+const ENHANCED_WARMUPS: Array[String] = ["mineswpr", "tetraminex"]
+
+
+func _has_enhanced_warmup(id: String) -> bool:
+	return id in ENHANCED_WARMUPS
+
+
+func _warmup_enhanced(id: String, inst: Node) -> void:
+	match id:
+		"tetraminex":
+			# Room 0 opens on a talk card: dismiss it, jump to room 1 (blocks + cages),
+			# dismiss Teddy's card, then take a couple of steps.
+			await _tap_key(KEY_SPACE)
+			await _frames(15)
+			await _tap_key(KEY_1)
+			await _frames(20)
+			for i in 3:
+				await _tap_key(KEY_SPACE)
+				await _frames(10)
+			await _hold_key(KEY_RIGHT, 15)
+		"mineswpr":
+			# No first-click safety and a random board: open a few zero cells (floods)
+			# nearest the centre via click_cell, then flag mines bordering the opening.
+			var g = inst.game
+			var zeros: Array = []
+			for c in g.grid.size():
+				if not g.has(c, 0) and g.has(c, 1) and (g.grid[c] >> 8) == 0:
+					zeros.append(c)
+			var centre := Vector2(7.5, 7.5)
+			zeros.sort_custom(func(a, b): return Vector2(a % 16, a / 16).distance_to(centre) < Vector2(b % 16, b / 16).distance_to(centre))
+			var opened := 0
+			for c in zeros:
+				if opened >= 3:
+					break
+				if g.has(c, 1):
+					inst.click_cell(c % 16, c / 16, MOUSE_BUTTON_LEFT)
+					opened += 1
+					await _frames(10)
+			var flagged := 0
+			for c in g.grid.size():
+				if flagged >= 3:
+					break
+				if not g.has(c, 0) or g.has(c, 2):
+					continue
+				var x: int = c % 16
+				var y: int = c / 16
+				for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+					var nx: int = x + d.x
+					var ny: int = y + d.y
+					if nx >= 0 and nx < 16 and ny >= 0 and ny < 16 and not g.has(ny * 16 + nx, 1):
+						inst.click_cell(x, y, MOUSE_BUTTON_RIGHT)
+						flagged += 1
+						await _frames(5)
+						break
+		_:
+			await _warmup(id, inst)
 
 
 func _try_click_button(root_node: Node, labels: Array) -> void:
