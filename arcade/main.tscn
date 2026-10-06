@@ -100,11 +100,14 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+clip_contents = true
 
 [node name="GameList" type="GridContainer" parent="Margin/VBox/Scroll"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 4
