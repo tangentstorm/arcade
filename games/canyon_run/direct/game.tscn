@@ -35,7 +35,7 @@ Esc         pause
 
 Fly up the canyon.
 Don't touch the walls
-or the red drifters."
+or the gunboats."
 autowrap_mode = 2
 
 [node name="Message" type="Label" parent="."]
