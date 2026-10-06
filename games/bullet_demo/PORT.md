@@ -33,4 +33,34 @@ Click to fire one of three yellow bullets straight up from the mouse x. A bullet
 
 Tests: `tools/test_gsl_demos.gd` (run by `tools/smoke_headless.sh`).
 
-## Enhanced edition: planned (not started)
+## Enhanced edition (`enhanced/`): playable
+
+A visual/UI makeover of the same BulletDemo tech demo. **Nothing is re-implemented:**
+`enhanced/game.gd` preloads Direct `game.tscn` and instances it (shared `bullet_logic.gd`)
+in a native 300×300 `SubViewport`, so fire / kill / ammo-rack are all Direct. Enhanced only
+frames that viewport and draws overlays on top of it.
+
+### Visuals / UI
+- 1280×720 letterbox stage; the Direct 300×300 viewport is framed @2× (`stretch=false` + `scale`,
+  not `stretch=true`) inside a 600×600 field, between side HUD panels
+- Deep-blue gradient + drifting motes. The SubViewport is transparent, so this chrome shows
+  behind the Direct sketch; a gold-corner frame sits around the field
+- **Bullet glow + trails** sampled from Direct bullet positions; **muzzle flash** on fire;
+  **hit bursts** when a live square dies; **top-edge fizzle** rings when a bullet leaves the top
+- View-only **aim guide** (vertical line at mouse x — does not affect Direct)
+- Side HUD: shots / hits / misses / live squares / ammo rack. Title card (Start / Enter / Space,
+  Back to Arcade) and HUD Back to Arcade. All buttons `FOCUS_NONE`. **Esc** → PauseOverlay
+
+### Behaviour notes
+- Direct `bullet_logic.gd` still owns the sim; Enhanced does not copy Box / step / overlaps.
+- Juice only observes Direct: `world.squares`, `world.bullets`, `world.bullets_left`.
+- Title `scale_mode` stays `letterbox`. No Alchementrix IP. No `_enhanced` preview yet
+  (gallery can use the Direct shot).
+
+Tests: `tools/test_bullet_demo_enhanced.gd` (run by `tools/smoke_headless.sh`): parity vs a
+bare Direct twin under a scripted click session, trail / hit / fizzle juice, launch / title /
+FOCUS_NONE and Esc.
+
+### Todos
+- None for Enhanced; `bullet_demo_live` Enhanced still planned.
+
