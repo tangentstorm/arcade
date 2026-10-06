@@ -203,6 +203,12 @@ func _warmup(id: String, inst: Node) -> void:
 			await _tap_key(KEY_ENTER)
 			await _hold_key(KEY_RIGHT, 25)
 			await _tap_key(KEY_SPACE)
+		"spiders_v_aliens":
+			for i in 3:
+				await _tap_key(KEY_SPACE)
+				await _frames(10)
+			await _hold_key(KEY_LEFT, 40)
+			await _hold_key(KEY_UP, 25)
 		"killem_all":
 			# Thrust a little, aim up-right and spray bullets.
 			Input.warp_mouse(Vector2(1000, 150))  # the Xvfb pointer wins over synthetic motion

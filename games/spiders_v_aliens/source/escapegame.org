@@ -1,0 +1,146 @@
+#+TITLE: Escape Game : Spiders v. Aliens
+
+* DONE iteration 1 : basic gameplay
+** goals
+*** top down view
+*** font-based graphics
+*** goal is to reach the escape hatch in last room
+*** aliens kill you
+*** spiders kill aliens
+** plan
+*** DONE project skeleton
+**** DONE set up flixel project
+**** DONE set up git repository
+
+**** DONE create DAME  project
+*** DONE draw tile and sprite maps
+**** DONE configure guides
+**** DONE walls with shadows
+**** DONE set up slices so I only need one source image
+**** DONE Sprites for hero, enemies, boxes, and exit
+*** DONE basic gameplay
+**** DONE load the sprites and level
+**** DONE move player
+**** DONE follow player with camera
+
+
+
+* DONE iteration 2 : sprite interactions
+** DONE win game on grabbing goal
+playstate change.
+** DONE aliens hurt hero
+** DONE spiders hurt aliens
+** DONE player can grab blocks
+** DONE push and pull blocks
+** DONE aliens chase player
+** DONE spiders flee player
+** DONE player can grab machines to activate them
+*** set up sprites:
+
+- [X] avatarbox
+- [X] cannon
+- [X] checkpoint
+- [ ] heart box
+- [ ] switch
+
+
+
+** DONE portals teleport
+** DONE bullets hurt spiders, aliens, hero
+** DONE mimeogeist mimics hero
+** DONE keep geist inside the ship
+** DONE send power between machines
+
+
+* DONE iteration 3 : map and story
+** DONE basic map:
+
+#+BEGIN_SRC ditaa
+
+         +--------+
+         | A      |
+         |        |
+         +--+  +--+
+            |  |
++--------+  |  |  +--------+  S = start
+|        +--+  +--+        |  E = end
+|                          |  A = avatar
+|        +--------+        |  K = key
++---  ---+        +---  ---+
+|        |        |        |
+|        |        |        |
+|        |        |        |
++- --+---+        +--+  ---+
+|    | E             |     |
+|    +---+        +--+     |
+|   b|bSa|        |aK      |
++--------+        +--------+
+
+#+END_SRC
+
+** DONE story text
+*** room 1
+ - When I come to, the Dentists are dead. Good riddance.
+   I can see my ship outside. Now's my chance to escape!
+
+ - Arnaxian gut spiders. They can't really hurt me.
+   Looks like the dentists trapped them all in here.
+
+ - The dentists blockaded the hallway.
+   I'll have to pull these boxes out of the way.
+
+*** room 2
+ - Uh oh. Another dentist, and he doesn't look happy.
+   I'd better take some protection.
+
+ - This portal is turned off.
+   I think it's locked from the other side.
+
+*** room 3
+- That heart shaped thing is a medical device.
+  I probably ought to pick it up.
+
+*** room 4
+ - What the heck?  They didn't teach that at Harvard!
+   What are these guys doing with a mimeogeist?
+
+ - Looks like the cage is powered by that box to the right.
+   I should let the poor thing out.
+   
+*** room 5
+ - A laser cannon! Now we're talking.
+   I can grab it from any side to fire away from me.
+
+*** room 5
+- I can't reach the cannon from here.
+  But that mimeogeist could do it!
+
+*** room 5 
+
+
+
+
+
+* TODO iteration 4 : cutscenes, music, sound effects
+** DONE normal game music
+** DONE opening cut scene(s)
+
+- The dentists grabbed me outside Rushmore spaceport.
+  They had me on their table. I should have been a dead man.
+
+- Turns out Dentists don't much care for Arnaxian spider venum.
+  Gut spiders. Sick. All this time I thought it was acid reflux.
+
+- I crack a smile as the anesthesia finally takes control.
+  The world goes dark.
+** TODO make the unpowered items darker
+** TODO DeathState music
+** TODO WinState music
+** TODO WinState scene
+** TODO sound effects
+- [ ] alien death
+- [ ] cannon fire
+- [ ] teleport
+- [ ] power on
+
+    
