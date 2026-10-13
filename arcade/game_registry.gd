@@ -66,6 +66,7 @@ const SCALE_MODE := {
 	"doth": "letterbox",             # Direct 80x25 TermGrid @2x (1280x800); Enhanced 1280x720 tiles
 	"marigold": "letterbox",         # 1280x720 homestead OS chrome
 	"typing": "letterbox",            # Decker 512x342 falling-words stage
+	"tankgame": "letterbox",          # Phaser 800x600 stage
 }
 
 
@@ -182,6 +183,8 @@ const TITLES := [
 		"Claude artifact BjKJn834 (Starflight II x Farming Sim pixel OS) -> Direct: tractor-driven fractal homestead + 6 chrome screens; Enhanced stub later. Issue #105."],
 	["typing", "Typing", {"direct": "playable", "enhanced": "planned"},
 		"Decker falling-words typer (typing.deck); Direct = Godot 4 port. Issue #109."],
+	["tankgame", "Tankgame", {"direct": "playable", "enhanced": "planned"},
+		"Opal/Phaser tank prototype (tangentscraps/tankgame); Direct = marching-squares terrain + 2 tanks, R rerolls. Issue #104."],
 ]
 
 var entries: Array[GameEntry] = []
