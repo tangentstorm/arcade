@@ -67,6 +67,7 @@ const SCALE_MODE := {
 	"marigold": "letterbox",         # 1280x720 homestead OS chrome
 	"typing": "letterbox",            # Decker 512x342 falling-words stage
 	"tankgame": "letterbox",          # Phaser 800x600 stage
+	"dungeon_scroll": "letterbox",    # Godot 4.3 GridMap demo, fixed ortho camera
 }
 
 
@@ -185,6 +186,8 @@ const TITLES := [
 		"Decker falling-words typer (typing.deck); Direct = Godot 4 port. Issue #109."],
 	["tankgame", "Tankgame", {"direct": "playable", "enhanced": "planned"},
 		"Opal/Phaser tank prototype (tangentscraps/tankgame); Direct = marching-squares terrain + 2 tanks, R rerolls. Issue #104."],
+	["dungeon_scroll", "Dungeon Scroll Demo", {"direct": "playable", "enhanced": "planned"},
+		"tangentstream/dungeon-scroll-demo (Godot 4.3): Kenney Mini Dungeon GridMap template -> random rewrite rules; Direct = template + generated strip, R regenerates. Issue #112."],
 ]
 
 var entries: Array[GameEntry] = []
