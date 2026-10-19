@@ -24,6 +24,7 @@
 | `PlayState` HUD + level buttons | `game.gd` + `game.tscn` (640×480 play SubViewport scaled in a 720² frame + side HUD) |
 | Room scripts (talk) | NES-style `TalkWindow` (talkWindow.png + portrait + Enter/Space); rooms 0–6 intros / solve lines |
 | Esc | Arcade `PauseOverlay` autoload |
+| `GsTeleType`, `FadeToBlackScript` (fast), Teleporter `glow` | `timed_fx.gd` (shared with Enhanced): teletype ~30 chars/s with Enter skip-ahead, curtain fade-in on room load + fade-out on exit (15 steps, 2 per 0.10 s tick), teleporter glow `[1,2,3,4,3,2]` at 8 fps. Test: `tools/test_tetraminex_anim.gd` |
 
 ### How to play
 - **Arrows** — move on the 10 Hz tick (same as Flixel `ScriptManager.tickInterval = 0.10`).
@@ -40,8 +41,8 @@
 - Gravity rooms (6, 8) run the south-nudge tick; hold-floor blocks movement.
 
 ### Gaps / deferred
-- Full `Script` teletype (chars drip), fade curtain, Teddy walk-in on room 0 step 3. Talk chrome (border + portrait + colors) matches AS3 `TalkWindow`.
-- Teleporter end scene (room 8), machines/keys, billboard interaction beyond decor.
+- Room-script `wait`/`beat`/`shake` cutscenes (room 5/6), Teddy walk-in on room 0 step 3. Talk chrome (border + portrait + colors) matches AS3 `TalkWindow`.
+- Teleporter held-star end scene (room 8), machines/keys, billboard interaction beyond decor.
 - Gravity jump (`dgy`) polish; room 6+ not tuned as a surge focus.
 - Commercial Franklin Gothic font omitted (UI uses the default theme font).
 - No sounds (source had none).

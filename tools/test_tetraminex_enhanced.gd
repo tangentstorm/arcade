@@ -84,7 +84,8 @@ func _initialize() -> void:
 		var ev := InputEventKey.new()
 		ev.keycode = KEY_SPACE
 		ev.pressed = true
-		inst._input(ev)
+		inst._input(ev)  # first press finishes the teletype (TalkWindow.skipAhead)
+		inst._input(ev)  # second press dismisses
 		await process_frame
 		_check(inst.level_num == before_level, "Space advances talk, does not reload")
 		_check(not inst.get_node("%TalkOverlay").visible, "talk dismissed after Space")
