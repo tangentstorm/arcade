@@ -5,6 +5,7 @@ extends Control
 
 const LevelData := preload("res://games/tetraminex/direct/level_data.gd")
 const RoomLogic := preload("res://games/tetraminex/direct/room.gd")
+const TimedFx := preload("res://games/tetraminex/direct/timed_fx.gd")
 
 const CELL := 30
 const TICK := 0.10
@@ -74,6 +75,8 @@ var _tex_wall: Texture2D
 @onready var _status: Label = %StatusLabel
 
 var _talk_queue: Array[Dictionary] = []
+var _fx: TimedFx
+var _next_level := 0
 var _scripts_enabled := true
 var _room0_steps := 0
 
@@ -83,6 +86,10 @@ func _ready() -> void:
 	_load_textures()
 	_build_level_buttons()
 	_hide_talk()
+	_fx = TimedFx.new()
+	add_child(_fx)
+	_fx.setup(_world, Vector2(PLAY_W, PLAY_H), _talk_label, _talk_hint)
+	_fx.faded_out.connect(func(): load_level(_next_level))
 	get_viewport().gui_release_focus()
 	load_level(0)
 	_hud_help.text = "Arrows move | WASD/,AOE grab | R restart | 0-9 debug jump"
@@ -169,6 +176,7 @@ func load_level(num: int) -> void:
 	_talk_queue.clear()
 	_hide_talk()
 	_tick_acc = 0.0
+	_fx.fade_in()
 	for i in 4:
 		_grab_prev[i] = false
 	for k in _move_held.keys():
@@ -281,6 +289,12 @@ func _rebuild_world() -> void:
 		if d["kind"] == RoomLogic.KIND_BILLBOARD:
 			spr.texture = _tex_billboard
 			spr.modulate = Color(0.85, 0.9, 1.0)
+		elif d["kind"] == RoomLogic.KIND_TELEPORTER:
+			var at := AtlasTexture.new()
+			at.atlas = load(ASSETS + "Teleporter.png")
+			at.region = Rect2(CELL, 0, CELL, CELL)
+			spr.texture = at
+			_fx.glow = spr
 		_decor_layer.add_child(spr)
 	_sync_sprites()
 
@@ -364,7 +378,7 @@ func _sync_sprites() -> void:
 
 
 func _process(delta: float) -> void:
-	if _talk_overlay.visible:
+	if _talk_overlay.visible or _fx.fading_out():
 		return
 	_tick_acc += delta
 	while _tick_acc >= TICK:
@@ -486,7 +500,8 @@ func _on_hero_exited() -> void:
 	if nxt >= LevelData.ROOMS.size():
 		nxt = 0
 	unlocked = maxi(unlocked, nxt + 1)
-	load_level(nxt)
+	_next_level = nxt
+	_fx.fade_out()  # PlayState.loadLevel: fadeOut(true) then reset
 
 
 func _on_stepped() -> void:
@@ -545,6 +560,9 @@ func _speaker_portrait(who: String) -> Texture2D:
 
 
 func _advance_talk() -> void:
+	if _talk_overlay.visible and _fx.typing():
+		_fx.skip_typing()
+		return
 	if _talk_queue.is_empty():
 		_hide_talk()
 		for k in _move_held.keys():
@@ -554,12 +572,12 @@ func _advance_talk() -> void:
 	var item: Dictionary = _talk_queue.pop_front()
 	var who := str(item["who"])
 	_talk_name.text = who
-	_talk_label.text = str(item["text"])
 	var accent: Color = SPEAKER_COLOR.get(who, Color(0.25, 0.25, 0.28))
 	_talk_name.add_theme_color_override("font_color", accent)
 	# Body text stays near-black for contrast on the light card.
 	_talk_label.add_theme_color_override("font_color", Color(0.12, 0.14, 0.18))
 	_talk_portrait.texture = _speaker_portrait(who)
 	_talk_hint.text = "Space / Enter"
+	_fx.type_text(str(item["text"]))
 	_talk_overlay.visible = true
 	get_viewport().gui_release_focus()
