@@ -70,7 +70,6 @@ func _initialize() -> void:
 	# TermGrid VGA path
 	var tg = TermGrid.new()
 	tg.pixel_scale = 2
-	
 	tg.cscr()
 	tg.put(0, 0, "█", 3, 0)
 	tg.put(1, 0, "☺", 11, 0)
@@ -79,6 +78,7 @@ func _initialize() -> void:
 	_check(tg.char_at(1, 0) == "☺", "term hero glyph")
 	_check(tg.row_text(0).begins_with("█☺"), "term row")
 	_check(tg.pal[3].r8 == 0xaa and tg.pal[3].g8 == 0x55 and tg.pal[3].b8 == 0x00, "VGA brown idx 3")
+	tg.free()  # orphan Control: leaks a CanvasItem + font resource at exit
 
 	w.reset_title()
 	w.handle_title_key(KEY_1)
