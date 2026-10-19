@@ -1,10 +1,13 @@
 extends Node3D
 ## dungeon-scroll-demo Direct: Godot 4 port of tangentstream/dungeon-scroll-demo.
-## Template GridMap (left) -> rewrite rules -> Generated GridMap (right).
+## Template grid (left) -> rewrite rules -> Generated grid (right). The grids are mesh_grid.gd,
+## a small GridMap stand-in (the slim web engine has no GridMap).
 ## R regenerates (the source's inspector "generate" button). Esc is left for PauseOverlay.
 
-@onready var template: GridMap = $Template
-@onready var generated: GridMap = $Generated
+const MeshGrid := preload("res://games/dungeon_scroll/direct/mesh_grid.gd")
+
+@onready var template: MeshGrid = $Template
+@onready var generated: MeshGrid = $Generated
 
 const DEFAULT_RULES = '''{
 	"floor" : [

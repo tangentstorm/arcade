@@ -1,11 +1,6 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="PackedScene" path="res://games/gravitube/direct/gravitube.tscn" id="1_tube"]
-
-[sub_resource type="PhysicsMaterial" id="Phys_1"]
-
-[sub_resource type="BoxShape3D" id="Box_1"]
-size = Vector3(2, 2, 2)
 
 [sub_resource type="StandardMaterial3D" id="Mat_1"]
 albedo_color = Color(0.976471, 0.27451, 0.27451, 1)
@@ -33,12 +28,8 @@ speed = -12
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
 speed = 12
 
-[node name="Cube" type="RigidBody3D" parent="starboard"]
+[node name="Cube" type="Node3D" parent="starboard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.1243, -24.5396, 2.82593)
-physics_material_override = SubResource("Phys_1")
-
-[node name="CollisionShape" type="CollisionShape3D" parent="starboard/Cube"]
-shape = SubResource("Box_1")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="starboard/Cube"]
 mesh = SubResource("Mesh_1")

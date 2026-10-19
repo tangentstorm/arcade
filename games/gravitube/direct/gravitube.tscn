@@ -1,45 +1,57 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://games/gravitube/direct/gravitube.gd" id="1_drum"]
 [ext_resource type="PackedScene" path="res://games/gravitube/direct/shell.tscn" id="2_shell"]
 
+[sub_resource type="CylinderMesh" id="Hub_1"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 132.0
+radial_segments = 16
+rings = 0
+
+[sub_resource type="CylinderMesh" id="Cap_1"]
+top_radius = 2.0
+bottom_radius = 2.0
+height = 1.0
+radial_segments = 8
+rings = 0
+
+[sub_resource type="BoxMesh" id="SpokeX_1"]
+size = Vector3(64, 1, 2)
+
+[sub_resource type="BoxMesh" id="SpokeZ_1"]
+size = Vector3(2, 1, 64)
+
 [node name="Gravitube" type="Node3D"]
 script = ExtResource("1_drum")
 
-[node name="hub" type="CSGCylinder3D" parent="."]
+[node name="hub" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-radius = 1.0
-height = 132.0
-sides = 16
+mesh = SubResource("Hub_1")
 
-[node name="cap" type="CSGCylinder3D" parent="hub"]
+[node name="cap" type="MeshInstance3D" parent="hub"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65, 0)
-radius = 2.0
-height = 1.0
-sides = 8
+mesh = SubResource("Cap_1")
 
-[node name="CSGBox" type="CSGBox3D" parent="hub/cap"]
-size = Vector3(64, 1, 2)
+[node name="spoke" type="MeshInstance3D" parent="hub/cap"]
+mesh = SubResource("SpokeX_1")
 
-[node name="CSGBox2" type="CSGBox3D" parent="hub/cap"]
-size = Vector3(2, 1, 64)
+[node name="spoke2" type="MeshInstance3D" parent="hub/cap"]
+mesh = SubResource("SpokeZ_1")
 
-[node name="hub2" type="CSGCylinder3D" parent="."]
+[node name="hub2" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-radius = 1.0
-height = 132.0
-sides = 16
+mesh = SubResource("Hub_1")
 
-[node name="cap" type="CSGCylinder3D" parent="hub2"]
+[node name="cap" type="MeshInstance3D" parent="hub2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65, 0)
-radius = 2.0
-height = 1.0
-sides = 8
+mesh = SubResource("Cap_1")
 
-[node name="CSGBox" type="CSGBox3D" parent="hub2/cap"]
-size = Vector3(64, 1, 2)
+[node name="spoke" type="MeshInstance3D" parent="hub2/cap"]
+mesh = SubResource("SpokeX_1")
 
-[node name="CSGBox2" type="CSGBox3D" parent="hub2/cap"]
-size = Vector3(2, 1, 64)
+[node name="spoke2" type="MeshInstance3D" parent="hub2/cap"]
+mesh = SubResource("SpokeZ_1")
 
 [node name="Shell" parent="." instance=ExtResource("2_shell")]

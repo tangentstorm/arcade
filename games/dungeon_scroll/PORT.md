@@ -35,6 +35,12 @@
 
 ### Differences from the original
 
+- **Web: no GridMap.** The slim web engine has `module_gridmap_enabled=no`, so the GridMap
+  scene failed to load on Pages. `direct/mesh_grid.gd` is a ~70-line stand-in with the API
+  subset `game.gd` uses (`get_used_cells`, `get_cell_item[_orientation]`, `set_cell_item`,
+  `clear`, `mesh_library`); it reads the same `data.cells` array and places one
+  `MeshInstance3D` per cell exactly like GridMap (same 24 orthogonal bases). Layouts for a
+  given seed and the desktop render are identical to the GridMap version.
 - Godot 4.7 / GL Compatibility instead of 4.3 / Mobile; `@tool` and the inspector
   button are gone.
 - **R** regenerates at runtime (the original only regenerates from the editor inspector).
