@@ -90,6 +90,13 @@ func _capture_one(entry) -> bool:
 
 	var img: Image = root.get_viewport().get_texture().get_image()
 	inst.queue_free()
+	# A warmup can press "Back to Arcade" (or a gallery card), which change_scene()s to a
+	# new current_scene that is never freed and then shows through every later transparent
+	# shell (sketchbots / invader_sketch Enhanced captured Tetraminex behind them).
+	if current_scene != null:
+		print("CAPTURE WARN: %s (%s) left scene %s behind; unloading it" % [entry.id, entry.edition, current_scene.name])
+		unload_current_scene()
+	paused = false
 	await process_frame
 	if img == null:
 		print("CAPTURE FAIL: null image for ", entry.id)
@@ -423,10 +430,11 @@ func _warmup_enhanced(id: String, inst: Node) -> void:
 			await _hold_key(KEY_UP, 15)
 			await _hold_key(KEY_D, 20)
 		"sketchbots":
+			# Short nudges: the top/left/right edges are open, so longer holds walk both bots
+			# off the canvas and the card shows an empty stage.
 			await _dismiss_enhanced_title(inst)
-			await _hold_key(KEY_D, 30)
-			await _hold_key(KEY_W, 20)
-			await _hold_key(KEY_RIGHT, 25)
+			await _hold_key(KEY_D, 8)
+			await _hold_key(KEY_RIGHT, 6)
 		"killem_all":
 			await _dismiss_enhanced_title(inst)
 			Input.warp_mouse(Vector2(1000, 150))

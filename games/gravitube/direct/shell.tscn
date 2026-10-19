@@ -1,14 +1,27 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
 
-[node name="Shell" type="CSGCylinder3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-use_collision = true
-radius = 33.0
+[sub_resource type="CylinderMesh" id="Outer_1"]
+top_radius = 33.0
+bottom_radius = 33.0
 height = 128.0
-sides = 32
+radial_segments = 32
+rings = 0
+cap_top = false
+cap_bottom = false
 
-[node name="Inner" type="CSGCylinder3D" parent="."]
-operation = 2
-radius = 32.0
-height = 132.0
-sides = 32
+[sub_resource type="CylinderMesh" id="Inner_1"]
+flip_faces = true
+top_radius = 32.0
+bottom_radius = 32.0
+height = 128.0
+radial_segments = 32
+rings = 0
+cap_top = false
+cap_bottom = false
+
+[node name="Shell" type="MeshInstance3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("Outer_1")
+
+[node name="Inner" type="MeshInstance3D" parent="."]
+mesh = SubResource("Inner_1")

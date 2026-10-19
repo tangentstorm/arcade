@@ -364,6 +364,33 @@ func wrap_offsets(p: Vector2, margin := 24.0) -> Array[Vector2]:
 	return out
 
 
+## Filled circle as one textured quad. draw_circle() emits a polygon per call and
+## polygons never batch: ~1,600 circles a frame made ~2,600 draw calls (4 fps on web).
+## Quads of one texture batch into a handful. Hard edge like draw_circle(antialiased=false).
+static var _disc_tex: Texture2D
+
+
+static func _disc_texture() -> Texture2D:
+	if _disc_tex == null:
+		var n := 256
+		var img := Image.create(n, n, false, Image.FORMAT_LA8)
+		for y in n:
+			for x in n:
+				var d := Vector2(x + 0.5 - n * 0.5, y + 0.5 - n * 0.5).length()
+				img.set_pixel(x, y, Color(1, 1, 1, 1.0 if d <= n * 0.5 else 0.0))
+		_disc_tex = ImageTexture.create_from_image(img)
+	return _disc_tex
+
+
+func _disc(ci: CanvasItem, c: Vector2, r: float, color: Color) -> void:
+	ci.draw_texture_rect(_disc_texture(), Rect2(c.x - r, c.y - r, r * 2.0, r * 2.0), false, color)
+
+
+## Axis-aligned ellipse with radii `r` (same texture, so it batches with _disc).
+func _oval(ci: CanvasItem, c: Vector2, r: Vector2, color: Color) -> void:
+	ci.draw_texture_rect(_disc_texture(), Rect2(c - r, r * 2.0), false, color)
+
+
 # --- stage background ---------------------------------------------------------
 
 func _draw() -> void:
@@ -373,7 +400,7 @@ func _draw() -> void:
 		draw_rect(Rect2(0, STAGE.y * i / bands, STAGE.x, STAGE.y / bands + 1), BG_TOP.lerp(BG_BOTTOM, t))
 	for g in [[Vector2(220, 600), 280.0, Color(0.2, 0.5, 0.25)], [Vector2(1080, 160), 260.0, Color(0.35, 0.2, 0.5)]]:
 		for k in 6:
-			draw_circle(g[0], g[1] * (1.0 - k * 0.15), Color(g[2], 0.03))
+			_disc(self, g[0], g[1] * (1.0 - k * 0.15), Color(g[2], 0.03))
 	var fr := Rect2(FIELD_POS, FIELD)
 	for k in 4:
 		draw_rect(fr.grow(4 + k * 3), Color(FRAME, 0.09 - k * 0.02), false, 3.0)
@@ -435,27 +462,32 @@ func _draw_floor(f: Control) -> void:
 	for g in _fog:
 		for off in wrap_offsets(g.p, g.r):
 			for k in 4:
-				f.draw_circle(g.p + off, g.r * (1.0 - k * 0.2), Color(0.55, 0.75, 0.6, 0.018))
+				_disc(f, g.p + off, g.r * (1.0 - k * 0.2), Color(0.55, 0.75, 0.6, 0.018))
 	# lantern pool around the hero
 	var h := _lerp_pos(world.hero)
 	for k in 6:
-		f.draw_circle(h, 170.0 - k * 26.0, Color(LANTERN, 0.022))
+		_disc(f, h, 170.0 - k * 26.0, Color(LANTERN, 0.022))
 
 
 ## Wrap doors: open seams on the room edge glow and drift particles inward.
 func _draw_portals(f: Control) -> void:
 	var pulse := 0.5 + 0.5 * sin(_time * 2.4)
-	for p in _portals:
-		var n: Vector2 = p.n
-		var t: Vector2 = n.orthogonal()
-		for e in [[p.a, n], [p.b, -n]]:
-			var c: Vector2 = e[0]
-			var inward: Vector2 = e[1]
-			var quad := PackedVector2Array([c - t * 14, c + t * 14, c + t * 14 + inward * 18, c - t * 14 + inward * 18])
-			f.draw_colored_polygon(quad, Color(PORTAL, 0.10 + 0.08 * pulse))
-			f.draw_line(c - t * 14 + inward * 2, c + t * 14 + inward * 2, Color(PORTAL, 0.55 + 0.35 * pulse), 3.0)
-			var dot := c + inward * (4.0 + fposmod(_time * 14.0 + c.x * 0.3 + c.y * 0.7, 16.0))
-			f.draw_circle(dot, 1.8, Color(PORTAL.lightened(0.4), 0.7))
+	# Three passes (quads, lines, dots) so each kind batches; doors never overlap.
+	for pass_i in 3:
+		for p in _portals:
+			var n: Vector2 = p.n
+			var t: Vector2 = n.orthogonal()
+			for e in [[p.a, n], [p.b, -n]]:
+				var c: Vector2 = e[0]
+				var inward: Vector2 = e[1]
+				if pass_i == 0:
+					var quad := PackedVector2Array([c - t * 14, c + t * 14, c + t * 14 + inward * 18, c - t * 14 + inward * 18])
+					f.draw_colored_polygon(quad, Color(PORTAL, 0.10 + 0.08 * pulse))
+				elif pass_i == 1:
+					f.draw_line(c - t * 14 + inward * 2, c + t * 14 + inward * 2, Color(PORTAL, 0.55 + 0.35 * pulse), 3.0)
+				else:
+					var dot := c + inward * (4.0 + fposmod(_time * 14.0 + c.x * 0.3 + c.y * 0.7, 16.0))
+					_disc(f, dot, 1.8, Color(PORTAL.lightened(0.4), 0.7))
 
 
 func _draw_splats(f: Control) -> void:
@@ -463,10 +495,10 @@ func _draw_splats(f: Control) -> void:
 		var rng := RandomNumberGenerator.new()
 		rng.seed = s.seed
 		var c: Vector2 = s.pos
-		f.draw_circle(c, 15.0, Color(0.20, 0.42, 0.15, 0.55))
+		_disc(f, c, 15.0, Color(0.20, 0.42, 0.15, 0.55))
 		for k in 7:
 			var a: float = s.rot + k * TAU / 7.0 + rng.randf_range(-0.3, 0.3)
-			f.draw_circle(c + Vector2.from_angle(a) * rng.randf_range(12, 22), rng.randf_range(3, 7), Color(0.25, 0.5, 0.18, 0.5))
+			_disc(f, c + Vector2.from_angle(a) * rng.randf_range(12, 22), rng.randf_range(3, 7), Color(0.25, 0.5, 0.18, 0.5))
 
 
 func _draw_wall_shadows(f: Control) -> void:
@@ -488,24 +520,25 @@ func _draw_walls(f: Control) -> void:
 		var down := not _walls.has(c + Vector2i(0, 1))
 		var left := not _walls.has(c + Vector2i(-1, 0))
 		var right := not _walls.has(c + Vector2i(1, 0))
-		# mortar seams between merged blocks
+		# mortar seams between merged blocks (thin rects, not draw_line: lines break the rect batch)
 		if not up:
-			f.draw_line(r.position + Vector2(3, 0), r.position + Vector2(CELL - 3, 0), Color(STONE_LO, 0.55), 1.0)
+			f.draw_rect(Rect2(r.position + Vector2(3, -0.5), Vector2(CELL - 6, 1.0)), Color(STONE_LO, 0.55))
 		if not left:
-			f.draw_line(r.position + Vector2(0, 3), r.position + Vector2(0, CELL - 3), Color(STONE_LO, 0.55), 1.0)
+			f.draw_rect(Rect2(r.position + Vector2(-0.5, 3), Vector2(1.0, CELL - 6)), Color(STONE_LO, 0.55))
 		if up:
 			f.draw_rect(Rect2(r.position, Vector2(CELL, 4)), STONE_HI)
-			f.draw_line(r.position + Vector2(0, 0.5), r.position + Vector2(CELL, 0.5), Color(MOSS, 0.85), 1.5)
+			f.draw_rect(Rect2(r.position + Vector2(0, -0.25), Vector2(CELL, 1.5)), Color(MOSS, 0.85))
 		if left:
 			f.draw_rect(Rect2(r.position, Vector2(3, CELL)), STONE_HI.darkened(0.1))
 		if down:
 			f.draw_rect(Rect2(r.position + Vector2(0, CELL - 5), Vector2(CELL, 5)), STONE_LO)
 		if right:
 			f.draw_rect(Rect2(r.position + Vector2(CELL - 4, 0), Vector2(4, CELL)), STONE_LO.lightened(0.05))
-		# moss specks
+	# moss specks (own pass: switching between plain rects and the disc texture breaks the batch)
+	for c in _wall_cells:
 		var hsh := absi(hash(c))
 		if hsh % 5 == 0:
-			f.draw_circle(r.position + Vector2(6 + hsh % 19, 6 + (hsh >> 5) % 19), 2.5, Color(MOSS, 0.7))
+			_disc(f, Vector2(c.x * CELL - 16 + 6 + hsh % 19, c.y * CELL - 16 + 6 + (hsh >> 5) % 19), 2.5, Color(MOSS, 0.7))
 
 
 func _draw_coins(f: Control) -> void:
@@ -515,19 +548,21 @@ func _draw_coins(f: Control) -> void:
 		var w := 0.25 + 0.75 * absf(cos(_time * 3.2 + ph))
 		var bob := sin(_time * 2.6 + ph) * 1.5
 		var s: float = c.sx
-		f.draw_circle(p, 9.0 * s, Color(GOLD, 0.10))
-		f.draw_set_transform(_shake_vec + p + Vector2(0, bob), 0.0, Vector2(w, 1.0) * s)
-		f.draw_circle(Vector2.ZERO, 5.0, GOLD.darkened(0.35))
-		f.draw_circle(Vector2.ZERO, 4.0, GOLD)
-		f.draw_circle(Vector2(-1.2, -1.2), 1.4, Color(1, 1, 0.85, 0.9))
-		f.draw_set_transform(_shake_vec)
+		_disc(f, p, 9.0 * s, Color(GOLD, 0.10))
+		# Squashed coin face: same ellipses the old per-coin draw_set_transform made, as
+		# plain rects so all coins stay in one batch.
+		var o := p + Vector2(0, bob)
+		var k := Vector2(w * s, s)
+		_oval(f, o, 5.0 * k, GOLD.darkened(0.35))
+		_oval(f, o, 4.0 * k, GOLD)
+		_oval(f, o + Vector2(-1.2, -1.2) * k, 1.4 * k, Color(1, 1, 0.85, 0.9))
 
 
 func _draw_traps(f: Control) -> void:
 	for t in world.of_kind(World.TRAP):
 		var p := Vector2(t.x, t.y)
 		var pulse := 0.5 + 0.5 * sin(_time * 4.0 + p.x * 0.01)
-		f.draw_circle(p, 17.0, Color(0.25, 0.02, 0.04, 0.85))
+		_disc(f, p, 17.0, Color(0.25, 0.02, 0.04, 0.85))
 		f.draw_arc(p, 19.0 + 3.0 * pulse, 0, TAU, 32, Color(BLOOD, 0.35 + 0.3 * pulse), 2.0)
 		var rot := _time * 1.5
 		for k in 8:
@@ -547,11 +582,11 @@ func _draw_zombies(f: Control) -> void:
 		for off in wrap_offsets(base):
 			var p: Vector2 = base + off
 			f.draw_set_transform(_shake_vec + p + Vector2(0, 14), 0.0, Vector2(1.0, 0.4))
-			f.draw_circle(Vector2.ZERO, 13.0, Color(0, 0, 0, 0.4))
+			_disc(f, Vector2.ZERO, 13.0, Color(0, 0, 0, 0.4))
 			f.draw_set_transform(_shake_vec)
 			var aura := TOXIC.lerp(BLOOD, near)
 			for k in 3:
-				f.draw_circle(p, 22.0 - k * 4.0, Color(aura, 0.06 + 0.05 * near))
+				_disc(f, p, 22.0 - k * 4.0, Color(aura, 0.06 + 0.05 * near))
 			# chase arrow: the GM direction the zombie last stepped in
 			var d := Vector2(cos(deg_to_rad(z.direction)), -sin(deg_to_rad(z.direction)))
 			var tip := p + d * 27.0
@@ -571,10 +606,10 @@ func _draw_hero(f: Control) -> void:
 	for off in wrap_offsets(base):
 		var p: Vector2 = base + off
 		f.draw_set_transform(_shake_vec + p + Vector2(0, 14), 0.0, Vector2(1.0, 0.4))
-		f.draw_circle(Vector2.ZERO, 12.0, Color(0, 0, 0, 0.45))
+		_disc(f, Vector2.ZERO, 12.0, Color(0, 0, 0, 0.45))
 		f.draw_set_transform(_shake_vec)
 		for k in 4:
-			f.draw_circle(p, 24.0 - k * 4.0 + pulse * 2.0, Color(LANTERN, 0.07))
+			_disc(f, p, 24.0 - k * 4.0 + pulse * 2.0, Color(LANTERN, 0.07))
 		f.draw_set_transform(_shake_vec + p, 0.0, sq)
 		f.draw_texture_rect(HERO_TEX, Rect2(-16, -16, 32, 32), false)
 		f.draw_set_transform(_shake_vec)
@@ -589,7 +624,7 @@ func _draw_rings(f: Control) -> void:
 func _draw_particles(f: Control) -> void:
 	for p in _particles:
 		var t: float = p.life / p.max
-		f.draw_circle(p.pos, p.size * (0.4 + 0.6 * t), Color(p.color, p.color.a * t))
+		_disc(f, p.pos, p.size * (0.4 + 0.6 * t), Color(p.color, p.color.a * t))
 
 
 func _draw_floaters(f: Control) -> void:
@@ -639,7 +674,7 @@ func _draw_gauges() -> void:
 		if i < zl:
 			g.draw_texture_rect(ZOMBIE_TEX, Rect2(c - Vector2(10, 10), Vector2(20, 20)), false)
 		else:
-			g.draw_circle(c, 8.0, Color(0.25, 0.5, 0.2, 0.5))
+			_disc(g, c, 8.0, Color(0.25, 0.5, 0.2, 0.5))
 			g.draw_line(c - Vector2(6, 6), c + Vector2(6, 6), Color(BLOOD, 0.8), 2.0)
 			g.draw_line(c + Vector2(-6, 6), c + Vector2(6, -6), Color(BLOOD, 0.8), 2.0)
 	# minimap: the whole torus
@@ -654,12 +689,12 @@ func _draw_gauges() -> void:
 	for c in world.of_kind(World.COIN):
 		g.draw_rect(Rect2(m.position + Vector2(c.x, c.y) * sc - Vector2(0.75, 0.75), Vector2(1.5, 1.5)), Color(GOLD, 0.85))
 	for tr in world.of_kind(World.TRAP):
-		g.draw_circle(m.position + Vector2(tr.x, tr.y) * sc, 2.6, BLOOD)
+		_disc(g, m.position + Vector2(tr.x, tr.y) * sc, 2.6, BLOOD)
 	for z in world.of_kind(World.ZOMBIE):
-		g.draw_circle(m.position + Vector2(z.x, z.y) * sc, 2.8, TOXIC)
+		_disc(g, m.position + Vector2(z.x, z.y) * sc, 2.8, TOXIC)
 	var hp := m.position + _hero() * sc
-	g.draw_circle(hp, 4.0 + absf(sin(_time * 5.0)) * 1.5, Color(LANTERN, 0.35))
-	g.draw_circle(hp, 3.0, LANTERN)
+	_disc(g, hp, 4.0 + absf(sin(_time * 5.0)) * 1.5, Color(LANTERN, 0.35))
+	_disc(g, hp, 3.0, LANTERN)
 	for p in _portals:
 		var n: Vector2 = p.n
 		for c in [p.a, p.b]:

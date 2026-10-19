@@ -13,7 +13,7 @@ func _check(cond: bool, msg: String) -> void:
 		_fail += 1
 
 
-func _snapshot(g: GridMap) -> Dictionary:
+func _snapshot(g: Node3D) -> Dictionary:
 	var d := {}
 	for c in g.get_used_cells():
 		d[c] = [g.get_cell_item(c), g.get_cell_item_orientation(c)]
@@ -26,9 +26,9 @@ func _initialize() -> void:
 	var game = scene.instantiate()
 	root.add_child(game)
 	await process_frame
-	var t: GridMap = game.get_node("Template")
-	var g: GridMap = game.get_node("Generated")
-	var lib := t.mesh_library
+	var t = game.get_node("Template")
+	var g = game.get_node("Generated")
+	var lib: MeshLibrary = t.mesh_library
 	var floor_i := lib.find_item_by_name("floor")
 	var allowed := [floor_i, lib.find_item_by_name("floor-detail"),
 		lib.find_item_by_name("rocks"), lib.find_item_by_name("wall")]

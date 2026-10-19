@@ -39,6 +39,14 @@
 
 ### Differences from the original
 
+- **Web: no CSG, no 3D physics.** The slim web engine compiles out CSG and 3D physics
+  (`tools/build_slim_web_template.sh`), so the CSG version failed to load on Pages
+  (`Cannot get class 'BoxShape3D'`). The drums are plain `MeshInstance3D`s: an open r33
+  `CylinderMesh` plus an inward-facing (`flip_faces`) r32 lining for the hollow shell, and
+  `CylinderMesh` / `BoxMesh` hubs, caps and spokes with the source's sizes and side counts.
+  The 1-unit rims at the tube ends are not modelled (the camera is inside). The cube is a
+  plain `Node3D` + mesh: on desktop the source `RigidBody3D` never moved relative to its
+  drum (it is carried round by the parent), so the view is the same.
 - Godot 4.7 / GL Compatibility instead of Godot 3: node types renamed (`CSGCylinder3D`,
   `CSGBox3D`, `RigidBody3D`, `Camera3D`, ...), `ProceduralSky` -> `Sky` +
   `ProceduralSkyMaterial`, `SpatialMaterial` -> `StandardMaterial3D`.
