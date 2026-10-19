@@ -14,6 +14,9 @@ time — returns to the gallery unpaused.
 - `pause-resume` `Resume` hides the overlay and unpauses; still in the game.
 - `pause-back-button` `Back to Arcade (Esc)` returns to the gallery, unpaused, gallery scale restored.
 - `pause-back-esc` Esc while paused returns to the gallery.
+- `pause-switch-edition` `Switch to Enhanced` / `Switch to Original` (only when both editions are
+  playable) relaunches the game from scratch in the other edition; web replaces the play URL
+  (`?e=enhanced` follows), so Back still lands on the gallery. Test: `tools/test_edition_toggle.gd`.
 
 ## How to get to it (user POV)
 

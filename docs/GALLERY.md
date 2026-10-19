@@ -107,6 +107,7 @@ Every edition gets Back support from the shell. No per-game code is needed: it h
 | Web cold load with play URL | deep link opens the game; Back then lands on the gallery | landing entry rewritten to gallery root, then play entry pushed on top |
 | Android (system Back) | returns to the gallery; Back on the gallery quits | arrives as `NOTIFICATION_WM_GO_BACK_REQUEST`, **not** `ui_cancel`; needs `application/config/quit_on_go_back=false` (set in `project.godot`) |
 | Desktop / editor | unchanged | Esc: pause panel, Esc again (or "Back to Arcade"): gallery |
+| Pause "Switch to Enhanced/Original" | Back still lands on the gallery | relaunches the other edition from scratch; game -> game launch `replaceState`s the play URL |
 
 **Pretty history URLs (v1):** Launching from the gallery on web updates the address bar to the
 same short path the Pages stubs use (`/arcade/giraffe/`, `/arcade/mineswpr/?e=enhanced`, …)

@@ -39,6 +39,12 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Resume"
 
+[node name="EditionButton" type="Button" parent="Panel/Center/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Switch to Enhanced"
+
 [node name="ArcadeButton" type="Button" parent="Panel/Center/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
