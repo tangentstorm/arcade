@@ -2,8 +2,13 @@ extends CanvasLayer
 ## Autoload "PauseOverlay": Esc inside any game pauses and shows this overlay.
 ## Esc again (or "Back to Arcade") returns to the arcade hub.
 ## Browser Back / Android Back skip the panel and return in one step (see ArcadeHistory).
+## "Switch to Original/Enhanced" restarts the game in its other edition; ArcadeHistory
+## replaces the play URL (game -> game), so Back still lands on the gallery.
+
+const EDITION_LABEL := {"direct": "Original", "enhanced": "Enhanced"}
 
 @onready var _panel: Control = $Panel
+var _other = null  ## GameEntry for the running game's other edition, or null
 
 
 func _ready() -> void:
@@ -12,9 +17,10 @@ func _ready() -> void:
 	_panel.visible = false
 	%ResumeButton.pressed.connect(_resume)
 	%ArcadeButton.pressed.connect(_to_arcade)
+	%EditionButton.pressed.connect(_switch_edition)
 	# Browser Back / Android Back / in-game "Back" buttons return without going through us.
 	GameRegistry.returned_to_arcade.connect(_hide)
-	GameRegistry.launched.connect(_hide.unbind(1))
+	GameRegistry.launched.connect(_on_launched)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -33,6 +39,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _hide() -> void:
 	_panel.visible = false
+	_other = null
+
+
+func _on_launched(entry) -> void:
+	_hide()
+	var ed := "enhanced" if entry.edition == "direct" else "direct"
+	var other = GameRegistry.get_entry(entry.id, ed)
+	_other = other if other != null and other.is_playable() else null
+	%EditionButton.visible = _other != null
+	if _other != null:
+		%EditionButton.text = "Switch to %s" % EDITION_LABEL[ed]
+
+
+func _switch_edition() -> void:
+	if _other != null:
+		GameRegistry.launch(_other)
 
 
 func _resume() -> void:
