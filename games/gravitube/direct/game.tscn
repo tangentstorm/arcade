@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://games/gravitube/direct/gravitube.tscn" id="1_tube"]
+
+[sub_resource type="PhysicsMaterial" id="Phys_1"]
+
+[sub_resource type="BoxShape3D" id="Box_1"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="Mat_1"]
+albedo_color = Color(0.976471, 0.27451, 0.27451, 1)
+
+[sub_resource type="BoxMesh" id="Mesh_1"]
+material = SubResource("Mat_1")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_1"]
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("SkyMat_1")
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+
+[node name="Space" type="Node3D"]
+
+[node name="port" parent="." instance=ExtResource("1_tube")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+speed = -12
+
+[node name="starboard" parent="." instance=ExtResource("1_tube")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+speed = 12
+
+[node name="Cube" type="RigidBody3D" parent="starboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.1243, -24.5396, 2.82593)
+physics_material_override = SubResource("Phys_1")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="starboard/Cube"]
+shape = SubResource("Box_1")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="starboard/Cube"]
+mesh = SubResource("Mesh_1")
+
+[node name="OmniLight" type="OmniLight3D" parent="."]
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.184843, -0.982768, 0, 0.982768, 0.184843, 1, 8.07975e-09, -4.29582e-08, -2.17924, -28.0231, 50.1831)
+environment = SubResource("Env_1")
+current = true
+fov = 94.9
+far = 500.0
