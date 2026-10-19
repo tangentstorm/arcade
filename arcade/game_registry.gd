@@ -69,6 +69,7 @@ const SCALE_MODE := {
 	"tankgame": "letterbox",          # Phaser 800x600 stage
 	"dungeon_scroll": "letterbox",    # Godot 4.3 GridMap demo, fixed ortho camera
 	"cardinalrule": "letterbox",      # Flash 512x448 (NES 256x224 @2x) stage
+	"gravitube": "expand",            # Godot 3 3D scene, perspective camera fills the window
 }
 
 
@@ -191,6 +192,8 @@ const TITLES := [
 		"tangentstream/dungeon-scroll-demo (Godot 4.3): Kenney Mini Dungeon GridMap template -> random rewrite rules; Direct = template + generated strip, R regenerates. Issue #112."],
 	["cardinalrule", "Cardinal Rule", {"direct": "playable", "enhanced": "planned"},
 		"tangentscraps/cardinalrule (LD25 2012, Flash Pascal + flixel stub): planned Joust x Defender; Direct = title + spritetest cardinal, arrows flap/steer with gravity. Issue #116."],
+	["gravitube", "Gravitube", {"direct": "playable", "enhanced": "planned"},
+		"tangentscraps/gravitube (Godot 3, 2019): two counter-rotating CSG space-station drums + a red cube, an artificial-gravity sketch; Direct = Godot 4 port of the scene, no input. Issue #117."],
 ]
 
 var entries: Array[GameEntry] = []
