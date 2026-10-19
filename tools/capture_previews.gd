@@ -187,6 +187,12 @@ func _move_mouse(pos: Vector2) -> void:
 
 func _warmup(id: String, inst: Node) -> void:
 	match id:
+		"cardinalrule":
+			await _tap_key(KEY_ENTER)
+			await _tap_key(KEY_RIGHT)
+			await _tap_key(KEY_UP)
+			await _frames(20)
+			await _tap_key(KEY_UP)
 		"cupid":
 			await _tap_key(KEY_SPACE)
 			await _frames(20)
