@@ -52,12 +52,14 @@ class Inst:
 	var sy: float = 1.0
 	var direction: float = 0.0
 	var alive := true
+	var mask: Rect2  # MASK[kind], looked up once (kind never changes)
 
 	func _init(k: int, px: float, py: float, psx := 1.0, psy := 1.0) -> void:
 		kind = k; x = px; y = py; sx = psx; sy = psy
+		mask = MASK.get(kind, Rect2())
 
 	func bbox_at(px: float, py: float) -> Rect2:
-		var m: Rect2 = MASK.get(kind, Rect2())
+		var m := mask
 		return Rect2(px + m.position.x * sx, py + m.position.y * sy, m.size.x * sx, m.size.y * sy)
 
 	func bbox() -> Rect2:
@@ -160,11 +162,22 @@ func move_hero(input: Dictionary) -> void:
 
 
 ## place_free(x, y): no solid instance overlaps `who` placed at (x, y).
+## Hot path (~650 instances, called up to ~70x per zombie per step), so it is
+## _collide() inlined with `who`'s box computed once; same tests, same results.
 func place_free(who: Inst, px: float, py: float) -> bool:
+	var ra: Rect2 = who.bbox_at(px, py)
+	var al := ra.position.x
+	var at := ra.position.y
+	var ar := ra.end.x
+	var ab := ra.end.y
+	var hero_mask := who.kind == HERO
 	for o in instances:
-		if o == who or not o.alive or not (o.kind in SOLID):
+		if (o.kind != WALL and o.kind != ZOMBIE) or o == who or not o.alive:
 			continue
-		if _collide(who, px, py, o):
+		var rb: Rect2 = o.bbox()
+		if not (al < rb.end.x and rb.position.x < ar and at < rb.end.y and rb.position.y < ab):
+			continue
+		if not hero_mask or _ellipse_hits_rect(ra, rb):
 			return false
 	return true
 
