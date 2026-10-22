@@ -261,6 +261,7 @@ func _apply_arcade_scale() -> void:
 	var win := get_window()
 	if win == null:
 		return
+	_reset_stage(win)
 	win.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
 	win.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_FRACTIONAL
@@ -272,6 +273,7 @@ func _apply_game_scale(entry: GameEntry) -> void:
 	var win := get_window()
 	if win == null:
 		return
+	_reset_stage(win)
 	win.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	if entry.scale_mode == "expand":
 		win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_EXPAND
@@ -281,3 +283,35 @@ func _apply_game_scale(entry: GameEntry) -> void:
 		# the largest integer fit (bars around a large centered stage).
 		win.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 		win.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_INTEGER
+
+
+var _stage := Vector2i.ZERO  ## set by fit_stage, cleared on every launch / return
+
+
+## A letterbox game whose stage is bigger than the 1280x720 base (an 80x25
+## TermGrid @2x is 1280x800) calls this from _ready. Without it the stage is
+## clipped: INTEGER stretch never scales below 1x. Integer scale when the window
+## holds the stage, else a fractional fit; re-picked on resize.
+func fit_stage(stage: Vector2i) -> void:
+	var win := get_window()
+	_stage = stage
+	win.content_scale_size = stage
+	if not win.size_changed.is_connected(_refit_stage):
+		win.size_changed.connect(_refit_stage)
+	_refit_stage()
+
+
+func _refit_stage() -> void:
+	var win := get_window()
+	if _stage == Vector2i.ZERO:
+		return
+	var fits := win.size.x >= _stage.x and win.size.y >= _stage.y
+	win.content_scale_stretch = (Window.CONTENT_SCALE_STRETCH_INTEGER if fits
+			else Window.CONTENT_SCALE_STRETCH_FRACTIONAL)
+
+
+func _reset_stage(win: Window) -> void:
+	_stage = Vector2i.ZERO
+	win.content_scale_size = Vector2i(
+			ProjectSettings.get_setting("display/window/size/viewport_width"),
+			ProjectSettings.get_setting("display/window/size/viewport_height"))

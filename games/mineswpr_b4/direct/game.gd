@@ -27,6 +27,7 @@ var _lit := [] ## [col, row, fg] of each bracket inked Y, to restore
 
 
 func _ready() -> void:
+	GameRegistry.fit_stage(Vector2i(1280, 800))  # 80x25 @2x: keep the ok prompt (row 24) on screen
 	var args := OS.get_cmdline_user_args()
 	for i in args.size() - 1:
 		if args[i] == "--seed":
