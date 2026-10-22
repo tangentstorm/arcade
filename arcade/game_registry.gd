@@ -70,6 +70,7 @@ const SCALE_MODE := {
 	"dungeon_scroll": "letterbox",    # Godot 4.3 GridMap demo, fixed ortho camera
 	"cardinalrule": "letterbox",      # Flash 512x448 (NES 256x224 @2x) stage
 	"gravitube": "expand",            # Godot 3 3D scene, perspective camera fills the window
+	"squirrel_command": "letterbox",  # Claude artifact page: HUD + 680x440 canvas (712x544 stage)
 }
 
 
@@ -194,6 +195,8 @@ const TITLES := [
 		"tangentscraps/cardinalrule (LD25 2012, Flash Pascal + flixel stub): planned Joust x Defender; Direct = title + spritetest cardinal, arrows flap/steer with gravity. Issue #116."],
 	["gravitube", "Gravitube", {"direct": "playable", "enhanced": "planned"},
 		"tangentscraps/gravitube (Godot 3, 2019): two counter-rotating CSG space-station drums + a red cube, an artificial-gravity sketch; Direct = Godot 4 port of the scene, no input. Issue #117."],
+	["squirrel_command", "Squirrel Command", {"direct": "playable", "enhanced": "planned"},
+		"Claude artifact HTML game made for Michal: Missile Command in a garden; click to dust-blast ground squirrels before they eat 5 crops. Direct = 1:1 canvas JS port. Issue #123."],
 ]
 
 var entries: Array[GameEntry] = []
