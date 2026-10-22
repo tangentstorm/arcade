@@ -45,6 +45,7 @@ var _elapsed := 0.0
 
 
 func _ready() -> void:
+	GameRegistry.fit_stage(Vector2i(1280, 800))  # 80x25 @2x: keep rows 0 and 24 on screen
 	_redraw()
 
 

@@ -3,7 +3,8 @@ extends SceneTree
 ## b4 cart = /mineswpr). Launches through GameRegistry, then drives the game with
 ## InputEventKey only: the original mswp' listener lines `x y ?`, `x y +`,
 ## `x y -`, `r`, `q` (mineswpr.org: no other keys exist). Also checks the 1280x800
-## stage fits the window so the `ok` prompt (row 24) is on screen.
+## stage fits the window so the `ok` prompt (row 24) is on screen, and that
+## Doth Direct's same-size stage fits too.
 
 const PROMPT_ROW := 24
 var _fail := 0
@@ -103,6 +104,17 @@ func _run() -> void:
 	var reg = root.get_node("GameRegistry")
 	for id in ["mineswpr", "mineswpr_b4"]:
 		await _play(reg, id)
+	# Doth Direct: same 80x25 @2x TermGrid, so the same fit (no typed prompt).
+	print("doth (stage fit):")
+	reg.launch(reg.get_entry("doth", "direct"))
+	for i in 4:
+		await process_frame
+	var dt: Control = current_scene.get_node("%Term")
+	var vis := root.get_visible_rect()
+	_check(vis.encloses(dt.get_global_rect()),
+		"doth stage %s fits visible %s" % [dt.get_global_rect(), vis])
+	_check(dt.row_text(0).strip_edges() != "" and dt.row_text(24).strip_edges() != "",
+		"doth rows 0 and 24 have content (and are on screen)")
 	reg.launch(reg.get_entry("mineswpr", "enhanced"))
 	for i in 3:
 		await process_frame
