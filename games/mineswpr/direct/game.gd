@@ -28,6 +28,7 @@ var _blink := 0.0
 
 
 func _ready() -> void:
+	GameRegistry.fit_stage(Vector2i(1280, 800))  # 80x25 @2x: keep the ok prompt (row 24) on screen
 	shell.quit_requested.connect(_quit)
 	term.cell_clicked.connect(_on_cell_clicked)
 	term.cell_hovered.connect(_on_cell_hovered)
