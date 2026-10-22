@@ -89,6 +89,7 @@ func _capture_one(entry) -> bool:
 		await RenderingServer.frame_post_draw
 
 	var img: Image = root.get_viewport().get_texture().get_image()
+	Engine.time_scale = 1.0
 	inst.queue_free()
 	# A warmup can press "Back to Arcade" (or a gallery card), which change_scene()s to a
 	# new current_scene that is never freed and then shows through every later transparent
@@ -194,6 +195,18 @@ func _move_mouse(pos: Vector2) -> void:
 
 func _warmup(id: String, inst: Node) -> void:
 	match id:
+		"squirrel_command":  # blast a squirrel, then freeze game time mid-blast for the still
+			await _frames(60)
+			for shot in 2:
+				var s = inst.state
+				if not s.squirrels.is_empty():
+					var q = s.squirrels[0]
+					await _click_at(inst._origin + (Vector2(16, 62) + Vector2(q.x, q.y + 20)) * inst._scale)
+				for i in 200:
+					if not s.booms.is_empty() and s.booms[-1].t > 0.3:
+						break
+					await process_frame
+			Engine.time_scale = 0.0  # _capture_one restores it
 		"cardinalrule":
 			await _tap_key(KEY_ENTER)
 			await _tap_key(KEY_RIGHT)
