@@ -71,6 +71,7 @@ const SCALE_MODE := {
 	"cardinalrule": "letterbox",      # Flash 512x448 (NES 256x224 @2x) stage
 	"gravitube": "expand",            # Godot 3 3D scene, perspective camera fills the window
 	"squirrel_command": "letterbox",  # Claude artifact page: HUD + 680x440 canvas (712x544 stage)
+	"kiwi_soccer": "letterbox",       # pygame 640x480 stage (PyWeek #1)
 }
 
 
@@ -197,6 +198,8 @@ const TITLES := [
 		"tangentscraps/gravitube (Godot 3, 2019): two counter-rotating CSG space-station drums + a red cube, an artificial-gravity sketch; Direct = Godot 4 port of the scene, no input. Issue #117."],
 	["squirrel_command", "Squirrel Command", {"direct": "playable", "enhanced": "planned"},
 		"Claude artifact HTML game made for Michal: Missile Command in a garden; click to dust-blast ground squirrels before they eat 5 crops. Direct = 1:1 canvas JS port. Issue #123."],
+	["kiwi_soccer", "Kiwi Soccer", {"direct": "playable", "enhanced": "planned"},
+		"Team Trailblazer's PyWeek #1 entry (sabren/blaze pyweek/, 2005, pygame + pyODE): a kiwi whose blood sugar and fat stores drive its weight; arrows run, Space jumps. Direct = 1:1 port. Issue #128."],
 ]
 
 var entries: Array[GameEntry] = []

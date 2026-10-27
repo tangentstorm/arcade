@@ -207,6 +207,12 @@ func _warmup(id: String, inst: Node) -> void:
 						break
 					await process_frame
 			Engine.time_scale = 0.0  # _capture_one restores it
+		"kiwi_soccer":  # P -> level list -> outside, run right as the kiwi lands
+			await _tap_key(KEY_P)
+			await _tap_key(KEY_ENTER)
+			await _frames(40)
+			await _hold_key(KEY_RIGHT, 20)
+			await _frames(30)
 		"cardinalrule":
 			await _tap_key(KEY_ENTER)
 			await _tap_key(KEY_RIGHT)
