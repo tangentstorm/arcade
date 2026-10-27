@@ -207,12 +207,19 @@ func _warmup(id: String, inst: Node) -> void:
 						break
 					await process_frame
 			Engine.time_scale = 0.0  # _capture_one restores it
-		"kiwi_soccer":  # P -> level list -> outside, run right as the kiwi lands
+		"kiwi_soccer":  # P -> outside; once the soccer ball has settled, run left into it
 			await _tap_key(KEY_P)
 			await _tap_key(KEY_ENTER)
-			await _frames(40)
-			await _hold_key(KEY_RIGHT, 20)
-			await _frames(30)
+			var w = inst.world
+			var still := 0
+			while still < 30:  # frames are uncapped, so wait on the game, not a frame count
+				still = still + 1 if w.ball.pos.y > 460.0 and absf(w.ball.vel.y) < 1.0 else 0
+				await process_frame
+			_press_key(KEY_LEFT, true)
+			while w.ball.pos.x > 36.0:  # kicked, rolling ahead of the kiwi
+				await process_frame
+			_press_key(KEY_LEFT, false)
+			Engine.time_scale = 0.0  # freeze before it rolls off the stage; _capture_one restores it
 		"cardinalrule":
 			await _tap_key(KEY_ENTER)
 			await _tap_key(KEY_RIGHT)

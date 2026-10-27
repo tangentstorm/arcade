@@ -178,23 +178,32 @@ static func insert_score(scores: Array, initials: String, score: int) -> Array:
 	return out
 
 
-## A 32x32 box body. ODE keeps the boxes level here (rotation stays < 0.001 rad), so only
-## translation is modelled.
+## A body in the room. The kiwi is a 32x32 box that ODE keeps level (its sphere inertia is
+## ~900,000, rotation stays < 0.001 rad), so only its translation is modelled. The soccer ball
+## is a round body of radius HERO.RADIUS (ball.py) with ODE's default body mass and inertia
+## (ball.py never calls setMass: mass 1, inertia 1), so it rolls as well as slides.
 class Body:
 	var pos: Vector2
 	var vel := Vector2.ZERO
 	var mass := 1.0
 	var force := Vector2.ZERO   ## addForce accumulator, cleared after every world.step
+	var radius := 0.0           ## 0 = 32x32 box
+	var inertia := INF          ## INF = rotation not modelled
+	var spin := 0.0             ## angular velocity, rad/s (round bodies)
+	var angle := 0.0
 
-	func _init(p: Vector2, m: float) -> void:
+	func _init(p: Vector2, m: float, r := 0.0, i := INF) -> void:
 		pos = p
 		mass = m
+		radius = r
+		inertia = i
 
 
 ## The room's ODE world: gravity 98.1, ERP 0.8, CFM 1e-4, and one solid geom. Room._setupGlass
 ## builds six glass boxes, but only the pit is kept in a Python reference (self.floor); pyODE
-## frees the other five when their locals go out of scope, which removes them from the space.
-## So the floor under x 0..540 is all there is, and a kiwi that runs off either end falls forever.
+## frees the other five when their locals go out of scope (PyODE's Geom.__dealloc__ calls
+## dGeomDestroy, and Space keeps no references), so the floor under x 0..540 is all there is
+## and anything that leaves either end falls forever.
 class World:
 	const FLOOR_CENTER := Vector2(ROOM_W / 2, ROOM_H + THICKNESS / 2)
 	const FLOOR_HALF := Vector2(ROOM_W / 2, THICKNESS / 2)
@@ -204,9 +213,9 @@ class World:
 
 	func _init(hero_mass: float) -> void:
 		hero = Body.new(HERO_START, hero_mass)
-		# loader: outside-geom.svg has no arcs, so the default Ball (an unseen 32x32 block with
-		# ODE's default body mass of 1) is dropped in at (50, 50).
-		ball = Body.new(BALL_START, 1.0)
+		# loader: outside-geom.svg has no blue (#0000FF) arcs, so roomFromFile adds the default
+		# Ball at (50, 50).
+		ball = Body.new(BALL_START, 1.0, HERO_RADIUS, 1.0)
 
 	## roomphysics.step: twice { atmosphere(); space.collide(); world.step(0.01) }.
 	func tick() -> void:
@@ -214,60 +223,85 @@ class World:
 			hero.force.x += hero.vel.x * DRAG
 			_step(SUBSTEP)
 
-	## Separating-axis contact between two boxes: [normal (a->b), depth] or [] if apart.
-	static func _contact(ca: Vector2, ha: Vector2, cb: Vector2, hb: Vector2) -> Array:
+	## Box-box (separating axis): [normal a->b, depth, rows] or [] if apart. dBoxBox face
+	## contact gives 4 points, each its own contact joint.
+	static func _box_box(ca: Vector2, ha: Vector2, cb: Vector2, hb: Vector2) -> Array:
 		var d := cb - ca
 		var ox := ha.x + hb.x - absf(d.x)
 		var oy := ha.y + hb.y - absf(d.y)
 		if ox <= 0.0 or oy <= 0.0:
 			return []
 		if oy <= ox:
-			return [Vector2(0, signf(d.y) if d.y != 0.0 else 1.0), oy]
-		return [Vector2(signf(d.x) if d.x != 0.0 else 1.0, 0), ox]
+			return [Vector2(0, signf(d.y) if d.y != 0.0 else 1.0), oy, CONTACT_ROWS]
+		return [Vector2(signf(d.x) if d.x != 0.0 else 1.0, 0), ox, CONTACT_ROWS]
 
-	## One dWorldStep: v* = v + h F/m; contact rows solve J v' = ERP*depth/h - CFM*lambda
-	## (normal, lambda >= 0) and J v' = -CFM*lambda (two friction rows in 3D, one here,
-	## |lambda| <= mu per row); then pos += h v'.
+	## Box-circle: [normal box->circle, depth, rows] or []. dSphereBox gives one contact point.
+	static func _box_circle(cb: Vector2, hb: Vector2, cc: Vector2, r: float) -> Array:
+		var q := cc.clamp(cb - hb, cb + hb)
+		var d := cc - q
+		var dist := d.length()
+		if dist >= r:
+			return []
+		if dist > 0.0:
+			return [d / dist, r - dist, 1]
+		var c := _box_box(cb, hb, cc, Vector2(r, r))  # centre inside the box
+		return [c[0], c[1], 1] if not c.is_empty() else []
+
+	func _contact(a: Body, b: Body, a_center: Vector2, a_half: Vector2) -> Array:
+		if b.radius > 0.0:
+			return _box_circle(a_center, a_half, b.pos, b.radius)
+		return _box_box(a_center, a_half, b.pos, BOX_HALF)
+
+	## One dWorldStep: v* = v + h F/m; each contact row solves J v' = ERP*depth/h - CFM*lambda
+	## (normal, lambda >= 0) or J v' = -CFM*lambda (friction, |lambda| <= mu per row), then
+	## pos += h v'. Solved by projected Gauss-Seidel instead of ODE's Dantzig LCP.
 	func _step(h: float) -> void:
 		var bodies: Array[Body] = [hero, ball]
 		for b in bodies:
 			b.vel += h * (Vector2(0, GRAVITY) + b.force / b.mass)
-		# rows: [a (Body or null = static floor), b, normal, depth]
+		# contacts: [a (Body or null = static floor), b, normal a->b, depth, rows]
 		var contacts: Array = []
 		for b in bodies:
-			var c := _contact(FLOOR_CENTER, FLOOR_HALF, b.pos, BOX_HALF)
+			var c := _contact(null, b, FLOOR_CENTER, FLOOR_HALF)
 			if not c.is_empty():
-				contacts.append([null, b, c[0], c[1]])
-		var cb := _contact(hero.pos, BOX_HALF, ball.pos, BOX_HALF)
-		if not cb.is_empty():
-			contacts.append([hero, ball, cb[0], cb[1]])
-		var n := float(CONTACT_ROWS)
+				contacts.append([null, b] + c)
+		var hb := _contact(hero, ball, hero.pos, BOX_HALF)
+		if not hb.is_empty():
+			contacts.append([hero, ball] + hb)
 		var acc: Array = []
 		for c in contacts:
-			acc.append(Vector2.ZERO)  # x = normal total force, y = friction total force
+			acc.append(Vector2.ZERO)  # x = normal force (all rows), y = friction force
 		for it in 30:
 			for i in contacts.size():
 				var a: Body = contacts[i][0]
 				var b: Body = contacts[i][1]
 				var nrm: Vector2 = contacts[i][2]
+				var n := float(contacts[i][4])
 				var tan := Vector2(-nrm.y, nrm.x)
 				var inv := 1.0 / b.mass + (1.0 / a.mass if a else 0.0)
 				var va: Vector2 = a.vel if a else Vector2.ZERO
-				var rel := b.vel - va
 				var f: Vector2 = acc[i]
-				# normal row
-				var r := ERP * float(contacts[i][3]) / h - CFM * f.x / n - rel.dot(nrm)
+				# normal row (passes through a round body's centre: no angular part)
+				var r := ERP * float(contacts[i][3]) / h - CFM * f.x / n - (b.vel - va).dot(nrm)
 				var fx := maxf(0.0, f.x + r / (h * inv + CFM / n))
 				var dfx := fx - f.x
-				# friction row (constant force cap, independent of the normal force)
-				var rt := -CFM * f.y / n - rel.dot(tan)
-				var fy := clampf(f.y + rt / (h * inv + CFM / n), -n * MU, n * MU)
-				var dfy := fy - f.y
-				var imp := (nrm * dfx + tan * dfy) * h
-				b.vel += imp / b.mass
+				b.vel += nrm * dfx * h / b.mass
 				if a:
-					a.vel -= imp / a.mass
+					a.vel -= nrm * dfx * h / a.mass
+				# friction row at the contact point (constant force cap, no dContactApprox1)
+				var arm := -b.radius  # contact point = centre - radius*normal; spin adds arm*spin along tan
+				var ang_inv := arm * arm / b.inertia if b.radius > 0.0 else 0.0
+				var vt := (b.vel - va).dot(tan) + (arm * b.spin if b.radius > 0.0 else 0.0)
+				var rt := -CFM * f.y / n - vt
+				var fy := clampf(f.y + rt / (h * (inv + ang_inv) + CFM / n), -n * MU, n * MU)
+				var dfy := fy - f.y
+				b.vel += tan * dfy * h / b.mass
+				if b.radius > 0.0:
+					b.spin += arm * dfy * h / b.inertia
+				if a:
+					a.vel -= tan * dfy * h / a.mass
 				acc[i] = Vector2(fx, fy)
 		for b in bodies:
 			b.pos += h * b.vel
+			b.angle += h * b.spin
 			b.force = Vector2.ZERO

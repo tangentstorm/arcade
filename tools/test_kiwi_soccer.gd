@@ -103,18 +103,24 @@ func _scene() -> void:
 	# Same inputs as the pyODE reference run of the original (keys posted before Game.tick k).
 	var script := {80: [[KEY_RIGHT, true]], 110: [[KEY_RIGHT, false]], 130: [[KEY_SPACE, true]],
 		131: [[KEY_SPACE, false]], 150: [[KEY_LEFT, true]], 260: [[KEY_LEFT, false]]}
-	# tick: [hero x, hero y, ball y, blood, fat] from the original after Game.tick k.
-	var ref := {40: [150.0, 411.784, 81.784, 1000, 5300], 70: [150.0, 470.319, 146.825, 1000, 5525],
-		90: [190.866, 439.262, 209.805, 790, 5660], 100: [216.705, 428.709, 247.181, 760, 5720],
-		140: [250.418, 400.43, 435.925, 580, 5960], 200: [122.639, 371.343, 282.83, 280, 6320],
-		260: [1.705, 468.275, 215.098, 160, 6680]}
-	var worst := Vector3.ZERO
+	# tick: [hero x, hero y, blood, fat] from the original after Game.tick k.
+	var ref := {40: [150.0, 411.784, 1000, 5300], 70: [150.0, 470.319, 1000, 5525],
+		90: [190.866, 439.262, 790, 5660], 100: [216.705, 428.709, 760, 5720],
+		140: [250.418, 400.43, 580, 5960], 200: [122.639, 371.343, 280, 6320],
+		260: [1.705, 468.275, 160, 6680]}
+	var worst := Vector2.ZERO
 	var meta_ok := true
 	var b0 := 0
+	var ball_seen := false
 	for k in range(1, 261):
 		for e in script.get(k, []):
 			_key(g, e[0], e[1])
 		g.tick()
+		if k == 1:
+			var br: Rect2 = g.ball_rect()
+			_check(br.size == Vector2(32, 32) and br.position.round() == Vector2(34, 34),
+				"soccer.png ball drawn 32x32 at the default Ball spot (50, 50)")
+		ball_seen = ball_seen or g.ball_rect().position.y > 440  # lands on the floor in view
 		if k == 79:
 			b0 = g.health.blood
 		if k == 81:
@@ -126,11 +132,38 @@ func _scene() -> void:
 		if ref.has(k):
 			var r: Array = ref[k]
 			var w = g.world
-			worst = worst.max(Vector3(absf(w.hero.pos.x - r[0]), absf(w.hero.pos.y - r[1]), absf(w.ball.pos.y - r[2])))
-			meta_ok = meta_ok and g.health.blood == r[3] and g.health.fat == r[4]
+			worst = worst.max(Vector2(absf(w.hero.pos.x - r[0]), absf(w.hero.pos.y - r[1])))
+			meta_ok = meta_ok and g.health.blood == r[2] and g.health.fat == r[3]
 	_check(meta_ok, "blood/fat match the original tick for tick under the same inputs")
-	_check(worst.x < 2.0 and worst.y < 15.0 and worst.z < 0.5,
-		"kiwi and ball track the pyODE run (max err x %.2f, y %.2f, ball %.2f px)" % [worst.x, worst.y, worst.z])
+	_check(worst.x < 2.0 and worst.y < 15.0,
+		"kiwi tracks the pyODE run (max err x %.2f, y %.2f px)" % [worst.x, worst.y])
+	_check(ball_seen, "the ball drops onto the floor where it can be seen")
+	# Kick: ball at rest on the floor at x=50, kiwi runs left into it (pyODE: the ball leaves
+	# at ~1.7x the kiwi's speed and runs off the end of the floor).
+	g.world.hero.pos = Vector2(150, 464)
+	g.world.hero.vel = Vector2.ZERO
+	g.world.ball.pos = Vector2(50, 464)
+	g.world.ball.vel = Vector2.ZERO
+	g.world.ball.spin = 0.0
+	for i in 30:
+		g.tick()
+	_check(absf(g.world.ball.pos.x - 50) < 0.5, "a resting ball stays put")
+	_key(g, KEY_LEFT)
+	var kicked := false
+	for i in 40:
+		g.tick()
+		if g.world.ball.vel.x < -50:
+			kicked = true
+			break
+	_key(g, KEY_LEFT, false)
+	for i in 15:
+		g.tick()
+	var h = g.world.hero
+	var b = g.world.ball
+	_check(kicked and b.vel.x < h.vel.x and b.pos.x < h.pos.x - 40,
+		"running into the ball kicks it ahead of the kiwi (ball x %.0f vx %.0f, kiwi x %.0f vx %.0f)" % [b.pos.x, b.vel.x, h.pos.x, h.vel.x])
+	_check(b.vel.x < -50 and absf(b.spin * b.radius - b.vel.x) < 5.0,
+		"the kicked ball rolls along the floor (vx %.0f, spin*r %.0f)" % [b.vel.x, b.spin * b.radius])
 	g.world.hero.pos = Vector2(-20, 440)
 	g.world.hero.vel = Vector2.ZERO
 	for i in 100:

@@ -69,8 +69,11 @@ and read the screen and the ODE state each tick.
     tens of pixels, again and again. That bouncing is most of what the game looks like.
   - The friction cap is next to nothing for the kiwi, so air drag does all the slowing.
     For the mass-1 ball the same floor is stiff, and ERP pops it high into the air.
-- **Ball:** `outside-geom.svg` has no arcs, so `loader` adds the default `Ball`: an unseen
-  32×32 block with ODE's default mass 1, dropped at (50, 50).
+- **Ball:** `outside-geom.svg` has no arcs, so `loader` adds the default `Ball`: a 32×32
+  ODE block with ODE's default mass 1, dropped at (50, 50). In this build it is never drawn
+  (see "The soccer ball" below). It falls, bounces twice and comes to rest on the floor at
+  x 50. When the kiwi runs into it, it shoots off at about 1.7× the kiwi's speed (−168 px/s
+  in a pyODE run where the kiwi arrives at ~100 px/s), slides off the left end and falls.
 - **Controller:**
   - A key press posts the GAME event, then held keys re-post every 10 ticks.
   - The Controller that LevelList created is never released (eventnet handlers are never
@@ -92,6 +95,35 @@ and read the screen and the ODE state each tick.
   - The kiwi keeps gaining fat, so the orange fat bar fills in over a minute or so.
 - **Sound:** `1takeimprov.ogg` loops from start-up. `bip.ogg` plays on every jump event.
 
+## The soccer ball: history
+
+The source tree was searched for later ball, goal and kick code (`git log -p -S ball`,
+`-S GOAL`, `-S soccer` over `pyweek/`; sabren/blaze has only `master` and no tags).
+
+- **93988f2** (michal, 2005-09-03 11:04 UTC, "added soccer ball, messed with constants")
+  adds `data/soccer.png` and `IMAGE.SOCCER`. The `TEST_ROOM` block in `states.Game` puts a
+  32×32 block at (470, 380) and gives it a `BlockSprite` of `soccer.png`: centred on the
+  rounded body position and never rotated.
+- From 93988f2 until **4c6d7d2** (22:36 UTC the same day), menu P opened `Game(display)`,
+  which is that test room: the kiwi and a visible soccer ball on the plain `game.png`.
+  4c6d7d2 sends P to the LevelList instead, so the test room becomes unreachable. The last
+  commit before the deadline is ebe2f58 (23:52 UTC).
+- **aecb267** adds `CODE.BALL = 0`, `CODE.HERO = 1` ("UGLY HACK ROOMPHYSICS.COLLIDE") and
+  `CODE.GOAL = 4` ("the goal for the soccer ball"), plus colours `#0000FF` (ball) and
+  `#FF0000` (goal) for the SVG loader. No room SVG uses either colour, and no commit ever
+  has goal, kick or scoring logic. The collide hack the comment refers to was never written.
+- **1556f19** (eykd) adds `ball.py`: `room.addBlock` with size `HERO.RADIUS`, no `setMass`.
+- After PyWeek, micah's `ex1.py` (2006-01-28/30) is a separate pyODE demo that blits
+  `soccer.png` at an ODE sphere and pushes it with the arrow keys. d3c6d2a removes
+  `ball.bmp` ("using soccer.png instead").
+- Nothing else turned up: "Kick him into the other guy" is `pyweek4/`; "like a soccer field"
+  in `eventtest.py` is sabren explaining eventnet; the concept SVGs talk about a flightless
+  bird, food, trampolines and eggs, not soccer.
+- **Outside this repo:** PyWeek 1 ran on mechanicalcat.net and pyweek.org has no pages for
+  it (pyweek.org/e/Kiwi/ is another team's PyWeek 3 game). The Wayback Machine timed out
+  from here. A code search of the sabren, tangentstorm, tangentscraps, tangentstream and
+  tangentcode accounts finds only this repo. No final submission zip was found.
+
 ## Direct edition (`direct/`)
 
 - **`kiwi_logic.gd`** ports these line for line:
@@ -102,15 +134,20 @@ and read the screen and the ODE state each tick.
   - the Controller repeat
   - Scores placement
 - **`kiwi_logic.gd` `World`** re-implements the slice of pyODE this room uses:
-  - Two 32×32 box bodies (kiwi and ball) and the static floor.
-  - Separating-axis box contacts. Each contact is 4 rows (dBoxBox face contact), with the
-    dWorldStep row equations `J·v' = ERP·depth/h − CFM·λ` (λ ≥ 0) and a friction row capped
-    at ±100 per row, solved by projected Gauss–Seidel.
+  - The 32×32 kiwi box, the soccer ball and the static floor.
+  - The ball is a round body of radius 16 (`HERO.RADIUS`) with ODE's default mass 1 and
+    inertia 1, so friction at the contact point makes it roll.
+  - Separating-axis box contacts, 4 rows each (dBoxBox face contact); box–circle contacts
+    are 1 row (dSphereBox). Rows use the dWorldStep equations `J·v' = ERP·depth/h − CFM·λ`
+    (λ ≥ 0) with a friction row capped at ±100 per row, solved by projected Gauss–Seidel.
   - Semi-implicit Euler, two 0.01 s steps per tick, forces cleared after each step.
-  - Rotation is not modelled: the ODE box stays within 0.001 rad.
+  - The kiwi does not rotate: the ODE box stays within 0.001 rad.
 - **Parity:** under the same key script as a pyODE run of the original, blood and fat match
   tick for tick. Over 260 ticks the kiwi stays within 0.7 px in x and 10 px in y (bounce
-  phase drift), and the ball within 0.1 px (`tools/test_kiwi_soccer.gd`).
+  phase drift). Kicked from rest, the ball leaves at ~1.4–2× the kiwi's speed (pyODE ~1.7×)
+  and rolls off the left end, as in the pyODE run (`tools/test_kiwi_soccer.gd`).
+- **Ball:** drawn with `img/soccer.png` the way the test room drew it: centred on the
+  rounded body position, unrotated.
 - **`game.gd` / `game.tscn`:**
   - All the states above on a 640×480 stage (`GameRegistry.fit_stage`, nearest filter,
     letterboxed).
@@ -126,7 +163,8 @@ and read the screen and the ODE state each tick.
     original's first game.
 - **Assets:**
   - `img/`: `menu_img.png`, `help.png`, `credits.png`, `high_scores.png`, `game.png`,
-    `statustxt.png`, `outside-back.png` and `kiwi/{left,right}.png`, all unchanged.
+    `statustxt.png`, `soccer.png`, `outside-back.png` and `kiwi/{left,right}.png`, all
+    unchanged.
   - `sfx/bip.ogg` is unchanged.
   - `sfx/1takeimprov.ogg` is re-encoded to mono 22 kHz Vorbis q1, from 3.4 MB to 0.35 MB
     (web size gate).
@@ -134,8 +172,24 @@ and read the screen and the ODE state each tick.
 
 ### Differences from the original
 
-- A 2D re-implementation stands in for 3D pyODE: no rotation, and an iterative solve instead
-  of ODE's Dantzig LCP. The bounce phase drifts by a few pixels over seconds.
+- A 2D re-implementation stands in for 3D pyODE: no kiwi rotation, and an iterative solve
+  instead of ODE's Dantzig LCP. The bounce phase drifts by a few pixels over seconds.
+- **Soccer ball:**
+  - It is drawn. In the shipped build it was an invisible body: only the unreachable test
+    room attached `soccer.png`.
+  - It is round, as asked. The ODE geom was a 32×32 box (`addBlock`) that tumbled when
+    kicked. Because the floor's ERP pop is chaotic for a mass-1 body, the round ball's
+    bounces differ from pyODE's: it settles at ~10.8 s instead of ~8.1 s. The kick (fast,
+    then off the end) matches.
+  - It stays in `outside` at the default (50, 50). The 11:04–22:36 UTC test room, with the
+    ball at (470, 380) on a plain background, is not restored.
+- **No goals or scoring.** `CODE.GOAL` and the `#FF0000` colour exist, but no level has a goal
+  and no code ever scored one. Enhanced could add them.
+- **No glass walls (kept).** `_setupGlass`'s docstring ("glass walls holding all the data in")
+  shows the intent, but since 93ee1c7 (2005-09-01) only the pit is referenced, and PyODE
+  1.2.1 (2005) already destroyed unreferenced geoms. The walls never existed at runtime, so
+  the kiwi and the ball still fall off either end. Sprites off the stage are clipped, as in
+  pygame, not shown in the letterbox.
 - The game runs at a fixed 50 ticks/s. The original had no frame limiter and ran as fast as
   the machine allowed.
 - **Food:** `Food(5, 5)` also adds a new 32×32 ODE body at (0, 0) every tick. Hundreds pile

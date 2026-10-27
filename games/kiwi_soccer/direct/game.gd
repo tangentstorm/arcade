@@ -14,6 +14,7 @@ const IMG_BACK := preload("res://games/kiwi_soccer/direct/img/outside-back.png")
 const IMG_STATUS_TXT := preload("res://games/kiwi_soccer/direct/img/statustxt.png")
 const IMG_KIWI_LEFT := preload("res://games/kiwi_soccer/direct/img/kiwi_left.png")
 const IMG_KIWI_RIGHT := preload("res://games/kiwi_soccer/direct/img/kiwi_right.png")
+const IMG_SOCCER := preload("res://games/kiwi_soccer/direct/img/soccer.png")  ## IMAGE.SOCCER
 const FONT := preload("res://games/kiwi_soccer/direct/freesansbold.ttf")  ## pygame Font(None, n)
 const MUSIC := preload("res://games/kiwi_soccer/direct/sfx/1takeimprov.ogg")
 const BIP := preload("res://games/kiwi_soccer/direct/sfx/bip.ogg")
@@ -307,6 +308,19 @@ func _draw() -> void:
 				_text(ROOMS[i], 30, Vector2(320, 240 - n * 30 / 1.3 + i * 30 / 1.3), c, 1)
 		St.GAME:
 			_draw_game()
+	# pygame clips at the screen edge: mask the letterbox so a ball or kiwi off the stage
+	# (no glass walls) does not show in the margins.
+	var big := 4096.0
+	var sw := float(Logic.SCREEN.x)
+	var sh := float(Logic.SCREEN.y)
+	for r in [Rect2(-big, -big, big, sh + 2 * big), Rect2(sw, -big, big, sh + 2 * big),
+			Rect2(0, -big, sw, big), Rect2(0, sh, sw, big)]:
+		draw_rect(r, Color.BLACK)
+
+
+## Where the soccer ball sprite is drawn (stage pixels).
+func ball_rect() -> Rect2:
+	return Rect2(world.ball.pos.round() - Vector2(16, 16), Vector2(IMG_SOCCER.get_size()))
 
 
 func _draw_game() -> void:
@@ -317,6 +331,9 @@ func _draw_game() -> void:
 	draw_rect(Rect2(Logic.CARB_POS, Vector2(Logic.BAR_WIDTH, health.blood_black)), Color.WHITE)
 	draw_rect(Rect2(Logic.FATS_POS, Vector2(Logic.BAR_WIDTH, health.fat_black)), Color.WHITE)
 	if world:
+		# The ball as the TEST_ROOM drew it (states.Game): a BlockSprite with data/soccer.png,
+		# centred on the rounded body position and never rotated.
+		draw_texture_rect(IMG_SOCCER, ball_rect(), false)
 		var c := world.hero.pos.round()
 		draw_texture(IMG_KIWI_LEFT if facing_left else IMG_KIWI_RIGHT, c - Vector2(16, 16))
 	draw_texture(IMG_STATUS_TXT, Logic.TEXT_POS)  # WithForeground: status text always on top
