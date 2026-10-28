@@ -1,4 +1,7 @@
-# Brickslayer assets: mirror of the live site + Wayback recovery
+# Brickslayer assets: live site, Wayback, and Michal's server
+
+The five sound effects came from Michal's old server, proton.sabren.com, on 2026-10-28 (ET):
+`/home/web/script/sabren/javascriptgamer.com/brickslayer/sounds/`.
 
 Scraped from https://javascriptgamer.com/ on 2026-10-05 (ET).
 Missing gameplay sprites recovered from the Wayback Machine on 2026-10-06 (ET)
@@ -17,7 +20,7 @@ from the 2007 `javascriptgamer.com/brickslayer/` captures (Michal's own content)
   references `/brickslayer/sprites/{brickslayerlogo,highscores,paused,levelclear,congrats,gameover}.png`
   and CSS/JS under `/brickslayer/`. Direct `im_` fetches recovered the five gameplay sprites
   that were absent from the live WordPress rehost. Sound URLs under
-  `/brickslayer/sounds/*.mp3` returned 404 / empty / Wayback HTML stubs — not vendored.
+  `/brickslayer/sounds/*.mp3` returned 404 / empty / Wayback HTML stubs; the sounds came from proton instead (below).
 
 ## Vendored (`source/assets/`)
 
@@ -48,21 +51,50 @@ The logo/paused/levelclear/congrats sprite files were renamed from `1.png`–`4.
 
 `direct/game.gd` loads these when present (paddle/ball draw, dimgray tiled overlay, gameover/highscores titles).
 
-## Still missing (not on live site or Wayback as recoverable binaries)
+### From proton.sabren.com (2006 originals)
 
-| Path in lesson code | Used for | What the port does |
+Copied from `/home/web/script/sabren/javascriptgamer.com/brickslayer/sounds/`.
+Dreamweaver's `sounds/_notes/dwsync.xml` dates them: edited 2006-10-17/18, uploaded 2007-07-23.
+`sound-config.xml` on the same server credits flashkit.com
+(`boing-Public_D-364`, `Plopp-jh-8598`, `Whish-Sith_Mas-7710`, `Deep_spl-Sith_Mas-7718`).
+
+| File | Sound id | Played by (`snap/final/brickslayer.js`) | Size | Format | sha256 |
+|---|---|---|---|---|---|
+| `sounds/whish.mp3` | `serve` | `Ball.serve` (line 348) | 6641 | 0.42 s, 22.05 kHz mono | `6ddb202af18477adc6513c4e097dcb5720ad9ef12c117cdf8c1f98c25a2cfb4d` |
+| `sounds/plopp.mp3` | `hit` | `Brick.onHit`, shade drops (line 116) | 5978 | 0.34 s, 22.05 kHz mono | `815120c4ba0adba2ba28c3c6f3e9064c2829afb387a39377928363767ccd2bef` |
+| `sounds/glass2.mp3` | `break` | `Brick.onHit`, brick destroyed (line 107) | 20640 | 1.33 s, 32 kHz stereo | `f983d382c1b687eb550cc1fac1e2c43c5d4a2e198787081ed5bbe331cf0b8bfd` |
+| `sounds/boing.mp3` | `bounce` | `checkWalls` side + ceiling (533, 538), `checkPaddle` (549) | 7047 | 0.44 s, 22.05 kHz mono | `fa6a875c1c74eb91e2434f620b6609a1138e4465c0dcb5bb1d7236d16a1a2c84` |
+| `sounds/deepsplosh.mp3` | `fall` | `loseLife` (line 158) | 12958 | 0.81 s, 22.05 kHz mono | `dc5f076f92892989bbff3db16b2b443b8eb17cf26acd4e2155987fa1134d699b` |
+
+The ids come from `soundManager.createSound(id, SOUND_PATH + file)`, lines 36-40.
+`direct/game.gd` loads them; `tools/test_brickslayer_sounds.gd` checks each event plays its file.
+
+## Not vendored
+
+| Path | Used for | What the port does |
 |---|---|---|
-| `../sounds/whish.mp3` `plopp.mp3` `glass2.mp3` `boing.mp3` `deepsplosh.mp3` | serve / hit / break / bounce / fall | silent. `direct/game.gd` loads each from `source/assets/sounds/` if the file is ever vendored |
-| `../../soundmanager2.swf`, `soundmanager2.js` | Flash audio bridge | not needed (Godot audio) |
+| `soundmanager2.swf`, `soundmanager2.js` | Flash audio bridge | not needed (Godot audio) |
 | `prototype-1.5.1.js`, `gameconsole.js`, `brickslayer.js`, `brickslayer.css` | runtime | rebuilt from the lesson listings in `source/lesson-code/` |
 
-URLs checked for the mp3s (all failed: 404, empty body, or Wayback HTML stub):
-- `https://javascriptgamer.com/brickslayer/sounds/{whish,plopp,glass2,boing,deepsplosh}.mp3`
-- `https://javascriptgamer.com/brickslayer/trail/sounds/whish.mp3`
-- `https://javascriptgamer.com/wp-content/uploads/2023/10/whish.mp3` (403 firewall)
-- `https://web.archive.org/web/20070901022944im_/http://javascriptgamer.com/brickslayer/sounds/*.mp3`
-- `https://web.archive.org/web/20070901022944oe_/http://javascriptgamer.com/brickslayer/sounds/whish.mp3`
-- GitHub code search for the filenames (`deepsplosh`, `whish.mp3`, etc.): no hits
-- Lesson 07 "where to get sounds" is plain bold text on the rehost (no outbound link)
+## Also on proton, not yet used
+
+The proton copy has the whole 2007 site, not just media. The sprites there are byte-identical to the
+nine in `sprites/` above, so no art is missing. What the repo does not have yet:
+
+- `snap/00-setup` through `snap/09-highscores` and `snap/final`: the complete runnable source of each
+  lesson (`brickslayer.js/.html/.css`, `gameconsole.js`, `highscores.php`). `source/lesson-code/`
+  holds only the listings shown on the trail pages. `snap/final/brickslayer.js` is 571 lines.
+- `trail/NN-*.tgz` and `final.tgz`: the per-lesson download bundles (23-42 KB each).
+- `trail/*.html` (including `10-enhancements.html`) and `template.html`: the original lesson pages.
+- `code/brickslayer.js` and `sound-config.xml`: an earlier version that used a `launch` sound id
+  for the serve (same `whish.mp3`). It also has `highscores.php` and the seed `highscores.txt`
+  (alice 10 … jamie 1, which the port already uses).
+- `lessonback.png` (28 KB): background image for the lesson pages.
+
+Earlier search for the sounds (all failed before the proton copy):
+- `https://javascriptgamer.com/brickslayer/sounds/{whish,plopp,glass2,boing,deepsplosh}.mp3`: 404
+- `https://javascriptgamer.com/wp-content/uploads/2023/10/whish.mp3`: 403 firewall
+- `https://web.archive.org/web/20070901022944im_/http://javascriptgamer.com/brickslayer/sounds/*.mp3`: Wayback HTML stubs
+- GitHub code search for the filenames: no hits
 
 The bricks and the lake were never images. They are CSS-colored `div`s (`#bricks .shadeN`, `#lake`), and the port draws them from those exact colors.
