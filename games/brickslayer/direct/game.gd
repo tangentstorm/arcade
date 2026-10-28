@@ -20,8 +20,8 @@ const SHADES := {                               ## #bricks .shadeN
 	5: Color("#777777"), 4: Color("#999999"), 3: Color("#bbbbbb"),
 	2: Color("#dddddd"), 1: Color("#ffffff"),
 }
-## soundManager.createSound(name, '../sounds/' + file). The mp3s are not on the
-## live site, so each loads only if a file is later vendored.
+## soundManager.createSound(name, SOUND_PATH + file), snap/final/brickslayer.js:36-40.
+## The mp3s are the 2006 originals from Michal's proton.sabren.com server.
 const SOUND_FILES := {
 	"serve": "whish.mp3", "hit": "plopp.mp3", "break": "glass2.mp3",
 	"bounce": "boing.mp3", "fall": "deepsplosh.mp3",
@@ -382,6 +382,7 @@ func _load_sounds() -> void:
 		if ResourceLoader.exists(path):
 			var p := AudioStreamPlayer.new()
 			p.stream = load(path)
+			p.max_polyphony = 4             # SoundManager 2 default multiShot: true
 			add_child(p)
 			_sounds[key] = p
 

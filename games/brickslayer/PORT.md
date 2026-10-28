@@ -22,9 +22,9 @@
 
 ### Deliberate deviations
 - **Tick rate:** 10 ms fixed. The original `setInterval(…, 1)` was clamped to about 10 ms by 2007 browsers.
-- **Media:** paddle/ball/dimgray/gameover/highscores PNGs recovered from Wayback (see ASSETS.md) and wired in `direct/game.gd`. The five mp3s are still missing, so sound stays silent until they are vendored under `source/assets/sounds/`.
+- **Media:** paddle/ball/dimgray/gameover/highscores PNGs recovered from Wayback, and the five original 2006 mp3s copied from Michal's proton.sabren.com server (see ASSETS.md). All are wired in `direct/game.gd`.
 - **Name entry:** Enter in the name field also submits (the original had only the "go" button).
-- **Sound mapping:** the `soundManager.play('hit'/'break'/'serve')` call sites weren't in the listings. `serve` plays on serve, `hit` on a shade change, and `break` when a brick is destroyed. Only `bounce` and `fall` are shown in the code.
+- **Sound mapping:** taken from the full `snap/final/brickslayer.js` on proton. `serve` (whish) plays on serve, `hit` (plopp) when a brick loses a shade, `break` (glass2) when a brick is destroyed, `bounce` (boing) off a side wall, the ceiling, or the paddle, and `fall` (deepsplosh) when the ball reaches the lake. Sounds start at lesson 07, as on the trail. Each player allows 4 overlapping plays, like SoundManager 2's default `multiShot: true`.
 - **Keys:** Esc opens the arcade PauseOverlay. T opens the code trail. R restarts when playing lessons 00–07, which have no restart path of their own.
 - **Lessons before 08 keep their quirks.** In lesson 05 the ball freezes at the floor. In 06–07 it sits in the lake once the spares are gone, because the game-over screen arrives in 08.
 
@@ -89,7 +89,7 @@ presentation and input. It is all drawn procedurally, with no new assets.
 | Rules / physics | lesson code | same code (subclass), checked tick-for-tick in the test |
 | Art | gray boxes, `#ccc` lake, recovered PNG overlays | procedural neon bricks by hits left, glowing ball + trail, capsule paddle, animated lake |
 | Motion | integer positions, drawn per tick | same integer positions, interpolated for drawing |
-| Feedback | none (sounds not vendored) | hit flash, sparks, shards, +1, shake, score pop, lake flash |
+| Feedback | the five original sounds | hit flash, sparks, shards, +1, shake, score pop, lake flash |
 | HUD | `level:` / `score:` and spares inside the lake | side panels (lives, level, best, bricks left) + big score |
 | Input | arrows, ↑ serve, Enter, P | + A/D, W/Space, mouse/touch steer and click to serve; held-key steering |
 | Game over | timed: game over → name entry / scores → title | waits on a Game Over card; restart after 0.6 s |
